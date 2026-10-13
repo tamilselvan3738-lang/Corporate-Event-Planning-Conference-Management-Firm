@@ -1,0 +1,4219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSphere · Corporate Event Planning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f4fe;
+      color: #1a2639;
+      transition: background 0.5s cubic-bezier(0.23, 1, 0.32, 1), color 0.4s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 1rem;
+      overflow-x: clip;
+    }
+
+    /* ===== DARK MODE ===== */
+    body.dark {
+      background: #080c14;
+      color: #eef4ff;
+    }
+
+    body.dark .nav-container,
+    body.dark .mobile-menu {
+      background: rgba(21, 30, 44, 0.92);
+      border-color: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(20px);
+    }
+
+    body.dark .logo-text {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    body.dark .logo-text span {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    body.dark .nav-links > li > a,
+    body.dark .mobile-nav-links > li > a {
+      color: #b8c9e8;
+    }
+
+    body.dark .nav-links > li > a:hover,
+    body.dark .mobile-nav-links > li > a:hover {
+      color: #60a5fa;
+      text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+    }
+
+    body.dark .icon-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.7), inset 0 -3px 0 rgba(255,255,255,0.03), 0 0 0 1px rgba(59,130,246,0.1);
+    }
+
+    body.dark .icon-btn:hover {
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.4), 0 16px 20px -8px rgba(0, 0, 0, 0.8), inset 0 -3px 0 rgba(255,255,255,0.05);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    body.dark .hamburger {
+      background: rgba(30, 42, 58, 0.9);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.7), inset 0 -2px 0 rgba(255,255,255,0.03);
+    }
+
+    body.dark .hamburger span {
+      background: #b8c9e8;
+    }
+
+    body.dark .login-btn {
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      border-color: rgba(96, 165, 250, 0.3);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.6), inset 0 -3px 0 rgba(0,0,0,0.3), 0 0 0 1px rgba(96,165,250,0.15);
+    }
+
+    body.dark .login-btn:hover {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 16px 20px -8px rgba(0, 0, 0, 0.7), inset 0 -3px 0 rgba(0,0,0,0.4);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+    }
+
+    /* ===== RTL ===== */
+    body.rtl {
+      direction: rtl;
+    }
+
+    body.rtl #rtlToggle,
+    body.rtl #rtlToggleMobile {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      border-color: rgba(96, 165, 250, 0.4);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.45);
+    }
+
+    /* ===== APP WRAPPER ===== */
+    .app-wrapper {
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 0 3rem;
+      min-height: calc(100vh - 3rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    /* ===== NAVBAR ===== */
+    .nav-container {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 1rem !important;
+      z-index: 1000 !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 70px;
+      padding: 0.55rem 2rem 0.55rem 1.8rem;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 20, 40, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 0 80px -20px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(24px);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav-shine {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 70px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .nav-shine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+    }
+
+    .nav-container:hover .nav-shine::before {
+      left: 100%;
+    }
+
+    body.dark .nav-shine::before {
+      background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.18), transparent);
+    }
+
+    .nav-container:hover {
+      box-shadow: 
+        0 30px 60px -12px rgba(0, 20, 40, 0.25),
+        0 0 0 1px rgba(59, 130, 246, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 0 100px -20px rgba(59, 130, 246, 0.25);
+    }
+
+    .logo-section, .nav-links, .right-section {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== LOGO SECTION ===== */
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    /* 3D LOGO — REDUCED COMPACT SIZE */
+    .logo-3d {
+      position: relative;
+      width: 22px;
+      height: 22px;
+      perspective: 450px;
+    }
+
+    .logo-cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 14s infinite linear;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .logo-3d:hover .logo-cube {
+      animation-play-state: paused;
+      transform: rotateX(15deg) rotateY(25deg) scale(1.15);
+    }
+
+    .logo-face {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: linear-gradient(145deg, #1e3a8a, #3b82f6);
+      box-shadow: 
+        0 4px 8px rgba(0, 80, 200, 0.4),
+        inset 0 -1.5px 3px rgba(0,0,0,0.25),
+        inset 0 1.5px 3px rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.6rem;
+      color: white;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      backface-visibility: visible;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: background 0.4s ease;
+    }
+
+    .logo-face:nth-child(1) { transform: rotateY(0deg) translateZ(11px); background: linear-gradient(145deg, #2563eb, #1e40af); }
+    .logo-face:nth-child(2) { transform: rotateY(90deg) translateZ(11px); background: linear-gradient(145deg, #3b82f6, #1d4ed8); }
+    .logo-face:nth-child(3) { transform: rotateY(180deg) translateZ(11px); background: linear-gradient(145deg, #1e3a8a, #2563eb); }
+    .logo-face:nth-child(4) { transform: rotateY(-90deg) translateZ(11px); background: linear-gradient(145deg, #4f46e5, #3b82f6); }
+    .logo-face:nth-child(5) { transform: rotateX(90deg) translateZ(11px); background: linear-gradient(145deg, #2563eb, #4f46e5); }
+    .logo-face:nth-child(6) { transform: rotateX(-90deg) translateZ(11px); background: linear-gradient(145deg, #1e40af, #3b82f6); }
+
+    @keyframes rotateCube {
+      0% { transform: rotateX(0) rotateY(0); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .logo-text {
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+    }
+
+    .logo-text:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.4));
+    }
+
+    .logo-text span {
+      color: #1e3a8a;
+      background: none;
+      -webkit-background-clip: unset;
+      background-clip: unset;
+      transition: color 0.4s ease;
+    }
+
+    /* ===== DESKTOP NAV LINKS ===== */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.6rem;
+      list-style: none;
+      margin: 0 1rem;
+      flex: 1;
+    }
+
+    .nav-links > li > a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #1e293b;
+      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0;
+      border-bottom: 2px solid transparent;
+      position: relative;
+      letter-spacing: 0.1px;
+    }
+
+    .nav-links > li > a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      transition: width 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      border-radius: 2px;
+    }
+
+    .nav-links > li > a:hover {
+      color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .nav-links > li > a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== DROPDOWNS (HOME & DASHBOARD) ===== */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-arrow {
+      font-size: 0.65rem;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0.7;
+    }
+
+    .dropdown:hover > a {
+      color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .dropdown:hover > a::after {
+      width: 100%;
+    }
+
+    .dropdown:hover .dropdown-arrow {
+      transform: rotate(180deg);
+      opacity: 1;
+      color: #3b82f6;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 0;
+      min-width: 200px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 0.55rem;
+      box-shadow: 
+        0 20px 45px -10px rgba(0, 20, 40, 0.16),
+        0 0 0 1px rgba(255, 255, 255, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 0 35px -10px rgba(59, 130, 246, 0.18);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px) scale(0.97);
+      transform-origin: top left;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  visibility 0.3s ease;
+      z-index: 1000;
+    }
+
+    /* Invisible hover bridge to prevent flickers */
+    .dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 0;
+      right: 0;
+      height: 16px;
+    }
+
+    /* Right-aligned dropdown for Dashboard */
+    .dropdown.dropdown-right .dropdown-menu {
+      left: auto;
+      right: 0;
+      transform-origin: top right;
+    }
+
+    /* Reveal dropdown on hover & focus */
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Dropdown Items */
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.85rem;
+      border-radius: 14px;
+      text-decoration: none;
+      color: #1e293b;
+      font-weight: 500;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+
+    .dropdown-item-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #f0f4fe, #e2e8f0);
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .dropdown-item-title {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: inherit;
+      transition: color 0.2s ease;
+    }
+
+    .dropdown-item:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+      color: #2563eb;
+      transform: translateX(4px);
+    }
+
+    .dropdown-item:hover .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      transform: scale(1.08) rotate(-4deg);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    /* Dark Mode Dropdowns */
+    body.dark .dropdown-menu {
+      background: rgba(21, 30, 44, 0.96);
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(59, 130, 246, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    body.dark .dropdown-item {
+      color: #b8c9e8;
+    }
+
+    body.dark .dropdown-item:hover {
+      background: rgba(59, 130, 246, 0.14);
+      color: #60a5fa;
+      text-shadow: none;
+    }
+
+    body.dark .dropdown-item-icon {
+      background: rgba(30, 42, 58, 0.9);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark .dropdown-item:hover .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.5);
+    }
+
+    body.dark .dropdown-arrow {
+      color: #b8c9e8;
+    }
+
+    body.dark .dropdown:hover .dropdown-arrow {
+      color: #60a5fa;
+    }
+
+    /* RTL Dropdowns */
+    body.rtl .dropdown-menu {
+      left: auto;
+      right: 0;
+      transform-origin: top right;
+    }
+
+    body.rtl .dropdown.dropdown-right .dropdown-menu {
+      right: auto;
+      left: 0;
+      transform-origin: top left;
+    }
+
+    body.rtl .dropdown-item:hover {
+      transform: translateX(-4px);
+    }
+
+        /* ===== ACTIVE NAV LINK & DROPDOWN STYLES ===== */
+    .nav-links > li > a.active,
+    .nav-links > li.active > a,
+    .nav-links > li.dropdown.active > a.dropdown-toggle {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .nav-links > li > a.active::after,
+    .nav-links > li.active > a::after,
+    .nav-links > li.dropdown.active > a.dropdown-toggle::after {
+      width: 100% !important;
+      background: linear-gradient(90deg, #2563eb, #8b5cf6) !important;
+      height: 2.5px !important;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4) !important;
+    }
+
+    .dropdown-item.active {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(139, 92, 246, 0.12)) !important;
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .dropdown-item.active .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35) !important;
+      transform: scale(1.06);
+    }
+
+    /* Active Mobile Links */
+    .mobile-nav-links > li > a.active,
+    .mobile-nav-links > li.active > a,
+    .mobile-dropdown.active .mobile-dropdown-header > a,
+    .mobile-dropdown-header > a.active {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .mobile-nav-links > li > a.active::before,
+    .mobile-nav-links > li.active > a::before,
+    .mobile-dropdown.active .mobile-dropdown-header > a::before,
+    .mobile-dropdown-header > a.active::before {
+      opacity: 1 !important;
+      left: -20px !important;
+      color: #2563eb !important;
+    }
+
+    .mobile-submenu a.active {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+      padding-left: 0.35rem;
+    }
+
+    /* Dark Mode Active Styles */
+    body.dark .nav-links > li > a.active,
+    body.dark .nav-links > li.active > a,
+    body.dark .nav-links > li.dropdown.active > a.dropdown-toggle {
+      color: #60a5fa !important;
+      font-weight: 700 !important;
+      text-shadow: 0 0 16px rgba(96, 165, 250, 0.6) !important;
+    }
+
+    body.dark .nav-links > li > a.active::after,
+    body.dark .nav-links > li.active > a::after,
+    body.dark .nav-links > li.dropdown.active > a.dropdown-toggle::after {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa) !important;
+      box-shadow: 0 0 12px rgba(96, 165, 250, 0.8) !important;
+    }
+
+    body.dark .dropdown-item.active {
+      background: rgba(59, 130, 246, 0.22) !important;
+      color: #93c5fd !important;
+    }
+
+    body.dark .dropdown-item.active .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6) !important;
+    }
+
+    body.dark .mobile-nav-links > li > a.active,
+    body.dark .mobile-nav-links > li.active > a,
+    body.dark .mobile-dropdown.active .mobile-dropdown-header > a,
+    body.dark .mobile-dropdown-header > a.active,
+    body.dark .mobile-submenu a.active {
+      color: #60a5fa !important;
+    }
+
+    /* ===== RIGHT SECTION ===== */
+    .right-section {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== 3D ICON BUTTONS ===== */
+    .icon-btn, .login-btn {
+      border: none;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e293b;
+      width: 42px;
+      height: 42px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 
+        0 8px 12px -6px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0,0,0,0.02),
+        inset 0 -3px 0 rgba(0,0,0,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .icon-btn::before, .login-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.15);
+      transform: translate(-50%, -50%);
+      transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1), height 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+    }
+
+    .icon-btn:hover::before, .login-btn:hover::before {
+      width: 200px;
+      height: 200px;
+    }
+
+    .icon-btn:hover, .login-btn:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 
+        0 20px 28px -10px rgba(0, 80, 200, 0.35),
+        0 0 0 1px rgba(59,130,246,0.25),
+        inset 0 -3px 0 rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 0 40px -10px rgba(59, 130, 246, 0.3);
+      background: linear-gradient(145deg, #ffffff, #e8f0fe);
+    }
+
+    .icon-btn:active, .login-btn:active {
+      transform: translateY(0px) scale(0.98);
+      box-shadow: 
+        0 4px 6px -2px rgba(0,0,0,0.2),
+        inset 0 3px 6px rgba(0,0,0,0.08),
+        inset 0 -1px 0 rgba(255,255,255,0.5);
+    }
+
+    .login-btn {
+      width: auto;
+      padding: 0 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e3a8a;
+      gap: 0.5rem;
+      letter-spacing: 0.2px;
+    }
+
+    .login-btn i {
+      font-size: 0.85rem;
+      transition: transform 0.3s ease;
+    }
+
+    .login-btn:hover i {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      padding: 11px 9px;
+      border-radius: 30px;
+      box-shadow: 
+        0 8px 12px -6px rgba(0, 0, 0, 0.12),
+        inset 0 -2px 0 rgba(0,0,0,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hamburger:hover {
+      transform: scale(1.06);
+      box-shadow: 
+        0 16px 20px -8px rgba(0, 80, 200, 0.25),
+        inset 0 -2px 0 rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 0 30px -8px rgba(59, 130, 246, 0.3);
+    }
+
+    .hamburger span {
+      display: block;
+      height: 2.5px;
+      width: 100%;
+      background: #1e293b;
+      border-radius: 4px;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ===== MOBILE MENU ===== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 90px;
+      left: 1rem;
+      right: 1rem;
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 36px;
+      padding: 2rem 1.5rem;
+      box-shadow: 
+        0 40px 70px -20px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(24px);
+      z-index: 1000;
+      flex-direction: column;
+      gap: 2rem;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: top center;
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+      scrollbar-width: thin;
+      scrollbar-color: #3b82f6 rgba(0, 0, 0, 0.05);
+    }
+
+    /* Custom Scrollbar for Mobile Menu */
+    .mobile-menu::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .mobile-menu::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.04);
+      border-radius: 10px;
+      margin: 1.2rem 0;
+    }
+
+    .mobile-menu::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+      border-radius: 10px;
+    }
+
+    .mobile-menu::-webkit-scrollbar-thumb:hover {
+      background: #2563eb;
+    }
+
+    body.dark .mobile-menu {
+      scrollbar-color: #60a5fa rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark .mobile-menu::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    body.dark .mobile-menu::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #60a5fa, #a78bfa);
+    }
+
+    .mobile-menu.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+    }
+
+    .mobile-nav-links > li > a,
+    .mobile-dropdown-header > a {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #1e293b;
+      display: block;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      padding: 0.3rem 0;
+      position: relative;
+    }
+
+    .mobile-nav-links > li > a::before,
+    .mobile-dropdown-header > a::before {
+      content: '→';
+      position: absolute;
+      left: -20px;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      color: #3b82f6;
+    }
+
+    .mobile-nav-links > li > a:hover,
+    .mobile-dropdown-header > a:hover {
+      color: #3b82f6;
+      transform: translateX(10px);
+    }
+
+    .mobile-nav-links > li > a:hover::before,
+    .mobile-dropdown-header > a:hover::before {
+      opacity: 1;
+      left: -25px;
+    }
+
+    /* MOBILE DROPDOWN STYLES */
+    .mobile-dropdown {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-dropdown-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .mobile-dropdown-toggle {
+      background: none;
+      border: none;
+      color: #1e293b;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: 8px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .mobile-dropdown.open .mobile-dropdown-toggle {
+      transform: rotate(180deg);
+      color: #3b82f6;
+    }
+
+    .mobile-submenu {
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      padding-left: 1.2rem;
+    }
+
+    .mobile-dropdown.open .mobile-submenu {
+      max-height: 200px;
+      opacity: 1;
+      padding-top: 0.6rem;
+      padding-bottom: 0.4rem;
+    }
+
+    .mobile-submenu a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.25s ease;
+      padding: 0.2rem 0;
+    }
+
+    .mobile-submenu a i {
+      color: #3b82f6;
+      font-size: 0.85rem;
+      width: 18px;
+      text-align: center;
+    }
+
+    .mobile-submenu a:hover {
+      color: #3b82f6;
+      transform: translateX(6px);
+    }
+
+    body.dark .mobile-dropdown-header > a {
+      color: #b8c9e8;
+    }
+
+    body.dark .mobile-dropdown-toggle {
+      color: #b8c9e8;
+    }
+
+    body.dark .mobile-dropdown.open .mobile-dropdown-toggle {
+      color: #60a5fa;
+    }
+
+    body.dark .mobile-submenu a {
+      color: #94a3b8;
+    }
+
+    body.dark .mobile-submenu a:hover {
+      color: #60a5fa;
+    }
+
+    body.rtl .mobile-dropdown-header > a::before {
+      content: '←';
+      left: auto;
+      right: -20px;
+    }
+
+    body.rtl .mobile-dropdown-header > a:hover {
+      transform: translateX(-10px);
+    }
+
+    body.rtl .mobile-dropdown-header > a:hover::before {
+      right: -25px;
+      left: auto;
+    }
+
+    body.rtl .mobile-submenu {
+      padding-left: 0;
+      padding-right: 1.2rem;
+    }
+
+    body.rtl .mobile-submenu a:hover {
+      transform: translateX(-6px);
+    }
+
+    .mobile-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.2rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding-top: 1.5rem;
+    }
+
+
+
+    /* ===== RTL TWEAKS ===== */
+    body.rtl .mobile-nav-links a::before {
+      content: '←';
+      left: auto;
+      right: -20px;
+    }
+
+    body.rtl .mobile-nav-links a:hover {
+      transform: translateX(-10px);
+    }
+
+    body.rtl .mobile-nav-links a:hover::before {
+      right: -25px;
+      left: auto;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 0.5rem 1.4rem !important;
+      }
+      .nav-links {
+        gap: 1rem;
+      }
+      .nav-links > li > a {
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links, .right-section .icon-btn, .right-section .login-btn {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .nav-container {
+        padding: 0.45rem 1.4rem !important;
+      }
+      .right-section {
+        gap: 0.7rem; margin: 0 !important;
+      }
+      .mobile-menu {
+        display: none;
+      }
+      .mobile-menu.active {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 1.1rem;
+      }
+      .logo-3d {
+        width: 18px;
+        height: 18px;
+      }
+      .logo-face {
+        width: 18px;
+        height: 18px;
+        font-size: 0.5rem;
+        border-radius: 5px;
+      }
+      .logo-face:nth-child(1) { transform: rotateY(0deg) translateZ(9px); }
+      .logo-face:nth-child(2) { transform: rotateY(90deg) translateZ(9px); }
+      .logo-face:nth-child(3) { transform: rotateY(180deg) translateZ(9px); }
+      .logo-face:nth-child(4) { transform: rotateY(-90deg) translateZ(9px); }
+      .logo-face:nth-child(5) { transform: rotateX(90deg) translateZ(9px); }
+      .logo-face:nth-child(6) { transform: rotateX(-90deg) translateZ(9px); }
+      .hamburger {
+        width: 38px;
+        height: 38px;
+        padding: 9px 7px;
+      }
+    }
+
+    /* ===== SMOOTH PAGE ENTRANCE ===== */
+    .nav-container {
+      animation: fadeSlideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeSlideInFooter {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== FOOTER CONTAINER ===== */
+    .footer-container {
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 44px;
+      padding: 3rem 3rem 2rem;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 20, 40, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 0 80px -20px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(24px);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      margin-top: 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+      position: relative;
+      animation: fadeSlideInFooter 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.15s both;
+    }
+
+    body.dark .footer-container {
+      background: rgba(21, 30, 44, 0.92);
+      border-color: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(59, 130, 246, 0.15);
+    }
+
+    /* ===== FOOTER CTA NEWSLETTER CARD ===== */
+    .footer-cta {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.07), rgba(139, 92, 246, 0.07));
+      border: 1px solid rgba(59, 130, 246, 0.18);
+      border-radius: 30px;
+      padding: 2.2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      box-shadow: 0 15px 30px -10px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.dark .footer-cta {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.3), rgba(109, 40, 217, 0.2));
+      border-color: rgba(96, 165, 250, 0.25);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-cta-text {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .footer-cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-cta-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.3px;
+    }
+
+    body.dark .footer-cta-title {
+      color: #f1f5f9;
+    }
+
+    .footer-cta-desc {
+      font-size: 0.92rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    body.dark .footer-cta-desc {
+      color: #94a3b8;
+    }
+
+    .footer-cta-form-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 380px;
+    }
+
+    .footer-form {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50px;
+      padding: 0.35rem 0.35rem 0.35rem 1.2rem;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    body.dark .footer-form {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(96, 165, 250, 0.3);
+      box-shadow: 0 8px 25px -6px rgba(0, 0, 0, 0.6);
+    }
+
+    .footer-form:focus-within {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25), 0 10px 25px -8px rgba(59, 130, 246, 0.3);
+    }
+
+    .footer-form input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: #1e293b;
+      width: 100%;
+      padding: 0.4rem 0.5rem;
+    }
+
+    body.dark .footer-form input {
+      color: #f1f5f9;
+    }
+
+    .footer-form input::placeholder {
+      color: #94a3b8;
+    }
+
+    .footer-form button {
+      border: none;
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      padding: 0.65rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
+      flex-shrink: 0;
+    }
+
+    .footer-form button:hover {
+      transform: translateY(-2px) scale(1.03);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.45);
+    }
+
+    .footer-form button:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .footer-privacy-note {
+      font-size: 0.76rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding-left: 0.5rem;
+    }
+
+    /* ===== MAIN FOOTER GRID ===== */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1.05fr 1.25fr 1.35fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .footer-col-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .footer-brand-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    body.dark .footer-brand-desc {
+      color: #94a3b8;
+    }
+
+    .footer-metrics-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .metric-pill {
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      background: rgba(59, 130, 246, 0.08);
+      color: #2563eb;
+      border: 1px solid rgba(59, 130, 246, 0.16);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    body.dark .metric-pill {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .footer-social-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 0.4rem;
+    }
+
+    .footer-social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      color: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 0.95rem;
+      box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body.dark .footer-social-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.6);
+    }
+
+    .footer-social-btn:hover {
+      transform: translateY(-3px) scale(1.08);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    /* FOOTER COLUMNS */
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-col-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.2px;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    body.dark .footer-col-title {
+      color: #f8fafc;
+    }
+
+    .footer-col-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 24px;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 2px;
+    }
+
+    body.rtl .footer-col-title::after {
+      left: auto;
+      right: 0;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-size: 0.88rem;
+      color: #475569;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      position: relative;
+    }
+
+    .footer-links a i {
+      font-size: 0.72rem;
+      opacity: 0.7;
+      color: #3b82f6;
+      transition: transform 0.25s ease;
+    }
+
+    body.dark .footer-links a {
+      color: #94a3b8;
+    }
+
+    body.dark .footer-links a i {
+      color: #60a5fa;
+    }
+
+    .footer-links a:hover {
+      color: #2563eb;
+      transform: translateX(4px);
+    }
+
+    .footer-links a:hover i {
+      transform: translateX(2px);
+    }
+
+    body.dark .footer-links a:hover {
+      color: #60a5fa;
+    }
+
+    body.rtl .footer-links a:hover {
+      transform: translateX(-4px);
+    }
+
+    body.rtl .footer-links a i.fa-chevron-right {
+      transform: rotate(180deg);
+    }
+
+    .footer-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    body.dark .footer-contact-item {
+      color: #94a3b8;
+    }
+
+    .footer-contact-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(59, 130, 246, 0.1);
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    body.dark .footer-contact-icon {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+
+    .ops-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 30px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #15803d;
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      margin-top: 0.4rem;
+    }
+
+    body.dark .ops-status {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+      animation: statusPulse 2s infinite ease-in-out;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* ===== FOOTER BOTTOM BAR ===== */
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      padding-top: 1.8rem;
+      font-size: 0.84rem;
+      color: #64748b;
+    }
+
+    body.dark .footer-bottom {
+      border-top-color: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+
+    .footer-legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.2rem;
+      list-style: none;
+    }
+
+    .footer-legal-links a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-legal-links a:hover {
+      color: #2563eb;
+    }
+
+    body.dark .footer-legal-links a:hover {
+      color: #60a5fa;
+    }
+
+    .back-to-top-btn {
+      border: none;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e293b;
+      padding: 0.55rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 6px 12px -4px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body.dark .back-to-top-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .back-to-top-btn:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ===== RESPONSIVE FOOTER ===== */
+    @media (max-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem 2.2rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .footer-container {
+        padding: 2.2rem 1.6rem 1.5rem;
+        border-radius: 36px;
+        margin-top: 3.5rem;
+      }
+      .footer-cta {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.8rem 1.5rem;
+      }
+      .footer-cta-form-wrapper {
+        min-width: 100%;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .footer-form {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 0.6rem;
+        gap: 0.5rem;
+      }
+      .footer-form button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  
+    /* =====================================================================
+       REDESIGNED SERVICES ARCHITECTURE: ENTERPRISE CAPABILITY SUITE
+       Supports Light Mode, Dark Mode (body.dark), and RTL (body.rtl)
+       ===================================================================== */
+    :root {
+      --srv-primary: #1e3a8a;
+      --srv-primary-dark: #0f172a;
+      --srv-accent: #d97706;
+      --srv-accent-light: #fbbf24;
+      --srv-accent-glow: rgba(217, 119, 6, 0.16);
+      --srv-teal: #0d9488;
+      --srv-teal-glow: rgba(13, 148, 136, 0.16);
+      --srv-emerald: #059669;
+      --srv-emerald-glow: rgba(5, 150, 105, 0.16);
+      --srv-indigo: #4338ca;
+      --srv-indigo-glow: rgba(67, 56, 202, 0.16);
+      --srv-bg: #f8fafc;
+      --srv-surface: #ffffff;
+      --srv-surface-muted: #f1f5f9;
+      --srv-card-border: #e2e8f0;
+      --srv-text-main: #0f172a;
+      --srv-text-muted: #64748b;
+      --srv-text-light: #94a3b8;
+      --srv-gold-gradient: linear-gradient(135deg, #b45309 0%, #d97706 50%, #f59e0b 100%);
+      --srv-blue-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      --srv-teal-gradient: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+      --srv-shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --srv-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --srv-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --srv-shadow-glow: 0 0 25px rgba(217, 119, 6, 0.22);
+    }
+
+    body.dark {
+      --srv-bg: #070b14;
+      --srv-surface: #0f172a;
+      --srv-surface-muted: #131d33;
+      --srv-card-border: #1e293b;
+      --srv-text-main: #f8fafc;
+      --srv-text-muted: #94a3b8;
+      --srv-text-light: #64748b;
+      --srv-blue-gradient: linear-gradient(135deg, #070b14 0%, #172554 100%);
+    }
+
+    /* RTL Support */
+    body.rtl .srv-section-head { text-align: right; }
+    body.rtl .srv-badge i { margin-left: 0.5rem; margin-right: 0; }
+    body.rtl .srv-btn i { margin-right: 0.5rem; margin-left: 0; }
+
+    /* Base Container */
+    .srv-page-wrap {
+      background-color: var(--srv-bg);
+      color: var(--srv-text-main);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: clip;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .srv-container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* SECTION HEADER STYLING */
+    .srv-section-head {
+      margin-bottom: 3.5rem;
+      position: relative;
+    }
+
+    .srv-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 9999px;
+      background: var(--srv-accent-glow);
+      color: var(--srv-accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(217, 119, 6, 0.3);
+    }
+
+    .srv-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--srv-text-main);
+      margin-bottom: 1rem;
+    }
+
+    .srv-title-gradient {
+      background: var(--srv-gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .srv-subtitle {
+      font-size: 1.1rem;
+      color: var(--srv-text-muted);
+      max-width: 760px;
+      line-height: 1.65;
+    }
+
+    /* BUTTONS */
+    .srv-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.6rem;
+      border-radius: 0.6rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+    }
+
+    .srv-btn-primary {
+      background: var(--srv-gold-gradient);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+    }
+
+    .srv-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(217, 119, 6, 0.45);
+      color: #ffffff;
+    }
+
+    .srv-btn-outline {
+      background: transparent;
+      color: var(--srv-text-main);
+      border-color: var(--srv-card-border);
+    }
+
+    .srv-btn-outline:hover {
+      border-color: var(--srv-accent);
+      color: var(--srv-accent);
+      background: var(--srv-accent-glow);
+    }
+
+    /* =====================================================================
+       FRAMER MOTION SPECIFIC CLASSES & KEYFRAMES (1 PER SECTION)
+       ===================================================================== */
+
+    /* 1. Corporate Event Management: .framer-boardroom-elevation */
+    .framer-boardroom-elevation {
+      opacity: 0;
+      transform: translateY(35px) perspective(1000px) rotateX(3deg);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .framer-boardroom-elevation.framer-in-view {
+      opacity: 1;
+      transform: translateY(0) perspective(1000px) rotateX(0deg);
+    }
+
+    /* 2. Conference Management: .framer-plenary-amphitheater */
+    .framer-plenary-amphitheater {
+      opacity: 0;
+      transform: scale(0.96) translateY(30px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .framer-plenary-amphitheater.framer-in-view {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    /* 3. Venue Sourcing: .framer-spatial-cadence */
+    .framer-spatial-cadence {
+      opacity: 0;
+      transform: translateX(-35px) scale(0.98);
+      transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1),
+                  transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .framer-spatial-cadence.framer-in-view {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+
+    /* 4. Audio-Visual Production: .framer-broadcast-matrix */
+    .framer-broadcast-matrix {
+      opacity: 0;
+      transform: translateY(35px) scale(0.97);
+      transition: opacity 0.85s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  transform 0.85s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .framer-broadcast-matrix.framer-in-view {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* 5. Event Design & Branding: .framer-sculptural-prism */
+    .framer-sculptural-prism {
+      opacity: 0;
+      transform: rotate(-1.5deg) scale(0.96);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .framer-sculptural-prism.framer-in-view {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+
+    /* 6. Catering & Hospitality: .framer-gastronomic-concierge */
+    .framer-gastronomic-concierge {
+      opacity: 0;
+      transform: translateY(40px);
+      filter: blur(3px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.8s ease;
+    }
+    .framer-gastronomic-concierge.framer-in-view {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+    }
+
+    /* 7. Delegate Logistics: .framer-concourse-dispatch */
+    .framer-concourse-dispatch {
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+      transition: opacity 0.7s cubic-bezier(0.33, 1, 0.68, 1),
+                  transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+    .framer-concourse-dispatch.framer-in-view {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* =====================================================================
+       SECTION 1: CORPORATE EVENT MANAGEMENT - BOARDROOM COMMAND VIEWPORT
+       ===================================================================== */
+    .srv-section-corporate {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .srv-metric-banner-5 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.25rem;
+      padding: 1.5rem 2rem;
+      box-shadow: var(--srv-shadow-sm);
+      margin-bottom: 3rem;
+    }
+
+    .srv-mitem {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .srv-micon {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 0.75rem;
+      background: var(--srv-accent-glow);
+      color: var(--srv-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+    }
+
+    .srv-mval {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--srv-text-main);
+      line-height: 1.2;
+    }
+
+    .srv-mlbl {
+      font-size: 0.78rem;
+      color: var(--srv-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .srv-boardroom-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1.25fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .srv-boardroom-visual-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--srv-shadow-md);
+      position: relative;
+    }
+
+    .srv-bimg-wrap {
+      height: 480px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .srv-bimg-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .srv-boardroom-visual-card:hover .srv-bimg-wrap img {
+      transform: scale(1.04);
+    }
+
+    .srv-boardroom-floating-tag {
+      position: absolute;
+      top: 1.25rem;
+      left: 1.25rem;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      color: #fbbf24;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* 5-Quadrant Tiered Array */
+    .srv-quadrant-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .srv-quadrant-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.25rem;
+      padding: 1.4rem 1.75rem;
+      box-shadow: var(--srv-shadow-sm);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .srv-quadrant-card:hover,
+    .srv-quadrant-card.active {
+      border-color: var(--srv-accent);
+      box-shadow: var(--srv-shadow-md);
+      transform: translateX(4px);
+    }
+
+    body.rtl .srv-quadrant-card:hover,
+    body.rtl .srv-quadrant-card.active {
+      transform: translateX(-4px);
+    }
+
+    .srv-qtop {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .srv-qbadge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--srv-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .srv-qscope {
+      font-size: 0.75rem;
+      color: var(--srv-text-muted);
+      font-weight: 600;
+    }
+
+    .srv-qtitle {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--srv-text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    .srv-qdesc {
+      font-size: 0.88rem;
+      color: var(--srv-text-muted);
+      line-height: 1.5;
+    }
+
+    /* =====================================================================
+       SECTION 2: CONFERENCE MANAGEMENT - PLENARY AMPHITHEATER & 5-PILLARS
+       ===================================================================== */
+    .srv-section-conference {
+      padding: 6rem 0;
+      background: var(--srv-surface-muted);
+      border-top: 1px solid var(--srv-card-border);
+      border-bottom: 1px solid var(--srv-card-border);
+    }
+
+    .srv-amphitheater-showcase {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--srv-shadow-md);
+      margin-bottom: 3rem;
+    }
+
+    .srv-amp-img-box {
+      height: 440px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .srv-amp-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .srv-amp-overlay-ribbon {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(10px);
+      padding: 1.25rem 2rem;
+      border-radius: 1rem;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .srv-amp-stat-group {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .srv-amp-stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .srv-amp-sval {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fbbf24;
+    }
+
+    .srv-amp-slbl {
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* 5-Pillar Horizontal Conference Architecture Deck */
+    .srv-conf-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+    }
+
+    .srv-cpillar-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      box-shadow: var(--srv-shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s ease;
+    }
+
+    .srv-cpillar-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--srv-shadow-md);
+      border-color: var(--srv-accent);
+    }
+
+    .srv-cpillar-icon {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 0.75rem;
+      background: var(--srv-accent-glow);
+      color: var(--srv-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .srv-cpillar-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--srv-text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .srv-cpillar-desc {
+      font-size: 0.85rem;
+      color: var(--srv-text-muted);
+      line-height: 1.55;
+    }
+
+    /* =====================================================================
+       SECTION 3: VENUE SOURCING - SPATIAL GEOMETRY & 5-DIMENSION VAULT
+       ===================================================================== */
+    .srv-section-venue {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .srv-venue-split-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .srv-venue-visual-frame {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--srv-shadow-md);
+    }
+
+    .srv-vimg-wrap {
+      height: 460px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .srv-vimg-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .srv-vblueprint-overlay {
+      position: absolute;
+      top: 1.25rem;
+      left: 1.25rem;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 1.2rem;
+      border-radius: 9999px;
+      color: #38bdf8;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .srv-venue-category-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .srv-vcat-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.25rem;
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--srv-shadow-sm);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .srv-vcat-card:hover,
+    .srv-vcat-card.active {
+      border-color: var(--srv-teal);
+      box-shadow: var(--srv-shadow-md);
+      transform: translateX(4px);
+    }
+
+    body.rtl .srv-vcat-card:hover,
+    body.rtl .srv-vcat-card.active {
+      transform: translateX(-4px);
+    }
+
+    .srv-vcat-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .srv-vcat-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--srv-teal);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .srv-vcat-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--srv-text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    .srv-vcat-desc {
+      font-size: 0.88rem;
+      color: var(--srv-text-muted);
+      line-height: 1.5;
+    }
+
+    /* =====================================================================
+       SECTION 4: AUDIO-VISUAL PRODUCTION - BROADCAST SYNTHESIS CONSOLE
+       ===================================================================== */
+    .srv-section-av {
+      padding: 6rem 0;
+      background: var(--srv-surface-muted);
+      border-top: 1px solid var(--srv-card-border);
+      border-bottom: 1px solid var(--srv-card-border);
+    }
+
+    .srv-av-console-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .srv-av-monitor-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--srv-shadow-md);
+    }
+
+    .srv-av-screen-box {
+      height: 380px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .srv-av-screen-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .srv-av-tally-bar {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      color: #ef4444;
+      font-size: 0.78rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .srv-av-layer-deck {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .srv-layer-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.25rem;
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--srv-shadow-sm);
+      transition: all 0.25s ease;
+    }
+
+    .srv-layer-card:hover {
+      border-color: var(--srv-accent);
+      transform: translateX(4px);
+    }
+
+    body.rtl .srv-layer-card:hover {
+      transform: translateX(-4px);
+    }
+
+    .srv-layer-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--srv-text-main);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .srv-layer-title i {
+      color: var(--srv-accent);
+    }
+
+    .srv-layer-desc {
+      font-size: 0.88rem;
+      color: var(--srv-text-muted);
+      line-height: 1.5;
+    }
+
+    /* =====================================================================
+       SECTION 5: EVENT DESIGN & BRANDING - SCULPTURAL PRISM ATELIER
+       ===================================================================== */
+    .srv-section-design {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .srv-design-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1.1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .srv-design-visual-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--srv-shadow-md);
+    }
+
+    .srv-dimg-wrap {
+      height: 460px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .srv-dimg-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .srv-design-pillars-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .srv-dpillar-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.25rem;
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--srv-shadow-sm);
+      transition: all 0.25s ease;
+    }
+
+    .srv-dpillar-card:hover {
+      border-color: var(--srv-accent);
+      transform: translateX(4px);
+    }
+
+    body.rtl .srv-dpillar-card:hover {
+      transform: translateX(-4px);
+    }
+
+    .srv-dpillar-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--srv-text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    .srv-dpillar-desc {
+      font-size: 0.88rem;
+      color: var(--srv-text-muted);
+      line-height: 1.5;
+    }
+
+    /* =====================================================================
+       SECTION 6: CATERING & HOSPITALITY - GASTRONOMIC CONCIERGE ATELIER
+       ===================================================================== */
+    .srv-section-hospitality {
+      padding: 6rem 0;
+      background: var(--srv-surface-muted);
+      border-top: 1px solid var(--srv-card-border);
+      border-bottom: 1px solid var(--srv-card-border);
+    }
+
+    .srv-hospitality-3col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .srv-hosp-side-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: var(--srv-shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .srv-hosp-center-card {
+      background: var(--srv-surface);
+      border: 2px solid var(--srv-accent);
+      border-radius: 2rem;
+      overflow: hidden;
+      box-shadow: 0 0 35px rgba(217, 119, 6, 0.25);
+      position: relative;
+    }
+
+    .srv-himg-wrap {
+      height: 440px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .srv-himg-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .srv-hitem-box h4 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--srv-text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    .srv-hitem-box p {
+      font-size: 0.88rem;
+      color: var(--srv-text-muted);
+      line-height: 1.5;
+    }
+
+    /* =====================================================================
+       SECTION 7: DELEGATE LOGISTICS - CONCOURSE & OPERATIONS COMMAND
+       ===================================================================== */
+    .srv-section-logistics {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .srv-logistics-split-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1.2fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .srv-logistics-visual-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--srv-shadow-md);
+      position: relative;
+    }
+
+    .srv-limg-wrap {
+      height: 480px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .srv-limg-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .srv-logistics-wings-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .srv-lwing-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      box-shadow: var(--srv-shadow-sm);
+    }
+
+    .srv-lwing-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--srv-text-main);
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--srv-card-border);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .srv-lwing-title i {
+      color: var(--srv-accent);
+    }
+
+    .srv-lwing-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .srv-lrow {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--srv-text-main);
+    }
+
+    .srv-lrow i {
+      color: var(--srv-emerald);
+      margin-top: 0.2rem;
+    }
+
+    /* Interactive Service Quote Modal */
+    .srv-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .srv-modal-card {
+      background: var(--srv-surface);
+      border: 1px solid var(--srv-card-border);
+      border-radius: 1.5rem;
+      max-width: 540px;
+      width: 100%;
+      padding: 2.5rem;
+      box-shadow: var(--srv-shadow-lg);
+      position: relative;
+      text-align: center;
+    }
+
+    .srv-modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: transparent;
+      border: none;
+      color: var(--srv-text-muted);
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    body.rtl .srv-modal-close {
+      right: auto;
+      left: 1.25rem;
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 1100px) {
+      .srv-metric-banner-5 { grid-template-columns: repeat(2, 1fr); }
+      .srv-boardroom-grid { grid-template-columns: 1fr; }
+      .srv-conf-pillars-grid { grid-template-columns: repeat(2, 1fr); }
+      .srv-venue-split-grid { grid-template-columns: 1fr; }
+      .srv-av-console-grid { grid-template-columns: 1fr; }
+      .srv-design-grid { grid-template-columns: 1fr; }
+      .srv-hospitality-3col-grid { grid-template-columns: 1fr; }
+      .srv-logistics-split-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .srv-metric-banner-5 { grid-template-columns: 1fr; }
+      .srv-conf-pillars-grid { grid-template-columns: 1fr; }
+      .srv-title { font-size: 2rem; }
+      .srv-bimg-wrap { height: 320px; }
+      .srv-amp-img-box { height: 280px; }
+      .srv-vimg-wrap { height: 300px; }
+      .srv-av-screen-box { height: 260px; }
+      .srv-dimg-wrap { height: 300px; }
+      .srv-himg-wrap { height: 300px; }
+      .srv-limg-wrap { height: 300px; }
+    }
+
+  
+    /* RESPONSIVE_PUBLIC_MASTER */
+    /* ==========================================================================
+       MOBILE-FIRST RESPONSIVE SUITE (320px, 480px, 768px, 1024px)
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box !important;
+    }
+
+    html {
+      overflow-x: clip !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      overflow-x: clip !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    img, picture, video, canvas, svg, iframe {
+      max-width: 100% !important;
+      height: auto;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, span, a, label, li, button, td, th {
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      word-break: break-word;
+    }
+
+    .app-wrapper {
+      width: 100% !important;
+      max-width: 1440px !important;
+      box-sizing: border-box !important;
+      margin: 0 auto !important;
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+      overflow: visible !important;
+      overflow-x: clip !important;
+    }
+
+    .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+      width: 100% !important;
+      max-width: 1280px !important;
+      box-sizing: border-box !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+
+    button, .btn, .btn-hero-primary, .btn-hero-secondary, .login-btn, [class*="btn-"] {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .glass-card, [class*="-card"], [class*="-glass-card"] {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    
+    /* ===== NAVBAR BULLETPROOF ALIGNMENT ===== */
+    .nav-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      overflow: visible !important;
+    }
+
+    .nav-container .logo-section,
+    .logo-section {
+      width: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.6rem !important;
+      flex-shrink: 0 !important;
+    }
+
+    .nav-container .right-section,
+    .right-section {
+      width: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      flex-shrink: 0 !important;
+    }
+
+    body.rtl .nav-container .right-section,
+    body.rtl .right-section {
+      justify-content: flex-start !important;
+    }
+
+    .hamburger {
+      flex-shrink: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* --- BREAKPOINT: 1024px --- */
+    @media (max-width: 1024px) {
+      .app-wrapper {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 3.5rem !important;
+        margin-bottom: 3.5rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      .section-header {
+        margin-bottom: 2.2rem !important;
+        gap: 0.6rem !important;
+      }
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(2.2rem, 5vw, 2.9rem) !important;
+        line-height: 1.25 !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.75rem, 4vw, 2.2rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: clamp(1.2rem, 3vw, 1.45rem) !important;
+      }
+
+      /* Navbar Collapse */
+      .nav-links, .right-section .icon-btn, .right-section .login-btn {
+        display: none !important;
+      }
+      .hamburger {
+        display: flex !important;
+      }
+      .nav-container {
+        padding: 0.5rem 1.4rem !important;
+      }
+
+      /* 2-Column Grids */
+      .bento-grid, 
+      .features-grid, 
+      .services-grid, 
+      .portfolio-grid, 
+      .team-grid, 
+      .testimonials-grid, 
+      .pricing-grid,
+      .gallery-masonry-grid,
+      .stats-grid,
+      .hero-highlights-grid,
+      [class*="-grid"] {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 1.5rem !important;
+      }
+
+      .hero-container,
+      .venues-split-grid,
+      .success-industry-grid,
+      .testimonials-rfp-grid,
+      .process-details-card,
+      [class*="-split-grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 2.2rem !important;
+      }
+
+      .footer-container {
+        padding: 2.5rem 2rem 1.8rem !important;
+        border-radius: 36px !important;
+        margin-top: 3.5rem !important;
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 2rem !important;
+      }
+      .footer-cta {
+        padding: 1.8rem 1.5rem !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 768px --- */
+    @media (max-width: 768px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 2.8rem !important;
+        margin-bottom: 2.8rem !important;
+        padding-left: 0.85rem !important;
+        padding-right: 0.85rem !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(1.85rem, 5.5vw, 2.35rem) !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.45rem, 4.5vw, 1.85rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: clamp(1.15rem, 3.5vw, 1.35rem) !important;
+      }
+      p, .hero-paragraph, .section-desc {
+        font-size: 0.92rem !important;
+        line-height: 1.6 !important;
+      }
+
+      /* Single-Column Stack */
+      .bento-grid, 
+      .features-grid, 
+      .services-grid, 
+      .portfolio-grid, 
+      .team-grid, 
+      .testimonials-grid, 
+      .pricing-grid,
+      .gallery-masonry-grid,
+      .stepper-roadmap,
+      .stepper-nav-bar,
+      .success-industry-grid,
+      .rfp-form-grid,
+      .rfp-type-group,
+      [class*="-grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+
+      .gallery-card.span-2,
+      .col-span-2,
+      [class*="span-"] {
+        grid-column: span 1 !important;
+      }
+
+      /* Stack Buttons */
+      .hero-cta-group, .cta-group, .btn-row {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.75rem !important;
+      }
+      .btn-hero-primary, .btn-hero-secondary, .btn-primary, .btn-secondary, [class*="btn-hero-"] {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 0.85rem 1.4rem !important;
+      }
+
+      .hero-metrics-bar {
+        grid-template-columns: 1fr !important;
+        flex-direction: column !important;
+        gap: 0.85rem !important;
+        width: 100% !important;
+      }
+      .roi-metrics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 0.75rem !important;
+      }
+
+      .countdown-clock {
+        grid-template-columns: repeat(4, 1fr) !important;
+        padding: 0.6rem !important;
+        gap: 0.4rem !important;
+      }
+      .time-num { font-size: 1.15rem !important; }
+      .time-label { font-size: 0.65rem !important; }
+
+      /* Footer */
+      .footer-container {
+        padding: 2.2rem 1.25rem 1.5rem !important;
+        border-radius: 28px !important;
+        margin-top: 2.8rem !important;
+        gap: 2rem !important;
+      }
+      .footer-cta {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 1.6rem 1.25rem !important;
+        gap: 1.25rem !important;
+        border-radius: 22px !important;
+      }
+      .footer-cta-form-wrapper {
+        min-width: 0 !important;
+        width: 100% !important;
+      }
+      .footer-form {
+        flex-direction: column !important;
+        border-radius: 18px !important;
+        padding: 0.5rem !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+      }
+      .footer-form input {
+        width: 100% !important;
+        border-radius: 12px !important;
+        padding: 0.65rem 0.85rem !important;
+      }
+      .footer-form button {
+        width: 100% !important;
+        justify-content: center !important;
+        border-radius: 12px !important;
+        padding: 0.65rem 1rem !important;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.8rem !important;
+      }
+      .footer-bottom {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1.2rem !important;
+      }
+      .footer-legal-links {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.6rem !important;
+      }
+
+      .es-modal-dialog, .modal-dialog {
+        width: 94% !important;
+        max-width: 100% !important;
+        padding: 1.5rem 1.25rem !important;
+        margin: 1rem auto !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 480px --- */
+    @media (max-width: 480px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 2.2rem !important;
+        margin-bottom: 2.2rem !important;
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+
+      .app-wrapper {
+        padding-left: 0.6rem !important;
+        padding-right: 0.6rem !important;
+        padding-top: 0.8rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+
+      .nav-container {
+        padding: 0.45rem 1.25rem !important;
+        border-radius: 30px !important;
+        position: -webkit-sticky !important; position: sticky !important; top: 0.5rem !important;
+      }
+      .logo-text { font-size: 1.15rem !important; }
+      .logo-3d { width: 19px !important; height: 19px !important; }
+      .logo-face {
+        width: 19px !important;
+        height: 19px !important;
+        font-size: 0.52rem !important;
+        border-radius: 5px !important;
+      }
+      .hamburger {
+        width: 36px !important;
+        height: 36px !important;
+        padding: 8px 6px !important;
+      }
+
+      .mobile-menu {
+        border-radius: 20px !important;
+        padding: 1.25rem 1rem !important;
+      }
+      .mobile-nav-links > li > a, 
+      .mobile-dropdown-header > a {
+        font-size: 0.95rem !important;
+      }
+      .mobile-actions {
+        gap: 0.5rem !important;
+      }
+      .mobile-actions .login-btn {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(1.5rem, 6.8vw, 1.85rem) !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.25rem, 5.5vw, 1.55rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: 1.12rem !important;
+      }
+      .section-pill-badge {
+        font-size: 0.72rem !important;
+        padding: 0.3rem 0.75rem !important;
+      }
+
+      .glass-card, [class*="-card"], [class*="-glass-card"] {
+        padding: 1.35rem 1rem !important;
+        border-radius: 20px !important;
+      }
+
+      .roi-metrics-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.6rem !important;
+      }
+      .countdown-clock {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+      }
+
+      .footer-container {
+        padding: 1.8rem 0.95rem 1.2rem !important;
+        border-radius: 24px !important;
+        margin-top: 2.2rem !important;
+      }
+      .footer-cta-title { font-size: 1.22rem !important; }
+      .footer-cta-desc { font-size: 0.85rem !important; }
+      .metric-pill {
+        font-size: 0.72rem !important;
+        padding: 0.35rem 0.7rem !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 320px --- */
+    @media (max-width: 320px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 1.6rem !important;
+        margin-bottom: 1.6rem !important;
+        padding-left: 0.45rem !important;
+        padding-right: 0.45rem !important;
+      }
+
+      .app-wrapper {
+        padding-left: 0.35rem !important;
+        padding-right: 0.35rem !important;
+        padding-top: 0.5rem !important;
+      }
+
+      .nav-container {
+        padding: 0.4rem 1rem !important;
+        border-radius: 22px !important;
+        position: -webkit-sticky !important; position: sticky !important; top: 0.3rem !important;
+      }
+      .logo-text { font-size: 1.02rem !important; }
+      .logo-3d { width: 17px !important; height: 17px !important; }
+      .logo-face {
+        width: 17px !important;
+        height: 17px !important;
+        font-size: 0.48rem !important;
+        border-radius: 4px !important;
+      }
+      .hamburger {
+        width: 32px !important;
+        height: 32px !important;
+        padding: 7px 5px !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: 1.38rem !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: 1.18rem !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: 1.02rem !important;
+      }
+      p, .hero-paragraph, .section-desc {
+        font-size: 0.8rem !important;
+      }
+      .section-pill-badge {
+        font-size: 0.66rem !important;
+        padding: 0.25rem 0.55rem !important;
+      }
+
+      .glass-card, [class*="-card"], [class*="-glass-card"] {
+        padding: 1.1rem 0.75rem !important;
+        border-radius: 16px !important;
+      }
+
+      button, .btn, .btn-hero-primary, .btn-hero-secondary, .login-btn, [class*="btn-"] {
+        font-size: 0.78rem !important;
+        padding: 0.65rem 0.9rem !important;
+      }
+
+      .footer-container {
+        padding: 1.5rem 0.75rem 1rem !important;
+        border-radius: 18px !important;
+      }
+      .footer-cta {
+        padding: 1.25rem 0.75rem !important;
+        border-radius: 16px !important;
+      }
+      .footer-cta-title { font-size: 1.1rem !important; }
+      .footer-cta-desc { font-size: 0.78rem !important; }
+    }
+
+    /* END RESPONSIVE_PUBLIC_MASTER */
+  
+    /* FontAwesome Icon Fallback & Compatibility */
+    .fa-sparkles:before { content: "\e2ca" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+    .fa-radar:before { content: "\f7c0" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+    .fa-shield-check:before { content: "\f3ed" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+  </style>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- NAVBAR -->
+    <nav class="nav-container">
+      <div class="nav-shine"></div>
+      <!-- LEFT: LOGO (smaller 3D + text) -->
+      <a href="index.html" class="logo-section" style="text-decoration: none; cursor: pointer;">
+        <div class="logo-3d">
+          <div class="logo-cube">
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+          </div>
+        </div>
+        <div class="logo-text">Event<span>Sphere</span></div>
+      </a>
+
+      <!-- CENTER: DESKTOP NAV LINKS -->
+
+      <ul class="nav-links">
+        <li class="dropdown">
+          <a href="index.html" class="dropdown-toggle">Home <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="index.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-home"></i></span>
+                <span class="dropdown-item-title">Home 1</span>
+              </a>
+            </li>
+            <li>
+              <a href="home-2.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-building"></i></span>
+                <span class="dropdown-item-title">Home 2</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li class="active"><a href="services.html" class="active">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="event-planning.html">Event Planning</a></li>
+        <li><a href="vendors.html">Vendors</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="dropdown dropdown-right">
+          <a href="admin-dashboard.html" class="dropdown-toggle">Dashboard <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="admin-dashboard.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-shield-alt"></i></span>
+                <span class="dropdown-item-title">Admin Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="user-dashboard.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-user-circle"></i></span>
+                <span class="dropdown-item-title">User Dashboard</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- RIGHT: ICONS & LOGIN -->
+      <div class="right-section">
+        <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
+        <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
+        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <!-- Hamburger visible only on tablet/mobile -->
+        <button class="hamburger" id="hamburgerBtn">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul class="mobile-nav-links">
+        <li class="mobile-dropdown">
+          <div class="mobile-dropdown-header">
+            <a href="index.html">Home</a>
+            <button class="mobile-dropdown-toggle" aria-label="Toggle Home submenu"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <ul class="mobile-submenu">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home 1</a></li>
+            <li><a href="home-2.html"><i class="fas fa-building"></i> Home 2</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li class="active"><a href="services.html" class="active">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="event-planning.html">Event Planning</a></li>
+        <li><a href="vendors.html">Vendors</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="mobile-dropdown">
+          <div class="mobile-dropdown-header">
+            <a href="admin-dashboard.html">Dashboard</a>
+            <button class="mobile-dropdown-toggle" aria-label="Toggle Dashboard submenu"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <ul class="mobile-submenu">
+            <li><a href="admin-dashboard.html"><i class="fas fa-shield-alt"></i> Admin Dashboard</a></li>
+            <li><a href="user-dashboard.html"><i class="fas fa-user-circle"></i> User Dashboard</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mobile-actions">
+        <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
+        <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
+        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+      </div>
+    </div>
+
+    
+  <!-- MAIN SERVICES CONTENT WRAPPER -->
+  <main class="srv-page-wrap">
+
+    <!-- =====================================================================
+         SECTION 1: CORPORATE EVENT MANAGEMENT (BOARDROOM COMMAND VIEWPORT)
+         ===================================================================== -->
+    <section id="corporate-events" class="srv-section-corporate">
+      <div class="srv-container">
+        <!-- Section Header -->
+        <div class="srv-section-head framer-boardroom-elevation">
+          <div class="srv-badge"><i class="fas fa-briefcase"></i> Enterprise Command</div>
+          <h2 class="srv-title">Corporate Event Management & <span class="srv-title-gradient">Executive Assemblies</span></h2>
+          <p class="srv-subtitle">From high-stakes board meetings and Annual General Meetings to milestone corporate jubilees and executive retreats, we deliver frictionless governance, confidentiality, and flawless execution.</p>
+        </div>
+
+        <!-- Capability Status Bar -->
+        <div class="srv-metric-banner-5 framer-boardroom-elevation">
+          <div class="srv-mitem">
+            <div class="srv-micon"><i class="fas fa-handshake"></i></div>
+            <div>
+              <div class="srv-mval">1,200+</div>
+              <div class="srv-mlbl">Corporate Gatherings</div>
+            </div>
+          </div>
+          <div class="srv-mitem">
+            <div class="srv-micon"><i class="fas fa-shield-halved"></i></div>
+            <div>
+              <div class="srv-mval">100% NDA</div>
+              <div class="srv-mlbl">C-Suite Confidentiality</div>
+            </div>
+          </div>
+          <div class="srv-mitem">
+            <div class="srv-micon"><i class="fas fa-clock"></i></div>
+            <div>
+              <div class="srv-mval">99.8%</div>
+              <div class="srv-mlbl">On-Schedule Run-of-Show</div>
+            </div>
+          </div>
+          <div class="srv-mitem">
+            <div class="srv-micon"><i class="fas fa-award"></i></div>
+            <div>
+              <div class="srv-mval">Fortune 100</div>
+              <div class="srv-mlbl">Trusted By Industry Leaders</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asymmetric Boardroom Command Viewport -->
+        <div class="srv-boardroom-grid">
+          <!-- Left Visual Frame -->
+          <div class="srv-boardroom-visual-card framer-boardroom-elevation">
+            <div class="srv-bimg-wrap">
+              <img src="images/service_corporate_management.jpg" alt="Executive Corporate Board Meeting & Strategy Summit">
+              <div class="srv-boardroom-floating-tag">
+                <i class="fas fa-certificate"></i> Apex Executive Boardroom Command
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 5-Quadrant Tiered Array -->
+          <div class="srv-quadrant-stack">
+            <!-- 1. Business Meetings -->
+            <div class="srv-quadrant-card active framer-boardroom-elevation" onclick="highlightService(this, 'Business Meetings')">
+              <div class="srv-qtop">
+                <span class="srv-qbadge">Tier I • Executive Strategy</span>
+                <span class="srv-qscope">Board of Directors & C-Suite</span>
+              </div>
+              <h4 class="srv-qtitle">Strategic Business Meetings</h4>
+              <p class="srv-qdesc">SCIF-grade acoustic isolation, encrypted wireless audio feeds, confidential digital document distribution, and executive teleprompters for decisive board alignments.</p>
+            </div>
+
+            <!-- 2. Annual General Meetings -->
+            <div class="srv-quadrant-card framer-boardroom-elevation" onclick="highlightService(this, 'Annual General Meetings')">
+              <div class="srv-qtop">
+                <span class="srv-qbadge">Tier II • Investor Governance</span>
+                <span class="srv-qscope">Regulatory & Shareholder Compliant</span>
+              </div>
+              <h4 class="srv-qtitle">Annual General Meetings (AGM)</h4>
+              <p class="srv-qdesc">Secure hybrid shareholder proxy voting, real-time audited ballot tabulation, certified video archival, and multi-channel Q&A moderation ensuring regulatory compliance.</p>
+            </div>
+
+            <!-- 3. Corporate Celebrations -->
+            <div class="srv-quadrant-card framer-boardroom-elevation" onclick="highlightService(this, 'Corporate Celebrations')">
+              <div class="srv-qtop">
+                <span class="srv-qbadge">Tier III • Milestone Galas</span>
+                <span class="srv-qscope">Jubilees & Award Evenings</span>
+              </div>
+              <h4 class="srv-qtitle">Corporate Celebrations & Jubilees</h4>
+              <p class="srv-qdesc">High-production milestone celebrations, executive awards ceremonies, bespoke theatrical staging, and unforgettable culinary experiences honoring company achievements.</p>
+            </div>
+
+            <!-- 4. Executive Retreats -->
+            <div class="srv-quadrant-card framer-boardroom-elevation" onclick="highlightService(this, 'Executive Retreats')">
+              <div class="srv-qtop">
+                <span class="srv-qbadge">Tier IV • Secluded Sanctuaries</span>
+                <span class="srv-qscope">Private Mountain & Coastal Havens</span>
+              </div>
+              <h4 class="srv-qtitle">Executive Strategic Retreats</h4>
+              <p class="srv-qdesc">Discreet sanctuary buyouts for top leadership councils, blending focused strategic workshops with private aviation, sommelier dinners, and biometric wellness.</p>
+            </div>
+
+            <!-- 5. Employee Engagement Events -->
+            <div class="srv-quadrant-card framer-boardroom-elevation" onclick="highlightService(this, 'Employee Engagement Events')">
+              <div class="srv-qtop">
+                <span class="srv-qbadge">Tier V • Culture & Unity</span>
+                <span class="srv-qscope">Townhalls & Team Synergy</span>
+              </div>
+              <h4 class="srv-qtitle">Employee Engagement Events</h4>
+              <p class="srv-qdesc">Dynamic multi-hub company townhalls, interactive experiential activations, live gamification, and cultural celebrations designed to galvanize workforce morale.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 2: CONFERENCE MANAGEMENT (PLENARY AMPHITHEATER & 5-PILLARS)
+         ===================================================================== -->
+    <section id="conference-management" class="srv-section-conference">
+      <div class="srv-container">
+        <!-- Section Header -->
+        <div class="srv-section-head framer-plenary-amphitheater">
+          <div class="srv-badge"><i class="fas fa-landmark"></i> Large-Scale Conventions</div>
+          <h2 class="srv-title">Conference Management & <span class="srv-title-gradient">Global Plenaries</span></h2>
+          <p class="srv-subtitle">Orchestrating world-class international congresses, leadership summits, and multi-day convention experiences with synchronized stagecraft, simultaneous interpretation, and high-impact delegate engagement.</p>
+        </div>
+
+        <!-- Panoramic Plenary Stagecraft Deck -->
+        <div class="srv-amphitheater-showcase framer-plenary-amphitheater">
+          <div class="srv-amp-img-box">
+            <img src="images/service_conference_management.jpg" alt="Grand International Conference Plenary Hall">
+            <div class="srv-amp-overlay-ribbon">
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 700; color: #fbbf24; text-transform: uppercase;">Flagship Arena Capability</div>
+                <div style="font-size: 1.25rem; font-weight: 800;">Global Innovation Summit • Tier-1 Plenary Hall</div>
+              </div>
+              <div class="srv-amp-stat-group">
+                <div class="srv-amp-stat-item">
+                  <span class="srv-amp-sval">5,000+</span>
+                  <span class="srv-amp-slbl">Plenary Capacity</span>
+                </div>
+                <div class="srv-amp-stat-item">
+                  <span class="srv-amp-sval">18</span>
+                  <span class="srv-amp-slbl">Translation Channels</span>
+                </div>
+                <div class="srv-amp-stat-item">
+                  <span class="srv-amp-sval">4K120</span>
+                  <span class="srv-amp-slbl">Curved Stage LED</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-Pillar Horizontal Conference Architecture Deck -->
+        <div class="srv-conf-pillars-grid">
+          <!-- 1. International Conferences -->
+          <div class="srv-cpillar-card framer-plenary-amphitheater">
+            <div class="srv-cpillar-icon"><i class="fas fa-globe"></i></div>
+            <h4 class="srv-cpillar-title">International Conferences</h4>
+            <p class="srv-cpillar-desc">Cross-border multilateral summits, diplomatic protocol, foreign delegation escorts, and ISO-standard bilingual interpretation.</p>
+          </div>
+
+          <!-- 2. Industry Conferences -->
+          <div class="srv-cpillar-card framer-plenary-amphitheater">
+            <div class="srv-cpillar-icon"><i class="fas fa-chart-pie"></i></div>
+            <h4 class="srv-cpillar-title">Industry Conferences</h4>
+            <p class="srv-cpillar-desc">Sector-specific expos featuring simultaneous technical breakout tracks, dynamic speaker rotations, and peer-to-peer workshops.</p>
+          </div>
+
+          <!-- 3. Leadership Summits -->
+          <div class="srv-cpillar-card framer-plenary-amphitheater">
+            <div class="srv-cpillar-icon"><i class="fas fa-chess-king"></i></div>
+            <h4 class="srv-cpillar-title">Leadership Summits</h4>
+            <p class="srv-cpillar-desc">Chatham House Rule executive symposiums designed for bilateral deal acceleration, C-suite networking, and policy steering.</p>
+          </div>
+
+          <!-- 4. Business Conventions -->
+          <div class="srv-cpillar-card framer-plenary-amphitheater">
+            <div class="srv-cpillar-icon"><i class="fas fa-building-columns"></i></div>
+            <h4 class="srv-cpillar-title">Business Conventions</h4>
+            <p class="srv-cpillar-desc">Mass-attendance corporate conventions, franchise assemblies, and trade association congresses requiring robust badge flow logistics.</p>
+          </div>
+
+          <!-- 5. Multi-Day Conferences -->
+          <div class="srv-cpillar-card framer-plenary-amphitheater">
+            <div class="srv-cpillar-icon"><i class="fas fa-calendar-days"></i></div>
+            <h4 class="srv-cpillar-title">Multi-Day Conferences</h4>
+            <p class="srv-cpillar-desc">Complete 3-to-5 day master scheduling, gala dinner crossovers, off-site networking itineraries, and continuous guest concierge support.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 3: VENUE SOURCING (SPATIAL GEOMETRY & 5-DIMENSION VAULT)
+         ===================================================================== -->
+    <section id="venue-sourcing" class="srv-section-venue">
+      <div class="srv-container">
+        <!-- Section Header -->
+        <div class="srv-section-head framer-spatial-cadence">
+          <div class="srv-badge"><i class="fas fa-compass-drafting"></i> Spatial Engineering</div>
+          <h2 class="srv-title">Venue Sourcing & <span class="srv-title-gradient">Capacity Planning</span></h2>
+          <p class="srv-subtitle">We negotiate, audit, and model premier global real estate—securing optimal commercial terms, electrical clearance, acoustic isolation, and algorithmic delegate flow.</p>
+        </div>
+
+        <div class="srv-venue-split-grid">
+          <!-- Left Visual Frame -->
+          <div class="srv-venue-visual-frame framer-spatial-cadence">
+            <div class="srv-vimg-wrap">
+              <img src="images/service_venue_sourcing.jpg" alt="Architectural Convention Center Venue & Capacity Planning">
+              <div class="srv-vblueprint-overlay">
+                <i class="fas fa-cube"></i> Interactive 3D LiDAR Capacity Modeling
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 5-Category Venue Navigator -->
+          <div class="srv-venue-category-stack">
+            <!-- 1. Conference Halls -->
+            <div class="srv-vcat-card active framer-spatial-cadence" onclick="highlightService(this, 'Conference Halls')">
+              <div class="srv-vcat-head">
+                <span class="srv-vcat-tag">Spatial Domain 01</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--srv-text-muted);">Pillarless Up to 80,000 Sqft</span>
+              </div>
+              <h4 class="srv-vcat-title">Colossal Conference Halls</h4>
+              <p class="srv-vcat-desc">Acoustically certified column-free exhibition halls with 30ft+ clear ceiling rigging height, heavy machinery floor loading, and high-amperage 3-phase power drops.</p>
+            </div>
+
+            <!-- 2. Hotels & Resorts -->
+            <div class="srv-vcat-card framer-spatial-cadence" onclick="highlightService(this, 'Hotels & Resorts')">
+              <div class="srv-vcat-head">
+                <span class="srv-vcat-tag">Spatial Domain 02</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--srv-text-muted);">5-Star Luxury Room Blocks</span>
+              </div>
+              <h4 class="srv-vcat-title">Luxury Hotels & Resorts</h4>
+              <p class="srv-vcat-desc">Complete property buyouts and luxury room-block contracting with pre-negotiated attrition clauses, VIP executive suites, and private beachfront breakout grounds.</p>
+            </div>
+
+            <!-- 3. Convention Centres -->
+            <div class="srv-vcat-card framer-spatial-cadence" onclick="highlightService(this, 'Convention Centres')">
+              <div class="srv-vcat-head">
+                <span class="srv-vcat-tag">Spatial Domain 03</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--srv-text-muted);">Tier-1 Global Convention Hubs</span>
+              </div>
+              <h4 class="srv-vcat-title">Metropolitan Convention Centres</h4>
+              <p class="srv-vcat-desc">Prime convention centers in major financial capitals featuring dedicated multi-trailer freight bays, direct mass transit corridors, and bonded customs escrow.</p>
+            </div>
+
+            <!-- 4. Outdoor Event Spaces -->
+            <div class="srv-vcat-card framer-spatial-cadence" onclick="highlightService(this, 'Outdoor Event Spaces')">
+              <div class="srv-vcat-head">
+                <span class="srv-vcat-tag">Spatial Domain 04</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--srv-text-muted);">Geodesic Domes & Clear-Span Pavilions</span>
+              </div>
+              <h4 class="srv-vcat-title">Bespoke Outdoor Event Spaces</h4>
+              <p class="srv-vcat-desc">Waterfront promenades, palace courtyards, and alpine plateaus transformed with weather-sealed climate-controlled geodesic domes and architectural lighting.</p>
+            </div>
+
+            <!-- 5. Venue Capacity Planning -->
+            <div class="srv-vcat-card framer-spatial-cadence" onclick="highlightService(this, 'Capacity Planning')">
+              <div class="srv-vcat-head">
+                <span class="srv-vcat-tag">Spatial Domain 05</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--srv-text-muted);">3D Algorithmic Simulation</span>
+              </div>
+              <h4 class="srv-vcat-title">Algorithmic Venue Capacity Planning</h4>
+              <p class="srv-vcat-desc">3D digital twin rendering simulating delegate circulation velocities, sightline obstruction checks, NFPA fire egress dispersion, and ADA accessibility paths.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 4: AUDIO-VISUAL PRODUCTION (BROADCAST SYNTHESIS CONSOLE)
+         ===================================================================== -->
+    <section id="audiovisual-production" class="srv-section-av">
+      <div class="srv-container">
+        <!-- Section Header -->
+        <div class="srv-section-head framer-broadcast-matrix">
+          <div class="srv-badge"><i class="fas fa-satellite-dish"></i> Hardware & Broadcast</div>
+          <h2 class="srv-title">Audio-Visual Production & <span class="srv-title-gradient">Hybrid Engineering</span></h2>
+          <p class="srv-subtitle">Immersive 0.9mm microLED stage walls, studio-grade Dante audio networks, dynamic stage lighting, and synchronized global hybrid satellite broadcasts.</p>
+        </div>
+
+        <div class="srv-av-console-grid">
+          <!-- Master Broadcast Monitor Card -->
+          <div class="srv-av-monitor-card framer-broadcast-matrix">
+            <div class="srv-av-screen-box">
+              <img src="images/service_av_production.jpg" alt="Master Live Event Broadcast Control Center">
+              <div class="srv-av-tally-bar">
+                <i class="fas fa-circle" style="font-size: 0.6rem;"></i> ON-AIR • BROADCAST ACTIVE
+              </div>
+            </div>
+            <div style="padding: 1.5rem; background: var(--srv-surface); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--srv-card-border);">
+              <span style="font-size: 0.85rem; font-weight: 700; color: var(--srv-text-muted);"><i class="fas fa-microchip text-primary"></i> 4K120 SMPTE ST 2110 IP Routing</span>
+              <button class="srv-btn srv-btn-outline" style="padding: 0.4rem 0.9rem; font-size: 0.8rem;" onclick="openServiceModal('AV Technical Rider & Hardware Inventory')">
+                <i class="fas fa-sliders"></i> Inquire AV Rider
+              </button>
+            </div>
+          </div>
+
+          <!-- 5-Layer Technical Specification Matrix -->
+          <div class="srv-av-layer-deck">
+            <!-- 1. Sound Systems -->
+            <div class="srv-layer-card framer-broadcast-matrix">
+              <h4 class="srv-layer-title"><i class="fas fa-volume-high"></i> Professional Stadium Sound Systems</h4>
+              <p class="srv-layer-desc">L-Acoustics K2 line arrays, beam-steering arrays, and Shure Axient Quadversity wireless microphones delivering pristine clarity with zero acoustic feedback.</p>
+            </div>
+
+            <!-- 2. LED Walls & Projectors -->
+            <div class="srv-layer-card framer-broadcast-matrix">
+              <h4 class="srv-layer-title"><i class="fas fa-tv"></i> LED Walls & Pure Laser Projectors</h4>
+              <p class="srv-layer-desc">Seamless 0.9mm curved microLED video canvases and Christie 45,000-lumen 4K RGB laser projectors calibrated for perfect HDR color reproduction.</p>
+            </div>
+
+            <!-- 3. Stage Lighting -->
+            <div class="srv-layer-card framer-broadcast-matrix">
+              <h4 class="srv-layer-title"><i class="fas fa-lightbulb"></i> Intelligent Stage & Broadcast Lighting</h4>
+              <p class="srv-layer-desc">Robotic moving heads, circadian-aligned key lighting for broadcast cameras, grandMA3 computerized consoles, and kinetic motorized trussing.</p>
+            </div>
+
+            <!-- 4. Live Streaming Setup -->
+            <div class="srv-layer-card framer-broadcast-matrix">
+              <h4 class="srv-layer-title"><i class="fas fa-tower-broadcast"></i> 4K Redundant Live Streaming Setup</h4>
+              <p class="srv-layer-desc">Bonded dark fiber, dual satellite uplinks, multi-bitrate cloud CDN encoding, and multi-camera broadcast switchers with N+2 automated failover.</p>
+            </div>
+
+            <!-- 5. Hybrid Conference Technology -->
+            <div class="srv-layer-card framer-broadcast-matrix">
+              <h4 class="srv-layer-title"><i class="fas fa-network-wired"></i> Hybrid Conference Technology</h4>
+              <p class="srv-layer-desc">Sub-45ms latency linking remote speakers to live physical stages, interactive real-time audience sentiment polling, and 18-language AI closed captioning.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 5: EVENT DESIGN & BRANDING (SCULPTURAL PRISM ATELIER)
+         ===================================================================== -->
+    <section id="design-branding" class="srv-section-design">
+      <div class="srv-container">
+        <!-- Section Header -->
+        <div class="srv-section-head framer-sculptural-prism">
+          <div class="srv-badge"><i class="fas fa-pen-ruler"></i> Spatial Identity</div>
+          <h2 class="srv-title">Event Design, Staging & <span class="srv-title-gradient">Corporate Branding</span></h2>
+          <p class="srv-subtitle">Transforming abstract corporate vision into tangible architectural set pieces, illuminated exhibition pavilions, holographic staging, and immersive digital brand touchpoints.</p>
+        </div>
+
+        <div class="srv-design-grid">
+          <!-- Left Visual Card -->
+          <div class="srv-design-visual-card framer-sculptural-prism">
+            <div class="srv-dimg-wrap">
+              <img src="images/service_design_branding.jpg" alt="Architectural Stage Design & Corporate Event Branding Atelier">
+            </div>
+            <div style="padding: 1.5rem; background: var(--srv-surface); border-top: 1px solid var(--srv-card-border);">
+              <div style="font-size: 0.8rem; font-weight: 700; color: var(--srv-accent); text-transform: uppercase;">Experiential Design Studio</div>
+              <h4 style="font-size: 1.2rem; font-weight: 800; color: var(--srv-text-main); margin-top: 0.25rem;">Bespoke 3D Holographic Staging & Custom Exhibition Pavilions</h4>
+            </div>
+          </div>
+
+          <!-- Right 5 Pillars of Experiential Event Design -->
+          <div class="srv-design-pillars-stack">
+            <!-- 1. Stage & Set Design -->
+            <div class="srv-dpillar-card framer-sculptural-prism">
+              <h4 class="srv-dpillar-title"><i class="fas fa-archway text-warning"></i> Custom Stage & Set Architecture</h4>
+              <p class="srv-dpillar-desc">Architectural 3D CAD modeling, CNC-milled stage fascias, illuminated proscenium arches, and motorized presenter rostrums engineered for awe.</p>
+            </div>
+
+            <!-- 2. Corporate Event Branding -->
+            <div class="srv-dpillar-card framer-sculptural-prism">
+              <h4 class="srv-dpillar-title"><i class="fas fa-palette text-warning"></i> Corporate Event Branding Identity</h4>
+              <p class="srv-dpillar-desc">Harmonized environmental brand styling, bespoke color palettes, lanyard credentials, premium delegate gift packaging, and architectural vinyl wrapping.</p>
+            </div>
+
+            <!-- 3. Exhibition Booth Design -->
+            <div class="srv-dpillar-card framer-sculptural-prism">
+              <h4 class="srv-dpillar-title"><i class="fas fa-store text-warning"></i> Exhibition Booth & Pavilion Design</h4>
+              <p class="srv-dpillar-desc">Multi-tier sponsor exhibition spaces, custom double-decker structures, hospitality bars, product demo pods, and high-throughput attendee traffic layouts.</p>
+            </div>
+
+            <!-- 4. Event Signage -->
+            <div class="srv-dpillar-card framer-sculptural-prism">
+              <h4 class="srv-dpillar-title"><i class="fas fa-signs-post text-warning"></i> Wayfinding & Digital Signage</h4>
+              <p class="srv-dpillar-desc">Touchless interactive directory totems, illuminated dynamic agenda displays, acoustic directional signage, and ADA-compliant concourse wayfinding.</p>
+            </div>
+
+            <!-- 5. Digital Presentation Design -->
+            <div class="srv-dpillar-card framer-sculptural-prism">
+              <h4 class="srv-dpillar-title"><i class="fas fa-photo-film text-warning"></i> Digital Keynote & Motion Design</h4>
+              <p class="srv-dpillar-desc">Unreal Engine real-time 3D motion backgrounds, cinematic 4K keynote slide decks, speaker sting animations, and generative visual storytelling.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 6: CATERING & HOSPITALITY (GASTRONOMIC CONCIERGE ATELIER)
+         ===================================================================== -->
+    <section id="hospitality-catering" class="srv-section-hospitality">
+      <div class="srv-container">
+        <!-- Section Header -->
+        <div class="srv-section-head framer-gastronomic-concierge">
+          <div class="srv-badge"><i class="fas fa-champagne-glasses"></i> Michelin-Standard Hospitality</div>
+          <h2 class="srv-title">Catering, Hospitality & <span class="srv-title-gradient">VIP Concierge</span></h2>
+          <p class="srv-subtitle">From farm-to-table corporate gala banquets and artisanal continuous refreshment stations to secluded VIP executive lounges and 5-star hotel concierge coordination.</p>
+        </div>
+
+        <div class="srv-hospitality-3col-grid">
+          <!-- Col 1: Catering & Refreshments -->
+          <div class="srv-hosp-side-card framer-gastronomic-concierge">
+            <div class="srv-hitem-box">
+              <h4><i class="fas fa-utensils text-warning"></i> Curated Corporate Catering</h4>
+              <p>Michelin-mentored executive chefs delivering synchronized plated gala service for up to 3,000 delegates with zero dining room lag.</p>
+            </div>
+            <div class="srv-hitem-box">
+              <h4><i class="fas fa-mug-hot text-warning"></i> Delegate Refreshment Stations</h4>
+              <p>Continuous artisanal espresso bars, fresh cold-pressed botanical tonics, brain-boosting superfood pastries, and hydration hubs.</p>
+            </div>
+          </div>
+
+          <!-- Col 2: Centerpiece Visual Showcase -->
+          <div class="srv-hosp-center-card framer-gastronomic-concierge">
+            <div class="srv-himg-wrap">
+              <img src="images/service_hospitality_catering.jpg" alt="Luxury Corporate Summit VIP Hospitality Lounge and Gourmet Catering">
+            </div>
+            <div style="padding: 1.25rem 1.5rem; background: var(--srv-surface); text-align: center;">
+              <span style="font-size: 0.8rem; font-weight: 800; color: var(--srv-accent); text-transform: uppercase;">Hospitality Excellence Standard</span>
+              <div style="font-size: 1.1rem; font-weight: 800; color: var(--srv-text-main); margin-top: 0.2rem;">ISO-22000 Certified Clean-Room Kitchen Lines</div>
+            </div>
+          </div>
+
+          <!-- Col 3: VIP Hospitality, Dietary & Accommodations -->
+          <div class="srv-hosp-side-card framer-gastronomic-concierge">
+            <div class="srv-hitem-box">
+              <h4><i class="fas fa-wine-glass text-warning"></i> VIP Hospitality Lounges</h4>
+              <p>Dedicated master sommelier wine flights, private caviar bars, soundproofed negotiation suites, and discrete private security service.</p>
+            </div>
+            <div class="srv-hitem-box">
+              <h4><i class="fas fa-leaf text-warning"></i> Dietary Planning Precision</h4>
+              <p>Rigorous management of vegan, gluten-free, halal, kosher, and allergen protocols with isolated kitchen prep and digital meal tags.</p>
+            </div>
+            <div class="srv-hitem-box">
+              <h4><i class="fas fa-hotel text-warning"></i> 5-Star Hotel Accommodations</h4>
+              <p>Turn-key room block sourcing, executive check-in priority desks, VIP airport-hotel transfers, and 24/7 guest concierge dispatch.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 7: DELEGATE LOGISTICS (CONCOURSE & OPERATIONS COMMAND)
+         ===================================================================== -->
+    <section id="delegate-logistics" class="srv-section-logistics">
+      <div class="srv-container">
+        <!-- Section Header -->
+        <div class="srv-section-head framer-concourse-dispatch">
+          <div class="srv-badge"><i class="fas fa-qrcode"></i> Operations Command</div>
+          <h2 class="srv-title">Delegate Operations & <span class="srv-title-gradient">On-Site Logistics Command</span></h2>
+          <p class="srv-subtitle">Touchless digital registration, instant QR badge printing kiosks, VIP speaker green room handling, motorized transport fleets, and 24/7 incident risk management.</p>
+        </div>
+
+        <div class="srv-logistics-split-grid">
+          <!-- Left Visual Frame -->
+          <div class="srv-logistics-visual-card framer-concourse-dispatch">
+            <div class="srv-limg-wrap">
+              <img src="images/service_delegate_logistics.jpg" alt="Executive Summit Registration Concourse and Logistics Command Center">
+            </div>
+            <div style="padding: 1.5rem; background: var(--srv-surface); border-top: 1px solid var(--srv-card-border); display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 700; color: var(--srv-accent); text-transform: uppercase;">Concourse Velocity</div>
+                <div style="font-size: 1.1rem; font-weight: 800; color: var(--srv-text-main);">&lt; 15 Seconds Average Check-In</div>
+              </div>
+              <button class="srv-btn srv-btn-primary" onclick="openServiceModal('Full Logistics & Delegate Operations Blueprint')">
+                <i class="fas fa-headset"></i> Consult Logistics Lead
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Comprehensive Dual-Wing Breakdown -->
+          <div class="srv-logistics-wings-stack">
+            <!-- Wing A: Delegate & Guest Management -->
+            <div class="srv-lwing-card framer-concourse-dispatch">
+              <h4 class="srv-lwing-title"><i class="fas fa-id-card-clip"></i> Delegate & Guest Management</h4>
+              <div class="srv-lwing-list">
+                <div class="srv-lrow">
+                  <i class="fas fa-check-circle"></i>
+                  <span><strong>Guest Registration & Digital Invitations:</strong> Custom branded micro-sites, encrypted RSVP portals, and tiered guest category access controls.</span>
+                </div>
+                <div class="srv-lrow">
+                  <i class="fas fa-check-circle"></i>
+                  <span><strong>Touchless QR & NFC Check-In:</strong> High-throughput kiosks printing smart badges with RFID access tracking in under 12 seconds per attendee.</span>
+                </div>
+                <div class="srv-lrow">
+                  <i class="fas fa-check-circle"></i>
+                  <span><strong>Speaker Coordination & Briefing:</strong> Dedicated VIP speaker concierges, teleprompter rehearsals, slide deck management, and green room hospitality.</span>
+                </div>
+                <div class="srv-lrow">
+                  <i class="fas fa-check-circle"></i>
+                  <span><strong>Multi-Channel Delegate Communications:</strong> Real-time SMS push notifications, custom native conference mobile apps, and personalized agenda itineraries.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Wing B: Event Logistics & Risk Command -->
+            <div class="srv-lwing-card framer-concourse-dispatch">
+              <h4 class="srv-lwing-title"><i class="fas fa-truck-ramp-box"></i> Event Logistics & Risk Command</h4>
+              <div class="srv-lwing-list">
+                <div class="srv-lrow">
+                  <i class="fas fa-check-circle"></i>
+                  <span><strong>VIP Transportation Coordination:</strong> Armored motorcades, luxury electric executive coaches, airport tarmac escorts, and helicopter charters.</span>
+                </div>
+                <div class="srv-lrow">
+                  <i class="fas fa-check-circle"></i>
+                  <span><strong>Equipment Management:</strong> ATA Carnet international customs clearing, airside freight staging, hardware inventory tracking, and secure overnight warehousing.</span>
+                </div>
+                <div class="srv-lrow">
+                  <i class="fas fa-check-circle"></i>
+                  <span><strong>Vendor Coordination & On-Site Command:</strong> Multi-frequency radio operations, central production dispatch desk, and minute-by-minute show calling.</span>
+                </div>
+                <div class="srv-lrow">
+                  <i class="fas fa-check-circle"></i>
+                  <span><strong>Comprehensive Event Risk Management:</strong> NFPA fire marshal compliance, discrete dignitary security perimeters, on-site medical hubs, and emergency plans.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Service Modal -->
+  <div id="srvModalOverlay" class="srv-modal-overlay">
+    <div class="srv-modal-card">
+      <button class="srv-modal-close" onclick="closeServiceModal()">&times;</button>
+      <div style="width: 3.5rem; height: 3.5rem; border-radius: 0.85rem; background: var(--srv-accent-glow); color: var(--srv-accent); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1.25rem auto;">
+        <i class="fas fa-file-circle-check"></i>
+      </div>
+      <h3 id="srvModalTitle" style="font-size: 1.4rem; font-weight: 800; color: var(--srv-text-main); margin-bottom: 0.5rem;">Service Specification Queued</h3>
+      <p id="srvModalDesc" style="font-size: 0.95rem; color: var(--srv-text-muted); line-height: 1.6; margin-bottom: 1.5rem;">Detailed production riders and pricing structures for this service capability have been compiled for your enterprise review.</p>
+      <button class="srv-btn srv-btn-primary" style="width: 100%;" onclick="closeServiceModal()">Continue Browsing Suite</button>
+    </div>
+  </div>
+<!-- FOOTER -->
+    <footer class="footer-container">
+      <!-- TOP: NEWSLETTER CTA STRIP -->
+      <div class="footer-cta">
+        <div class="footer-cta-text">
+          <span class="footer-cta-badge"><i class="fas fa-wand-magic-sparkles"></i> Executive Briefing</span>
+          <h2 class="footer-cta-title">Stay Ahead in Corporate Event Excellence</h2>
+          <p class="footer-cta-desc">Join 15,000+ Fortune 500 executives, summit organizers, and event leaders receiving our quarterly conference intelligence reports.</p>
+        </div>
+        <div class="footer-cta-form-wrapper">
+          <form class="footer-form" id="newsletterForm" onsubmit="event.preventDefault(); handleNewsletterSubmit();">
+            <input type="email" id="newsletterEmail" placeholder="Enter your corporate email..." required aria-label="Corporate Email">
+            <button type="submit" id="newsletterBtn"><i class="fas fa-paper-plane"></i> Subscribe</button>
+          </form>
+          <div class="footer-privacy-note">
+            <i class="fas fa-shield-alt"></i> Enterprise-grade confidentiality. Zero spam. Unsubscribe anytime.
+          </div>
+        </div>
+      </div>
+
+      <!-- MIDDLE: MAIN FOOTER LINKS GRID -->
+      <div class="footer-grid">
+        <!-- COL 1: BRAND OVERVIEW -->
+        <div class="footer-col-brand">
+          <a href="index.html" class="footer-brand-header" style="text-decoration: none; cursor: pointer;">
+            <div class="logo-3d">
+              <div class="logo-cube">
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+              </div>
+            </div>
+            <div class="logo-text">Event<span>Sphere</span></div>
+          </a>
+          <p class="footer-brand-desc">
+            Premier corporate event planning and global conference management firm. We engineer world-class executive summits, immersive hybrid conferences, and gala celebrations with precision craftsmanship.
+          </p>
+          <div class="footer-metrics-pills">
+            <span class="metric-pill"><i class="fas fa-trophy"></i> 850+ Summits</span>
+            <span class="metric-pill"><i class="fas fa-globe-americas"></i> 42 Countries</span>
+            <span class="metric-pill"><i class="fas fa-star"></i> 99.6% Rating</span>
+          </div>
+          <div class="footer-social-row">
+            <a href="#" class="footer-social-btn" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="footer-social-btn" title="X (Twitter)" aria-label="X"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="footer-social-btn" title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer-social-btn" title="YouTube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="footer-social-btn" title="Global Network" aria-label="Global Network"><i class="fas fa-network-wired"></i></a>
+          </div>
+        </div>
+
+        <!-- COL 2: MAIN NAVIGATION -->
+        <div class="footer-col">
+          <h3 class="footer-col-title">Navigation</h3>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home 1 (Main Agency)</a></li>
+            <li><a href="home-2.html"><i class="fas fa-chevron-right"></i> Home 2 (Conference View)</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Our Firm</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services & Solutions</a></li>
+            <li><a href="portfolio.html"><i class="fas fa-chevron-right"></i> Event Portfolio</a></li>
+            <li><a href="event-planning.html"><i class="fas fa-chevron-right"></i> Event Planning Process</a></li>
+            <li><a href="vendors.html"><i class="fas fa-chevron-right"></i> Vendors Directory</a></li>
+            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact & Consultation</a></li>
+          </ul>
+        </div>
+
+        <!-- COL 3: SERVICES & SUMMITS -->
+        <div class="footer-col">
+          <h3 class="footer-col-title">Services & Summits</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Annual Executive Summits</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Global Hybrid Conferences</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Corporate Galas & Awards</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Product Launches & Expos</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Strategic Leadership Offsites</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Keynote Speaker Management</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Audiovisual & 3D Stagecraft</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Sustainable Event Audits</a></li>
+          </ul>
+        </div>
+
+
+        <!-- COL 4: HEADQUARTERS & CONTACT -->
+        <div class="footer-col footer-col-contact">
+          <h3 class="footer-col-title">Headquarters</h3>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <strong>Global HQ:</strong><br>
+                500 Financial Centre Blvd, Suite 2800<br>
+                New York, NY 10005, United States
+              </div>
+            </div>
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-phone-alt"></i></div>
+              <div>
+                <strong>Inquiries:</strong><br>
+                +1 (800) 555-EVENT<br>
+                +1 (212) 555-0198
+              </div>
+            </div>
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <strong>Email:</strong><br>
+                summits@eventsphere.com
+              </div>
+            </div>
+            <div class="ops-status">
+              <span class="status-dot"></span>
+              24/7 Operations Command Active
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM: LEGAL & BACK TO TOP -->
+      <div class="footer-bottom">
+        <div>
+          © 2026 EventSphere Inc. Corporate Event Planning & Conference Management Firm. All rights reserved.
+        </div>
+        <ul class="footer-legal-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">GDPR & Security</a></li>
+          <li><a href="#">Cookie Settings</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+        <button class="back-to-top-btn" id="backToTopBtn" title="Back to Top">
+          <i class="fas fa-arrow-up"></i> Back to Top
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // ===== DARK MODE TOGGLE =====
+    const darkToggle = document.getElementById('darkModeToggle');
+    const darkToggleMobile = document.getElementById('darkModeToggleMobile');
+    const rtlToggle = document.getElementById('rtlToggle');
+    const rtlToggleMobile = document.getElementById('rtlToggleMobile');
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const body = document.body;
+
+    function toggleDark() {
+      body.classList.toggle('dark');
+      const icon = body.classList.contains('dark') ? 'fa-sun' : 'fa-moon';
+      darkToggle.innerHTML = `<i class="fas ${icon}"></i>`;
+      if (darkToggleMobile) darkToggleMobile.innerHTML = `<i class="fas ${icon}"></i>`;
+    }
+
+    darkToggle.addEventListener('click', toggleDark);
+    if (darkToggleMobile) darkToggleMobile.addEventListener('click', toggleDark);
+
+    function toggleRTL() {
+      body.classList.toggle('rtl');
+    }
+
+    rtlToggle.addEventListener('click', toggleRTL);
+    if (rtlToggleMobile) rtlToggleMobile.addEventListener('click', toggleRTL);
+
+    // ===== HAMBURGER MENU WITH SMOOTH MOTION =====
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      mobileMenu.classList.toggle('active');
+      hamburger.classList.toggle('open');
+      
+      // Framer Motion style spring animation on menu
+      if (mobileMenu.classList.contains('active')) {
+        mobileMenu.style.transform = 'scale(0.92) translateY(-12px)';
+        mobileMenu.style.opacity = '0';
+        requestAnimationFrame(() => {
+          mobileMenu.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease';
+          mobileMenu.style.transform = 'scale(1) translateY(0)';
+          mobileMenu.style.opacity = '1';
+        });
+      }
+    });
+
+    // Close menu on outside click
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target) && mobileMenu.classList.contains('active')) {
+        mobileMenu.classList.remove('active');
+        hamburger.classList.remove('open');
+        mobileMenu.style.transform = 'scale(0.92) translateY(-12px)';
+        mobileMenu.style.opacity = '0';
+      }
+    });
+
+    // ===== EXTREME HOVER EFFECTS (Framer Motion style) =====
+    const allButtons = document.querySelectorAll('.icon-btn, .login-btn, .hamburger, .footer-form button, .back-to-top-btn, .footer-social-btn');
+    allButtons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, background 0.3s ease';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transition = 'transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, background 0.3s ease';
+      });
+    });
+
+    // ===== MOBILE SUBMENU ACCORDION =====
+    const mobileDropdownHeaders = document.querySelectorAll('.mobile-dropdown-header');
+    mobileDropdownHeaders.forEach(header => {
+      header.addEventListener('click', (e) => {
+        // If direct navigation link inside header was clicked, allow navigation
+        if (e.target.closest('a')) {
+          return;
+        }
+        const parent = header.closest('.mobile-dropdown');
+        if (parent) {
+          parent.classList.toggle('open');
+        }
+      });
+    });
+
+    // ===== NAVBAR ACTIVE STATUS DYNAMIC HANDLER =====
+    (function syncNavbarActiveState() {
+      try {
+        const currentPath = window.location.pathname.toLowerCase();
+        let currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+        if (!currentPage || currentPage === '/') currentPage = 'index.html';
+
+        const navItems = document.querySelectorAll('.nav-links a, .mobile-nav-links a, .dropdown-item, .mobile-submenu a');
+        navItems.forEach(item => {
+          const href = (item.getAttribute('href') || '').toLowerCase();
+          if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+
+          let matches = false;
+          if (currentPage === 'index.html' || currentPage === '') {
+            if (href === 'index.html' && (item.textContent.trim().toLowerCase().includes('home 1') || item.classList.contains('dropdown-toggle') || (item.parentElement && item.parentElement.classList.contains('mobile-dropdown-header')))) {
+              matches = true;
+            }
+          } else if (href === currentPage) {
+            matches = true;
+          }
+
+          if (matches) {
+            item.classList.add('active');
+            const pLi = item.closest('li');
+            if (pLi) pLi.classList.add('active');
+            const pDrop = item.closest('.dropdown, .mobile-dropdown');
+            if (pDrop) {
+              pDrop.classList.add('active');
+              const tog = pDrop.querySelector('.dropdown-toggle, .mobile-dropdown-header > a');
+              if (tog) tog.classList.add('active');
+            }
+          }
+        });
+
+        // Instant active feedback upon clicking
+        navItems.forEach(item => {
+          item.addEventListener('click', function() {
+            const href = this.getAttribute('href');
+            if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+              document.querySelectorAll('.nav-links .active, .mobile-nav-links .active, .dropdown-item.active, .mobile-submenu .active').forEach(el => el.classList.remove('active'));
+              this.classList.add('active');
+              const pLi = this.closest('li');
+              if (pLi) pLi.classList.add('active');
+              const pDrop = this.closest('.dropdown, .mobile-dropdown');
+              if (pDrop) {
+                pDrop.classList.add('active');
+                const tog = pDrop.querySelector('.dropdown-toggle, .mobile-dropdown-header > a');
+                if (tog) tog.classList.add('active');
+              }
+            }
+          });
+        });
+      } catch (err) {
+        console.warn('Navbar active sync error:', err);
+      }
+    })();
+
+    // ===== NAV LINK STAGGER ANIMATION =====
+    const navLinks = document.querySelectorAll('.nav-links > li');
+    navLinks.forEach((link, index) => {
+      link.style.opacity = '0';
+      link.style.transform = 'translateY(-8px)';
+      link.style.transition = `opacity 0.5s ease ${0.05 * index + 0.1}s, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) ${0.05 * index + 0.1}s`;
+      setTimeout(() => {
+        link.style.opacity = '1';
+        link.style.transform = 'translateY(0)';
+      }, 50);
+      setTimeout(() => {
+        link.style.removeProperty('opacity');
+        link.style.removeProperty('transform');
+        link.style.removeProperty('transition');
+      }, 800);
+    });
+
+    // ===== INITIAL DARK ICON CHECK =====
+    if (body.classList.contains('dark')) {
+      darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      if (darkToggleMobile) darkToggleMobile.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    // ===== BACK TO TOP SMOOTH SCROLL =====
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // ===== NEWSLETTER INTERACTION =====
+    function handleNewsletterSubmit() {
+      const form = document.getElementById('newsletterForm');
+      const emailInput = document.getElementById('newsletterEmail');
+      if (form && emailInput && emailInput.value) {
+        form.innerHTML = '<div style="display:flex;align-items:center;gap:0.6rem;color:#16a34a;font-weight:600;font-size:0.9rem;padding:0.6rem 1rem;"><i class="fas fa-check-circle"></i> Thank you! You are subscribed to EventSphere Executive Briefings.</div>';
+      }
+    }
+  </script>
+
+  <!-- =====================================================================
+       INTERACTIVE SERVICES PAGE CONTROLLER SCRIPT
+       ===================================================================== -->
+  <script>
+    // 1. Intersection Observer for Unique Framer Motion Animations
+    document.addEventListener('DOMContentLoaded', function() {
+      var framerElements = document.querySelectorAll(
+        '.framer-boardroom-elevation, ' +
+        '.framer-plenary-amphitheater, ' +
+        '.framer-spatial-cadence, ' +
+        '.framer-broadcast-matrix, ' +
+        '.framer-sculptural-prism, ' +
+        '.framer-gastronomic-concierge, ' +
+        '.framer-concourse-dispatch'
+      );
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('framer-in-view');
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      framerElements.forEach(function(el) {
+        observer.observe(el);
+      });
+    });
+
+    // 2. Interactive Service Highlighter
+    function highlightService(card, serviceName) {
+      var siblings = card.parentElement.children;
+      for (var i = 0; i < siblings.length; i++) {
+        siblings[i].classList.remove('active');
+      }
+      card.classList.add('active');
+    }
+
+    // 3. Interactive Service Modal
+    function openServiceModal(serviceName) {
+      var modal = document.getElementById('srvModalOverlay');
+      var title = document.getElementById('srvModalTitle');
+      var desc = document.getElementById('srvModalDesc');
+
+      if (title) title.textContent = serviceName;
+      if (desc) desc.textContent = 'Detailed specifications, technical riders, and staffing matrices for "' + serviceName + '" are initialized for review. Our senior advisory leads are prepared to assist.';
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeServiceModal() {
+      var modal = document.getElementById('srvModalOverlay');
+      if (modal) modal.style.display = 'none';
+    }
+  </script>
+</body>
+</html>

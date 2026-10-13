@@ -1,0 +1,827 @@
+# -*- coding: utf-8 -*-
+"""
+build_404_page.py
+Generates the clean, focused, and beautifully proportioned 404.html page for EventSphere.
+Tailored with only pure 404 content:
+- 3D Rotating Cube Logo Header
+- Stylized 404 Gradient Display & Alert Pill
+- Clear Corporate Headline & Brief Description
+- Dual Action Buttons: Golden 'Return to Homepage' & Sleek 'Client Portal Login'
+- Quick Explore Link Pills
+- Top-Right 3D Squircle RTL & Theme Switches
+- Canvas Starfield Particles Background
+"""
+
+html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Summit Horizon Not Found | EventSphere Corporate Event & Conference Management</title>
+  
+  <!-- Inter Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons 6.5.1 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       THEME VARIABLES & RESET (MATCHING LOGIN.HTML & DASHBOARDS)
+       ========================================================================== */
+    :root {
+      --auth-bg: #070c18;
+      --auth-surface: #0c1426;
+      --auth-card: rgba(14, 23, 42, 0.88);
+      --auth-card-border: rgba(59, 130, 246, 0.22);
+      --auth-border: rgba(59, 130, 246, 0.16);
+      --auth-border-subtle: rgba(255, 255, 255, 0.08);
+      --auth-text-primary: #f8fafc;
+      --auth-text-secondary: #94a3b8;
+      --auth-text-muted: #64748b;
+      --auth-blue: #2563eb;
+      --auth-sky: #38bdf8;
+      --auth-amber-start: #f59e0b;
+      --auth-amber-end: #d97706;
+      --auth-amber-glow: rgba(245, 158, 11, 0.4);
+      --auth-emerald: #10b981;
+      --auth-rose: #f43f5e;
+      --auth-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body.light {
+      --auth-bg: #f0f4fe;
+      --auth-surface: #ffffff;
+      --auth-card: rgba(255, 255, 255, 0.94);
+      --auth-card-border: rgba(37, 99, 235, 0.18);
+      --auth-border: #e2e8f0;
+      --auth-border-subtle: #cbd5e1;
+      --auth-text-primary: #0f172a;
+      --auth-text-secondary: #334155;
+      --auth-text-muted: #64748b;
+      --auth-amber-start: #d97706;
+      --auth-amber-end: #b45309;
+      --auth-amber-glow: rgba(217, 119, 6, 0.25);
+    }
+
+    /* Custom Sleek Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(59, 130, 246, 0.25);
+      border-radius: 9999px;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      font-family: var(--auth-font);
+      background-color: var(--auth-bg);
+      color: var(--auth-text-secondary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: background-color 0.35s ease, color 0.35s ease;
+      padding: 1.25rem 0.85rem;
+    }
+
+    /* RTL Support */
+    body.rtl {
+      direction: rtl;
+      text-align: right;
+    }
+
+    /* ==========================================================================
+       INTERACTIVE CANVAS PARTICLE STARS BACKGROUND
+       ========================================================================== */
+    #particlesCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .ambient-glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.25;
+      animation: floatGlow 18s ease-in-out infinite alternate;
+    }
+
+    .ambient-glow-1 {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, #2563eb 0%, transparent 70%);
+      top: -120px;
+      left: -80px;
+    }
+
+    .ambient-glow-2 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #f59e0b 0%, transparent 70%);
+      bottom: -100px;
+      right: -60px;
+      animation-delay: -9s;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(35px, 25px) scale(1.1); }
+    }
+
+    /* ==========================================================================
+       FLOATING TOP UTILITY CONTROLS (3D SQUIRCLE SWITCHES)
+       ========================================================================== */
+    .floating-top-actions {
+      position: fixed;
+      top: 1.15rem;
+      right: 1.15rem;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    body.rtl .floating-top-actions {
+      right: auto;
+      left: 1.15rem;
+    }
+
+    .btn-3d-switch {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid #334155;
+      box-shadow: 0 1.5px 0 #020617, 0 3px 8px rgba(0, 0, 0, 0.4);
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      outline: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .btn-3d-switch:hover {
+      transform: translateY(-1.5px);
+      box-shadow: 0 2.5px 0 #020617, 0 5px 12px rgba(0, 0, 0, 0.45);
+      border-color: #475569;
+    }
+
+    .btn-3d-switch:active {
+      transform: translateY(1px);
+      box-shadow: 0 0.5px 0 #020617, 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-3d-switch.rtl-switch {
+      color: #f43f5e;
+      font-size: 0.8rem;
+    }
+
+    .btn-3d-switch.rtl-switch:hover {
+      color: #fb7185;
+      border-color: rgba(244, 63, 94, 0.4);
+    }
+
+    .btn-3d-switch.theme-switch {
+      color: #fbbf24;
+      font-size: 0.88rem;
+    }
+
+    .btn-3d-switch.theme-switch:hover {
+      color: #fde047;
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    body.light .btn-3d-switch {
+      background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 1.5px 0 #94a3b8, 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    body.light .btn-3d-switch:hover {
+      box-shadow: 0 2.5px 0 #94a3b8, 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-color: #94a3b8;
+    }
+
+    body.light .btn-3d-switch.rtl-switch {
+      color: #e11d48;
+    }
+
+    body.light .btn-3d-switch.theme-switch {
+      color: #334155;
+    }
+
+    /* ==========================================================================
+       3D BRAND LOGO
+       ========================================================================== */
+    .brand-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.15rem;
+      text-align: center;
+    }
+
+    .brand-logo-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 0.3rem;
+      text-decoration: none;
+    }
+
+    .logo-3d {
+      position: relative;
+      width: 26px;
+      height: 26px;
+      perspective: 450px;
+    }
+
+    .logo-cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 14s infinite linear;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes rotateCube {
+      0% { transform: rotateX(0deg) rotateY(0deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .logo-face {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 5px;
+      background: linear-gradient(145deg, #1e3a8a, #3b82f6);
+      box-shadow: 0 3px 8px rgba(0, 80, 200, 0.35), inset 0 1.5px 3px rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.7rem;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .logo-face:nth-child(1) { transform: rotateY(0deg) translateZ(13px); }
+    .logo-face:nth-child(2) { transform: rotateY(90deg) translateZ(13px); }
+    .logo-face:nth-child(3) { transform: rotateY(180deg) translateZ(13px); }
+    .logo-face:nth-child(4) { transform: rotateY(-90deg) translateZ(13px); }
+    .logo-face:nth-child(5) { transform: rotateX(90deg) translateZ(13px); }
+    .logo-face:nth-child(6) { transform: rotateX(-90deg) translateZ(13px); }
+
+    .logo-text {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      color: var(--auth-text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.12rem;
+    }
+
+    .logo-text span {
+      background: linear-gradient(135deg, #60a5fa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-subtitle {
+      font-size: 0.67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--auth-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .brand-subtitle-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #f59e0b;
+      box-shadow: 0 0 6px #f59e0b;
+      display: inline-block;
+    }
+
+    /* ==========================================================================
+       CENTERED 404 CARD CONTAINER (EXACT PROPORTIONS MATCHING LOGIN.HTML)
+       ========================================================================== */
+    .error-page-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 430px;
+      padding: 0.5rem;
+      margin: auto;
+    }
+
+    .error-card {
+      background: var(--auth-card);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--auth-card-border);
+      border-radius: 1.35rem;
+      padding: 2.1rem 1.85rem 1.85rem 1.85rem;
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.75), 0 0 35px rgba(37, 99, 235, 0.1);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       404 HERO CONTENT
+       ========================================================================== */
+    .error-hero-container {
+      margin-bottom: 1.25rem;
+    }
+
+    .error-code-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 0.35rem;
+    }
+
+    .error-code-glitch {
+      font-size: 5rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.06em;
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 35%, #38bdf8 80%, #2563eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      user-select: none;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    .error-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: #fda4af;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.35rem;
+      box-shadow: 0 2px 8px rgba(244, 63, 94, 0.15);
+    }
+
+    body.light .error-badge-pill {
+      background: #ffe4e6;
+      border-color: #fecdd3;
+      color: #e11d48;
+    }
+
+    .error-badge-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #f43f5e;
+      box-shadow: 0 0 6px #f43f5e;
+      animation: blinkDot 1.6s infinite ease-in-out;
+    }
+
+    @keyframes blinkDot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .error-title {
+      font-size: 1.28rem;
+      font-weight: 800;
+      color: var(--auth-text-primary);
+      margin: 0.85rem 0 0.4rem 0;
+      letter-spacing: -0.02em;
+    }
+
+    .error-description {
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--auth-text-secondary);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    /* ==========================================================================
+       ACTION BUTTONS (PURE & FOCUSED)
+       ========================================================================== */
+    .actions-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .btn-return-home {
+      width: 100%;
+      height: 42px;
+      border-radius: 0.75rem;
+      border: none;
+      background: linear-gradient(135deg, var(--auth-amber-start), var(--auth-amber-end));
+      color: #090e1a;
+      font-size: 0.88rem;
+      font-weight: 800;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 6px 20px var(--auth-amber-glow), 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .btn-return-home:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px var(--auth-amber-glow), 0 4px 8px rgba(0, 0, 0, 0.25);
+      background: linear-gradient(135deg, #fbbf24, #d97706);
+      color: #090e1a;
+    }
+
+    .btn-return-home:active {
+      transform: translateY(0);
+    }
+
+    .btn-login-secondary {
+      width: 100%;
+      height: 40px;
+      border-radius: 0.75rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--auth-border);
+      color: var(--auth-text-primary);
+      font-size: 0.83rem;
+      font-weight: 700;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    body.light .btn-login-secondary {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    .btn-login-secondary:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(59, 130, 246, 0.4);
+      color: #38bdf8;
+      transform: translateY(-1.5px);
+    }
+
+    body.light .btn-login-secondary:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+      color: #2563eb;
+    }
+
+    /* ==========================================================================
+       QUICK DESTINATION PILLS
+       ========================================================================== */
+    .quick-destinations-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+    }
+
+    .dest-pill {
+      padding: 0.32rem 0.7rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid var(--auth-border-subtle);
+      color: var(--auth-text-muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+    }
+
+    body.light .dest-pill {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+      color: #475569;
+    }
+
+    .dest-pill:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.35);
+      color: #38bdf8;
+      transform: translateY(-1px);
+    }
+
+    body.light .dest-pill:hover {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      color: #2563eb;
+    }
+
+    /* ==========================================================================
+       SECURITY & STATUS PROTOCOL BADGE
+       ========================================================================== */
+    .protocol-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--auth-text-muted);
+      border-top: 1px solid var(--auth-border-subtle);
+      padding-top: 0.85rem;
+      margin-top: 0.15rem;
+    }
+
+    .protocol-badge i {
+      color: #10b981;
+      font-size: 0.76rem;
+    }
+
+    @media (max-width: 480px) {
+      .error-card {
+        padding: 1.75rem 1.25rem;
+      }
+      .error-code-glitch {
+        font-size: 4.2rem;
+      }
+    }
+  </style>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body>
+
+  <!-- Floating Starfield Particles Canvas -->
+  <canvas id="particlesCanvas"></canvas>
+
+  <!-- Ambient Glow Spheres -->
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+
+  <!-- Floating Top Utility Controls (RTL & Theme Switches matching login.html) -->
+  <div class="floating-top-actions">
+    <button class="btn-3d-switch rtl-switch" id="rtlToggleBtn" onclick="toggleRTL()" title="Toggle RTL / LTR Text Direction" aria-label="Toggle RTL">
+      <i id="rtlIcon" class="fa-solid fa-right-left"></i>
+    </button>
+    <button class="btn-3d-switch theme-switch" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark / Light Theme" aria-label="Toggle Dark/Light Mode">
+      <i id="themeIcon" class="fa-solid fa-sun"></i>
+    </button>
+  </div>
+
+  <!-- Main 404 Layout Wrapper -->
+  <main class="error-page-wrapper">
+    <div class="error-card">
+      
+      <!-- Brand Header with 3D Rotating Cube -->
+      <header class="brand-header">
+        <a href="index.html" class="brand-logo-row">
+          <div class="logo-3d">
+            <div class="logo-cube">
+              <div class="logo-face">&#10022;</div>
+              <div class="logo-face">&#10022;</div>
+              <div class="logo-face">&#10022;</div>
+              <div class="logo-face">&#10022;</div>
+              <div class="logo-face">&#10022;</div>
+              <div class="logo-face">&#10022;</div>
+            </div>
+          </div>
+          <div class="logo-text">Event<span>Sphere</span></div>
+        </a>
+        <div class="brand-subtitle">
+          <span class="brand-subtitle-dot"></span>
+          <span>Corporate Event Planning &amp; Conference Firm</span>
+        </div>
+      </header>
+
+      <!-- Pure 404 Hero Display -->
+      <div class="error-hero-container">
+        <div class="error-code-wrapper">
+          <div class="error-code-glitch">404</div>
+        </div>
+        <div>
+          <span class="error-badge-pill">
+            <span class="error-badge-dot"></span>
+            <span>Route Boundary Exceeded &bull; Error 404</span>
+          </span>
+        </div>
+        <h1 class="error-title">Summit Horizon Not Found</h1>
+        <p class="error-description">
+          The requested conference dossier, executive portal link, or event session has concluded, relocated, or does not exist.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="actions-stack">
+        <!-- Return Home Button -->
+        <a href="index.html" class="btn-return-home">
+          <i class="fa-solid fa-house"></i>
+          <span>Return to Headquarters Home</span>
+        </a>
+
+        <!-- Portal Login Button -->
+        <a href="login.html" class="btn-login-secondary">
+          <i class="fa-solid fa-lock" style="color: #38bdf8;"></i>
+          <span>Member Portal Login</span>
+          <i class="fa-solid fa-arrow-right rtl:rotate-180" style="font-size: 0.75rem; margin-left: 0.25rem;"></i>
+        </a>
+      </div>
+
+      <!-- Quick Explore Destination Pills -->
+      <div class="quick-destinations-row">
+        <a href="index.html#services" class="dest-pill"><i class="fa-solid fa-layer-group"></i> Services</a>
+        <a href="index.html#summits" class="dest-pill"><i class="fa-solid fa-award"></i> Summits</a>
+        <a href="user-dashboard.html" class="dest-pill"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+      </div>
+
+      <!-- Security Protocol Footer -->
+      <div class="protocol-badge">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>EventSphere Secure Dispatch &bull; 24/7 Global Event Concierge</span>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // 1. Starfield Particles Canvas (Identical to login.html)
+    (function initParticles() {
+      const canvas = document.getElementById('particlesCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let particles = [];
+      const particleCount = 40;
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.radius = Math.random() * 1.5 + 0.5;
+          this.speedY = Math.random() * 0.35 + 0.1;
+          this.speedX = (Math.random() - 0.5) * 0.2;
+          this.baseAlpha = Math.random() * 0.45 + 0.15;
+          this.alpha = this.baseAlpha;
+          this.fadeSpeed = Math.random() * 0.01 + 0.005;
+          this.growing = Math.random() > 0.5;
+          this.colorType = Math.random() > 0.4 ? 'gold' : 'blue';
+          this.colorPrefix = this.colorType === 'gold' ? 'rgba(245, 158, 11,' : 'rgba(56, 189, 248,';
+        }
+        update() {
+          this.y -= this.speedY;
+          this.x += this.speedX;
+
+          if (this.growing) {
+            this.alpha += this.fadeSpeed;
+            if (this.alpha >= this.baseAlpha + 0.2) this.growing = false;
+          } else {
+            this.alpha -= this.fadeSpeed;
+            if (this.alpha <= 0.1) this.growing = true;
+          }
+
+          if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+            this.reset();
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = this.colorPrefix + Math.max(0, Math.min(1, this.alpha)) + ')';
+          ctx.shadowBlur = this.radius * 4;
+          ctx.shadowColor = this.colorPrefix + '0.8)';
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    // 2. Theme Toggle (Dark / Light)
+    function toggleTheme() {
+      const isDark = !document.body.classList.contains('light');
+      const themeIcon = document.getElementById('themeIcon');
+      if (isDark) {
+        document.body.classList.add('light');
+        localStorage.setItem('eventsphere_theme', 'light');
+        if (themeIcon) {
+          themeIcon.className = 'fa-solid fa-moon';
+        }
+      } else {
+        document.body.classList.remove('light');
+        localStorage.setItem('eventsphere_theme', 'dark');
+        if (themeIcon) {
+          themeIcon.className = 'fa-solid fa-sun';
+        }
+      }
+    }
+
+    // 3. RTL Toggle with Right-Left Icon
+    function toggleRTL() {
+      document.body.classList.toggle('rtl');
+      const isRTL = document.body.classList.contains('rtl');
+      document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+      localStorage.setItem('eventsphere_rtl', isRTL ? 'rtl' : 'ltr');
+    }
+
+    // 4. Initialize saved Theme & RTL preference
+    (function initThemeAndRTL() {
+      const savedTheme = localStorage.getItem('eventsphere_theme');
+      const themeIcon = document.getElementById('themeIcon');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light');
+        if (themeIcon) themeIcon.className = 'fa-solid fa-moon';
+      }
+      const savedRTL = localStorage.getItem('eventsphere_rtl');
+      if (savedRTL === 'rtl') {
+        document.body.classList.add('rtl');
+        document.documentElement.dir = 'rtl';
+      }
+    })();
+  </script>
+</body>
+</html>
+"""
+
+with open('404.html', 'w', encoding='utf-8') as f:
+    f.write(html_content)
+
+print(f"Successfully generated focused 404.html! File length: {len(html_content)}")

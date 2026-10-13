@@ -1,0 +1,4337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSphere · Corporate Event Planning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f4fe;
+      color: #1a2639;
+      transition: background 0.5s cubic-bezier(0.23, 1, 0.32, 1), color 0.4s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 1rem;
+      overflow-x: clip;
+    }
+
+    /* ===== DARK MODE ===== */
+    body.dark {
+      background: #080c14;
+      color: #eef4ff;
+    }
+
+    body.dark .nav-container,
+    body.dark .mobile-menu {
+      background: rgba(21, 30, 44, 0.92);
+      border-color: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(20px);
+    }
+
+    body.dark .logo-text {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    body.dark .logo-text span {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    body.dark .nav-links > li > a,
+    body.dark .mobile-nav-links > li > a {
+      color: #b8c9e8;
+    }
+
+    body.dark .nav-links > li > a:hover,
+    body.dark .mobile-nav-links > li > a:hover {
+      color: #60a5fa;
+      text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+    }
+
+    body.dark .icon-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.7), inset 0 -3px 0 rgba(255,255,255,0.03), 0 0 0 1px rgba(59,130,246,0.1);
+    }
+
+    body.dark .icon-btn:hover {
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.4), 0 16px 20px -8px rgba(0, 0, 0, 0.8), inset 0 -3px 0 rgba(255,255,255,0.05);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    body.dark .hamburger {
+      background: rgba(30, 42, 58, 0.9);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.7), inset 0 -2px 0 rgba(255,255,255,0.03);
+    }
+
+    body.dark .hamburger span {
+      background: #b8c9e8;
+    }
+
+    body.dark .login-btn {
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      border-color: rgba(96, 165, 250, 0.3);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.6), inset 0 -3px 0 rgba(0,0,0,0.3), 0 0 0 1px rgba(96,165,250,0.15);
+    }
+
+    body.dark .login-btn:hover {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 16px 20px -8px rgba(0, 0, 0, 0.7), inset 0 -3px 0 rgba(0,0,0,0.4);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+    }
+
+    /* ===== RTL ===== */
+    body.rtl {
+      direction: rtl;
+    }
+
+    body.rtl #rtlToggle,
+    body.rtl #rtlToggleMobile {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      border-color: rgba(96, 165, 250, 0.4);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.45);
+    }
+
+    /* ===== APP WRAPPER ===== */
+    .app-wrapper {
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 0 3rem;
+      min-height: calc(100vh - 3rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    /* ===== NAVBAR ===== */
+    .nav-container {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 1rem !important;
+      z-index: 1000 !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 70px;
+      padding: 0.55rem 2rem 0.55rem 1.8rem;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 20, 40, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 0 80px -20px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(24px);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav-shine {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 70px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .nav-shine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+    }
+
+    .nav-container:hover .nav-shine::before {
+      left: 100%;
+    }
+
+    body.dark .nav-shine::before {
+      background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.18), transparent);
+    }
+
+    .nav-container:hover {
+      box-shadow: 
+        0 30px 60px -12px rgba(0, 20, 40, 0.25),
+        0 0 0 1px rgba(59, 130, 246, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 0 100px -20px rgba(59, 130, 246, 0.25);
+    }
+
+    .logo-section, .nav-links, .right-section {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== LOGO SECTION ===== */
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    /* 3D LOGO — REDUCED COMPACT SIZE */
+    .logo-3d {
+      position: relative;
+      width: 22px;
+      height: 22px;
+      perspective: 450px;
+    }
+
+    .logo-cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 14s infinite linear;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .logo-3d:hover .logo-cube {
+      animation-play-state: paused;
+      transform: rotateX(15deg) rotateY(25deg) scale(1.15);
+    }
+
+    .logo-face {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: linear-gradient(145deg, #1e3a8a, #3b82f6);
+      box-shadow: 
+        0 4px 8px rgba(0, 80, 200, 0.4),
+        inset 0 -1.5px 3px rgba(0,0,0,0.25),
+        inset 0 1.5px 3px rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.6rem;
+      color: white;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      backface-visibility: visible;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: background 0.4s ease;
+    }
+
+    .logo-face:nth-child(1) { transform: rotateY(0deg) translateZ(11px); background: linear-gradient(145deg, #2563eb, #1e40af); }
+    .logo-face:nth-child(2) { transform: rotateY(90deg) translateZ(11px); background: linear-gradient(145deg, #3b82f6, #1d4ed8); }
+    .logo-face:nth-child(3) { transform: rotateY(180deg) translateZ(11px); background: linear-gradient(145deg, #1e3a8a, #2563eb); }
+    .logo-face:nth-child(4) { transform: rotateY(-90deg) translateZ(11px); background: linear-gradient(145deg, #4f46e5, #3b82f6); }
+    .logo-face:nth-child(5) { transform: rotateX(90deg) translateZ(11px); background: linear-gradient(145deg, #2563eb, #4f46e5); }
+    .logo-face:nth-child(6) { transform: rotateX(-90deg) translateZ(11px); background: linear-gradient(145deg, #1e40af, #3b82f6); }
+
+    @keyframes rotateCube {
+      0% { transform: rotateX(0) rotateY(0); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .logo-text {
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+    }
+
+    .logo-text:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.4));
+    }
+
+    .logo-text span {
+      color: #1e3a8a;
+      background: none;
+      -webkit-background-clip: unset;
+      background-clip: unset;
+      transition: color 0.4s ease;
+    }
+
+    /* ===== DESKTOP NAV LINKS ===== */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.6rem;
+      list-style: none;
+      margin: 0 1rem;
+      flex: 1;
+    }
+
+    .nav-links > li > a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #1e293b;
+      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0;
+      border-bottom: 2px solid transparent;
+      position: relative;
+      letter-spacing: 0.1px;
+    }
+
+    .nav-links > li > a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      transition: width 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      border-radius: 2px;
+    }
+
+    .nav-links > li > a:hover {
+      color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .nav-links > li > a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== DROPDOWNS (HOME & DASHBOARD) ===== */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-arrow {
+      font-size: 0.65rem;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0.7;
+    }
+
+    .dropdown:hover > a {
+      color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .dropdown:hover > a::after {
+      width: 100%;
+    }
+
+    .dropdown:hover .dropdown-arrow {
+      transform: rotate(180deg);
+      opacity: 1;
+      color: #3b82f6;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 0;
+      min-width: 200px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 0.55rem;
+      box-shadow: 
+        0 20px 45px -10px rgba(0, 20, 40, 0.16),
+        0 0 0 1px rgba(255, 255, 255, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 0 35px -10px rgba(59, 130, 246, 0.18);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px) scale(0.97);
+      transform-origin: top left;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  visibility 0.3s ease;
+      z-index: 1000;
+    }
+
+    /* Invisible hover bridge to prevent flickers */
+    .dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 0;
+      right: 0;
+      height: 16px;
+    }
+
+    /* Right-aligned dropdown for Dashboard */
+    .dropdown.dropdown-right .dropdown-menu {
+      left: auto;
+      right: 0;
+      transform-origin: top right;
+    }
+
+    /* Reveal dropdown on hover & focus */
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Dropdown Items */
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.85rem;
+      border-radius: 14px;
+      text-decoration: none;
+      color: #1e293b;
+      font-weight: 500;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+
+    .dropdown-item-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #f0f4fe, #e2e8f0);
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .dropdown-item-title {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: inherit;
+      transition: color 0.2s ease;
+    }
+
+    .dropdown-item:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+      color: #2563eb;
+      transform: translateX(4px);
+    }
+
+    .dropdown-item:hover .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      transform: scale(1.08) rotate(-4deg);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    /* Dark Mode Dropdowns */
+    body.dark .dropdown-menu {
+      background: rgba(21, 30, 44, 0.96);
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(59, 130, 246, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    body.dark .dropdown-item {
+      color: #b8c9e8;
+    }
+
+    body.dark .dropdown-item:hover {
+      background: rgba(59, 130, 246, 0.14);
+      color: #60a5fa;
+      text-shadow: none;
+    }
+
+    body.dark .dropdown-item-icon {
+      background: rgba(30, 42, 58, 0.9);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark .dropdown-item:hover .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.5);
+    }
+
+    body.dark .dropdown-arrow {
+      color: #b8c9e8;
+    }
+
+    body.dark .dropdown:hover .dropdown-arrow {
+      color: #60a5fa;
+    }
+
+    /* RTL Dropdowns */
+    body.rtl .dropdown-menu {
+      left: auto;
+      right: 0;
+      transform-origin: top right;
+    }
+
+    body.rtl .dropdown.dropdown-right .dropdown-menu {
+      right: auto;
+      left: 0;
+      transform-origin: top left;
+    }
+
+    body.rtl .dropdown-item:hover {
+      transform: translateX(-4px);
+    }
+
+        /* ===== ACTIVE NAV LINK & DROPDOWN STYLES ===== */
+    .nav-links > li > a.active,
+    .nav-links > li.active > a,
+    .nav-links > li.dropdown.active > a.dropdown-toggle {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .nav-links > li > a.active::after,
+    .nav-links > li.active > a::after,
+    .nav-links > li.dropdown.active > a.dropdown-toggle::after {
+      width: 100% !important;
+      background: linear-gradient(90deg, #2563eb, #8b5cf6) !important;
+      height: 2.5px !important;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4) !important;
+    }
+
+    .dropdown-item.active {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(139, 92, 246, 0.12)) !important;
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .dropdown-item.active .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35) !important;
+      transform: scale(1.06);
+    }
+
+    /* Active Mobile Links */
+    .mobile-nav-links > li > a.active,
+    .mobile-nav-links > li.active > a,
+    .mobile-dropdown.active .mobile-dropdown-header > a,
+    .mobile-dropdown-header > a.active {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .mobile-nav-links > li > a.active::before,
+    .mobile-nav-links > li.active > a::before,
+    .mobile-dropdown.active .mobile-dropdown-header > a::before,
+    .mobile-dropdown-header > a.active::before {
+      opacity: 1 !important;
+      left: -20px !important;
+      color: #2563eb !important;
+    }
+
+    .mobile-submenu a.active {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+      padding-left: 0.35rem;
+    }
+
+    /* Dark Mode Active Styles */
+    body.dark .nav-links > li > a.active,
+    body.dark .nav-links > li.active > a,
+    body.dark .nav-links > li.dropdown.active > a.dropdown-toggle {
+      color: #60a5fa !important;
+      font-weight: 700 !important;
+      text-shadow: 0 0 16px rgba(96, 165, 250, 0.6) !important;
+    }
+
+    body.dark .nav-links > li > a.active::after,
+    body.dark .nav-links > li.active > a::after,
+    body.dark .nav-links > li.dropdown.active > a.dropdown-toggle::after {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa) !important;
+      box-shadow: 0 0 12px rgba(96, 165, 250, 0.8) !important;
+    }
+
+    body.dark .dropdown-item.active {
+      background: rgba(59, 130, 246, 0.22) !important;
+      color: #93c5fd !important;
+    }
+
+    body.dark .dropdown-item.active .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6) !important;
+    }
+
+    body.dark .mobile-nav-links > li > a.active,
+    body.dark .mobile-nav-links > li.active > a,
+    body.dark .mobile-dropdown.active .mobile-dropdown-header > a,
+    body.dark .mobile-dropdown-header > a.active,
+    body.dark .mobile-submenu a.active {
+      color: #60a5fa !important;
+    }
+
+    /* ===== RIGHT SECTION ===== */
+    .right-section {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== 3D ICON BUTTONS ===== */
+    .icon-btn, .login-btn {
+      border: none;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e293b;
+      width: 42px;
+      height: 42px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 
+        0 8px 12px -6px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0,0,0,0.02),
+        inset 0 -3px 0 rgba(0,0,0,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .icon-btn::before, .login-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.15);
+      transform: translate(-50%, -50%);
+      transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1), height 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+    }
+
+    .icon-btn:hover::before, .login-btn:hover::before {
+      width: 200px;
+      height: 200px;
+    }
+
+    .icon-btn:hover, .login-btn:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 
+        0 20px 28px -10px rgba(0, 80, 200, 0.35),
+        0 0 0 1px rgba(59,130,246,0.25),
+        inset 0 -3px 0 rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 0 40px -10px rgba(59, 130, 246, 0.3);
+      background: linear-gradient(145deg, #ffffff, #e8f0fe);
+    }
+
+    .icon-btn:active, .login-btn:active {
+      transform: translateY(0px) scale(0.98);
+      box-shadow: 
+        0 4px 6px -2px rgba(0,0,0,0.2),
+        inset 0 3px 6px rgba(0,0,0,0.08),
+        inset 0 -1px 0 rgba(255,255,255,0.5);
+    }
+
+    .login-btn {
+      width: auto;
+      padding: 0 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e3a8a;
+      gap: 0.5rem;
+      letter-spacing: 0.2px;
+    }
+
+    .login-btn i {
+      font-size: 0.85rem;
+      transition: transform 0.3s ease;
+    }
+
+    .login-btn:hover i {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      padding: 11px 9px;
+      border-radius: 30px;
+      box-shadow: 
+        0 8px 12px -6px rgba(0, 0, 0, 0.12),
+        inset 0 -2px 0 rgba(0,0,0,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hamburger:hover {
+      transform: scale(1.06);
+      box-shadow: 
+        0 16px 20px -8px rgba(0, 80, 200, 0.25),
+        inset 0 -2px 0 rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 0 30px -8px rgba(59, 130, 246, 0.3);
+    }
+
+    .hamburger span {
+      display: block;
+      height: 2.5px;
+      width: 100%;
+      background: #1e293b;
+      border-radius: 4px;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ===== MOBILE MENU ===== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 90px;
+      left: 1rem;
+      right: 1rem;
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 36px;
+      padding: 2rem 1.5rem;
+      box-shadow: 
+        0 40px 70px -20px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(24px);
+      z-index: 1000;
+      flex-direction: column;
+      gap: 2rem;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: top center;
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+      scrollbar-width: thin;
+      scrollbar-color: #3b82f6 rgba(0, 0, 0, 0.05);
+    }
+
+    /* Custom Scrollbar for Mobile Menu */
+    .mobile-menu::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .mobile-menu::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.04);
+      border-radius: 10px;
+      margin: 1.2rem 0;
+    }
+
+    .mobile-menu::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+      border-radius: 10px;
+    }
+
+    .mobile-menu::-webkit-scrollbar-thumb:hover {
+      background: #2563eb;
+    }
+
+    body.dark .mobile-menu {
+      scrollbar-color: #60a5fa rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark .mobile-menu::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    body.dark .mobile-menu::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #60a5fa, #a78bfa);
+    }
+
+    .mobile-menu.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+    }
+
+    .mobile-nav-links > li > a,
+    .mobile-dropdown-header > a {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #1e293b;
+      display: block;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      padding: 0.3rem 0;
+      position: relative;
+    }
+
+    .mobile-nav-links > li > a::before,
+    .mobile-dropdown-header > a::before {
+      content: '→';
+      position: absolute;
+      left: -20px;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      color: #3b82f6;
+    }
+
+    .mobile-nav-links > li > a:hover,
+    .mobile-dropdown-header > a:hover {
+      color: #3b82f6;
+      transform: translateX(10px);
+    }
+
+    .mobile-nav-links > li > a:hover::before,
+    .mobile-dropdown-header > a:hover::before {
+      opacity: 1;
+      left: -25px;
+    }
+
+    /* MOBILE DROPDOWN STYLES */
+    .mobile-dropdown {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-dropdown-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .mobile-dropdown-toggle {
+      background: none;
+      border: none;
+      color: #1e293b;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: 8px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .mobile-dropdown.open .mobile-dropdown-toggle {
+      transform: rotate(180deg);
+      color: #3b82f6;
+    }
+
+    .mobile-submenu {
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      padding-left: 1.2rem;
+    }
+
+    .mobile-dropdown.open .mobile-submenu {
+      max-height: 200px;
+      opacity: 1;
+      padding-top: 0.6rem;
+      padding-bottom: 0.4rem;
+    }
+
+    .mobile-submenu a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.25s ease;
+      padding: 0.2rem 0;
+    }
+
+    .mobile-submenu a i {
+      color: #3b82f6;
+      font-size: 0.85rem;
+      width: 18px;
+      text-align: center;
+    }
+
+    .mobile-submenu a:hover {
+      color: #3b82f6;
+      transform: translateX(6px);
+    }
+
+    body.dark .mobile-dropdown-header > a {
+      color: #b8c9e8;
+    }
+
+    body.dark .mobile-dropdown-toggle {
+      color: #b8c9e8;
+    }
+
+    body.dark .mobile-dropdown.open .mobile-dropdown-toggle {
+      color: #60a5fa;
+    }
+
+    body.dark .mobile-submenu a {
+      color: #94a3b8;
+    }
+
+    body.dark .mobile-submenu a:hover {
+      color: #60a5fa;
+    }
+
+    body.rtl .mobile-dropdown-header > a::before {
+      content: '←';
+      left: auto;
+      right: -20px;
+    }
+
+    body.rtl .mobile-dropdown-header > a:hover {
+      transform: translateX(-10px);
+    }
+
+    body.rtl .mobile-dropdown-header > a:hover::before {
+      right: -25px;
+      left: auto;
+    }
+
+    body.rtl .mobile-submenu {
+      padding-left: 0;
+      padding-right: 1.2rem;
+    }
+
+    body.rtl .mobile-submenu a:hover {
+      transform: translateX(-6px);
+    }
+
+    .mobile-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.2rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding-top: 1.5rem;
+    }
+
+
+
+    /* ===== RTL TWEAKS ===== */
+    body.rtl .mobile-nav-links a::before {
+      content: '←';
+      left: auto;
+      right: -20px;
+    }
+
+    body.rtl .mobile-nav-links a:hover {
+      transform: translateX(-10px);
+    }
+
+    body.rtl .mobile-nav-links a:hover::before {
+      right: -25px;
+      left: auto;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 0.5rem 1.4rem !important;
+      }
+      .nav-links {
+        gap: 1rem;
+      }
+      .nav-links > li > a {
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links, .right-section .icon-btn, .right-section .login-btn {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .nav-container {
+        padding: 0.45rem 1.4rem !important;
+      }
+      .right-section {
+        gap: 0.7rem; margin: 0 !important;
+      }
+      .mobile-menu {
+        display: none;
+      }
+      .mobile-menu.active {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 1.1rem;
+      }
+      .logo-3d {
+        width: 18px;
+        height: 18px;
+      }
+      .logo-face {
+        width: 18px;
+        height: 18px;
+        font-size: 0.5rem;
+        border-radius: 5px;
+      }
+      .logo-face:nth-child(1) { transform: rotateY(0deg) translateZ(9px); }
+      .logo-face:nth-child(2) { transform: rotateY(90deg) translateZ(9px); }
+      .logo-face:nth-child(3) { transform: rotateY(180deg) translateZ(9px); }
+      .logo-face:nth-child(4) { transform: rotateY(-90deg) translateZ(9px); }
+      .logo-face:nth-child(5) { transform: rotateX(90deg) translateZ(9px); }
+      .logo-face:nth-child(6) { transform: rotateX(-90deg) translateZ(9px); }
+      .hamburger {
+        width: 38px;
+        height: 38px;
+        padding: 9px 7px;
+      }
+    }
+
+    /* ===== SMOOTH PAGE ENTRANCE ===== */
+    .nav-container {
+      animation: fadeSlideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeSlideInFooter {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== FOOTER CONTAINER ===== */
+    .footer-container {
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 44px;
+      padding: 3rem 3rem 2rem;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 20, 40, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 0 80px -20px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(24px);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      margin-top: 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+      position: relative;
+      animation: fadeSlideInFooter 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.15s both;
+    }
+
+    body.dark .footer-container {
+      background: rgba(21, 30, 44, 0.92);
+      border-color: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(59, 130, 246, 0.15);
+    }
+
+    /* ===== FOOTER CTA NEWSLETTER CARD ===== */
+    .footer-cta {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.07), rgba(139, 92, 246, 0.07));
+      border: 1px solid rgba(59, 130, 246, 0.18);
+      border-radius: 30px;
+      padding: 2.2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      box-shadow: 0 15px 30px -10px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.dark .footer-cta {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.3), rgba(109, 40, 217, 0.2));
+      border-color: rgba(96, 165, 250, 0.25);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-cta-text {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .footer-cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-cta-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.3px;
+    }
+
+    body.dark .footer-cta-title {
+      color: #f1f5f9;
+    }
+
+    .footer-cta-desc {
+      font-size: 0.92rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    body.dark .footer-cta-desc {
+      color: #94a3b8;
+    }
+
+    .footer-cta-form-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 380px;
+    }
+
+    .footer-form {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50px;
+      padding: 0.35rem 0.35rem 0.35rem 1.2rem;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    body.dark .footer-form {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(96, 165, 250, 0.3);
+      box-shadow: 0 8px 25px -6px rgba(0, 0, 0, 0.6);
+    }
+
+    .footer-form:focus-within {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25), 0 10px 25px -8px rgba(59, 130, 246, 0.3);
+    }
+
+    .footer-form input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: #1e293b;
+      width: 100%;
+      padding: 0.4rem 0.5rem;
+    }
+
+    body.dark .footer-form input {
+      color: #f1f5f9;
+    }
+
+    .footer-form input::placeholder {
+      color: #94a3b8;
+    }
+
+    .footer-form button {
+      border: none;
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      padding: 0.65rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
+      flex-shrink: 0;
+    }
+
+    .footer-form button:hover {
+      transform: translateY(-2px) scale(1.03);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.45);
+    }
+
+    .footer-form button:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .footer-privacy-note {
+      font-size: 0.76rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding-left: 0.5rem;
+    }
+
+    /* ===== MAIN FOOTER GRID ===== */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1.05fr 1.25fr 1.35fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .footer-col-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .footer-brand-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    body.dark .footer-brand-desc {
+      color: #94a3b8;
+    }
+
+    .footer-metrics-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .metric-pill {
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      background: rgba(59, 130, 246, 0.08);
+      color: #2563eb;
+      border: 1px solid rgba(59, 130, 246, 0.16);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    body.dark .metric-pill {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .footer-social-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 0.4rem;
+    }
+
+    .footer-social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      color: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 0.95rem;
+      box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body.dark .footer-social-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.6);
+    }
+
+    .footer-social-btn:hover {
+      transform: translateY(-3px) scale(1.08);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    /* FOOTER COLUMNS */
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-col-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.2px;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    body.dark .footer-col-title {
+      color: #f8fafc;
+    }
+
+    .footer-col-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 24px;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 2px;
+    }
+
+    body.rtl .footer-col-title::after {
+      left: auto;
+      right: 0;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-size: 0.88rem;
+      color: #475569;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      position: relative;
+    }
+
+    .footer-links a i {
+      font-size: 0.72rem;
+      opacity: 0.7;
+      color: #3b82f6;
+      transition: transform 0.25s ease;
+    }
+
+    body.dark .footer-links a {
+      color: #94a3b8;
+    }
+
+    body.dark .footer-links a i {
+      color: #60a5fa;
+    }
+
+    .footer-links a:hover {
+      color: #2563eb;
+      transform: translateX(4px);
+    }
+
+    .footer-links a:hover i {
+      transform: translateX(2px);
+    }
+
+    body.dark .footer-links a:hover {
+      color: #60a5fa;
+    }
+
+    body.rtl .footer-links a:hover {
+      transform: translateX(-4px);
+    }
+
+    body.rtl .footer-links a i.fa-chevron-right {
+      transform: rotate(180deg);
+    }
+
+    .footer-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    body.dark .footer-contact-item {
+      color: #94a3b8;
+    }
+
+    .footer-contact-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(59, 130, 246, 0.1);
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    body.dark .footer-contact-icon {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+
+    .ops-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 30px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #15803d;
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      margin-top: 0.4rem;
+    }
+
+    body.dark .ops-status {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+      animation: statusPulse 2s infinite ease-in-out;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* ===== FOOTER BOTTOM BAR ===== */
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      padding-top: 1.8rem;
+      font-size: 0.84rem;
+      color: #64748b;
+    }
+
+    body.dark .footer-bottom {
+      border-top-color: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+
+    .footer-legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.2rem;
+      list-style: none;
+    }
+
+    .footer-legal-links a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-legal-links a:hover {
+      color: #2563eb;
+    }
+
+    body.dark .footer-legal-links a:hover {
+      color: #60a5fa;
+    }
+
+    .back-to-top-btn {
+      border: none;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e293b;
+      padding: 0.55rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 6px 12px -4px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body.dark .back-to-top-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .back-to-top-btn:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ===== RESPONSIVE FOOTER ===== */
+    @media (max-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem 2.2rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .footer-container {
+        padding: 2.2rem 1.6rem 1.5rem;
+        border-radius: 36px;
+        margin-top: 3.5rem;
+      }
+      .footer-cta {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.8rem 1.5rem;
+      }
+      .footer-cta-form-wrapper {
+        min-width: 100%;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .footer-form {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 0.6rem;
+        gap: 0.5rem;
+      }
+      .footer-form button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  
+    /* =====================================================================
+       REDESIGNED ABOUT ARCHITECTURE: HERITAGE, ETHOS & ENTERPRISE CITADEL
+       Supports Light Mode, Dark Mode (body.dark), and RTL (body.rtl)
+       ===================================================================== */
+    :root {
+      --abt-primary: #1e3a8a;
+      --abt-primary-dark: #0f172a;
+      --abt-accent: #d97706;
+      --abt-accent-light: #fbbf24;
+      --abt-accent-glow: rgba(217, 119, 6, 0.16);
+      --abt-amber: #b45309;
+      --abt-emerald: #059669;
+      --abt-emerald-glow: rgba(5, 150, 105, 0.16);
+      --abt-indigo: #4338ca;
+      --abt-indigo-glow: rgba(67, 56, 202, 0.16);
+      --abt-bg: #f8fafc;
+      --abt-surface: #ffffff;
+      --abt-surface-muted: #f1f5f9;
+      --abt-card-border: #e2e8f0;
+      --abt-text-main: #0f172a;
+      --abt-text-muted: #64748b;
+      --abt-text-light: #94a3b8;
+      --abt-gold-gradient: linear-gradient(135deg, #b45309 0%, #d97706 50%, #f59e0b 100%);
+      --abt-blue-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      --abt-shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --abt-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --abt-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --abt-shadow-glow: 0 0 25px rgba(217, 119, 6, 0.22);
+    }
+
+    body.dark {
+      --abt-bg: #070b14;
+      --abt-surface: #0f172a;
+      --abt-surface-muted: #131d33;
+      --abt-card-border: #1e293b;
+      --abt-text-main: #f8fafc;
+      --abt-text-muted: #94a3b8;
+      --abt-text-light: #64748b;
+      --abt-blue-gradient: linear-gradient(135deg, #070b14 0%, #172554 100%);
+    }
+
+    /* RTL Support */
+    body.rtl .abt-section-head { text-align: right; }
+    body.rtl .abt-badge i { margin-left: 0.5rem; margin-right: 0; }
+    body.rtl .abt-btn i { margin-right: 0.5rem; margin-left: 0; }
+
+    /* Base Container */
+    .abt-page-wrap {
+      background-color: var(--abt-bg);
+      color: var(--abt-text-main);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: clip;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .abt-container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* SECTION HEADER STYLING */
+    .abt-section-head {
+      margin-bottom: 3.5rem;
+      position: relative;
+    }
+
+    .abt-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 9999px;
+      background: var(--abt-accent-glow);
+      color: var(--abt-accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(217, 119, 6, 0.3);
+    }
+
+    .abt-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--abt-text-main);
+      margin-bottom: 1rem;
+    }
+
+    .abt-title-gradient {
+      background: var(--abt-gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .abt-subtitle {
+      font-size: 1.1rem;
+      color: var(--abt-text-muted);
+      max-width: 760px;
+      line-height: 1.65;
+    }
+
+    /* BUTTONS */
+    .abt-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.6rem;
+      border-radius: 0.6rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+    }
+
+    .abt-btn-primary {
+      background: var(--abt-gold-gradient);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+    }
+
+    .abt-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(217, 119, 6, 0.45);
+      color: #ffffff;
+    }
+
+    .abt-btn-outline {
+      background: transparent;
+      color: var(--abt-text-main);
+      border-color: var(--abt-card-border);
+    }
+
+    .abt-btn-outline:hover {
+      border-color: var(--abt-accent);
+      color: var(--abt-accent);
+      background: var(--abt-accent-glow);
+    }
+
+    /* =====================================================================
+       FRAMER MOTION SPECIFIC CLASSES & KEYFRAMES (1 PER SECTION)
+       ===================================================================== */
+
+    /* 1. Company Heritage: .framer-epoch-chronicle */
+    .framer-epoch-chronicle {
+      opacity: 0;
+      transform: translateY(35px) scale(0.98);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .framer-epoch-chronicle.framer-in-view {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* 2. Mission & Vision: .framer-polarity-gyro */
+    .framer-polarity-gyro {
+      opacity: 0;
+      transform: scale(0.95) rotateY(4deg);
+      transition: opacity 0.75s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .framer-polarity-gyro.framer-in-view {
+      opacity: 1;
+      transform: scale(1) rotateY(0deg);
+    }
+
+    /* 3. Philosophy: .framer-triad-pedestal */
+    .framer-triad-pedestal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .framer-triad-pedestal.framer-in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 4. Leadership Team: .framer-council-quad */
+    .framer-council-quad {
+      opacity: 0;
+      transform: translateY(30px) scale(0.97);
+      transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1),
+                  transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .framer-council-quad.framer-in-view {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* 5. Specialists: .framer-division-matrix */
+    .framer-division-matrix {
+      opacity: 0;
+      transform: translateX(-35px) scale(0.98);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .framer-division-matrix.framer-in-view {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+
+    /* 6. Client Portfolio: .framer-marquee-portfolio */
+    .framer-marquee-portfolio {
+      opacity: 0;
+      transform: translateY(35px);
+      filter: blur(3px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.8s ease;
+    }
+    .framer-marquee-portfolio.framer-in-view {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+    }
+
+    /* 7. Safety & Advantage: .framer-citadel-moat */
+    .framer-citadel-moat {
+      opacity: 0;
+      transform: scale(0.94) translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.33, 1, 0.68, 1),
+                  transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+    .framer-citadel-moat.framer-in-view {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    /* =====================================================================
+       SECTION 1: COMPANY HERITAGE - EPOCH RIBBON & DUAL CHRONICLE
+       ===================================================================== */
+    .abt-section-heritage {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .abt-heritage-stats-ribbon {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.25rem;
+      padding: 1.5rem 2rem;
+      box-shadow: var(--abt-shadow-sm);
+      margin-bottom: 3rem;
+    }
+
+    .abt-hstat-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .abt-hstat-icon {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 0.75rem;
+      background: var(--abt-accent-glow);
+      color: var(--abt-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+    }
+
+    .abt-hstat-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--abt-text-main);
+      line-height: 1.2;
+    }
+
+    .abt-hstat-lbl {
+      font-size: 0.78rem;
+      color: var(--abt-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .abt-heritage-chronicle-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1.2fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .abt-monolith-visual-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--abt-shadow-md);
+      position: relative;
+    }
+
+    .abt-monolith-img-wrap {
+      height: 440px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .abt-monolith-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .abt-monolith-visual-card:hover .abt-monolith-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .abt-wax-seal {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 1.2rem;
+      border-radius: 9999px;
+      color: #fbbf24;
+      font-size: 0.85rem;
+      font-weight: 800;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Right Epoch Ribbon Stack */
+    .abt-epoch-ribbon-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .abt-epoch-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.25rem;
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--abt-shadow-sm);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .abt-epoch-card:hover,
+    .abt-epoch-card.active {
+      border-color: var(--abt-accent);
+      box-shadow: var(--abt-shadow-md);
+      transform: translateX(4px);
+    }
+
+    body.rtl .abt-epoch-card:hover,
+    body.rtl .abt-epoch-card.active {
+      transform: translateX(-4px);
+    }
+
+    .abt-epoch-card.active::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 4px;
+      background: var(--abt-accent);
+      border-radius: 1.25rem 0 0 1.25rem;
+    }
+
+    body.rtl .abt-epoch-card.active::before {
+      left: auto;
+      right: 0;
+      border-radius: 0 1.25rem 1.25rem 0;
+    }
+
+    .abt-epoch-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .abt-epoch-dates {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--abt-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .abt-epoch-era {
+      font-size: 0.75rem;
+      color: var(--abt-text-muted);
+      font-weight: 600;
+    }
+
+    .abt-epoch-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--abt-text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    .abt-epoch-desc {
+      font-size: 0.88rem;
+      color: var(--abt-text-muted);
+      line-height: 1.5;
+    }
+
+    /* =====================================================================
+       SECTION 2: MISSION & VISION - DUAL-POLARITY HORIZON DECK
+       ===================================================================== */
+    .abt-section-mission-vision {
+      padding: 6rem 0;
+      background: var(--abt-surface-muted);
+      border-top: 1px solid var(--abt-card-border);
+      border-bottom: 1px solid var(--abt-card-border);
+    }
+
+    .abt-polarity-deck-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    .abt-polarity-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--abt-shadow-md);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .abt-polarity-img-box {
+      height: 240px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .abt-polarity-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .abt-vision-hud-box {
+      height: 240px;
+      position: relative;
+      background: radial-gradient(circle at center, #172554 0%, #070b14 100%);
+      border-bottom: 1px solid var(--abt-card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .abt-hud-radar-ring {
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      border: 2px dashed rgba(217, 119, 6, 0.4);
+      animation: abtSpinSlow 25s linear infinite;
+    }
+
+    @keyframes abtSpinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .abt-hud-icon {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 1rem;
+      background: var(--abt-accent-glow);
+      color: var(--abt-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.85rem;
+      z-index: 2;
+      box-shadow: 0 0 25px rgba(217, 119, 6, 0.35);
+      border: 1px solid rgba(217, 119, 6, 0.3);
+    }
+
+    .abt-hud-telemetry-tag {
+      margin-top: 0.85rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--abt-accent-light);
+      z-index: 2;
+    }
+
+    .abt-polarity-badge {
+      position: absolute;
+      top: 1.25rem;
+      left: 1.25rem;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+
+    .abt-polarity-body {
+      padding: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .abt-polarity-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--abt-text-main);
+      margin-bottom: 1rem;
+    }
+
+    .abt-polarity-desc {
+      font-size: 0.95rem;
+      color: var(--abt-text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .abt-polarity-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: auto;
+    }
+
+    .abt-pbullet-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--abt-text-main);
+    }
+
+    .abt-pbullet-row i {
+      color: var(--abt-accent);
+      margin-top: 0.2rem;
+    }
+
+    /* =====================================================================
+       SECTION 3: PHILOSOPHY - TRIAD PRINCIPLES PEDESTAL
+       ===================================================================== */
+    .abt-section-philosophy {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .abt-philosophy-hero-frame {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--abt-shadow-md);
+      margin-bottom: 3.5rem;
+    }
+
+    .abt-philosophy-img-box {
+      height: 320px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .abt-philosophy-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .abt-philosophy-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 20%, rgba(15, 23, 42, 0.88) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 2rem 2.5rem;
+      color: #ffffff;
+    }
+
+    .abt-philosophy-manifesto {
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.45;
+      max-width: 860px;
+    }
+
+    .abt-triad-pedestals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .abt-pedestal-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.25rem;
+      padding: 2.25rem;
+      box-shadow: var(--abt-shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .abt-pedestal-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--abt-shadow-md);
+      border-color: var(--abt-accent);
+    }
+
+    .abt-pedestal-num {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.85rem;
+      background: var(--abt-accent-glow);
+      color: var(--abt-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+
+    .abt-pedestal-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--abt-text-main);
+      margin-bottom: 0.75rem;
+    }
+
+    .abt-pedestal-desc {
+      font-size: 0.92rem;
+      color: var(--abt-text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .abt-pedestal-points {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: auto;
+      font-size: 0.82rem;
+      color: var(--abt-text-main);
+    }
+
+    .abt-pedestal-points i {
+      color: var(--abt-emerald);
+      margin-right: 0.4rem;
+    }
+
+    body.rtl .abt-pedestal-points i {
+      margin-right: 0;
+      margin-left: 0.4rem;
+    }
+
+    /* =====================================================================
+       SECTION 4: LEADERSHIP TEAM - EXECUTIVE COUNCIL QUAD-MOSAIC
+       ===================================================================== */
+    .abt-section-leadership {
+      padding: 6rem 0;
+      background: var(--abt-surface-muted);
+      border-top: 1px solid var(--abt-card-border);
+      border-bottom: 1px solid var(--abt-card-border);
+    }
+
+    .abt-council-mosaic-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.75rem;
+    }
+
+    .abt-leader-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--abt-shadow-sm);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .abt-leader-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--abt-shadow-md);
+      border-color: var(--abt-accent);
+    }
+
+    .abt-leader-img-box {
+      height: 280px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .abt-leader-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .abt-leader-card:hover .abt-leader-img-box img {
+      transform: scale(1.05);
+    }
+
+    .abt-leader-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .abt-leader-role {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--abt-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+    }
+
+    .abt-leader-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--abt-text-main);
+      margin-bottom: 0.75rem;
+    }
+
+    .abt-leader-bio {
+      font-size: 0.85rem;
+      color: var(--abt-text-muted);
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+    }
+
+    .abt-leader-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--abt-card-border);
+    }
+
+    .abt-leader-credential {
+      font-size: 0.75rem;
+      color: var(--abt-text-light);
+      font-weight: 600;
+    }
+
+    .abt-leader-btn {
+      color: var(--abt-accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* =====================================================================
+       SECTION 5: SPECIALISTS - DIVISION COMMAND MATRIX
+       ===================================================================== */
+    .abt-section-specialists {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .abt-division-matrix-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .abt-specialists-visual-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--abt-shadow-md);
+    }
+
+    .abt-spec-img-box {
+      height: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .abt-spec-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .abt-spec-badge-floating {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      padding: 0.6rem 1.25rem;
+      border-radius: 9999px;
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .abt-divisions-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .abt-division-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      box-shadow: var(--abt-shadow-sm);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .abt-division-card:hover,
+    .abt-division-card.active {
+      border-color: var(--abt-accent);
+      box-shadow: var(--abt-shadow-md);
+      transform: translateX(4px);
+    }
+
+    body.rtl .abt-division-card:hover,
+    body.rtl .abt-division-card.active {
+      transform: translateX(-4px);
+    }
+
+    .abt-div-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .abt-div-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--abt-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .abt-div-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--abt-text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .abt-div-desc {
+      font-size: 0.88rem;
+      color: var(--abt-text-muted);
+      line-height: 1.5;
+    }
+
+    /* =====================================================================
+       SECTION 6: CLIENT PORTFOLIO - MARQUEE SUMMITS & SECTOR ROSTER
+       ===================================================================== */
+    .abt-section-portfolio {
+      padding: 6rem 0;
+      background: var(--abt-surface-muted);
+      border-top: 1px solid var(--abt-card-border);
+      border-bottom: 1px solid var(--abt-card-border);
+    }
+
+    .abt-portfolio-marquee-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .abt-portfolio-hero-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--abt-shadow-md);
+    }
+
+    .abt-port-img-box {
+      height: 320px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .abt-port-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .abt-port-body {
+      padding: 2rem;
+    }
+
+    .abt-port-quote {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--abt-text-main);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .abt-port-author {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--abt-accent);
+    }
+
+    .abt-sectors-deck {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .abt-sector-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      box-shadow: var(--abt-shadow-sm);
+      transition: all 0.25s ease;
+    }
+
+    .abt-sector-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--abt-shadow-md);
+      border-color: var(--abt-accent);
+    }
+
+    .abt-sec-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.6rem;
+      background: var(--abt-accent-glow);
+      color: var(--abt-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .abt-sec-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--abt-text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .abt-sec-clients {
+      font-size: 0.82rem;
+      color: var(--abt-text-muted);
+      line-height: 1.45;
+    }
+
+    /* =====================================================================
+       SECTION 7: SAFETY & ADVANTAGE - INSTITUTIONAL CITADEL & MOAT
+       ===================================================================== */
+    .abt-section-safety {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .abt-citadel-split-grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .abt-citadel-visual-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--abt-shadow-md);
+    }
+
+    .abt-citadel-img-box {
+      height: 260px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .abt-citadel-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .abt-citadel-body {
+      padding: 2rem;
+    }
+
+    .abt-citadel-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--abt-text-main);
+      margin-bottom: 0.75rem;
+    }
+
+    .abt-citadel-desc {
+      font-size: 0.88rem;
+      color: var(--abt-text-muted);
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+    }
+
+    .abt-citadel-cert-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      font-size: 0.82rem;
+      color: var(--abt-text-main);
+    }
+
+    .abt-citadel-cert-list i {
+      color: var(--abt-emerald);
+      margin-right: 0.5rem;
+    }
+
+    body.rtl .abt-citadel-cert-list i {
+      margin-right: 0;
+      margin-left: 0.5rem;
+    }
+
+    /* Right 4-Pillar Moat Grid */
+    .abt-moat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .abt-moat-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      box-shadow: var(--abt-shadow-sm);
+      transition: all 0.25s ease;
+    }
+
+    .abt-moat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--abt-shadow-md);
+      border-color: var(--abt-accent);
+    }
+
+    .abt-moat-icon {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 0.75rem;
+      background: var(--abt-accent-glow);
+      color: var(--abt-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      margin-bottom: 1rem;
+    }
+
+    .abt-moat-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--abt-text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .abt-moat-desc {
+      font-size: 0.85rem;
+      color: var(--abt-text-muted);
+      line-height: 1.55;
+    }
+
+    /* Interactive Dossier Modal */
+    .abt-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .abt-modal-card {
+      background: var(--abt-surface);
+      border: 1px solid var(--abt-card-border);
+      border-radius: 1.5rem;
+      max-width: 540px;
+      width: 100%;
+      padding: 2.5rem;
+      box-shadow: var(--abt-shadow-lg);
+      position: relative;
+    }
+
+    .abt-modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: transparent;
+      border: none;
+      color: var(--abt-text-muted);
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    body.rtl .abt-modal-close {
+      right: auto;
+      left: 1.25rem;
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 1100px) {
+      .abt-heritage-stats-ribbon { grid-template-columns: repeat(2, 1fr); }
+      .abt-heritage-chronicle-grid { grid-template-columns: 1fr; }
+      .abt-polarity-deck-grid { grid-template-columns: 1fr; }
+      .abt-triad-pedestals-grid { grid-template-columns: 1fr; }
+      .abt-council-mosaic-grid { grid-template-columns: repeat(2, 1fr); }
+      .abt-division-matrix-grid { grid-template-columns: 1fr; }
+      .abt-portfolio-marquee-grid { grid-template-columns: 1fr; }
+      .abt-citadel-split-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .abt-heritage-stats-ribbon { grid-template-columns: 1fr; }
+      .abt-council-mosaic-grid { grid-template-columns: 1fr; }
+      .abt-sectors-deck { grid-template-columns: 1fr; }
+      .abt-moat-grid { grid-template-columns: 1fr; }
+      .abt-title { font-size: 2rem; }
+      .abt-monolith-img-wrap { height: 300px; }
+    }
+
+  
+    /* RESPONSIVE_PUBLIC_MASTER */
+    /* ==========================================================================
+       MOBILE-FIRST RESPONSIVE SUITE (320px, 480px, 768px, 1024px)
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box !important;
+    }
+
+    html {
+      overflow-x: clip !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      overflow-x: clip !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    img, picture, video, canvas, svg, iframe {
+      max-width: 100% !important;
+      height: auto;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, span, a, label, li, button, td, th {
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      word-break: break-word;
+    }
+
+    .app-wrapper {
+      width: 100% !important;
+      max-width: 1440px !important;
+      box-sizing: border-box !important;
+      margin: 0 auto !important;
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+      overflow: visible !important;
+      overflow-x: clip !important;
+    }
+
+    .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+      width: 100% !important;
+      max-width: 1280px !important;
+      box-sizing: border-box !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+
+    button, .btn, .btn-hero-primary, .btn-hero-secondary, .login-btn, [class*="btn-"] {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .glass-card, [class*="-card"], [class*="-glass-card"] {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    
+    /* ===== NAVBAR BULLETPROOF ALIGNMENT ===== */
+    .nav-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      overflow: visible !important;
+    }
+
+    .nav-container .logo-section,
+    .logo-section {
+      width: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.6rem !important;
+      flex-shrink: 0 !important;
+    }
+
+    .nav-container .right-section,
+    .right-section {
+      width: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      flex-shrink: 0 !important;
+    }
+
+    body.rtl .nav-container .right-section,
+    body.rtl .right-section {
+      justify-content: flex-start !important;
+    }
+
+    .hamburger {
+      flex-shrink: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* --- BREAKPOINT: 1024px --- */
+    @media (max-width: 1024px) {
+      .app-wrapper {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 3.5rem !important;
+        margin-bottom: 3.5rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      .section-header {
+        margin-bottom: 2.2rem !important;
+        gap: 0.6rem !important;
+      }
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(2.2rem, 5vw, 2.9rem) !important;
+        line-height: 1.25 !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.75rem, 4vw, 2.2rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: clamp(1.2rem, 3vw, 1.45rem) !important;
+      }
+
+      /* Navbar Collapse */
+      .nav-links, .right-section .icon-btn, .right-section .login-btn {
+        display: none !important;
+      }
+      .hamburger {
+        display: flex !important;
+      }
+      .nav-container {
+        padding: 0.5rem 1.4rem !important;
+      }
+
+      /* 2-Column Grids */
+      .bento-grid, 
+      .features-grid, 
+      .services-grid, 
+      .portfolio-grid, 
+      .team-grid, 
+      .testimonials-grid, 
+      .pricing-grid,
+      .gallery-masonry-grid,
+      .stats-grid,
+      .hero-highlights-grid,
+      [class*="-grid"] {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 1.5rem !important;
+      }
+
+      .hero-container,
+      .venues-split-grid,
+      .success-industry-grid,
+      .testimonials-rfp-grid,
+      .process-details-card,
+      [class*="-split-grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 2.2rem !important;
+      }
+
+      .footer-container {
+        padding: 2.5rem 2rem 1.8rem !important;
+        border-radius: 36px !important;
+        margin-top: 3.5rem !important;
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 2rem !important;
+      }
+      .footer-cta {
+        padding: 1.8rem 1.5rem !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 768px --- */
+    @media (max-width: 768px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 2.8rem !important;
+        margin-bottom: 2.8rem !important;
+        padding-left: 0.85rem !important;
+        padding-right: 0.85rem !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(1.85rem, 5.5vw, 2.35rem) !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.45rem, 4.5vw, 1.85rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: clamp(1.15rem, 3.5vw, 1.35rem) !important;
+      }
+      p, .hero-paragraph, .section-desc {
+        font-size: 0.92rem !important;
+        line-height: 1.6 !important;
+      }
+
+      /* Single-Column Stack */
+      .bento-grid, 
+      .features-grid, 
+      .services-grid, 
+      .portfolio-grid, 
+      .team-grid, 
+      .testimonials-grid, 
+      .pricing-grid,
+      .gallery-masonry-grid,
+      .stepper-roadmap,
+      .stepper-nav-bar,
+      .success-industry-grid,
+      .rfp-form-grid,
+      .rfp-type-group,
+      [class*="-grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+
+      .gallery-card.span-2,
+      .col-span-2,
+      [class*="span-"] {
+        grid-column: span 1 !important;
+      }
+
+      /* Stack Buttons */
+      .hero-cta-group, .cta-group, .btn-row {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.75rem !important;
+      }
+      .btn-hero-primary, .btn-hero-secondary, .btn-primary, .btn-secondary, [class*="btn-hero-"] {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 0.85rem 1.4rem !important;
+      }
+
+      .hero-metrics-bar {
+        grid-template-columns: 1fr !important;
+        flex-direction: column !important;
+        gap: 0.85rem !important;
+        width: 100% !important;
+      }
+      .roi-metrics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 0.75rem !important;
+      }
+
+      .countdown-clock {
+        grid-template-columns: repeat(4, 1fr) !important;
+        padding: 0.6rem !important;
+        gap: 0.4rem !important;
+      }
+      .time-num { font-size: 1.15rem !important; }
+      .time-label { font-size: 0.65rem !important; }
+
+      /* Footer */
+      .footer-container {
+        padding: 2.2rem 1.25rem 1.5rem !important;
+        border-radius: 28px !important;
+        margin-top: 2.8rem !important;
+        gap: 2rem !important;
+      }
+      .footer-cta {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 1.6rem 1.25rem !important;
+        gap: 1.25rem !important;
+        border-radius: 22px !important;
+      }
+      .footer-cta-form-wrapper {
+        min-width: 0 !important;
+        width: 100% !important;
+      }
+      .footer-form {
+        flex-direction: column !important;
+        border-radius: 18px !important;
+        padding: 0.5rem !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+      }
+      .footer-form input {
+        width: 100% !important;
+        border-radius: 12px !important;
+        padding: 0.65rem 0.85rem !important;
+      }
+      .footer-form button {
+        width: 100% !important;
+        justify-content: center !important;
+        border-radius: 12px !important;
+        padding: 0.65rem 1rem !important;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.8rem !important;
+      }
+      .footer-bottom {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1.2rem !important;
+      }
+      .footer-legal-links {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.6rem !important;
+      }
+
+      .es-modal-dialog, .modal-dialog {
+        width: 94% !important;
+        max-width: 100% !important;
+        padding: 1.5rem 1.25rem !important;
+        margin: 1rem auto !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 480px --- */
+    @media (max-width: 480px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 2.2rem !important;
+        margin-bottom: 2.2rem !important;
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+
+      .app-wrapper {
+        padding-left: 0.6rem !important;
+        padding-right: 0.6rem !important;
+        padding-top: 0.8rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+
+      .nav-container {
+        padding: 0.45rem 1.25rem !important;
+        border-radius: 30px !important;
+        position: -webkit-sticky !important; position: sticky !important; top: 0.5rem !important;
+      }
+      .logo-text { font-size: 1.15rem !important; }
+      .logo-3d { width: 19px !important; height: 19px !important; }
+      .logo-face {
+        width: 19px !important;
+        height: 19px !important;
+        font-size: 0.52rem !important;
+        border-radius: 5px !important;
+      }
+      .hamburger {
+        width: 36px !important;
+        height: 36px !important;
+        padding: 8px 6px !important;
+      }
+
+      .mobile-menu {
+        border-radius: 20px !important;
+        padding: 1.25rem 1rem !important;
+      }
+      .mobile-nav-links > li > a, 
+      .mobile-dropdown-header > a {
+        font-size: 0.95rem !important;
+      }
+      .mobile-actions {
+        gap: 0.5rem !important;
+      }
+      .mobile-actions .login-btn {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(1.5rem, 6.8vw, 1.85rem) !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.25rem, 5.5vw, 1.55rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: 1.12rem !important;
+      }
+      .section-pill-badge {
+        font-size: 0.72rem !important;
+        padding: 0.3rem 0.75rem !important;
+      }
+
+      .glass-card, [class*="-card"], [class*="-glass-card"] {
+        padding: 1.35rem 1rem !important;
+        border-radius: 20px !important;
+      }
+
+      .roi-metrics-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.6rem !important;
+      }
+      .countdown-clock {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+      }
+
+      .footer-container {
+        padding: 1.8rem 0.95rem 1.2rem !important;
+        border-radius: 24px !important;
+        margin-top: 2.2rem !important;
+      }
+      .footer-cta-title { font-size: 1.22rem !important; }
+      .footer-cta-desc { font-size: 0.85rem !important; }
+      .metric-pill {
+        font-size: 0.72rem !important;
+        padding: 0.35rem 0.7rem !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 320px --- */
+    @media (max-width: 320px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 1.6rem !important;
+        margin-bottom: 1.6rem !important;
+        padding-left: 0.45rem !important;
+        padding-right: 0.45rem !important;
+      }
+
+      .app-wrapper {
+        padding-left: 0.35rem !important;
+        padding-right: 0.35rem !important;
+        padding-top: 0.5rem !important;
+      }
+
+      .nav-container {
+        padding: 0.4rem 1rem !important;
+        border-radius: 22px !important;
+        position: -webkit-sticky !important; position: sticky !important; top: 0.3rem !important;
+      }
+      .logo-text { font-size: 1.02rem !important; }
+      .logo-3d { width: 17px !important; height: 17px !important; }
+      .logo-face {
+        width: 17px !important;
+        height: 17px !important;
+        font-size: 0.48rem !important;
+        border-radius: 4px !important;
+      }
+      .hamburger {
+        width: 32px !important;
+        height: 32px !important;
+        padding: 7px 5px !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: 1.38rem !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: 1.18rem !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: 1.02rem !important;
+      }
+      p, .hero-paragraph, .section-desc {
+        font-size: 0.8rem !important;
+      }
+      .section-pill-badge {
+        font-size: 0.66rem !important;
+        padding: 0.25rem 0.55rem !important;
+      }
+
+      .glass-card, [class*="-card"], [class*="-glass-card"] {
+        padding: 1.1rem 0.75rem !important;
+        border-radius: 16px !important;
+      }
+
+      button, .btn, .btn-hero-primary, .btn-hero-secondary, .login-btn, [class*="btn-"] {
+        font-size: 0.78rem !important;
+        padding: 0.65rem 0.9rem !important;
+      }
+
+      .footer-container {
+        padding: 1.5rem 0.75rem 1rem !important;
+        border-radius: 18px !important;
+      }
+      .footer-cta {
+        padding: 1.25rem 0.75rem !important;
+        border-radius: 16px !important;
+      }
+      .footer-cta-title { font-size: 1.1rem !important; }
+      .footer-cta-desc { font-size: 0.78rem !important; }
+    }
+
+    /* END RESPONSIVE_PUBLIC_MASTER */
+  
+    /* FontAwesome Icon Fallback & Compatibility */
+    .fa-sparkles:before { content: "\e2ca" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+    .fa-radar:before { content: "\f7c0" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+    .fa-shield-check:before { content: "\f3ed" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+  </style>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- NAVBAR -->
+    <nav class="nav-container">
+      <div class="nav-shine"></div>
+      <!-- LEFT: LOGO (smaller 3D + text) -->
+      <a href="index.html" class="logo-section" style="text-decoration: none; cursor: pointer;">
+        <div class="logo-3d">
+          <div class="logo-cube">
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+          </div>
+        </div>
+        <div class="logo-text">Event<span>Sphere</span></div>
+      </a>
+
+      <!-- CENTER: DESKTOP NAV LINKS -->
+
+      <ul class="nav-links">
+        <li class="dropdown">
+          <a href="index.html" class="dropdown-toggle">Home <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="index.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-home"></i></span>
+                <span class="dropdown-item-title">Home 1</span>
+              </a>
+            </li>
+            <li>
+              <a href="home-2.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-building"></i></span>
+                <span class="dropdown-item-title">Home 2</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="active"><a href="about.html" class="active">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="event-planning.html">Event Planning</a></li>
+        <li><a href="vendors.html">Vendors</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="dropdown dropdown-right">
+          <a href="admin-dashboard.html" class="dropdown-toggle">Dashboard <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="admin-dashboard.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-shield-alt"></i></span>
+                <span class="dropdown-item-title">Admin Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="user-dashboard.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-user-circle"></i></span>
+                <span class="dropdown-item-title">User Dashboard</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- RIGHT: ICONS & LOGIN -->
+      <div class="right-section">
+        <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
+        <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
+        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <!-- Hamburger visible only on tablet/mobile -->
+        <button class="hamburger" id="hamburgerBtn">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul class="mobile-nav-links">
+        <li class="mobile-dropdown">
+          <div class="mobile-dropdown-header">
+            <a href="index.html">Home</a>
+            <button class="mobile-dropdown-toggle" aria-label="Toggle Home submenu"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <ul class="mobile-submenu">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home 1</a></li>
+            <li><a href="home-2.html"><i class="fas fa-building"></i> Home 2</a></li>
+          </ul>
+        </li>
+        <li class="active"><a href="about.html" class="active">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="event-planning.html">Event Planning</a></li>
+        <li><a href="vendors.html">Vendors</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="mobile-dropdown">
+          <div class="mobile-dropdown-header">
+            <a href="admin-dashboard.html">Dashboard</a>
+            <button class="mobile-dropdown-toggle" aria-label="Toggle Dashboard submenu"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <ul class="mobile-submenu">
+            <li><a href="admin-dashboard.html"><i class="fas fa-shield-alt"></i> Admin Dashboard</a></li>
+            <li><a href="user-dashboard.html"><i class="fas fa-user-circle"></i> User Dashboard</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mobile-actions">
+        <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
+        <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
+        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+      </div>
+    </div>
+
+    
+  <!-- MAIN ABOUT CONTENT WRAPPER -->
+  <main class="abt-page-wrap">
+
+    <!-- =====================================================================
+         SECTION 1: COMPANY HERITAGE (EPOCH RIBBON & DUAL CHRONICLE)
+         ===================================================================== -->
+    <section id="company-heritage" class="abt-section-heritage">
+      <div class="abt-container">
+        <!-- Section Header -->
+        <div class="abt-section-head framer-epoch-chronicle">
+          <div class="abt-badge"><i class="fas fa-crown"></i> Institutional Legacy</div>
+          <h2 class="abt-title">Company Heritage & <span class="abt-title-gradient">Archival Provenance</span></h2>
+          <p class="abt-subtitle">Founded in 2012, Apex has evolved from an elite diplomatic protocol advisory into the world's foremost corporate conference architecture firm.</p>
+        </div>
+
+        <!-- Heritage Metric Ribbon -->
+        <div class="abt-heritage-stats-ribbon framer-epoch-chronicle">
+          <div class="abt-hstat-item">
+            <div class="abt-hstat-icon"><i class="fas fa-hourglass-start"></i></div>
+            <div>
+              <div class="abt-hstat-val">Est. 2012</div>
+              <div class="abt-hstat-lbl">14 Years of Leadership</div>
+            </div>
+          </div>
+          <div class="abt-hstat-item">
+            <div class="abt-hstat-icon"><i class="fas fa-earth-americas"></i></div>
+            <div>
+              <div class="abt-hstat-val">42 Nations</div>
+              <div class="abt-hstat-lbl">Global Host Capitals</div>
+            </div>
+          </div>
+          <div class="abt-hstat-item">
+            <div class="abt-hstat-icon"><i class="fas fa-users-viewfinder"></i></div>
+            <div>
+              <div class="abt-hstat-val">1,850+</div>
+              <div class="abt-hstat-lbl">Summits Orchestrated</div>
+            </div>
+          </div>
+          <div class="abt-hstat-item">
+            <div class="abt-hstat-icon"><i class="fas fa-shield-heart"></i></div>
+            <div>
+              <div class="abt-hstat-val">99.8%</div>
+              <div class="abt-hstat-lbl">Zero-Incident Record</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asymmetric Dual-Chronicle Layout -->
+        <div class="abt-heritage-chronicle-grid">
+          <!-- Monolith Visual Card -->
+          <div class="abt-monolith-visual-card framer-epoch-chronicle">
+            <div class="abt-monolith-img-wrap">
+              <img src="images/about_heritage.jpg" alt="Apex Corporate Event Heritage & Founders Assembly">
+              <div class="abt-wax-seal">
+                <i class="fas fa-certificate"></i> Apex Group Charter • Est. 2012
+              </div>
+            </div>
+          </div>
+
+          <!-- 4-Epoch Evolutionary Ribbon -->
+          <div class="abt-epoch-ribbon-stack">
+            <!-- Epoch 1 -->
+            <div class="abt-epoch-card active framer-epoch-chronicle" onclick="selectEpoch(this, 'Foundation')">
+              <div class="abt-epoch-top">
+                <span class="abt-epoch-dates">2012 – 2015</span>
+                <span class="abt-epoch-era">Epoch I • Genesis</span>
+              </div>
+              <h4 class="abt-epoch-title">Diplomatic Protocol & Bilateral Summits</h4>
+              <p class="abt-epoch-desc">Launched in Zurich and London as an elite protocol advisory, stewarding high-security ministerial roundtables and bilateral economic summits.</p>
+            </div>
+
+            <!-- Epoch 2 -->
+            <div class="abt-epoch-card framer-epoch-chronicle" onclick="selectEpoch(this, 'Expansion')">
+              <div class="abt-epoch-top">
+                <span class="abt-epoch-dates">2016 – 2019</span>
+                <span class="abt-epoch-era">Epoch II • Transatlantic Scale</span>
+              </div>
+              <h4 class="abt-epoch-title">Enterprise Plenary Modernization</h4>
+              <p class="abt-epoch-desc">Established headquarters in New York and Singapore, executing flagship Fortune 100 technology keynotes and multi-track partner expos.</p>
+            </div>
+
+            <!-- Epoch 3 -->
+            <div class="abt-epoch-card framer-epoch-chronicle" onclick="selectEpoch(this, 'Broadcast')">
+              <div class="abt-epoch-top">
+                <span class="abt-epoch-dates">2020 – 2023</span>
+                <span class="abt-epoch-era">Epoch III • Dual-Hemisphere</span>
+              </div>
+              <h4 class="abt-epoch-title">Hybrid Broadcast & Spatial Engineering</h4>
+              <p class="abt-epoch-desc">Pioneered sub-50ms synchronized cloud broadcasting, linking physically dispersed audiences across 5 continents during global transitions.</p>
+            </div>
+
+            <!-- Epoch 4 -->
+            <div class="abt-epoch-card framer-epoch-chronicle" onclick="selectEpoch(this, 'Regenerative')">
+              <div class="abt-epoch-top">
+                <span class="abt-epoch-dates">2024 – 2026+</span>
+                <span class="abt-epoch-era">Epoch IV • Autonomous Stagecraft</span>
+              </div>
+              <h4 class="abt-epoch-title">Generative AI Canvasses & Net-Zero Summits</h4>
+              <p class="abt-epoch-desc">Setting the global standard for certified ISO-20121 carbon-neutral summits powered by real-time generative staging and spatial audio.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 2: MISSION & VISION (DUAL-POLARITY HORIZON DECK)
+         ===================================================================== -->
+    <section id="mission-vision" class="abt-section-mission-vision">
+      <div class="abt-container">
+        <!-- Section Header -->
+        <div class="abt-section-head framer-polarity-gyro">
+          <div class="abt-badge"><i class="fas fa-compass"></i> Guiding Horizons</div>
+          <h2 class="abt-title">The Operational Mission & <span class="abt-title-gradient">2035 Vision</span></h2>
+          <p class="abt-subtitle">Our mission anchors day-to-day production precision, while our vision engineers the regenerative, multi-dimensional conference architectures of tomorrow.</p>
+        </div>
+
+        <div class="abt-polarity-deck-grid">
+          <!-- Left Horizon: Mission -->
+          <div class="abt-polarity-card framer-polarity-gyro">
+            <div class="abt-polarity-img-box">
+              <img src="images/about_mission.jpg" alt="Apex Operational Mission Production Command">
+              <div class="abt-polarity-badge"><i class="fas fa-bullseye"></i> Operational Mission</div>
+            </div>
+            <div class="abt-polarity-body">
+              <h3 class="abt-polarity-title">The Operational Mission Engine</h3>
+              <p class="abt-polarity-desc">To architect zero-defect corporate summits where every technological, spatial, and human touchpoint reinforces the executive narrative and delivers verifiable corporate resonance.</p>
+              <div class="abt-polarity-bullets">
+                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Rigorous Protocol:</strong> Flawless dignitary movement and military-grade run-of-show timing.</div>
+                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Institutional Redundancy:</strong> N+2 hardware backups across all mission-critical feeds.</div>
+                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Financial Transparency:</strong> 100% open-book Capex/Opex ledger governance.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Horizon: Vision -->
+          <div class="abt-polarity-card framer-polarity-gyro">
+            <div class="abt-vision-hud-box">
+              <div class="abt-hud-radar-ring"></div>
+              <div class="abt-hud-icon"><i class="fas fa-meteor"></i></div>
+              <div class="abt-polarity-badge"><i class="fas fa-eye"></i> Future Horizon 2035</div>
+              <div class="abt-hud-telemetry-tag">QUANTUM SPATIAL ARCHITECTURE</div>
+            </div>
+            <div class="abt-polarity-body">
+              <h3 class="abt-polarity-title">The Future Vision Paradigm</h3>
+              <p class="abt-polarity-desc">To redefine human assembly by synthesizing sustainable spatial architecture, bio-resonant acoustics, and real-time generative media into net-zero carbon summits.</p>
+              <div class="abt-polarity-bullets">
+                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Carbon-Neutral Plenaries:</strong> Verified Scope 1-3 net-zero emission standard across all events.</div>
+                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Generative Canvasses:</strong> Real-time 3D Unreal Engine environments replacing static presentations.</div>
+                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Biometric Comfort:</strong> Micro-climate zoned auditoriums maximizing executive alertness.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 3: PHILOSOPHY (TRIAD PRINCIPLES PEDESTAL)
+         ===================================================================== -->
+    <section id="philosophy" class="abt-section-philosophy">
+      <div class="abt-container">
+        <!-- Section Header -->
+        <div class="abt-section-head framer-triad-pedestal">
+          <div class="abt-badge"><i class="fas fa-brain"></i> Core Methodology</div>
+          <h2 class="abt-title">Production Philosophy & <span class="abt-title-gradient">Sensory Triad</span></h2>
+          <p class="abt-subtitle">Our three foundational pillars transform traditional corporate conferences from passive presentations into catalytic business milestones.</p>
+        </div>
+
+        <!-- Philosophy Hero Frame -->
+        <div class="abt-philosophy-hero-frame framer-triad-pedestal">
+          <div class="abt-philosophy-img-box">
+            <img src="images/about_philosophy.jpg" alt="Apex Production Philosophy & Spatial Resonance">
+            <div class="abt-philosophy-overlay">
+              <div class="abt-philosophy-manifesto">
+                "Events are not passive calendar dates. They are hyper-calibrated spatial ecosystems engineered to align corporate vision, accelerate deal flow, and shift industry trajectories."
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- The 3-Pedestal Spatial Geometry Triad -->
+        <div class="abt-triad-pedestals-grid">
+          <!-- Pillar 1 -->
+          <div class="abt-pedestal-card framer-triad-pedestal">
+            <div class="abt-pedestal-num">01</div>
+            <h4 class="abt-pedestal-title">Sensory Architecture</h4>
+            <p class="abt-pedestal-desc">We sculpt physical space through balanced color temperatures, spatial line-array acoustics, and ergonomic flow lines to eliminate executive conference fatigue.</p>
+            <div class="abt-pedestal-points">
+              <div><i class="fas fa-check"></i> STC 58 Acoustic Isolation</div>
+              <div><i class="fas fa-check"></i> Circadian Rhythm Stage Lighting</div>
+              <div><i class="fas fa-check"></i> Sightline Optimization Geometry</div>
+            </div>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="abt-pedestal-card framer-triad-pedestal">
+            <div class="abt-pedestal-num">02</div>
+            <h4 class="abt-pedestal-title">Frictionless Protocol</h4>
+            <p class="abt-pedestal-desc">From discreet dignitary motorcades to touchless RFID registration badges, logistical complexity dissolves into an effortless, white-glove delegate experience.</p>
+            <div class="abt-pedestal-points">
+              <div><i class="fas fa-check"></i> Triple-Ring Security Clearances</div>
+              <div><i class="fas fa-check"></i> Dedicated Green Room Concierges</div>
+              <div><i class="fas fa-check"></i> 0-Second Delay Ingress Scanning</div>
+            </div>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="abt-pedestal-card framer-triad-pedestal">
+            <div class="abt-pedestal-num">03</div>
+            <h4 class="abt-pedestal-title">Measurable Resonance</h4>
+            <p class="abt-pedestal-desc">We calibrate return on objective (ROO) with empirical metrics—tracking post-keynote recall, pipeline acceleration, and audited ESG carbon diversion.</p>
+            <div class="abt-pedestal-points">
+              <div><i class="fas fa-check"></i> Post-Summit C-Suite Recall Audits</div>
+              <div><i class="fas fa-check"></i> Verified Scope 1-3 Carbon Accounting</div>
+              <div><i class="fas fa-check"></i> Media & Stakeholder Sentiment Tracking</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 4: LEADERSHIP TEAM (EXECUTIVE COUNCIL QUAD-MOSAIC)
+         ===================================================================== -->
+    <section id="leadership-team" class="abt-section-leadership">
+      <div class="abt-container">
+        <!-- Section Header -->
+        <div class="abt-section-head framer-council-quad">
+          <div class="abt-badge"><i class="fas fa-users-gear"></i> Executive Council</div>
+          <h2 class="abt-title">Executive Leadership & <span class="abt-title-gradient">Council of Architects</span></h2>
+          <p class="abt-subtitle">Meet the visionary strategists, acousticians, and operational commanders directing our global conference production operations.</p>
+        </div>
+
+        <div class="abt-council-mosaic-grid">
+          <!-- Leader 1 -->
+          <div class="abt-leader-card framer-council-quad">
+            <div class="abt-leader-img-box">
+              <img src="images/leader_julian.jpg" alt="Julian Vance - Chief Executive Officer">
+            </div>
+            <div class="abt-leader-body">
+              <span class="abt-leader-role">Founder & CEO</span>
+              <h4 class="abt-leader-name">Julian Vance</h4>
+              <p class="abt-leader-bio">Former G8 Summit protocol lead with 24 years directing world economic plenaries and sovereign state functions.</p>
+              <div class="abt-leader-footer">
+                <span class="abt-leader-credential"><i class="fas fa-shield"></i> Protocol Master</span>
+                <span class="abt-leader-btn" onclick="openBioModal('Julian Vance', 'Founder & Chief Executive Officer', 'Julian Vance established Apex in 2012 following a distinguished decade advising heads of state on multilateral summit coordination. Under his stewardship, Apex has managed over 1,850 international conferences without a single security breach or broadcast interruption.')">
+                  Bio <i class="fas fa-arrow-right"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leader 2 -->
+          <div class="abt-leader-card framer-council-quad">
+            <div class="abt-leader-img-box">
+              <img src="images/leader_sophia.jpg" alt="Dr. Sophia Sterling - Chief Strategy Officer">
+            </div>
+            <div class="abt-leader-body">
+              <span class="abt-leader-role">Chief Strategy Officer</span>
+              <h4 class="abt-leader-name">Dr. Sophia Sterling</h4>
+              <p class="abt-leader-bio">Ph.D. in Architectural Acoustics from MIT; pioneer of cognitive neurodesign in keynote plenary atmospheres.</p>
+              <div class="abt-leader-footer">
+                <span class="abt-leader-credential"><i class="fas fa-wave-square"></i> Acoustic Fellow</span>
+                <span class="abt-leader-btn" onclick="openBioModal('Dr. Sophia Sterling', 'Chief Strategy Officer', 'Dr. Sophia Sterling leads spatial architecture at Apex, engineering venues where acoustics, illumination, and circulation maximize neurological engagement and audience retention.')">
+                  Bio <i class="fas fa-arrow-right"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leader 3 -->
+          <div class="abt-leader-card framer-council-quad">
+            <div class="abt-leader-img-box">
+              <img src="images/leader_marcus.jpg" alt="Marcus Chen - VP of Global Operations">
+            </div>
+            <div class="abt-leader-body">
+              <span class="abt-leader-role">VP Global Operations</span>
+              <h4 class="abt-leader-name">Marcus Chen</h4>
+              <p class="abt-leader-bio">Emmy Award-winning broadcast producer; manages our worldwide N+2 redundant hardware rigs and satellite uplinks.</p>
+              <div class="abt-leader-footer">
+                <span class="abt-leader-credential"><i class="fas fa-satellite"></i> Broadcast Master</span>
+                <span class="abt-leader-btn" onclick="openBioModal('Marcus Chen', 'VP of Global Operations & Broadcast', 'Marcus Chen commands Apex on-site engineering crews across Europe, North America, and the Asia-Pacific. He holds 12 patents in low-latency IP broadcast signal routing.')">
+                  Bio <i class="fas fa-arrow-right"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leader 4 -->
+          <div class="abt-leader-card framer-council-quad">
+            <div class="abt-leader-img-box">
+              <img src="images/leader_amara.jpg" alt="Amara Patel - Head of ESG Production">
+            </div>
+            <div class="abt-leader-body">
+              <span class="abt-leader-role">Head of ESG & Safety</span>
+              <h4 class="abt-leader-name">Amara Patel</h4>
+              <p class="abt-leader-bio">Lead auditor for ISO-20121 sustainable events; author of the Corporate Net-Zero Event Blueprint.</p>
+              <div class="abt-leader-footer">
+                <span class="abt-leader-credential"><i class="fas fa-leaf"></i> ISO-20121 Auditor</span>
+                <span class="abt-leader-btn" onclick="openBioModal('Amara Patel', 'Head of Sustainable Production & ESG', 'Amara Patel oversees Apex zero-waste and carbon-neutral initiatives, ensuring all partner events achieve auditable ESG compliance with zero single-use plastics.')">
+                  Bio <i class="fas fa-arrow-right"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 5: SPECIALISTS (DIVISION COMMAND MATRIX)
+         ===================================================================== -->
+    <section id="specialists" class="abt-section-specialists">
+      <div class="abt-container">
+        <!-- Section Header -->
+        <div class="abt-section-head framer-division-matrix">
+          <div class="abt-badge"><i class="fas fa-people-group"></i> Operations Fleet</div>
+          <h2 class="abt-title">Specialist Corps & <span class="abt-title-gradient">Command Divisions</span></h2>
+          <p class="abt-subtitle">Over 280 dedicated in-house technical directors, spatial acousticians, and bilingual protocol marshals deployed across our global hubs.</p>
+        </div>
+
+        <div class="abt-division-matrix-grid">
+          <!-- Visual Card -->
+          <div class="abt-specialists-visual-card framer-division-matrix">
+            <div class="abt-spec-img-box">
+              <img src="images/about_specialists.jpg" alt="Specialist Operations Control Center">
+              <div class="abt-spec-badge-floating">
+                <i class="fas fa-headset text-warning"></i> 24/7 Global Dispatch Active
+              </div>
+            </div>
+          </div>
+
+          <!-- Divisions Stack -->
+          <div class="abt-divisions-stack">
+            <!-- Division 1 -->
+            <div class="abt-division-card active framer-division-matrix" onclick="selectDivision(this, 'AV')">
+              <div class="abt-div-head">
+                <span class="abt-div-tag">Division Alpha</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--abt-text-muted);"><i class="fas fa-users"></i> 110 Engineers</span>
+              </div>
+              <h4 class="abt-div-title">AV, Rigging & Spatial Acoustic Engineering</h4>
+              <p class="abt-div-desc">Certified Dante Level 3 audio engineers, Disguise media server operators, and certified structural riggers managing stagecraft loads up to 45,000 lbs.</p>
+            </div>
+
+            <!-- Division 2 -->
+            <div class="abt-division-card framer-division-matrix" onclick="selectDivision(this, 'Protocol')">
+              <div class="abt-div-head">
+                <span class="abt-div-tag">Division Bravo</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--abt-text-muted);"><i class="fas fa-users"></i> 85 Officers</span>
+              </div>
+              <h4 class="abt-div-title">Diplomatic Protocol & Executive Protection Detachment</h4>
+              <p class="abt-div-desc">Bilingual marshals and executive security coordinators trained in head-of-state motorcade movements, secret service liaisons, and private green room security.</p>
+            </div>
+
+            <!-- Division 3 -->
+            <div class="abt-division-card framer-division-matrix" onclick="selectDivision(this, 'Broadcast')">
+              <div class="abt-div-head">
+                <span class="abt-div-tag">Division Charlie</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--abt-text-muted);"><i class="fas fa-users"></i> 65 Specialists</span>
+              </div>
+              <h4 class="abt-div-title">Hybrid Satellite & Real-Time Cloud Ingest</h4>
+              <p class="abt-div-desc">Broadcasting engineers operating bonded satellite trucks and dual SRT pipelines delivering sub-45ms latency across 18 simultaneous translation languages.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 6: CLIENT PORTFOLIO (MARQUEE SUMMITS & SECTOR ROSTER)
+         ===================================================================== -->
+    <section id="client-portfolio" class="abt-section-portfolio">
+      <div class="abt-container">
+        <!-- Section Header -->
+        <div class="abt-section-head framer-marquee-portfolio">
+          <div class="abt-badge"><i class="fas fa-briefcase"></i> Enterprise Roster</div>
+          <h2 class="abt-title">Client Portfolio & <span class="abt-title-gradient">Marquee Summits</span></h2>
+          <p class="abt-subtitle">Trusted by Fortune 500 corporations, sovereign wealth forums, and breakthrough global technology enterprises worldwide.</p>
+        </div>
+
+        <div class="abt-portfolio-marquee-grid">
+          <!-- Left Hero Card -->
+          <div class="abt-portfolio-hero-card framer-marquee-portfolio">
+            <div class="abt-port-img-box">
+              <img src="images/about_portfolio.jpg" alt="Marquee Corporate Summit Assembly">
+            </div>
+            <div class="abt-port-body">
+              <p class="abt-port-quote">"Apex does not merely execute logistics—they elevated our global developer conference into a historic market catalyst with precision that left our board breathless."</p>
+              <div class="abt-port-author">— Chief Executive Officer, Fortune 50 Enterprise Cloud Platform</div>
+            </div>
+          </div>
+
+          <!-- Right Sectors Grid -->
+          <div class="abt-sectors-deck">
+            <!-- Sector 1 -->
+            <div class="abt-sector-card framer-marquee-portfolio">
+              <div class="abt-sec-icon"><i class="fas fa-cloud"></i></div>
+              <h4 class="abt-sec-title">Enterprise Cloud & AI</h4>
+              <div class="abt-sec-clients">Apex Cloud Technologies, Quantum BioVentures, Synapse AI Flagship Summit</div>
+            </div>
+
+            <!-- Sector 2 -->
+            <div class="abt-sector-card framer-marquee-portfolio">
+              <div class="abt-sec-icon"><i class="fas fa-chart-line"></i></div>
+              <h4 class="abt-sec-title">FinTech & Capital</h4>
+              <div class="abt-sec-clients">Horizon FinTech Global, Swiss-Atlantic Capital, Sovereign Wealth Annual Forum</div>
+            </div>
+
+            <!-- Sector 3 -->
+            <div class="abt-sector-card framer-marquee-portfolio">
+              <div class="abt-sec-icon"><i class="fas fa-dna"></i></div>
+              <h4 class="abt-sec-title">Life Sciences & Pharma</h4>
+              <div class="abt-sec-clients">Aura BioGenomics, Global Healthcare Vanguard, NextGen Oncology Assembly</div>
+            </div>
+
+            <!-- Sector 4 -->
+            <div class="abt-sector-card framer-marquee-portfolio">
+              <div class="abt-sec-icon"><i class="fas fa-car"></i></div>
+              <h4 class="abt-sec-title">Mobility & Aerospace</h4>
+              <div class="abt-sec-clients">Vanguard Aerospace, Electra Hypercars, Global Autonomous Summit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SECTION 7: SAFETY & ADVANTAGE (INSTITUTIONAL CITADEL & MOAT)
+         ===================================================================== -->
+    <section id="safety-advantage" class="abt-section-safety">
+      <div class="abt-container">
+        <!-- Section Header -->
+        <div class="abt-section-head framer-citadel-moat">
+          <div class="abt-badge"><i class="fas fa-shield-halved"></i> Institutional Trust</div>
+          <h2 class="abt-title">Safety Standards & <span class="abt-title-gradient">Our Competitive Moat</span></h2>
+          <p class="abt-subtitle">Our uncompromising commitment to structural safety, data encryption, financial escrow, and sustainability sets us fundamentally apart.</p>
+        </div>
+
+        <div class="abt-citadel-split-grid">
+          <!-- Left Citadel Card -->
+          <div class="abt-citadel-visual-card framer-citadel-moat">
+            <div class="abt-citadel-img-box">
+              <img src="images/about_safety.jpg" alt="Quality and Safety Citadel Framework">
+            </div>
+            <div class="abt-citadel-body">
+              <h4 class="abt-citadel-title">The Quality Assurance Citadel</h4>
+              <p class="abt-citadel-desc">Every event blueprint undergoes a rigorous 42-point safety audit before ground is broken or staging trussing is raised.</p>
+              <div class="abt-citadel-cert-list">
+                <div><i class="fas fa-circle-check"></i> ISO-20121 Sustainable Event Certified</div>
+                <div><i class="fas fa-circle-check"></i> ISO-9001 Quality Management Certified</div>
+                <div><i class="fas fa-circle-check"></i> $50M Comprehensive Umbrella Policy</div>
+                <div><i class="fas fa-circle-check"></i> NEBOSH Certified On-Site Safety Leads</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 4-Pillar Moat Grid -->
+          <div class="abt-moat-grid">
+            <div class="abt-moat-card framer-citadel-moat">
+              <div class="abt-moat-icon"><i class="fas fa-server"></i></div>
+              <h4 class="abt-moat-title">N+2 Hardware Redundancy</h4>
+              <p class="abt-moat-desc">Zero single points of failure. Every power feed, video switcher, and microphone has hot-swap automated backups.</p>
+            </div>
+            <div class="abt-moat-card framer-citadel-moat">
+              <div class="abt-moat-icon"><i class="fas fa-scale-balanced"></i></div>
+              <h4 class="abt-moat-title">Open-Book Fiscal Governance</h4>
+              <p class="abt-moat-desc">100% transparent itemized invoicing. All negotiated volume rebates from venue and hotel partners are credited back to clients.</p>
+            </div>
+            <div class="abt-moat-card framer-citadel-moat">
+              <div class="abt-moat-icon"><i class="fas fa-bolt"></i></div>
+              <h4 class="abt-moat-title">Rapid Rapid-Deployment</h4>
+              <p class="abt-moat-desc">Full turn-key stadium staging and broadcast control centers deployed anywhere in the world within 21 business days.</p>
+            </div>
+            <div class="abt-moat-card framer-citadel-moat">
+              <div class="abt-moat-icon"><i class="fas fa-leaf"></i></div>
+              <h4 class="abt-moat-title">Carbon-Neutral Guarantee</h4>
+              <p class="abt-moat-desc">Audited Scope 1-3 carbon tracking with verified offsets and 100% diversion of leftover banquet meals to local food rescues.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Executive Bio Modal -->
+  <div id="abtBioModal" class="abt-modal-overlay">
+    <div class="abt-modal-card">
+      <button class="abt-modal-close" onclick="closeAbtModal()">&times;</button>
+      <div style="width: 3.5rem; height: 3.5rem; border-radius: 0.85rem; background: var(--abt-accent-glow); color: var(--abt-accent); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
+        <i class="fas fa-id-badge"></i>
+      </div>
+      <h3 id="abtModalName" style="font-size: 1.4rem; font-weight: 800; color: var(--abt-text-main); margin-bottom: 0.25rem;">Executive Bio</h3>
+      <div id="abtModalRole" style="font-size: 0.85rem; font-weight: 700; color: var(--abt-accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">Role</div>
+      <p id="abtModalDesc" style="font-size: 0.95rem; color: var(--abt-text-muted); line-height: 1.6; margin-bottom: 1.5rem;">Dossier description</p>
+      <button class="abt-btn abt-btn-primary" style="width: 100%;" onclick="closeAbtModal()">Close Executive Dossier</button>
+    </div>
+  </div>
+<!-- FOOTER -->
+    <footer class="footer-container">
+      <!-- TOP: NEWSLETTER CTA STRIP -->
+      <div class="footer-cta">
+        <div class="footer-cta-text">
+          <span class="footer-cta-badge"><i class="fas fa-wand-magic-sparkles"></i> Executive Briefing</span>
+          <h2 class="footer-cta-title">Stay Ahead in Corporate Event Excellence</h2>
+          <p class="footer-cta-desc">Join 15,000+ Fortune 500 executives, summit organizers, and event leaders receiving our quarterly conference intelligence reports.</p>
+        </div>
+        <div class="footer-cta-form-wrapper">
+          <form class="footer-form" id="newsletterForm" onsubmit="event.preventDefault(); handleNewsletterSubmit();">
+            <input type="email" id="newsletterEmail" placeholder="Enter your corporate email..." required aria-label="Corporate Email">
+            <button type="submit" id="newsletterBtn"><i class="fas fa-paper-plane"></i> Subscribe</button>
+          </form>
+          <div class="footer-privacy-note">
+            <i class="fas fa-shield-alt"></i> Enterprise-grade confidentiality. Zero spam. Unsubscribe anytime.
+          </div>
+        </div>
+      </div>
+
+      <!-- MIDDLE: MAIN FOOTER LINKS GRID -->
+      <div class="footer-grid">
+        <!-- COL 1: BRAND OVERVIEW -->
+        <div class="footer-col-brand">
+          <a href="index.html" class="footer-brand-header" style="text-decoration: none; cursor: pointer;">
+            <div class="logo-3d">
+              <div class="logo-cube">
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+              </div>
+            </div>
+            <div class="logo-text">Event<span>Sphere</span></div>
+          </a>
+          <p class="footer-brand-desc">
+            Premier corporate event planning and global conference management firm. We engineer world-class executive summits, immersive hybrid conferences, and gala celebrations with precision craftsmanship.
+          </p>
+          <div class="footer-metrics-pills">
+            <span class="metric-pill"><i class="fas fa-trophy"></i> 850+ Summits</span>
+            <span class="metric-pill"><i class="fas fa-globe-americas"></i> 42 Countries</span>
+            <span class="metric-pill"><i class="fas fa-star"></i> 99.6% Rating</span>
+          </div>
+          <div class="footer-social-row">
+            <a href="#" class="footer-social-btn" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="footer-social-btn" title="X (Twitter)" aria-label="X"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="footer-social-btn" title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer-social-btn" title="YouTube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="footer-social-btn" title="Global Network" aria-label="Global Network"><i class="fas fa-network-wired"></i></a>
+          </div>
+        </div>
+
+        <!-- COL 2: MAIN NAVIGATION -->
+        <div class="footer-col">
+          <h3 class="footer-col-title">Navigation</h3>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home 1 (Main Agency)</a></li>
+            <li><a href="home-2.html"><i class="fas fa-chevron-right"></i> Home 2 (Conference View)</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Our Firm</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services & Solutions</a></li>
+            <li><a href="portfolio.html"><i class="fas fa-chevron-right"></i> Event Portfolio</a></li>
+            <li><a href="event-planning.html"><i class="fas fa-chevron-right"></i> Event Planning Process</a></li>
+            <li><a href="vendors.html"><i class="fas fa-chevron-right"></i> Vendors Directory</a></li>
+            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact & Consultation</a></li>
+          </ul>
+        </div>
+
+        <!-- COL 3: SERVICES & SUMMITS -->
+        <div class="footer-col">
+          <h3 class="footer-col-title">Services & Summits</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Annual Executive Summits</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Global Hybrid Conferences</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Corporate Galas & Awards</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Product Launches & Expos</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Strategic Leadership Offsites</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Keynote Speaker Management</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Audiovisual & 3D Stagecraft</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Sustainable Event Audits</a></li>
+          </ul>
+        </div>
+
+
+        <!-- COL 4: HEADQUARTERS & CONTACT -->
+        <div class="footer-col footer-col-contact">
+          <h3 class="footer-col-title">Headquarters</h3>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <strong>Global HQ:</strong><br>
+                500 Financial Centre Blvd, Suite 2800<br>
+                New York, NY 10005, United States
+              </div>
+            </div>
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-phone-alt"></i></div>
+              <div>
+                <strong>Inquiries:</strong><br>
+                +1 (800) 555-EVENT<br>
+                +1 (212) 555-0198
+              </div>
+            </div>
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <strong>Email:</strong><br>
+                summits@eventsphere.com
+              </div>
+            </div>
+            <div class="ops-status">
+              <span class="status-dot"></span>
+              24/7 Operations Command Active
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM: LEGAL & BACK TO TOP -->
+      <div class="footer-bottom">
+        <div>
+          © 2026 EventSphere Inc. Corporate Event Planning & Conference Management Firm. All rights reserved.
+        </div>
+        <ul class="footer-legal-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">GDPR & Security</a></li>
+          <li><a href="#">Cookie Settings</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+        <button class="back-to-top-btn" id="backToTopBtn" title="Back to Top">
+          <i class="fas fa-arrow-up"></i> Back to Top
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // ===== DARK MODE TOGGLE =====
+    const darkToggle = document.getElementById('darkModeToggle');
+    const darkToggleMobile = document.getElementById('darkModeToggleMobile');
+    const rtlToggle = document.getElementById('rtlToggle');
+    const rtlToggleMobile = document.getElementById('rtlToggleMobile');
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const body = document.body;
+
+    function toggleDark() {
+      body.classList.toggle('dark');
+      const icon = body.classList.contains('dark') ? 'fa-sun' : 'fa-moon';
+      darkToggle.innerHTML = `<i class="fas ${icon}"></i>`;
+      if (darkToggleMobile) darkToggleMobile.innerHTML = `<i class="fas ${icon}"></i>`;
+    }
+
+    darkToggle.addEventListener('click', toggleDark);
+    if (darkToggleMobile) darkToggleMobile.addEventListener('click', toggleDark);
+
+    function toggleRTL() {
+      body.classList.toggle('rtl');
+    }
+
+    rtlToggle.addEventListener('click', toggleRTL);
+    if (rtlToggleMobile) rtlToggleMobile.addEventListener('click', toggleRTL);
+
+    // ===== HAMBURGER MENU WITH SMOOTH MOTION =====
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      mobileMenu.classList.toggle('active');
+      hamburger.classList.toggle('open');
+      
+      // Framer Motion style spring animation on menu
+      if (mobileMenu.classList.contains('active')) {
+        mobileMenu.style.transform = 'scale(0.92) translateY(-12px)';
+        mobileMenu.style.opacity = '0';
+        requestAnimationFrame(() => {
+          mobileMenu.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease';
+          mobileMenu.style.transform = 'scale(1) translateY(0)';
+          mobileMenu.style.opacity = '1';
+        });
+      }
+    });
+
+    // Close menu on outside click
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target) && mobileMenu.classList.contains('active')) {
+        mobileMenu.classList.remove('active');
+        hamburger.classList.remove('open');
+        mobileMenu.style.transform = 'scale(0.92) translateY(-12px)';
+        mobileMenu.style.opacity = '0';
+      }
+    });
+
+    // ===== EXTREME HOVER EFFECTS (Framer Motion style) =====
+    const allButtons = document.querySelectorAll('.icon-btn, .login-btn, .hamburger, .footer-form button, .back-to-top-btn, .footer-social-btn');
+    allButtons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, background 0.3s ease';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transition = 'transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, background 0.3s ease';
+      });
+    });
+
+    // ===== MOBILE SUBMENU ACCORDION =====
+    const mobileDropdownHeaders = document.querySelectorAll('.mobile-dropdown-header');
+    mobileDropdownHeaders.forEach(header => {
+      header.addEventListener('click', (e) => {
+        // If direct navigation link inside header was clicked, allow navigation
+        if (e.target.closest('a')) {
+          return;
+        }
+        const parent = header.closest('.mobile-dropdown');
+        if (parent) {
+          parent.classList.toggle('open');
+        }
+      });
+    });
+
+    // ===== NAVBAR ACTIVE STATUS DYNAMIC HANDLER =====
+    (function syncNavbarActiveState() {
+      try {
+        const currentPath = window.location.pathname.toLowerCase();
+        let currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+        if (!currentPage || currentPage === '/') currentPage = 'index.html';
+
+        const navItems = document.querySelectorAll('.nav-links a, .mobile-nav-links a, .dropdown-item, .mobile-submenu a');
+        navItems.forEach(item => {
+          const href = (item.getAttribute('href') || '').toLowerCase();
+          if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+
+          let matches = false;
+          if (currentPage === 'index.html' || currentPage === '') {
+            if (href === 'index.html' && (item.textContent.trim().toLowerCase().includes('home 1') || item.classList.contains('dropdown-toggle') || (item.parentElement && item.parentElement.classList.contains('mobile-dropdown-header')))) {
+              matches = true;
+            }
+          } else if (href === currentPage) {
+            matches = true;
+          }
+
+          if (matches) {
+            item.classList.add('active');
+            const pLi = item.closest('li');
+            if (pLi) pLi.classList.add('active');
+            const pDrop = item.closest('.dropdown, .mobile-dropdown');
+            if (pDrop) {
+              pDrop.classList.add('active');
+              const tog = pDrop.querySelector('.dropdown-toggle, .mobile-dropdown-header > a');
+              if (tog) tog.classList.add('active');
+            }
+          }
+        });
+
+        // Instant active feedback upon clicking
+        navItems.forEach(item => {
+          item.addEventListener('click', function() {
+            const href = this.getAttribute('href');
+            if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+              document.querySelectorAll('.nav-links .active, .mobile-nav-links .active, .dropdown-item.active, .mobile-submenu .active').forEach(el => el.classList.remove('active'));
+              this.classList.add('active');
+              const pLi = this.closest('li');
+              if (pLi) pLi.classList.add('active');
+              const pDrop = this.closest('.dropdown, .mobile-dropdown');
+              if (pDrop) {
+                pDrop.classList.add('active');
+                const tog = pDrop.querySelector('.dropdown-toggle, .mobile-dropdown-header > a');
+                if (tog) tog.classList.add('active');
+              }
+            }
+          });
+        });
+      } catch (err) {
+        console.warn('Navbar active sync error:', err);
+      }
+    })();
+
+    // ===== NAV LINK STAGGER ANIMATION =====
+    const navLinks = document.querySelectorAll('.nav-links > li');
+    navLinks.forEach((link, index) => {
+      link.style.opacity = '0';
+      link.style.transform = 'translateY(-8px)';
+      link.style.transition = `opacity 0.5s ease ${0.05 * index + 0.1}s, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) ${0.05 * index + 0.1}s`;
+      setTimeout(() => {
+        link.style.opacity = '1';
+        link.style.transform = 'translateY(0)';
+      }, 50);
+      setTimeout(() => {
+        link.style.removeProperty('opacity');
+        link.style.removeProperty('transform');
+        link.style.removeProperty('transition');
+      }, 800);
+    });
+
+    // ===== INITIAL DARK ICON CHECK =====
+    if (body.classList.contains('dark')) {
+      darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      if (darkToggleMobile) darkToggleMobile.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    // ===== BACK TO TOP SMOOTH SCROLL =====
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // ===== NEWSLETTER INTERACTION =====
+    function handleNewsletterSubmit() {
+      const form = document.getElementById('newsletterForm');
+      const emailInput = document.getElementById('newsletterEmail');
+      if (form && emailInput && emailInput.value) {
+        form.innerHTML = '<div style="display:flex;align-items:center;gap:0.6rem;color:#16a34a;font-weight:600;font-size:0.9rem;padding:0.6rem 1rem;"><i class="fas fa-check-circle"></i> Thank you! You are subscribed to EventSphere Executive Briefings.</div>';
+      }
+    }
+  </script>
+
+  <!-- =====================================================================
+       INTERACTIVE ABOUT PAGE CONTROLLER SCRIPT
+       ===================================================================== -->
+  <script>
+    // 1. Intersection Observer for Unique Framer Motion Animations
+    document.addEventListener('DOMContentLoaded', function() {
+      var framerElements = document.querySelectorAll(
+        '.framer-epoch-chronicle, ' +
+        '.framer-polarity-gyro, ' +
+        '.framer-triad-pedestal, ' +
+        '.framer-council-quad, ' +
+        '.framer-division-matrix, ' +
+        '.framer-marquee-portfolio, ' +
+        '.framer-citadel-moat'
+      );
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('framer-in-view');
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      framerElements.forEach(function(el) {
+        observer.observe(el);
+      });
+    });
+
+    // 2. Epoch Timeline Selector
+    function selectEpoch(card, era) {
+      var cards = document.querySelectorAll('.abt-epoch-card');
+      cards.forEach(function(c) { c.classList.remove('active'); });
+      card.classList.add('active');
+    }
+
+    // 3. Division Selector
+    function selectDivision(card, divName) {
+      var cards = document.querySelectorAll('.abt-division-card');
+      cards.forEach(function(c) { c.classList.remove('active'); });
+      card.classList.add('active');
+    }
+
+    // 4. Executive Bio Modal
+    function openBioModal(name, role, desc) {
+      var modal = document.getElementById('abtBioModal');
+      var nameEl = document.getElementById('abtModalName');
+      var roleEl = document.getElementById('abtModalRole');
+      var descEl = document.getElementById('abtModalDesc');
+
+      if (nameEl) nameEl.textContent = name;
+      if (roleEl) roleEl.textContent = role;
+      if (descEl) descEl.textContent = desc;
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeAbtModal() {
+      var modal = document.getElementById('abtBioModal');
+      if (modal) modal.style.display = 'none';
+    }
+  </script>
+</body>
+</html>

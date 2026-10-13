@@ -1,0 +1,2818 @@
+# -*- coding: utf-8 -*-
+"""
+build_admin_dashboard.py
+Generates the complete admin-dashboard.html for EventSphere Corporate Event Planning.
+Guarantees:
+- Same color theme (#080c14 / #0f172a in dark, #f0f4fe in light, #2563eb sapphire blue accents)
+- Same font styles (Inter + Font Awesome 6)
+- Identical 3D rotating cube logo from navbar.html
+- ALL 14 modules + Logout with all sub-features from the user's specification
+- STRICT Mobile & Tablet layout: ON MOBILE & TAB VIEW (<= 1024px), ONLY logo on the left and hamburger menu on the right. ALL other things inside the hamburger menu!
+"""
+
+import os
+
+def generate_dashboard():
+    html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSphere Admin Console | Operations & Event Telemetry</title>
+  
+  <!-- Inter Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       THEME VARIABLES & RESET (MATCHING INDEX.HTML / NAVBAR.HTML)
+       ========================================================================== */
+    :root {
+      --adm-bg: #070c18;
+      --adm-surface: #0c1426;
+      --adm-surface-card: #101c34;
+      --adm-surface-card-hover: #142442;
+      --adm-border: rgba(59, 130, 246, 0.16);
+      --adm-border-subtle: rgba(255, 255, 255, 0.07);
+      --adm-text-primary: #f8fafc;
+      --adm-text-secondary: #94a3b8;
+      --adm-text-muted: #64748b;
+      --adm-primary-blue: #2563eb;
+      --adm-primary-sky: #38bdf8;
+      --adm-primary-emerald: #10b981;
+      --adm-primary-amber: #f59e0b;
+      --adm-primary-rose: #f43f5e;
+      --adm-primary-purple: #8b5cf6;
+      --adm-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --sidebar-width: 290px;
+      --topbar-height: 72px;
+    }
+
+    body.light {
+      --adm-bg: #f0f4fe;
+      --adm-surface: #ffffff;
+      --adm-surface-card: #f8fafc;
+      --adm-surface-card-hover: #f1f5f9;
+      --adm-border: #e2e8f0;
+      --adm-border-subtle: #cbd5e1;
+      --adm-text-primary: #0f172a;
+      --adm-text-secondary: #334155;
+      --adm-text-muted: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--adm-font);
+      background-color: var(--adm-bg);
+      color: var(--adm-text-secondary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* RTL Support */
+    body.rtl {
+      direction: rtl;
+      text-align: right;
+    }
+
+    /* ==========================================================================
+       3D LOGO STYLES (EXACTLY MATCHING NAVBAR.HTML)
+       ========================================================================== */
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      user-select: none;
+    }
+
+    .logo-3d {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      perspective: 450px;
+    }
+
+    .logo-cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 14s infinite linear;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes rotateCube {
+      0% { transform: rotateX(0deg) rotateY(0deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .logo-face {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: linear-gradient(145deg, #1e3a8a, #3b82f6);
+      box-shadow: 0 4px 8px rgba(0, 80, 200, 0.4), inset 0 1.5px 3px rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.65rem;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .logo-face:nth-child(1) { transform: rotateY(0deg) translateZ(12px); }
+    .logo-face:nth-child(2) { transform: rotateY(90deg) translateZ(12px); }
+    .logo-face:nth-child(3) { transform: rotateY(180deg) translateZ(12px); }
+    .logo-face:nth-child(4) { transform: rotateY(-90deg) translateZ(12px); }
+    .logo-face:nth-child(5) { transform: rotateX(90deg) translateZ(12px); }
+    .logo-face:nth-child(6) { transform: rotateX(-90deg) translateZ(12px); }
+
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--adm-text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+    }
+
+    .logo-text span {
+      background: linear-gradient(135deg, #60a5fa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .console-pill {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #60a5fa;
+      margin-left: 0.5rem;
+    }
+
+    body.rtl .console-pill {
+      margin-left: 0;
+      margin-right: 0.5rem;
+    }
+
+    /* ==========================================================================
+       TOPBAR NAVIGATION BAR
+       ========================================================================== */
+    .admin-topbar {
+      height: var(--topbar-height);
+      background: var(--adm-surface);
+      border-bottom: 1px solid var(--adm-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .topbar-search {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 1rem;
+      border-radius: 0.65rem;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border);
+      width: 280px;
+      transition: all 0.25s ease;
+    }
+
+    .topbar-search:focus-within {
+      border-color: var(--adm-primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+
+    .topbar-search input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--adm-text-primary);
+      font-size: 0.88rem;
+      width: 100%;
+    }
+
+    .topbar-search kbd {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--adm-text-muted);
+      border: 1px solid var(--adm-border-subtle);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .topbar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.48rem 0.95rem;
+      border-radius: 0.6rem;
+      font-size: 0.84rem;
+      font-weight: 600;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border);
+      color: var(--adm-text-secondary);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .topbar-btn:hover {
+      background: var(--adm-surface-card-hover);
+      color: var(--adm-text-primary);
+      border-color: var(--adm-primary-blue);
+    }
+
+    .topbar-icon-btn {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border-radius: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border);
+      color: var(--adm-text-secondary);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .topbar-icon-btn:hover {
+      background: var(--adm-surface-card-hover);
+      color: var(--adm-text-primary);
+      border-color: var(--adm-primary-blue);
+    }
+
+    .notif-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #f43f5e;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 0.75rem;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border);
+      cursor: pointer;
+    }
+
+    .avatar-ring {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .user-info strong {
+      font-size: 0.85rem;
+      color: var(--adm-text-primary);
+    }
+
+    .user-info span {
+      font-size: 0.72rem;
+      color: var(--adm-text-muted);
+    }
+
+    /* HAMBURGER BUTTON (Hidden on Desktop > 1024px, Visible on Mobile & Tablet) */
+    .hamburger-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 0.65rem;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border);
+      color: var(--adm-text-primary);
+      font-size: 1.25rem;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .hamburger-btn:hover {
+      background: var(--adm-primary-blue);
+      color: #ffffff;
+      border-color: var(--adm-primary-blue);
+    }
+
+    /* ==========================================================================
+       DASHBOARD WRAPPER & SIDEBAR
+       ========================================================================== */
+    .dashboard-layout {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      min-height: calc(100vh - var(--topbar-height));
+    }
+
+    .admin-sidebar {
+      width: var(--sidebar-width);
+      background: var(--adm-surface);
+      border-right: 1px solid var(--adm-border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      height: calc(100vh - var(--topbar-height));
+      position: sticky;
+      top: var(--topbar-height);
+      overflow-y: auto;
+      padding: 1.25rem 0.85rem;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    body.rtl .admin-sidebar {
+      border-right: none;
+      border-left: 1px solid var(--adm-border);
+    }
+
+    .sidebar-header-box {
+      padding: 1rem;
+      border-radius: 0.85rem;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .node-status-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--adm-text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--adm-primary-emerald);
+      box-shadow: 0 0 8px var(--adm-primary-emerald);
+    }
+
+    .node-subtext {
+      font-size: 0.72rem;
+      color: var(--adm-text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .active-pill {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .sidebar-nav-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--adm-text-muted);
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .sidebar-menu-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .nav-module-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 0.95rem;
+      border-radius: 0.75rem;
+      color: var(--adm-text-secondary);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .nav-module-item:hover {
+      background: var(--adm-surface-card);
+      color: var(--adm-text-primary);
+      border-color: var(--adm-border);
+    }
+
+    .nav-module-item.active {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(59, 130, 246, 0.1));
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.35);
+      font-weight: 700;
+    }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .item-left i {
+      width: 18px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .item-counter {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 9999px;
+      background: var(--adm-surface-card);
+      color: var(--adm-text-muted);
+      border: 1px solid var(--adm-border-subtle);
+    }
+
+    .nav-module-item.active .item-counter {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: transparent;
+    }
+
+    .logout-item {
+      color: #f43f5e !important;
+      margin-top: 0.75rem;
+      border-top: 1px solid var(--adm-border-subtle);
+      padding-top: 0.95rem;
+    }
+
+    .logout-item:hover {
+      background: rgba(244, 63, 94, 0.1) !important;
+      border-color: rgba(244, 63, 94, 0.25) !important;
+    }
+
+    /* ==========================================================================
+       MAIN CONTENT PANEL
+       ========================================================================== */
+    .admin-main {
+      flex: 1;
+      padding: 2rem 2.25rem 4rem 2.25rem;
+      background: var(--adm-bg);
+      overflow-y: auto;
+    }
+
+    .module-view {
+      display: none;
+      animation: fadeInView 0.35s ease;
+    }
+
+    .module-view.active {
+      display: block;
+    }
+
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Module Header Bar */
+    .module-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--adm-border);
+    }
+
+    .header-left-col h1 {
+      font-size: 2.15rem;
+      font-weight: 800;
+      color: var(--adm-text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .header-left-col p {
+      font-size: 1rem;
+      color: var(--adm-text-secondary);
+      max-width: 720px;
+      line-height: 1.5;
+    }
+
+    .header-actions-col {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-action-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 0.7rem;
+      background: linear-gradient(135deg, #1e40af, #2563eb);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-primary:hover {
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+      transform: translateY(-2px);
+    }
+
+    .btn-action-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.7rem 1.25rem;
+      border-radius: 0.7rem;
+      background: var(--adm-surface-card);
+      color: var(--adm-text-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid var(--adm-border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-ghost:hover {
+      background: var(--adm-surface-card-hover);
+      border-color: var(--adm-primary-blue);
+    }
+
+    /* Sub-Features Navigation Chips */
+    .subfeature-chips-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      padding: 0.6rem;
+      border-radius: 0.85rem;
+      background: var(--adm-surface);
+      border: 1px solid var(--adm-border);
+    }
+
+    .subfeature-chip {
+      padding: 0.45rem 1rem;
+      border-radius: 0.6rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border-subtle);
+      color: var(--adm-text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .subfeature-chip:hover, .subfeature-chip.active {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+
+    /* ==========================================================================
+       METRIC TELEMETRY CARDS (DASHBOARD OVERVIEW)
+       ========================================================================== */
+    .metrics-telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .metrics-telemetry-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .metrics-telemetry-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .telemetry-card {
+      padding: 1.5rem;
+      border-radius: 1.15rem;
+      background: var(--adm-surface);
+      border: 1px solid var(--adm-border);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .telemetry-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(59, 130, 246, 0.35);
+      box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15);
+    }
+
+    .telemetry-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .telemetry-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--adm-text-muted);
+    }
+
+    .telemetry-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      background: rgba(37, 99, 235, 0.12);
+      color: #38bdf8;
+    }
+
+    .telemetry-val-large {
+      font-size: 2.25rem;
+      font-weight: 900;
+      color: var(--adm-text-primary);
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .telemetry-trend-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .trend-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .trend-pill.positive { color: #34d399; }
+    .trend-pill.warning { color: #fbbf24; }
+    .trend-pill.info { color: #60a5fa; }
+
+    /* SVG Sparkline Curve */
+    .sparkline-svg {
+      width: 80px;
+      height: 24px;
+      overflow: visible;
+    }
+
+    /* ==========================================================================
+       TWO-COLUMN TELEMETRY QUEUE & ACTIVITY FEED
+       ========================================================================== */
+    .overview-two-col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (min-width: 1200px) {
+      .overview-two-col {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    .panel-card {
+      padding: 1.75rem;
+      border-radius: 1.15rem;
+      background: var(--adm-surface);
+      border: 1px solid var(--adm-border);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--adm-border-subtle);
+    }
+
+    .panel-header h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--adm-text-primary);
+    }
+
+    .panel-action-link {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--adm-primary-blue);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Modern Table Styles */
+    .data-table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.86rem;
+    }
+
+    body.rtl .data-table {
+      text-align: right;
+    }
+
+    .data-table th {
+      padding: 0.75rem 1rem;
+      background: var(--adm-surface-card);
+      color: var(--adm-text-muted);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--adm-border);
+    }
+
+    .data-table td {
+      padding: 0.95rem 1rem;
+      border-bottom: 1px solid var(--adm-border-subtle);
+      color: var(--adm-text-secondary);
+      vertical-align: middle;
+    }
+
+    .data-table tr:hover td {
+      background: var(--adm-surface-card);
+    }
+
+    .status-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .badge-confirmed { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .badge-pending { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .badge-active { background: rgba(37, 99, 235, 0.15); color: #60a5fa; }
+    .badge-draft { background: rgba(148, 163, 184, 0.15); color: #94a3b8; }
+    .badge-danger { background: rgba(244, 63, 94, 0.15); color: #f43f5e; }
+
+    /* Activity Feed Items */
+    .activity-feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .activity-feed-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 0.75rem;
+      border-radius: 0.75rem;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border-subtle);
+    }
+
+    .activity-icon-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+    }
+
+    .activity-body {
+      flex: 1;
+    }
+
+    .activity-text {
+      font-size: 0.85rem;
+      color: var(--adm-text-primary);
+      line-height: 1.4;
+    }
+
+    .activity-time {
+      font-size: 0.72rem;
+      color: var(--adm-text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Action Buttons in tables */
+    .table-btn {
+      padding: 0.35rem 0.65rem;
+      border-radius: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.2s ease;
+    }
+
+    .table-btn-primary { background: #2563eb; color: #fff; }
+    .table-btn-primary:hover { background: #1d4ed8; }
+    .table-btn-ghost { background: var(--adm-surface-card); color: var(--adm-text-secondary); border: 1px solid var(--adm-border); }
+    .table-btn-ghost:hover { background: var(--adm-surface-card-hover); color: var(--adm-text-primary); }
+
+    /* ==========================================================================
+       MODAL WINDOWS & FORMS
+       ========================================================================== */
+    .admin-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .admin-modal-overlay.open {
+      display: flex;
+    }
+
+    .admin-modal-box {
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--adm-surface);
+      border: 1px solid var(--adm-border);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5);
+      animation: modalScale 0.25s ease;
+    }
+
+    @keyframes modalScale {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--adm-border-subtle);
+    }
+
+    .modal-header-row h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--adm-text-primary);
+    }
+
+    .modal-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border-subtle);
+      color: var(--adm-text-secondary);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--adm-text-primary);
+      margin-bottom: 0.45rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 0.65rem;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border);
+      color: var(--adm-text-primary);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--adm-primary-blue);
+    }
+
+    /* ==========================================================================
+       MOBILE & TABLET DRAWER (CRITICAL USER REQUIREMENT)
+       "in mobile view and tab view i need only logo at left and hamburger mmenu on right side all other things inside hamburger menu"
+       ========================================================================== */
+    .mobile-drawer-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 998;
+      display: none;
+    }
+
+    .mobile-drawer-backdrop.open {
+      display: block;
+    }
+
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 340px;
+      max-width: 85vw;
+      height: 100vh;
+      background: var(--adm-surface);
+      border-left: 1px solid var(--adm-border);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -10px 0 35px rgba(0, 0, 0, 0.4);
+      overflow-y: auto;
+      padding: 1.5rem;
+    }
+
+    body.rtl .mobile-drawer {
+      right: auto;
+      left: 0;
+      border-left: none;
+      border-right: 1px solid var(--adm-border);
+      transform: translateX(-100%);
+    }
+
+    .mobile-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--adm-border-subtle);
+    }
+
+    .drawer-close-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 0.6rem;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border);
+      color: var(--adm-text-primary);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .drawer-user-card {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 1rem;
+      border-radius: 0.85rem;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border);
+      margin-bottom: 1.25rem;
+    }
+
+    .drawer-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .drawer-action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.65rem;
+      border-radius: 0.65rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: var(--adm-surface-card);
+      border: 1px solid var(--adm-border);
+      color: var(--adm-text-primary);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .drawer-action-btn:hover {
+      background: var(--adm-surface-card-hover);
+      border-color: var(--adm-primary-blue);
+    }
+
+    /* ==========================================================================
+       MEDIA QUERIES: STRICT ADHERENCE TO MOBILE & TABLET REQUIREMENTS (<= 1024px)
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      /* TOPBAR: ONLY LOGO ON LEFT AND HAMBURGER ON RIGHT! */
+      .topbar-search {
+        display: none !important;
+      }
+
+      .topbar-right {
+        display: none !important;
+      }
+
+      .hamburger-btn {
+        display: flex !important;
+      }
+
+      /* HIDE DESKTOP SIDEBAR COMPLETELY */
+      .admin-sidebar {
+        display: none !important;
+      }
+
+      /* MAIN CONTENT OCCUPIES FULL WIDTH */
+      .admin-main {
+        width: 100% !important;
+        padding: 1.5rem 1rem 3rem 1rem !important;
+      }
+
+      .metrics-telemetry-grid {
+        grid-template-columns: 1fr;
+      }
+
+      @media (min-width: 640px) {
+        .metrics-telemetry-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOPBAR NAVIGATION
+       ========================================================================== -->
+  <header class="admin-topbar">
+    <div class="topbar-left">
+      <!-- LOGO (Always visible on left across Mobile, Tab, and Desktop) -->
+      <a href="index.html" class="logo-section">
+        <div class="logo-3d">
+          <div class="logo-cube">
+            <div class="logo-face">&#10022;</div>
+            <div class="logo-face">&#10022;</div>
+            <div class="logo-face">&#10022;</div>
+            <div class="logo-face">&#10022;</div>
+            <div class="logo-face">&#10022;</div>
+            <div class="logo-face">&#10022;</div>
+          </div>
+        </div>
+        <div class="logo-text">Event<span>Sphere</span></div>
+        <span class="console-pill">ADMIN V4.8</span>
+      </a>
+
+      <!-- Desktop Search (Hidden on Mobile & Tab <= 1024px) -->
+      <div class="topbar-search">
+        <i class="fas fa-search" style="color: var(--adm-text-muted);"></i>
+        <input type="text" id="topbarSearchInput" placeholder="Quick Search (Ctrl + K)">
+        <kbd>Ctrl K</kbd>
+      </div>
+    </div>
+
+    <!-- Desktop Actions & Profile (Hidden on Mobile & Tab <= 1024px) -->
+    <div class="topbar-right">
+      <a href="index.html" class="topbar-btn">
+        <i class="fas fa-home"></i> Back to Home
+      </a>
+      <a href="home-2.html" class="topbar-btn">
+        <i class="fas fa-crown text-amber-400"></i> Sovereign Portal
+      </a>
+      <button class="topbar-btn" id="refreshMetricsBtn">
+        <i class="fas fa-sync-alt"></i> Refresh Metrics
+      </button>
+      <button class="topbar-icon-btn" id="themeToggleBtn" title="Toggle Theme">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="topbar-icon-btn" id="rtlToggleBtn" title="Toggle RTL">
+        RTL
+      </button>
+      <button class="topbar-icon-btn" id="notifBellBtn" title="Notifications">
+        <i class="fas fa-bell"></i>
+        <span class="notif-badge">4</span>
+      </button>
+      <div class="user-profile-badge" id="userProfileBadge">
+        <div class="avatar-ring">MV</div>
+        <div class="user-info">
+          <strong>Marcus Vance, COO</strong>
+          <span>Head Producer &bull; Super Admin</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hamburger Menu Button (ONLY visible on Mobile & Tab <= 1024px) -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open Navigation Drawer">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- ==========================================================================
+       MOBILE & TABLET SLIDE-OUT DRAWER (CONTAINING ALL TOPBAR & SIDEBAR CONTENT)
+       ========================================================================== -->
+  <div class="mobile-drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-top-row">
+      <div class="logo-section">
+        <div class="logo-3d">
+          <div class="logo-cube">
+            <div class="logo-face">&#10022;</div>
+            <div class="logo-face">&#10022;</div>
+            <div class="logo-face">&#10022;</div>
+            <div class="logo-face">&#10022;</div>
+            <div class="logo-face">&#10022;</div>
+            <div class="logo-face">&#10022;</div>
+          </div>
+        </div>
+        <div class="logo-text">Event<span>Sphere</span></div>
+      </div>
+      <button class="drawer-close-btn" id="closeDrawerBtn">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Drawer User Card -->
+    <div class="drawer-user-card">
+      <div class="avatar-ring">MV</div>
+      <div class="user-info">
+        <strong>Marcus Vance, COO</strong>
+        <span>Head Producer &bull; Super Admin</span>
+      </div>
+    </div>
+
+    <!-- Drawer Quick Actions (Moved from Topbar) -->
+    <div class="drawer-actions-grid">
+      <a href="index.html" class="drawer-action-btn">
+        <i class="fas fa-home"></i> Home
+      </a>
+      <a href="home-2.html" class="drawer-action-btn">
+        <i class="fas fa-crown"></i> Sovereign
+      </a>
+      <button class="drawer-action-btn" id="drawerThemeBtn">
+        <i class="fas fa-moon"></i> Theme
+      </button>
+      <button class="drawer-action-btn" id="drawerRtlBtn">
+        <i class="fas fa-globe"></i> RTL
+      </button>
+    </div>
+
+    <!-- Drawer Search Input -->
+    <div style="margin-bottom: 1.25rem;">
+      <div class="topbar-search" style="display: flex !important; width: 100%;">
+        <i class="fas fa-search" style="color: var(--adm-text-muted);"></i>
+        <input type="text" id="drawerSearchInput" placeholder="Search Console...">
+      </div>
+    </div>
+
+    <!-- Drawer Navigation Modules (All 14 Modules + Logout) -->
+    <div class="sidebar-nav-label">
+      <span>CONSOLE NAVIGATION</span>
+      <span>14 MODULES</span>
+    </div>
+    <ul class="sidebar-menu-list" id="drawerMenuList">
+      <!-- Cloned via JS or dynamically linked -->
+    </ul>
+  </aside>
+
+  <!-- ==========================================================================
+       DASHBOARD WRAPPER: DESKTOP SIDEBAR + MAIN CONTENT AREA
+       ========================================================================== */
+  -->
+  <div class="dashboard-layout">
+    
+    <!-- DESKTOP SIDEBAR (Visible > 1024px) -->
+    <aside class="admin-sidebar" id="desktopSidebar">
+      <div class="sidebar-header-box">
+        <div>
+          <div class="node-status-title">
+            <span class="status-dot"></span>
+            <span>ADMIN CONSOLE</span>
+          </div>
+          <div class="node-subtext">Node Online &bull; v4.8</div>
+        </div>
+        <span class="active-pill">ACTIVE</span>
+      </div>
+
+      <div class="sidebar-nav-label">
+        <span>CONSOLE NAVIGATION</span>
+        <span>14 MODULES</span>
+      </div>
+
+      <ul class="sidebar-menu-list" id="mainSidebarList">
+        <!-- 1. Dashboard Overview -->
+        <li>
+          <a class="nav-module-item active" data-module="dashboard-overview">
+            <span class="item-left">
+              <i class="fas fa-chart-pie" style="color: #60a5fa;"></i>
+              <span>Dashboard Overview</span>
+            </span>
+            <span class="item-counter" style="background:#2563eb; color:#fff;">LIVE</span>
+          </a>
+        </li>
+
+        <!-- 2. Client Management -->
+        <li>
+          <a class="nav-module-item" data-module="client-management">
+            <span class="item-left">
+              <i class="fas fa-user-tie" style="color: #38bdf8;"></i>
+              <span>Client Management</span>
+            </span>
+            <span class="item-counter">3,428</span>
+          </a>
+        </li>
+
+        <!-- 3. Event Project Management -->
+        <li>
+          <a class="nav-module-item" data-module="event-projects">
+            <span class="item-left">
+              <i class="fas fa-calendar-alt" style="color: #34d399;"></i>
+              <span>Event Project Management</span>
+            </span>
+            <span class="item-counter">1,842</span>
+          </a>
+        </li>
+
+        <!-- 4. Proposal Management -->
+        <li>
+          <a class="nav-module-item" data-module="proposal-management">
+            <span class="item-left">
+              <i class="fas fa-file-contract" style="color: #fbbf24;"></i>
+              <span>Proposal Management</span>
+            </span>
+            <span class="item-counter">28</span>
+          </a>
+        </li>
+
+        <!-- 5. Venue Management -->
+        <li>
+          <a class="nav-module-item" data-module="venue-management">
+            <span class="item-left">
+              <i class="fas fa-building" style="color: #a78bfa;"></i>
+              <span>Venue Management</span>
+            </span>
+            <span class="item-counter">142</span>
+          </a>
+        </li>
+
+        <!-- 6. Vendor Management -->
+        <li>
+          <a class="nav-module-item" data-module="vendor-management">
+            <span class="item-left">
+              <i class="fas fa-truck-loading" style="color: #f472b6;"></i>
+              <span>Vendor Management</span>
+            </span>
+            <span class="item-counter">890</span>
+          </a>
+        </li>
+
+        <!-- 7. Budget Management -->
+        <li>
+          <a class="nav-module-item" data-module="budget-management">
+            <span class="item-left">
+              <i class="fas fa-wallet" style="color: #34d399;"></i>
+              <span>Budget Management</span>
+            </span>
+            <span class="item-counter">$18.4M</span>
+          </a>
+        </li>
+
+        <!-- 8. Schedule & Task Management -->
+        <li>
+          <a class="nav-module-item" data-module="schedule-tasks">
+            <span class="item-left">
+              <i class="fas fa-tasks" style="color: #38bdf8;"></i>
+              <span>Schedule & Tasks</span>
+            </span>
+            <span class="item-counter">24 Today</span>
+          </a>
+        </li>
+
+        <!-- 9. Guest Registration Management -->
+        <li>
+          <a class="nav-module-item" data-module="guest-registration">
+            <span class="item-left">
+              <i class="fas fa-id-badge" style="color: #fb923c;"></i>
+              <span>Guest Registration</span>
+            </span>
+            <span class="item-counter">42.1k</span>
+          </a>
+        </li>
+
+        <!-- 10. Contract & Document Management -->
+        <li>
+          <a class="nav-module-item" data-module="contract-documents">
+            <span class="item-left">
+              <i class="fas fa-file-signature" style="color: #60a5fa;"></i>
+              <span>Contract & Documents</span>
+            </span>
+            <span class="item-counter">98.9%</span>
+          </a>
+        </li>
+
+        <!-- 11. Billing & Payment Management -->
+        <li>
+          <a class="nav-module-item" data-module="billing-payments">
+            <span class="item-left">
+              <i class="fas fa-receipt" style="color: #4ade80;"></i>
+              <span>Billing & Payments</span>
+            </span>
+            <span class="item-counter">$184k</span>
+          </a>
+        </li>
+
+        <!-- 12. Communication Management -->
+        <li>
+          <a class="nav-module-item" data-module="communication-management">
+            <span class="item-left">
+              <i class="fas fa-comments" style="color: #c084fc;"></i>
+              <span>Communication</span>
+            </span>
+            <span class="item-counter">12 New</span>
+          </a>
+        </li>
+
+        <!-- 13. Feedback & Event Reports -->
+        <li>
+          <a class="nav-module-item" data-module="feedback-reports">
+            <span class="item-left">
+              <i class="fas fa-star-half-alt" style="color: #facc15;"></i>
+              <span>Feedback & Reports</span>
+            </span>
+            <span class="item-counter">4.9 &#9733;</span>
+          </a>
+        </li>
+
+        <!-- 14. Website Content Management -->
+        <li>
+          <a class="nav-module-item" data-module="website-cms">
+            <span class="item-left">
+              <i class="fas fa-globe" style="color: #38bdf8;"></i>
+              <span>Website Content CMS</span>
+            </span>
+            <span class="item-counter">CMS</span>
+          </a>
+        </li>
+
+        <!-- 15. Logout -->
+        <li>
+          <a class="nav-module-item logout-item" id="sidebarLogoutBtn">
+            <span class="item-left">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout System</span>
+            </span>
+            <i class="fas fa-power-off"></i>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- ==========================================================================
+         MAIN INTERACTIVE MODULE PANELS
+         ========================================================================== -->
+    <main class="admin-main">
+
+      <!-- ======================================================================
+           MODULE 1: DASHBOARD OVERVIEW (ACTIVE DEFAULT)
+           ====================================================================== -->
+      <section class="module-view active" id="view-dashboard-overview">
+        <!-- Module Header -->
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Operations & Event Telemetry Overview</h1>
+            <p>
+              Real-time client portfolios, summit execution pipelines, venue allocations, and multi-channel partner telemetry.
+            </p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary" onclick="openModal('addClientModal')">
+              <i class="fas fa-user-plus"></i> + Add Client
+            </button>
+            <button class="btn-action-primary" onclick="openModal('createEventModal')" style="background: linear-gradient(135deg, #059669, #10b981);">
+              <i class="fas fa-plus-circle"></i> + Create Event
+            </button>
+            <button class="btn-action-ghost" onclick="exportOverviewReport()">
+              <i class="fas fa-download"></i> Export Telemetry
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric Telemetry Cards Grid (8 Cards matching screenshot & spec) -->
+        <div class="metrics-telemetry-grid">
+          <!-- Card 1: Total Clients -->
+          <div class="telemetry-card">
+            <div class="telemetry-top">
+              <span class="telemetry-label">Total Clients</span>
+              <div class="telemetry-icon-box"><i class="fas fa-users"></i></div>
+            </div>
+            <div class="telemetry-val-large">3,428</div>
+            <div class="telemetry-trend-row">
+              <span class="trend-pill positive"><i class="fas fa-arrow-up"></i> +14.2% MTD</span>
+              <svg class="sparkline-svg" viewBox="0 0 80 24">
+                <path d="M0,18 Q20,12 40,15 T80,4" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Card 2: Active Event Projects -->
+          <div class="telemetry-card">
+            <div class="telemetry-top">
+              <span class="telemetry-label">Active Event Projects</span>
+              <div class="telemetry-icon-box" style="color: #38bdf8; background: rgba(56, 189, 248, 0.12);"><i class="fas fa-calendar-check"></i></div>
+            </div>
+            <div class="telemetry-val-large">1,842</div>
+            <div class="telemetry-trend-row">
+              <span class="trend-pill positive"><i class="fas fa-arrow-up"></i> +8.5% this month</span>
+              <svg class="sparkline-svg" viewBox="0 0 80 24">
+                <path d="M0,20 Q20,15 40,10 T80,3" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Card 3: Pending Proposals -->
+          <div class="telemetry-card">
+            <div class="telemetry-top">
+              <span class="telemetry-label">Pending Proposals</span>
+              <div class="telemetry-icon-box" style="color: #fbbf24; background: rgba(245, 158, 11, 0.12);"><i class="fas fa-file-invoice"></i></div>
+            </div>
+            <div class="telemetry-val-large">48</div>
+            <div class="telemetry-trend-row">
+              <span class="trend-pill warning"><i class="fas fa-circle" style="font-size: 0.55rem;"></i> Live in review queue</span>
+              <svg class="sparkline-svg" viewBox="0 0 80 24">
+                <path d="M0,15 Q25,8 50,18 T80,10" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Card 4: Upcoming Events -->
+          <div class="telemetry-card">
+            <div class="telemetry-top">
+              <span class="telemetry-label">Upcoming Events</span>
+              <div class="telemetry-icon-box" style="color: #a78bfa; background: rgba(167, 139, 250, 0.12);"><i class="fas fa-calendar-alt"></i></div>
+            </div>
+            <div class="telemetry-val-large">28</div>
+            <div class="telemetry-trend-row">
+              <span class="trend-pill info">18 Completed &bull; 10 Today</span>
+              <svg class="sparkline-svg" viewBox="0 0 80 24">
+                <path d="M0,22 Q20,18 40,12 T80,6" fill="none" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Card 5: Confirmed Vendor Bookings -->
+          <div class="telemetry-card">
+            <div class="telemetry-top">
+              <span class="telemetry-label">Confirmed Vendor Bookings</span>
+              <div class="telemetry-icon-box" style="color: #c084fc; background: rgba(192, 132, 252, 0.12);"><i class="fas fa-handshake"></i></div>
+            </div>
+            <div class="telemetry-val-large">64</div>
+            <div class="telemetry-trend-row">
+              <span class="trend-pill positive">Next 7 Days Confirmed</span>
+              <svg class="sparkline-svg" viewBox="0 0 80 24">
+                <path d="M0,18 Q30,12 50,15 T80,8" fill="none" stroke="#c084fc" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Card 6: Registered Delegates -->
+          <div class="telemetry-card">
+            <div class="telemetry-top">
+              <span class="telemetry-label">Registered Delegates</span>
+              <div class="telemetry-icon-box" style="color: #34d399; background: rgba(52, 211, 153, 0.12);"><i class="fas fa-id-card"></i></div>
+            </div>
+            <div class="telemetry-val-large">4,210</div>
+            <div class="telemetry-trend-row">
+              <span class="trend-pill positive"><i class="fas fa-arrow-up"></i> +18.4% MTD Growth</span>
+              <svg class="sparkline-svg" viewBox="0 0 80 24">
+                <path d="M0,20 Q20,14 45,16 T80,4" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Card 7: Verified Venue Partners -->
+          <div class="telemetry-card">
+            <div class="telemetry-top">
+              <span class="telemetry-label">Verified Venue Partners</span>
+              <div class="telemetry-icon-box" style="color: #fbbf24; background: rgba(245, 158, 11, 0.12);"><i class="fas fa-hotel"></i></div>
+            </div>
+            <div class="telemetry-val-large">890</div>
+            <div class="telemetry-trend-row">
+              <span class="trend-pill info">Global Luxury Network</span>
+              <svg class="sparkline-svg" viewBox="0 0 80 24">
+                <path d="M0,14 Q25,18 50,10 T80,6" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Card 8: Revenue Summary & Performance -->
+          <div class="telemetry-card">
+            <div class="telemetry-top">
+              <span class="telemetry-label">Revenue Summary</span>
+              <div class="telemetry-icon-box" style="color: #34d399; background: rgba(52, 211, 153, 0.12);"><i class="fas fa-dollar-sign"></i></div>
+            </div>
+            <div class="telemetry-val-large">$184,950</div>
+            <div class="telemetry-trend-row">
+              <span class="trend-pill positive"><i class="fas fa-arrow-up"></i> +18.2% vs Prev Mo</span>
+              <svg class="sparkline-svg" viewBox="0 0 80 24">
+                <path d="M0,22 Q30,16 55,14 T80,4" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Overview Two-Column Grid: Queue & Live Activity Stream -->
+        <div class="overview-two-col">
+          <!-- Column 1: Pending Approvals & Live Queue -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fas fa-hourglass-half" style="color: #fbbf24;"></i> Pending Approvals & Live Queue</h3>
+              <a class="panel-action-link" onclick="switchModule('proposal-management')">View All Proposals &rarr;</a>
+            </div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Project Name</th>
+                    <th>Client Organization</th>
+                    <th>Budget Allocation</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>World FinTech Sovereign 2026</strong></td>
+                    <td>Global Banking Consortium</td>
+                    <td>$420,000</td>
+                    <td><span class="status-badge badge-pending">Under Audit</span></td>
+                    <td><button class="table-btn table-btn-primary" onclick="alert('Proposal Approved!')">Approve</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Decarbonization Summit Plenary</strong></td>
+                    <td>Alpine Clean Energy Alliance</td>
+                    <td>$280,000</td>
+                    <td><span class="status-badge badge-active">Venue Hold</span></td>
+                    <td><button class="table-btn table-btn-ghost" onclick="switchModule('venue-management')">Inspect</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Frontier AI Governance Retreat</strong></td>
+                    <td>NexGen Cloud Holdings</td>
+                    <td>$175,000</td>
+                    <td><span class="status-badge badge-pending">SLA Review</span></td>
+                    <td><button class="table-btn table-btn-primary" onclick="alert('Fast-tracked!')">Fast-Track</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>G7 Trade & Security Roundtable</strong></td>
+                    <td>Ministry of External Commerce</td>
+                    <td>$540,000</td>
+                    <td><span class="status-badge badge-confirmed">Diplomatic Verified</span></td>
+                    <td><button class="table-btn table-btn-ghost" onclick="switchModule('contract-documents')">Contracts</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Column 2: EventSphere Live Telemetry Stream -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fas fa-satellite-dish" style="color: #38bdf8;"></i> Academy & Event Telemetry</h3>
+              <span class="status-badge badge-confirmed"><span class="status-dot"></span> Real-Time</span>
+            </div>
+            <div class="activity-feed-list">
+              <div class="activity-feed-item">
+                <div class="activity-icon-badge" style="background: rgba(37,99,235,0.15); color: #38bdf8;">
+                  <i class="fas fa-check-double"></i>
+                </div>
+                <div class="activity-body">
+                  <div class="activity-text"><strong>Zurich Kongresshaus</strong> 360&deg; LED stage setup completed and acoustic balance verified at 432Hz.</div>
+                  <div class="activity-time">4 minutes ago &bull; AV Production Crew</div>
+                </div>
+              </div>
+              <div class="activity-feed-item">
+                <div class="activity-icon-badge" style="background: rgba(16,185,129,0.15); color: #34d399;">
+                  <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="activity-body">
+                  <div class="activity-text">Advance deposit of <strong>$125,000</strong> received from Goldman Sovereign Capital.</div>
+                  <div class="activity-time">22 minutes ago &bull; Billing & Payments</div>
+                </div>
+              </div>
+              <div class="activity-feed-item">
+                <div class="activity-icon-badge" style="background: rgba(245,158,11,0.15); color: #fbbf24;">
+                  <i class="fas fa-id-card"></i>
+                </div>
+                <div class="activity-body">
+                  <div class="activity-text"><strong>640 VIP Delegates</strong> successfully checked in via facial biometric kiosks.</div>
+                  <div class="activity-time">45 minutes ago &bull; Delegate Concierge</div>
+                </div>
+              </div>
+              <div class="activity-feed-item">
+                <div class="activity-icon-badge" style="background: rgba(192,132,252,0.15); color: #c084fc;">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="activity-body">
+                  <div class="activity-text">Bilateral treaty chamber encrypted radio isolation protocol established.</div>
+                  <div class="activity-time">1 hour ago &bull; Protocol Security</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 2: CLIENT MANAGEMENT
+           ====================================================================== -->
+      <section class="module-view" id="view-client-management">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Client Management</h1>
+            <p>Corporate accounts, enterprise stakeholders, assigned event directors, and lifetime event history.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary" onclick="openModal('addClientModal')"><i class="fas fa-plus"></i> Register Client</button>
+            <button class="btn-action-ghost"><i class="fas fa-file-export"></i> Export Client Dossier</button>
+          </div>
+        </div>
+
+        <!-- Sub-features Bar -->
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">View Client Accounts</button>
+          <button class="subfeature-chip" onclick="openModal('addClientModal')">Register Client</button>
+          <button class="subfeature-chip">Edit Client Details</button>
+          <button class="subfeature-chip">Assign Event Manager</button>
+          <button class="subfeature-chip">Client Event History</button>
+          <button class="subfeature-chip">Activate / Deactivate Account</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Client Organization</th>
+                  <th>Primary Executive Contact</th>
+                  <th>Assigned Event Manager</th>
+                  <th>Total Events</th>
+                  <th>Account Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Goldman Sovereign Capital</strong><br><span style="font-size:0.75rem; color:var(--adm-text-muted);">Institutional Investment</span></td>
+                  <td>Lord Julian Sterling (CSO)</td>
+                  <td>Elena Rostova</td>
+                  <td>12 Executed</td>
+                  <td><span class="status-badge badge-confirmed">Active</span></td>
+                  <td>
+                    <button class="table-btn table-btn-primary" onclick="alert('Viewing Account Details...')">Edit</button>
+                    <button class="table-btn table-btn-ghost" onclick="alert('Account toggled')">Deactivate</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Alpine Clean Energy Accord</strong><br><span style="font-size:0.75rem; color:var(--adm-text-muted);">Inter-Governmental</span></td>
+                  <td>Dr. Aris Thorne (Director)</td>
+                  <td>Marcus Vance</td>
+                  <td>6 Executed</td>
+                  <td><span class="status-badge badge-confirmed">Active</span></td>
+                  <td>
+                    <button class="table-btn table-btn-primary">Edit</button>
+                    <button class="table-btn table-btn-ghost">Deactivate</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>NexGen Cloud Computing</strong><br><span style="font-size:0.75rem; color:var(--adm-text-muted);">Enterprise Tech</span></td>
+                  <td>Sophia Lin (VP Events)</td>
+                  <td>Julian Rossi</td>
+                  <td>4 Executed</td>
+                  <td><span class="status-badge badge-confirmed">Active</span></td>
+                  <td>
+                    <button class="table-btn table-btn-primary">Edit</button>
+                    <button class="table-btn table-btn-ghost">Deactivate</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 3: EVENT PROJECT MANAGEMENT
+           ====================================================================== -->
+      <section class="module-view" id="view-event-projects">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Event Project Management</h1>
+            <p>End-to-end conference execution pipelines, technical team assignments, and milestone deadlines.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary" onclick="openModal('createEventModal')"><i class="fas fa-plus"></i> Create Event Project</button>
+            <button class="btn-action-ghost"><i class="fas fa-archive"></i> Archive Completed</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">View All Event Requests</button>
+          <button class="subfeature-chip">Review Client Requirements</button>
+          <button class="subfeature-chip" onclick="openModal('createEventModal')">Create Event Project</button>
+          <button class="subfeature-chip">Assign Project Team</button>
+          <button class="subfeature-chip">Update Project Status</button>
+          <button class="subfeature-chip">Manage Event Deadlines</button>
+          <button class="subfeature-chip">Archive Completed Projects</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Project Name</th>
+                  <th>Host Venue</th>
+                  <th>Dates & Schedule</th>
+                  <th>Assigned Team Lead</th>
+                  <th>Pipeline Progress</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>World FinTech Sovereign Summit</strong></td>
+                  <td>Geneva Convention Hall</td>
+                  <td>Nov 14 - 17, 2026</td>
+                  <td>Elena Rostova (Lead Producer)</td>
+                  <td>
+                    <div style="display:flex; align-items:center; gap:0.5rem;">
+                      <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden;">
+                        <div style="width:85%; height:100%; background:#2563eb;"></div>
+                      </div>
+                      <span style="font-size:0.75rem; font-weight:700;">85%</span>
+                    </div>
+                  </td>
+                  <td><button class="table-btn table-btn-primary">Update Status</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Decarbonization Leadership Plenary</strong></td>
+                  <td>Zurich Alpine Pavilion</td>
+                  <td>Dec 02 - 04, 2026</td>
+                  <td>Marcus Vance (Technical Director)</td>
+                  <td>
+                    <div style="display:flex; align-items:center; gap:0.5rem;">
+                      <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden;">
+                        <div style="width:60%; height:100%; background:#10b981;"></div>
+                      </div>
+                      <span style="font-size:0.75rem; font-weight:700;">60%</span>
+                    </div>
+                  </td>
+                  <td><button class="table-btn table-btn-primary">Update Status</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 4: PROPOSAL MANAGEMENT
+           ====================================================================== -->
+      <section class="module-view" id="view-proposal-management">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Proposal Management</h1>
+            <p>Bespoke summit proposals, service package configurations, financial estimates, and approval workflows.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary" onclick="alert('Opening Proposal Wizard...')"><i class="fas fa-plus"></i> Create Event Proposal</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">Create Event Proposal</button>
+          <button class="subfeature-chip">Configure Service Packages</button>
+          <button class="subfeature-chip">Prepare Cost Estimates</button>
+          <button class="subfeature-chip">Send Proposal to Client</button>
+          <button class="subfeature-chip">Review Client Feedback</button>
+          <button class="subfeature-chip">Track Proposal Approval</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Proposal Title</th>
+                  <th>Service Tier Package</th>
+                  <th>Cost Estimate</th>
+                  <th>Client Recipient</th>
+                  <th>Feedback / Approval</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Prop-2026-981: Sovereign Holographic Plenary</strong></td>
+                  <td>Sovereign 360&deg; AV + Telepresence</td>
+                  <td>$485,000</td>
+                  <td>Global Banking Consortium</td>
+                  <td><span class="status-badge badge-confirmed">Approved by Client</span></td>
+                  <td><button class="table-btn table-btn-primary">Download PDF</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Prop-2026-982: Zero-Carbon Ministerial Forum</strong></td>
+                  <td>Sustainable Hybrid Tier-1</td>
+                  <td>$295,000</td>
+                  <td>Alpine Clean Accord</td>
+                  <td><span class="status-badge badge-pending">Under C-Suite Review</span></td>
+                  <td><button class="table-btn table-btn-ghost">Send Reminder</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 5: VENUE MANAGEMENT
+           ====================================================================== -->
+      <section class="module-view" id="view-venue-management">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Venue Management</h1>
+            <p>Global convention halls, luxury hotels, availability calendars, quotation comparisons, and reservations.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary" onclick="alert('Add Venue Details Modal')"><i class="fas fa-plus"></i> Add Venue Details</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">Add Venue Details</button>
+          <button class="subfeature-chip">Edit Venue Information</button>
+          <button class="subfeature-chip">Manage Venue Availability</button>
+          <button class="subfeature-chip">Compare Venue Quotations</button>
+          <button class="subfeature-chip">Confirm Venue Reservations</button>
+          <button class="subfeature-chip">Track Venue Payments</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Venue Name & Location</th>
+                  <th>Max Capacity</th>
+                  <th>Acoustic Isolation</th>
+                  <th>Calendar Availability</th>
+                  <th>Reservation Status</th>
+                  <th>Payment Track</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Geneva Grand Amphitheatre</strong><br><span style="font-size:0.75rem; color:var(--adm-text-muted);">Geneva, Switzerland</span></td>
+                  <td>6,500 PAX</td>
+                  <td>-52 dB Isolation</td>
+                  <td><span class="status-badge badge-confirmed">Reserved</span></td>
+                  <td><span class="status-badge badge-confirmed">Confirmed</span></td>
+                  <td>$85,000 Advance Paid</td>
+                </tr>
+                <tr>
+                  <td><strong>Zurich Alpine Glass Pavilion</strong><br><span style="font-size:0.75rem; color:var(--adm-text-muted);">Zurich, Switzerland</span></td>
+                  <td>2,200 PAX</td>
+                  <td>Harmonic Tuned</td>
+                  <td><span class="status-badge badge-active">Available</span></td>
+                  <td><span class="status-badge badge-draft">Option Held</span></td>
+                  <td>Pending Deposit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 6: VENDOR MANAGEMENT
+           ====================================================================== -->
+      <section class="module-view" id="view-vendor-management">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Vendor Management</h1>
+            <p>Procurement directory, service classifications, quotation requests, event assignments, and performance reviews.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary"><i class="fas fa-plus"></i> Add Vendor</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">Add Vendor</button>
+          <button class="subfeature-chip">Manage Vendor Profiles</button>
+          <button class="subfeature-chip">Categorize Vendor Services</button>
+          <button class="subfeature-chip">Request Vendor Quotations</button>
+          <button class="subfeature-chip">Assign Vendors to Events</button>
+          <button class="subfeature-chip">Confirm Vendor Bookings</button>
+          <button class="subfeature-chip">Track Booking Status</button>
+          <button class="subfeature-chip">Vendor Performance Reviews</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Vendor Partner</th>
+                  <th>Service Category</th>
+                  <th>Active Assignment</th>
+                  <th>Performance Rating</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Apex Holographic AV Solutions</strong></td>
+                  <td>Audio-Visual & 8K LED</td>
+                  <td>World FinTech Summit 2026</td>
+                  <td><span style="color:#fbbf24;">&#9733;&#9733;&#9733;&#9733;&#9733; 4.95</span></td>
+                  <td><span class="status-badge badge-confirmed">Confirmed Booking</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Michelin Executive Catering Guild</strong></td>
+                  <td>Catering & Hospitality</td>
+                  <td>Decarbonization Leadership Plenary</td>
+                  <td><span style="color:#fbbf24;">&#9733;&#9733;&#9733;&#9733;&#9734; 4.88</span></td>
+                  <td><span class="status-badge badge-confirmed">Confirmed Booking</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 7: BUDGET MANAGEMENT
+           ====================================================================== -->
+      <section class="module-view" id="view-budget-management">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Budget Management</h1>
+            <p>Project balance sheets, departmental allocations, expense tracking, variance analysis, and audit reports.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary"><i class="fas fa-plus"></i> Record Expense</button>
+            <button class="btn-action-ghost"><i class="fas fa-file-invoice-dollar"></i> Generate Financial Report</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">Set Project Budget</button>
+          <button class="subfeature-chip">Allocate Department Costs</button>
+          <button class="subfeature-chip">Record Project Expenses</button>
+          <button class="subfeature-chip">Review Additional Charges</button>
+          <button class="subfeature-chip">Monitor Budget Variance</button>
+          <button class="subfeature-chip">Approve Budget Changes</button>
+          <button class="subfeature-chip">Generate Financial Reports</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Event Project</th>
+                  <th>Allocated Budget</th>
+                  <th>Actual Expenses</th>
+                  <th>Budget Variance</th>
+                  <th>Variance Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>World FinTech Sovereign Summit</strong></td>
+                  <td>$450,000</td>
+                  <td>$412,400</td>
+                  <td>+$37,600</td>
+                  <td><span class="status-badge badge-confirmed">Under Budget (8.3%)</span></td>
+                  <td><button class="table-btn table-btn-primary">View Ledger</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Decarbonization Accord</strong></td>
+                  <td>$300,000</td>
+                  <td>$298,500</td>
+                  <td>+$1,500</td>
+                  <td><span class="status-badge badge-active">On Target</span></td>
+                  <td><button class="table-btn table-btn-primary">View Ledger</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 8: SCHEDULE & TASK MANAGEMENT
+           ====================================================================== -->
+      <section class="module-view" id="view-schedule-tasks">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Schedule & Task Management</h1>
+            <p>Milestone timelines, technical crew dispatch, deadline tracking, and minute-by-minute event day run sheets.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary"><i class="fas fa-plus"></i> Assign Team Task</button>
+            <button class="btn-action-ghost"><i class="fas fa-list-ol"></i> View Day-Of Run Sheet</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">Create Project Timeline</button>
+          <button class="subfeature-chip">Assign Team Tasks</button>
+          <button class="subfeature-chip">Set Task Deadlines</button>
+          <button class="subfeature-chip">Monitor Task Progress</button>
+          <button class="subfeature-chip">Manage Event-Day Run Sheet</button>
+          <button class="subfeature-chip">Resolve Scheduling Conflicts</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Task Description</th>
+                  <th>Project Assignment</th>
+                  <th>Assigned Specialist</th>
+                  <th>Deadline</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Rehearse 360&deg; LED Holographic Keynote</strong></td>
+                  <td>World FinTech Sovereign</td>
+                  <td>David Kim (AV Lead)</td>
+                  <td>Tomorrow, 14:00 CET</td>
+                  <td><span class="status-badge badge-danger">High Priority</span></td>
+                  <td><span class="status-badge badge-active">In Progress</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Finalize Diplomatic Motorcade Escort Route</strong></td>
+                  <td>G7 Roundtable Conclave</td>
+                  <td>Captain Jean Blanc</td>
+                  <td>Nov 16, 2026</td>
+                  <td><span class="status-badge badge-pending">Normal</span></td>
+                  <td><span class="status-badge badge-confirmed">Completed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 9: GUEST REGISTRATION MANAGEMENT
+           ====================================================================== -->
+      <section class="module-view" id="view-guest-registration">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Guest Registration Management</h1>
+            <p>Attendee accreditation, digital invitations, real-time check-in telemetry, and guest list exports.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary"><i class="fas fa-user-check"></i> Check-In Terminal</button>
+            <button class="btn-action-ghost"><i class="fas fa-file-csv"></i> Export Attendee Data</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">Manage Attendee Lists</button>
+          <button class="subfeature-chip">Configure Registration Forms</button>
+          <button class="subfeature-chip">Track Invitations</button>
+          <button class="subfeature-chip">Monitor Registration Counts</button>
+          <button class="subfeature-chip">Manage Check-In Records</button>
+          <button class="subfeature-chip">Export Attendee Data</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Delegate Name & Title</th>
+                  <th>Affiliated Institution</th>
+                  <th>Badge Tier</th>
+                  <th>Invitation Status</th>
+                  <th>Check-In Verification</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Sir Arthur Kensington</strong> (Executive Director)</td>
+                  <td>Bank of England / FCA</td>
+                  <td><span class="status-badge badge-confirmed">VIP Plenary Access</span></td>
+                  <td>Delivered & Confirmed</td>
+                  <td><span class="status-badge badge-confirmed"><i class="fas fa-check"></i> Checked-In</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Hon. Beatrice Dupont</strong> (Ambassador)</td>
+                  <td>Swiss Federal Council</td>
+                  <td><span class="status-badge badge-confirmed">Diplomatic Sovereign</span></td>
+                  <td>Delivered & Confirmed</td>
+                  <td><span class="status-badge badge-confirmed"><i class="fas fa-check"></i> Checked-In</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 10: CONTRACT & DOCUMENT MANAGEMENT
+           ====================================================================== -->
+      <section class="module-view" id="view-contract-documents">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Contract & Document Management</h1>
+            <p>Client master services agreements, vendor non-disclosures, signed work orders, and invoice attachments.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary"><i class="fas fa-upload"></i> Upload Client Contract</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">Upload Client Contracts</button>
+          <button class="subfeature-chip">Manage Vendor Agreements</button>
+          <button class="subfeature-chip">Store Event Documents</button>
+          <button class="subfeature-chip">Track Document Approvals</button>
+          <button class="subfeature-chip">Manage Invoice Attachments</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Document Name</th>
+                  <th>Contracting Entity</th>
+                  <th>Document Type</th>
+                  <th>Execution Date</th>
+                  <th>Sign-Off Approval</th>
+                  <th>File Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>MSA_GoldmanSovereign_2026_Final.pdf</strong></td>
+                  <td>Goldman Sovereign Capital</td>
+                  <td>Master Services Agreement</td>
+                  <td>Oct 08, 2026</td>
+                  <td><span class="status-badge badge-confirmed">Dual Executed</span></td>
+                  <td><button class="table-btn table-btn-primary">Download</button></td>
+                </tr>
+                <tr>
+                  <td><strong>VendorSLA_ApexAV_Geneva.pdf</strong></td>
+                  <td>Apex Holographic AV Solutions</td>
+                  <td>Vendor Service Agreement</td>
+                  <td>Oct 10, 2026</td>
+                  <td><span class="status-badge badge-confirmed">Dual Executed</span></td>
+                  <td><button class="table-btn table-btn-primary">Download</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 11: BILLING & PAYMENT MANAGEMENT
+           ====================================================================== -->
+      <section class="module-view" id="view-billing-payments">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Billing & Payment Management</h1>
+            <p>Client billing schedules, milestone advance payments, outstanding balances, vendor disbursements, and transactions.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary"><i class="fas fa-file-invoice"></i> Generate Client Invoice</button>
+            <button class="btn-action-ghost"><i class="fas fa-history"></i> Transaction History</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">Generate Client Invoices</button>
+          <button class="subfeature-chip">Track Advance Payments</button>
+          <button class="subfeature-chip">Monitor Outstanding Balances</button>
+          <button class="subfeature-chip">Record Vendor Payments</button>
+          <button class="subfeature-chip">Manage Refund Requests</button>
+          <button class="subfeature-chip">View Transaction History</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Invoice Ref</th>
+                  <th>Client / Vendor</th>
+                  <th>Total Amount</th>
+                  <th>Payment Milestone</th>
+                  <th>Settlement Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>INV-2026-4401</strong></td>
+                  <td>Global Banking Consortium</td>
+                  <td>$180,000</td>
+                  <td>Phase 1: Initial Deposit (40%)</td>
+                  <td><span class="status-badge badge-confirmed">Settled via Wire</span></td>
+                  <td><button class="table-btn table-btn-ghost">View Receipt</button></td>
+                </tr>
+                <tr>
+                  <td><strong>INV-2026-4402</strong></td>
+                  <td>Alpine Clean Accord</td>
+                  <td>$95,000</td>
+                  <td>Phase 2: Venue Lock (30%)</td>
+                  <td><span class="status-badge badge-pending">Due in 5 Days</span></td>
+                  <td><button class="table-btn table-btn-primary">Send Notice</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 12: COMMUNICATION MANAGEMENT
+           ====================================================================== -->
+      <section class="module-view" id="view-communication-management">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Communication Management</h1>
+            <p>Direct client channels, vendor dispatch radios, project notifications, email digests, and support tickets.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary"><i class="fas fa-paper-plane"></i> Send Project Update</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">Client Messages</button>
+          <button class="subfeature-chip">Vendor Communications</button>
+          <button class="subfeature-chip">Send Project Updates</button>
+          <button class="subfeature-chip">Configure Email Notifications</button>
+          <button class="subfeature-chip">Manage Support Requests</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Sender</th>
+                  <th>Message Subject</th>
+                  <th>Associated Project</th>
+                  <th>Timestamp</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Lord Julian Sterling</strong></td>
+                  <td>Confirmation of bilateral security clearances</td>
+                  <td>World FinTech Sovereign</td>
+                  <td>12 mins ago</td>
+                  <td><span class="status-badge badge-confirmed">Answered</span></td>
+                  <td><button class="table-btn table-btn-primary">Reply</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Apex AV Technical Crew</strong></td>
+                  <td>Redundant transcontinental satellite ping optimal</td>
+                  <td>G7 Roundtable</td>
+                  <td>1 hour ago</td>
+                  <td><span class="status-badge badge-confirmed">Resolved</span></td>
+                  <td><button class="table-btn table-btn-ghost">View Thread</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 13: FEEDBACK & EVENT REPORTS
+           ====================================================================== -->
+      <section class="module-view" id="view-feedback-reports">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Feedback & Event Reports</h1>
+            <p>Client post-event reviews, vendor delivery evaluations, profitability analyses, and executive audit dossiers.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary"><i class="fas fa-file-pdf"></i> Generate Executive Summary</button>
+            <button class="btn-action-ghost"><i class="fas fa-file-export"></i> Export All Reviews</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">Collect Client Reviews</button>
+          <button class="subfeature-chip">Evaluate Vendor Performance</button>
+          <button class="subfeature-chip">Generate Event Summary Reports</button>
+          <button class="subfeature-chip">Analyze Project Profitability</button>
+          <button class="subfeature-chip">Review Budget Performance</button>
+          <button class="subfeature-chip">Export Reports</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Executed Event</th>
+                  <th>Net Promoter Score</th>
+                  <th>AV / Technical SLA</th>
+                  <th>Gross Profit Margin</th>
+                  <th>Executive Audit Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>World FinTech Sovereign Forum 2025</strong></td>
+                  <td><strong style="color:#34d399;">99.1% NPS</strong></td>
+                  <td>100.00% Zero-Drop</td>
+                  <td>28.4% Net Margin</td>
+                  <td><span class="status-badge badge-confirmed">KPMG Verified</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Alpine Clean Energy Accord 2025</strong></td>
+                  <td><strong style="color:#34d399;">98.4% NPS</strong></td>
+                  <td>99.98% SLA</td>
+                  <td>26.2% Net Margin</td>
+                  <td><span class="status-badge badge-confirmed">ISO-20121 Certified</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           MODULE 14: WEBSITE CONTENT MANAGEMENT (CMS)
+           ====================================================================== -->
+      <section class="module-view" id="view-website-cms">
+        <div class="module-header">
+          <div class="header-left-col">
+            <h1>Website Content Management (CMS)</h1>
+            <p>Publish portfolio case studies, update public service listings, review testimonials, and monitor contact enquiries.</p>
+          </div>
+          <div class="header-actions-col">
+            <button class="btn-action-primary"><i class="fas fa-plus"></i> Publish Portfolio Project</button>
+            <button class="btn-action-ghost"><i class="fas fa-external-link-alt"></i> View Live Site</button>
+          </div>
+        </div>
+
+        <div class="subfeature-chips-bar">
+          <button class="subfeature-chip active">Manage Home Page Sections</button>
+          <button class="subfeature-chip">Publish Portfolio Projects</button>
+          <button class="subfeature-chip">Update Service Information</button>
+          <button class="subfeature-chip">Manage Testimonials</button>
+          <button class="subfeature-chip">Publish Resource Articles</button>
+          <button class="subfeature-chip">Manage Contact Enquiries</button>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Content Item</th>
+                  <th>Website Page Destination</th>
+                  <th>Last Published Date</th>
+                  <th>Author / Editor</th>
+                  <th>Live Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Sovereign 4D Chamber Matrix Section</strong></td>
+                  <td>home-2.html &bull; Section 2</td>
+                  <td>Today, 15:30</td>
+                  <td>Marcus Vance</td>
+                  <td><span class="status-badge badge-confirmed">Live in Production</span></td>
+                  <td><button class="table-btn table-btn-primary">Edit Section</button></td>
+                </tr>
+                <tr>
+                  <td><strong>World FinTech Geneva Case Study</strong></td>
+                  <td>portfolio.html &bull; Case Studies</td>
+                  <td>Yesterday, 18:20</td>
+                  <td>Elena Rostova</td>
+                  <td><span class="status-badge badge-confirmed">Live in Production</span></td>
+                  <td><button class="table-btn table-btn-primary">Edit Article</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       MODALS: ADD CLIENT & CREATE EVENT
+       ========================================================================== -->
+  <!-- 1. Add Client Modal -->
+  <div class="admin-modal-overlay" id="addClientModal">
+    <div class="admin-modal-box">
+      <div class="modal-header-row">
+        <h3><i class="fas fa-user-plus" style="color: #2563eb;"></i> Register New Client Account</h3>
+        <button class="modal-close-btn" onclick="closeModal('addClientModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <form onsubmit="handleModalSubmit(event, 'Client Account Registered Successfully!')">
+        <div class="form-group">
+          <label class="form-label">Client Organization / Corporation *</label>
+          <input type="text" class="form-control" required placeholder="e.g. Goldman Sovereign Capital">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Primary Executive Contact *</label>
+          <input type="text" class="form-control" required placeholder="e.g. Lord Julian Sterling">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Executive Institutional Email *</label>
+          <input type="email" class="form-control" required placeholder="e.g. j.sterling@sterling-holdings.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Assigned Lead Event Director</label>
+          <select class="form-control">
+            <option>Elena Rostova (Executive Director)</option>
+            <option>Marcus Vance (Head Producer)</option>
+            <option>Julian Rossi (Technical Lead)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-action-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+          <i class="fas fa-check"></i> Register Account & Grant Portal Access
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Create Event Modal -->
+  <div class="admin-modal-overlay" id="createEventModal">
+    <div class="admin-modal-box">
+      <div class="modal-header-row">
+        <h3><i class="fas fa-calendar-plus" style="color: #10b981;"></i> Create New Event Project</h3>
+        <button class="modal-close-btn" onclick="closeModal('createEventModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <form onsubmit="handleModalSubmit(event, 'Event Project Created Successfully!')">
+        <div class="form-group">
+          <label class="form-label">Summit / Event Title *</label>
+          <input type="text" class="form-control" required placeholder="e.g. Global Artificial Intelligence Plenary 2026">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Target Host Venue & City</label>
+          <input type="text" class="form-control" placeholder="e.g. Geneva Convention Hall, Switzerland">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Projected Delegate Volume</label>
+          <input type="number" class="form-control" placeholder="e.g. 3500">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Allocated Project Budget ($ USD)</label>
+          <input type="text" class="form-control" placeholder="e.g. $450,000">
+        </div>
+        <button type="submit" class="btn-action-primary" style="width: 100%; justify-content: center; margin-top: 1rem; background: linear-gradient(135deg, #059669, #10b981);">
+          <i class="fas fa-check-circle"></i> Initialize Event Project Pipeline
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Logout Confirmation Modal -->
+  <div class="admin-modal-overlay" id="logoutModal">
+    <div class="admin-modal-box" style="max-width: 440px; text-align: center;">
+      <div style="font-size: 3rem; color: #f43f5e; margin-bottom: 1rem;">
+        <i class="fas fa-sign-out-alt"></i>
+      </div>
+      <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--adm-text-primary); margin-bottom: 0.5rem;">
+        Confirm Admin Session Logout
+      </h3>
+      <p style="font-size: 0.92rem; color: var(--adm-text-muted); margin-bottom: 1.75rem;">
+        Are you sure you wish to disconnect from EventSphere Sovereign Operations Console v4.8?
+      </p>
+      <div style="display: flex; gap: 0.75rem; justify-content: center;">
+        <button class="btn-action-ghost" onclick="closeModal('logoutModal')">Cancel</button>
+        <button class="btn-action-primary" style="background: #f43f5e; border-color: #f43f5e;" onclick="window.location.href='index.html'">
+          Confirm & Disconnect
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       JAVASCRIPT LOGIC
+       ========================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Clone Navigation to Mobile Drawer
+      const desktopList = document.getElementById('mainSidebarList');
+      const drawerList = document.getElementById('drawerMenuList');
+      if (desktopList && drawerList) {
+        drawerList.innerHTML = desktopList.innerHTML;
+      }
+
+      // 2. Hamburger & Mobile Drawer Toggling
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      const drawerBackdrop = document.getElementById('drawerBackdrop');
+
+      function openDrawer() {
+        mobileDrawer.classList.add('open');
+        drawerBackdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDrawer() {
+        mobileDrawer.classList.remove('open');
+        drawerBackdrop.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      if (hamburgerBtn) hamburgerBtn.addEventListener('click', openDrawer);
+      if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', closeDrawer);
+      if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
+
+      // 3. Module Tab Switching (Both Desktop & Drawer)
+      function attachNavListeners() {
+        const allNavItems = document.querySelectorAll('.nav-module-item');
+        allNavItems.forEach(item => {
+          item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const mod = this.getAttribute('data-module');
+            if (!mod) {
+              if (this.classList.contains('logout-item') || this.id === 'sidebarLogoutBtn') {
+                openModal('logoutModal');
+              }
+              return;
+            }
+
+            // Update active state in both desktop & drawer lists
+            allNavItems.forEach(i => {
+              if (i.getAttribute('data-module') === mod) {
+                i.classList.add('active');
+              } else {
+                i.classList.remove('active');
+              }
+            });
+
+            // Switch view
+            const allViews = document.querySelectorAll('.module-view');
+            allViews.forEach(v => v.classList.remove('active'));
+            const targetView = document.getElementById('view-' + mod);
+            if (targetView) {
+              targetView.classList.add('active');
+            }
+
+            // Close mobile drawer if open
+            closeDrawer();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        });
+      }
+      attachNavListeners();
+
+      // 4. Dark / Light Theme Toggle
+      const themeToggleBtn = document.getElementById('themeToggleBtn');
+      const drawerThemeBtn = document.getElementById('drawerThemeBtn');
+
+      function toggleTheme() {
+        document.body.classList.toggle('light');
+        const isLight = document.body.classList.contains('light');
+        const icon = isLight ? '<i class="fas fa-sun" style="color: #f59e0b;"></i>' : '<i class="fas fa-moon"></i>';
+        if (themeToggleBtn) themeToggleBtn.innerHTML = icon;
+        if (drawerThemeBtn) drawerThemeBtn.innerHTML = icon + ' Theme';
+      }
+
+      if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
+      if (drawerThemeBtn) drawerThemeBtn.addEventListener('click', toggleTheme);
+
+      // 5. RTL Toggle
+      const rtlToggleBtn = document.getElementById('rtlToggleBtn');
+      const drawerRtlBtn = document.getElementById('drawerRtlBtn');
+
+      function toggleRtl() {
+        document.body.classList.toggle('rtl');
+      }
+
+      if (rtlToggleBtn) rtlToggleBtn.addEventListener('click', toggleRtl);
+      if (drawerRtlBtn) drawerRtlBtn.addEventListener('click', toggleRtl);
+
+      // 6. Refresh Metrics Simulation
+      const refreshBtn = document.getElementById('refreshMetricsBtn');
+      if (refreshBtn) {
+        refreshBtn.addEventListener('click', function() {
+          const icon = this.querySelector('i');
+          if (icon) icon.classList.add('fa-spin');
+          setTimeout(() => {
+            if (icon) icon.classList.remove('fa-spin');
+            alert('Live Telemetry Metrics Refreshed from 6 Global Hubs!');
+          }, 600);
+        });
+      }
+
+      // 7. Shortcut (Ctrl + K) for Quick Search
+      window.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          const searchInput = document.getElementById('topbarSearchInput');
+          if (searchInput && window.innerWidth > 1024) {
+            searchInput.focus();
+          } else {
+            openDrawer();
+            const drawerSearch = document.getElementById('drawerSearchInput');
+            if (drawerSearch) drawerSearch.focus();
+          }
+        }
+        if (e.key === 'Escape') {
+          closeDrawer();
+          closeAllModals();
+        }
+      });
+    });
+
+    // Global Modal Helpers
+    function openModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.add('open');
+    }
+
+    function closeModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.remove('open');
+    }
+
+    function closeAllModals() {
+      document.querySelectorAll('.admin-modal-overlay').forEach(m => m.classList.remove('open'));
+    }
+
+    function handleModalSubmit(e, successMsg) {
+      e.preventDefault();
+      alert(successMsg);
+      closeAllModals();
+    }
+
+    function switchModule(moduleName) {
+      const targetBtn = document.querySelector(`.nav-module-item[data-module="${moduleName}"]`);
+      if (targetBtn) targetBtn.click();
+    }
+
+    function exportOverviewReport() {
+      alert('Generating EventSphere Executive Operational Audit Report (PDF)... Download starting!');
+    }
+  </script>
+</body>
+</html>
+"""
+
+    with open('admin-dashboard.html', 'w', encoding='utf-8') as f:
+        f.write(html_content)
+
+    print("Successfully written admin-dashboard.html! Length:", len(html_content))
+
+if __name__ == '__main__':
+    generate_dashboard()

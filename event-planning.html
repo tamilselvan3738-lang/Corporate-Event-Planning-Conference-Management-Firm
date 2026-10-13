@@ -1,0 +1,4266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSphere · Corporate Event Planning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f4fe;
+      color: #1a2639;
+      transition: background 0.5s cubic-bezier(0.23, 1, 0.32, 1), color 0.4s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 1rem;
+      overflow-x: clip;
+    }
+
+    /* ===== DARK MODE ===== */
+    body.dark {
+      background: #080c14;
+      color: #eef4ff;
+    }
+
+    body.dark .nav-container,
+    body.dark .mobile-menu {
+      background: rgba(21, 30, 44, 0.92);
+      border-color: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(20px);
+    }
+
+    body.dark .logo-text {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    body.dark .logo-text span {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    body.dark .nav-links > li > a,
+    body.dark .mobile-nav-links > li > a {
+      color: #b8c9e8;
+    }
+
+    body.dark .nav-links > li > a:hover,
+    body.dark .mobile-nav-links > li > a:hover {
+      color: #60a5fa;
+      text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+    }
+
+    body.dark .icon-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.7), inset 0 -3px 0 rgba(255,255,255,0.03), 0 0 0 1px rgba(59,130,246,0.1);
+    }
+
+    body.dark .icon-btn:hover {
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.4), 0 16px 20px -8px rgba(0, 0, 0, 0.8), inset 0 -3px 0 rgba(255,255,255,0.05);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    body.dark .hamburger {
+      background: rgba(30, 42, 58, 0.9);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.7), inset 0 -2px 0 rgba(255,255,255,0.03);
+    }
+
+    body.dark .hamburger span {
+      background: #b8c9e8;
+    }
+
+    body.dark .login-btn {
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      border-color: rgba(96, 165, 250, 0.3);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.6), inset 0 -3px 0 rgba(0,0,0,0.3), 0 0 0 1px rgba(96,165,250,0.15);
+    }
+
+    body.dark .login-btn:hover {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 16px 20px -8px rgba(0, 0, 0, 0.7), inset 0 -3px 0 rgba(0,0,0,0.4);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+    }
+
+    /* ===== RTL ===== */
+    body.rtl {
+      direction: rtl;
+    }
+
+    body.rtl #rtlToggle,
+    body.rtl #rtlToggleMobile {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      border-color: rgba(96, 165, 250, 0.4);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.45);
+    }
+
+    /* ===== APP WRAPPER ===== */
+    .app-wrapper {
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 0 3rem;
+      min-height: calc(100vh - 3rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    /* ===== NAVBAR ===== */
+    .nav-container {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 1rem !important;
+      z-index: 1000 !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 70px;
+      padding: 0.55rem 2rem 0.55rem 1.8rem;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 20, 40, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 0 80px -20px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(24px);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav-shine {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 70px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .nav-shine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+    }
+
+    .nav-container:hover .nav-shine::before {
+      left: 100%;
+    }
+
+    body.dark .nav-shine::before {
+      background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.18), transparent);
+    }
+
+    .nav-container:hover {
+      box-shadow: 
+        0 30px 60px -12px rgba(0, 20, 40, 0.25),
+        0 0 0 1px rgba(59, 130, 246, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 0 100px -20px rgba(59, 130, 246, 0.25);
+    }
+
+    .logo-section, .nav-links, .right-section {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== LOGO SECTION ===== */
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    /* 3D LOGO — REDUCED COMPACT SIZE */
+    .logo-3d {
+      position: relative;
+      width: 22px;
+      height: 22px;
+      perspective: 450px;
+    }
+
+    .logo-cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 14s infinite linear;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .logo-3d:hover .logo-cube {
+      animation-play-state: paused;
+      transform: rotateX(15deg) rotateY(25deg) scale(1.15);
+    }
+
+    .logo-face {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: linear-gradient(145deg, #1e3a8a, #3b82f6);
+      box-shadow: 
+        0 4px 8px rgba(0, 80, 200, 0.4),
+        inset 0 -1.5px 3px rgba(0,0,0,0.25),
+        inset 0 1.5px 3px rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.6rem;
+      color: white;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      backface-visibility: visible;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: background 0.4s ease;
+    }
+
+    .logo-face:nth-child(1) { transform: rotateY(0deg) translateZ(11px); background: linear-gradient(145deg, #2563eb, #1e40af); }
+    .logo-face:nth-child(2) { transform: rotateY(90deg) translateZ(11px); background: linear-gradient(145deg, #3b82f6, #1d4ed8); }
+    .logo-face:nth-child(3) { transform: rotateY(180deg) translateZ(11px); background: linear-gradient(145deg, #1e3a8a, #2563eb); }
+    .logo-face:nth-child(4) { transform: rotateY(-90deg) translateZ(11px); background: linear-gradient(145deg, #4f46e5, #3b82f6); }
+    .logo-face:nth-child(5) { transform: rotateX(90deg) translateZ(11px); background: linear-gradient(145deg, #2563eb, #4f46e5); }
+    .logo-face:nth-child(6) { transform: rotateX(-90deg) translateZ(11px); background: linear-gradient(145deg, #1e40af, #3b82f6); }
+
+    @keyframes rotateCube {
+      0% { transform: rotateX(0) rotateY(0); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .logo-text {
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+    }
+
+    .logo-text:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.4));
+    }
+
+    .logo-text span {
+      color: #1e3a8a;
+      background: none;
+      -webkit-background-clip: unset;
+      background-clip: unset;
+      transition: color 0.4s ease;
+    }
+
+    /* ===== DESKTOP NAV LINKS ===== */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.6rem;
+      list-style: none;
+      margin: 0 1rem;
+      flex: 1;
+    }
+
+    .nav-links > li > a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #1e293b;
+      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0;
+      border-bottom: 2px solid transparent;
+      position: relative;
+      letter-spacing: 0.1px;
+    }
+
+    .nav-links > li > a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      transition: width 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      border-radius: 2px;
+    }
+
+    .nav-links > li > a:hover {
+      color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .nav-links > li > a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== DROPDOWNS (HOME & DASHBOARD) ===== */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-arrow {
+      font-size: 0.65rem;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0.7;
+    }
+
+    .dropdown:hover > a {
+      color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .dropdown:hover > a::after {
+      width: 100%;
+    }
+
+    .dropdown:hover .dropdown-arrow {
+      transform: rotate(180deg);
+      opacity: 1;
+      color: #3b82f6;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 0;
+      min-width: 200px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 0.55rem;
+      box-shadow: 
+        0 20px 45px -10px rgba(0, 20, 40, 0.16),
+        0 0 0 1px rgba(255, 255, 255, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 0 35px -10px rgba(59, 130, 246, 0.18);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px) scale(0.97);
+      transform-origin: top left;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  visibility 0.3s ease;
+      z-index: 1000;
+    }
+
+    /* Invisible hover bridge to prevent flickers */
+    .dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 0;
+      right: 0;
+      height: 16px;
+    }
+
+    /* Right-aligned dropdown for Dashboard */
+    .dropdown.dropdown-right .dropdown-menu {
+      left: auto;
+      right: 0;
+      transform-origin: top right;
+    }
+
+    /* Reveal dropdown on hover & focus */
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Dropdown Items */
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.85rem;
+      border-radius: 14px;
+      text-decoration: none;
+      color: #1e293b;
+      font-weight: 500;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+
+    .dropdown-item-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #f0f4fe, #e2e8f0);
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .dropdown-item-title {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: inherit;
+      transition: color 0.2s ease;
+    }
+
+    .dropdown-item:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+      color: #2563eb;
+      transform: translateX(4px);
+    }
+
+    .dropdown-item:hover .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      transform: scale(1.08) rotate(-4deg);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    /* Dark Mode Dropdowns */
+    body.dark .dropdown-menu {
+      background: rgba(21, 30, 44, 0.96);
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(59, 130, 246, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    body.dark .dropdown-item {
+      color: #b8c9e8;
+    }
+
+    body.dark .dropdown-item:hover {
+      background: rgba(59, 130, 246, 0.14);
+      color: #60a5fa;
+      text-shadow: none;
+    }
+
+    body.dark .dropdown-item-icon {
+      background: rgba(30, 42, 58, 0.9);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark .dropdown-item:hover .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.5);
+    }
+
+    body.dark .dropdown-arrow {
+      color: #b8c9e8;
+    }
+
+    body.dark .dropdown:hover .dropdown-arrow {
+      color: #60a5fa;
+    }
+
+    /* RTL Dropdowns */
+    body.rtl .dropdown-menu {
+      left: auto;
+      right: 0;
+      transform-origin: top right;
+    }
+
+    body.rtl .dropdown.dropdown-right .dropdown-menu {
+      right: auto;
+      left: 0;
+      transform-origin: top left;
+    }
+
+    body.rtl .dropdown-item:hover {
+      transform: translateX(-4px);
+    }
+
+        /* ===== ACTIVE NAV LINK & DROPDOWN STYLES ===== */
+    .nav-links > li > a.active,
+    .nav-links > li.active > a,
+    .nav-links > li.dropdown.active > a.dropdown-toggle {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .nav-links > li > a.active::after,
+    .nav-links > li.active > a::after,
+    .nav-links > li.dropdown.active > a.dropdown-toggle::after {
+      width: 100% !important;
+      background: linear-gradient(90deg, #2563eb, #8b5cf6) !important;
+      height: 2.5px !important;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4) !important;
+    }
+
+    .dropdown-item.active {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(139, 92, 246, 0.12)) !important;
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .dropdown-item.active .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35) !important;
+      transform: scale(1.06);
+    }
+
+    /* Active Mobile Links */
+    .mobile-nav-links > li > a.active,
+    .mobile-nav-links > li.active > a,
+    .mobile-dropdown.active .mobile-dropdown-header > a,
+    .mobile-dropdown-header > a.active {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .mobile-nav-links > li > a.active::before,
+    .mobile-nav-links > li.active > a::before,
+    .mobile-dropdown.active .mobile-dropdown-header > a::before,
+    .mobile-dropdown-header > a.active::before {
+      opacity: 1 !important;
+      left: -20px !important;
+      color: #2563eb !important;
+    }
+
+    .mobile-submenu a.active {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+      padding-left: 0.35rem;
+    }
+
+    /* Dark Mode Active Styles */
+    body.dark .nav-links > li > a.active,
+    body.dark .nav-links > li.active > a,
+    body.dark .nav-links > li.dropdown.active > a.dropdown-toggle {
+      color: #60a5fa !important;
+      font-weight: 700 !important;
+      text-shadow: 0 0 16px rgba(96, 165, 250, 0.6) !important;
+    }
+
+    body.dark .nav-links > li > a.active::after,
+    body.dark .nav-links > li.active > a::after,
+    body.dark .nav-links > li.dropdown.active > a.dropdown-toggle::after {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa) !important;
+      box-shadow: 0 0 12px rgba(96, 165, 250, 0.8) !important;
+    }
+
+    body.dark .dropdown-item.active {
+      background: rgba(59, 130, 246, 0.22) !important;
+      color: #93c5fd !important;
+    }
+
+    body.dark .dropdown-item.active .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6) !important;
+    }
+
+    body.dark .mobile-nav-links > li > a.active,
+    body.dark .mobile-nav-links > li.active > a,
+    body.dark .mobile-dropdown.active .mobile-dropdown-header > a,
+    body.dark .mobile-dropdown-header > a.active,
+    body.dark .mobile-submenu a.active {
+      color: #60a5fa !important;
+    }
+
+    /* ===== RIGHT SECTION ===== */
+    .right-section {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== 3D ICON BUTTONS ===== */
+    .icon-btn, .login-btn {
+      border: none;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e293b;
+      width: 42px;
+      height: 42px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 
+        0 8px 12px -6px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0,0,0,0.02),
+        inset 0 -3px 0 rgba(0,0,0,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .icon-btn::before, .login-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.15);
+      transform: translate(-50%, -50%);
+      transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1), height 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+    }
+
+    .icon-btn:hover::before, .login-btn:hover::before {
+      width: 200px;
+      height: 200px;
+    }
+
+    .icon-btn:hover, .login-btn:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 
+        0 20px 28px -10px rgba(0, 80, 200, 0.35),
+        0 0 0 1px rgba(59,130,246,0.25),
+        inset 0 -3px 0 rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 0 40px -10px rgba(59, 130, 246, 0.3);
+      background: linear-gradient(145deg, #ffffff, #e8f0fe);
+    }
+
+    .icon-btn:active, .login-btn:active {
+      transform: translateY(0px) scale(0.98);
+      box-shadow: 
+        0 4px 6px -2px rgba(0,0,0,0.2),
+        inset 0 3px 6px rgba(0,0,0,0.08),
+        inset 0 -1px 0 rgba(255,255,255,0.5);
+    }
+
+    .login-btn {
+      width: auto;
+      padding: 0 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e3a8a;
+      gap: 0.5rem;
+      letter-spacing: 0.2px;
+    }
+
+    .login-btn i {
+      font-size: 0.85rem;
+      transition: transform 0.3s ease;
+    }
+
+    .login-btn:hover i {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      padding: 11px 9px;
+      border-radius: 30px;
+      box-shadow: 
+        0 8px 12px -6px rgba(0, 0, 0, 0.12),
+        inset 0 -2px 0 rgba(0,0,0,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hamburger:hover {
+      transform: scale(1.06);
+      box-shadow: 
+        0 16px 20px -8px rgba(0, 80, 200, 0.25),
+        inset 0 -2px 0 rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 0 30px -8px rgba(59, 130, 246, 0.3);
+    }
+
+    .hamburger span {
+      display: block;
+      height: 2.5px;
+      width: 100%;
+      background: #1e293b;
+      border-radius: 4px;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ===== MOBILE MENU ===== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 90px;
+      left: 1rem;
+      right: 1rem;
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 36px;
+      padding: 2rem 1.5rem;
+      box-shadow: 
+        0 40px 70px -20px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(24px);
+      z-index: 1000;
+      flex-direction: column;
+      gap: 2rem;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: top center;
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+      scrollbar-width: thin;
+      scrollbar-color: #3b82f6 rgba(0, 0, 0, 0.05);
+    }
+
+    /* Custom Scrollbar for Mobile Menu */
+    .mobile-menu::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .mobile-menu::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.04);
+      border-radius: 10px;
+      margin: 1.2rem 0;
+    }
+
+    .mobile-menu::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+      border-radius: 10px;
+    }
+
+    .mobile-menu::-webkit-scrollbar-thumb:hover {
+      background: #2563eb;
+    }
+
+    body.dark .mobile-menu {
+      scrollbar-color: #60a5fa rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark .mobile-menu::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    body.dark .mobile-menu::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #60a5fa, #a78bfa);
+    }
+
+    .mobile-menu.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+    }
+
+    .mobile-nav-links > li > a,
+    .mobile-dropdown-header > a {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #1e293b;
+      display: block;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      padding: 0.3rem 0;
+      position: relative;
+    }
+
+    .mobile-nav-links > li > a::before,
+    .mobile-dropdown-header > a::before {
+      content: '→';
+      position: absolute;
+      left: -20px;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      color: #3b82f6;
+    }
+
+    .mobile-nav-links > li > a:hover,
+    .mobile-dropdown-header > a:hover {
+      color: #3b82f6;
+      transform: translateX(10px);
+    }
+
+    .mobile-nav-links > li > a:hover::before,
+    .mobile-dropdown-header > a:hover::before {
+      opacity: 1;
+      left: -25px;
+    }
+
+    /* MOBILE DROPDOWN STYLES */
+    .mobile-dropdown {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-dropdown-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .mobile-dropdown-toggle {
+      background: none;
+      border: none;
+      color: #1e293b;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: 8px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .mobile-dropdown.open .mobile-dropdown-toggle {
+      transform: rotate(180deg);
+      color: #3b82f6;
+    }
+
+    .mobile-submenu {
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      padding-left: 1.2rem;
+    }
+
+    .mobile-dropdown.open .mobile-submenu {
+      max-height: 200px;
+      opacity: 1;
+      padding-top: 0.6rem;
+      padding-bottom: 0.4rem;
+    }
+
+    .mobile-submenu a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.25s ease;
+      padding: 0.2rem 0;
+    }
+
+    .mobile-submenu a i {
+      color: #3b82f6;
+      font-size: 0.85rem;
+      width: 18px;
+      text-align: center;
+    }
+
+    .mobile-submenu a:hover {
+      color: #3b82f6;
+      transform: translateX(6px);
+    }
+
+    body.dark .mobile-dropdown-header > a {
+      color: #b8c9e8;
+    }
+
+    body.dark .mobile-dropdown-toggle {
+      color: #b8c9e8;
+    }
+
+    body.dark .mobile-dropdown.open .mobile-dropdown-toggle {
+      color: #60a5fa;
+    }
+
+    body.dark .mobile-submenu a {
+      color: #94a3b8;
+    }
+
+    body.dark .mobile-submenu a:hover {
+      color: #60a5fa;
+    }
+
+    body.rtl .mobile-dropdown-header > a::before {
+      content: '←';
+      left: auto;
+      right: -20px;
+    }
+
+    body.rtl .mobile-dropdown-header > a:hover {
+      transform: translateX(-10px);
+    }
+
+    body.rtl .mobile-dropdown-header > a:hover::before {
+      right: -25px;
+      left: auto;
+    }
+
+    body.rtl .mobile-submenu {
+      padding-left: 0;
+      padding-right: 1.2rem;
+    }
+
+    body.rtl .mobile-submenu a:hover {
+      transform: translateX(-6px);
+    }
+
+    .mobile-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.2rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding-top: 1.5rem;
+    }
+
+
+
+    /* ===== RTL TWEAKS ===== */
+    body.rtl .mobile-nav-links a::before {
+      content: '←';
+      left: auto;
+      right: -20px;
+    }
+
+    body.rtl .mobile-nav-links a:hover {
+      transform: translateX(-10px);
+    }
+
+    body.rtl .mobile-nav-links a:hover::before {
+      right: -25px;
+      left: auto;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 0.5rem 1.4rem !important;
+      }
+      .nav-links {
+        gap: 1rem;
+      }
+      .nav-links > li > a {
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links, .right-section .icon-btn, .right-section .login-btn {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .nav-container {
+        padding: 0.45rem 1.4rem !important;
+      }
+      .right-section {
+        gap: 0.7rem; margin: 0 !important;
+      }
+      .mobile-menu {
+        display: none;
+      }
+      .mobile-menu.active {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 1.1rem;
+      }
+      .logo-3d {
+        width: 18px;
+        height: 18px;
+      }
+      .logo-face {
+        width: 18px;
+        height: 18px;
+        font-size: 0.5rem;
+        border-radius: 5px;
+      }
+      .logo-face:nth-child(1) { transform: rotateY(0deg) translateZ(9px); }
+      .logo-face:nth-child(2) { transform: rotateY(90deg) translateZ(9px); }
+      .logo-face:nth-child(3) { transform: rotateY(180deg) translateZ(9px); }
+      .logo-face:nth-child(4) { transform: rotateY(-90deg) translateZ(9px); }
+      .logo-face:nth-child(5) { transform: rotateX(90deg) translateZ(9px); }
+      .logo-face:nth-child(6) { transform: rotateX(-90deg) translateZ(9px); }
+      .hamburger {
+        width: 38px;
+        height: 38px;
+        padding: 9px 7px;
+      }
+    }
+
+    /* ===== SMOOTH PAGE ENTRANCE ===== */
+    .nav-container {
+      animation: fadeSlideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeSlideInFooter {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== FOOTER CONTAINER ===== */
+    .footer-container {
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 44px;
+      padding: 3rem 3rem 2rem;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 20, 40, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 0 80px -20px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(24px);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      margin-top: 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+      position: relative;
+      animation: fadeSlideInFooter 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.15s both;
+    }
+
+    body.dark .footer-container {
+      background: rgba(21, 30, 44, 0.92);
+      border-color: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(59, 130, 246, 0.15);
+    }
+
+    /* ===== FOOTER CTA NEWSLETTER CARD ===== */
+    .footer-cta {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.07), rgba(139, 92, 246, 0.07));
+      border: 1px solid rgba(59, 130, 246, 0.18);
+      border-radius: 30px;
+      padding: 2.2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      box-shadow: 0 15px 30px -10px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.dark .footer-cta {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.3), rgba(109, 40, 217, 0.2));
+      border-color: rgba(96, 165, 250, 0.25);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-cta-text {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .footer-cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-cta-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.3px;
+    }
+
+    body.dark .footer-cta-title {
+      color: #f1f5f9;
+    }
+
+    .footer-cta-desc {
+      font-size: 0.92rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    body.dark .footer-cta-desc {
+      color: #94a3b8;
+    }
+
+    .footer-cta-form-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 380px;
+    }
+
+    .footer-form {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50px;
+      padding: 0.35rem 0.35rem 0.35rem 1.2rem;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    body.dark .footer-form {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(96, 165, 250, 0.3);
+      box-shadow: 0 8px 25px -6px rgba(0, 0, 0, 0.6);
+    }
+
+    .footer-form:focus-within {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25), 0 10px 25px -8px rgba(59, 130, 246, 0.3);
+    }
+
+    .footer-form input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: #1e293b;
+      width: 100%;
+      padding: 0.4rem 0.5rem;
+    }
+
+    body.dark .footer-form input {
+      color: #f1f5f9;
+    }
+
+    .footer-form input::placeholder {
+      color: #94a3b8;
+    }
+
+    .footer-form button {
+      border: none;
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      padding: 0.65rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
+      flex-shrink: 0;
+    }
+
+    .footer-form button:hover {
+      transform: translateY(-2px) scale(1.03);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.45);
+    }
+
+    .footer-form button:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .footer-privacy-note {
+      font-size: 0.76rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding-left: 0.5rem;
+    }
+
+    /* ===== MAIN FOOTER GRID ===== */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1.05fr 1.25fr 1.35fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .footer-col-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .footer-brand-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    body.dark .footer-brand-desc {
+      color: #94a3b8;
+    }
+
+    .footer-metrics-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .metric-pill {
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      background: rgba(59, 130, 246, 0.08);
+      color: #2563eb;
+      border: 1px solid rgba(59, 130, 246, 0.16);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    body.dark .metric-pill {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .footer-social-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 0.4rem;
+    }
+
+    .footer-social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      color: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 0.95rem;
+      box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body.dark .footer-social-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.6);
+    }
+
+    .footer-social-btn:hover {
+      transform: translateY(-3px) scale(1.08);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    /* FOOTER COLUMNS */
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-col-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.2px;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    body.dark .footer-col-title {
+      color: #f8fafc;
+    }
+
+    .footer-col-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 24px;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 2px;
+    }
+
+    body.rtl .footer-col-title::after {
+      left: auto;
+      right: 0;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-size: 0.88rem;
+      color: #475569;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      position: relative;
+    }
+
+    .footer-links a i {
+      font-size: 0.72rem;
+      opacity: 0.7;
+      color: #3b82f6;
+      transition: transform 0.25s ease;
+    }
+
+    body.dark .footer-links a {
+      color: #94a3b8;
+    }
+
+    body.dark .footer-links a i {
+      color: #60a5fa;
+    }
+
+    .footer-links a:hover {
+      color: #2563eb;
+      transform: translateX(4px);
+    }
+
+    .footer-links a:hover i {
+      transform: translateX(2px);
+    }
+
+    body.dark .footer-links a:hover {
+      color: #60a5fa;
+    }
+
+    body.rtl .footer-links a:hover {
+      transform: translateX(-4px);
+    }
+
+    body.rtl .footer-links a i.fa-chevron-right {
+      transform: rotate(180deg);
+    }
+
+    .footer-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    body.dark .footer-contact-item {
+      color: #94a3b8;
+    }
+
+    .footer-contact-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(59, 130, 246, 0.1);
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    body.dark .footer-contact-icon {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+
+    .ops-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 30px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #15803d;
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      margin-top: 0.4rem;
+    }
+
+    body.dark .ops-status {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+      animation: statusPulse 2s infinite ease-in-out;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* ===== FOOTER BOTTOM BAR ===== */
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      padding-top: 1.8rem;
+      font-size: 0.84rem;
+      color: #64748b;
+    }
+
+    body.dark .footer-bottom {
+      border-top-color: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+
+    .footer-legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.2rem;
+      list-style: none;
+    }
+
+    .footer-legal-links a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-legal-links a:hover {
+      color: #2563eb;
+    }
+
+    body.dark .footer-legal-links a:hover {
+      color: #60a5fa;
+    }
+
+    .back-to-top-btn {
+      border: none;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e293b;
+      padding: 0.55rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 6px 12px -4px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body.dark .back-to-top-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .back-to-top-btn:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ===== RESPONSIVE FOOTER ===== */
+    @media (max-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem 2.2rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .footer-container {
+        padding: 2.2rem 1.6rem 1.5rem;
+        border-radius: 36px;
+        margin-top: 3.5rem;
+      }
+      .footer-cta {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.8rem 1.5rem;
+      }
+      .footer-cta-form-wrapper {
+        min-width: 100%;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .footer-form {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 0.6rem;
+        gap: 0.5rem;
+      }
+      .footer-form button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  
+    /* ==========================================================================
+       EVENT PLANNING GLOBAL STYLES & GLASSMORPHISM
+       ========================================================================== */
+    .planning-wrapper {
+      width: 100%;
+      overflow-x: clip;
+      padding-top: 1.5rem;
+      padding-bottom: 4rem;
+    }
+
+    .planning-section {
+      width: 100%;
+      max-width: 1320px;
+      margin: 5.5rem auto;
+      padding: 0 1.5rem;
+      position: relative;
+    }
+
+    .planning-header {
+      text-align: center;
+      max-width: 840px;
+      margin: 0 auto 3.5rem auto;
+    }
+
+    .planning-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(37, 99, 235, 0.09);
+      color: #2563eb;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      margin-bottom: 1.1rem;
+      backdrop-filter: blur(8px);
+    }
+
+    body.dark .planning-pill-badge {
+      background: rgba(96, 165, 250, 0.12);
+      color: #60a5fa;
+      border-color: rgba(96, 165, 250, 0.25);
+    }
+
+    .planning-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      color: #0f172a;
+      margin-bottom: 1.1rem;
+    }
+
+    body.dark .planning-title {
+      color: #f8fafc;
+    }
+
+    .planning-desc {
+      font-size: 1.05rem;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    body.dark .planning-desc {
+      color: #94a3b8;
+    }
+
+    .planning-glass-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(59, 130, 246, 0.18);
+      backdrop-filter: blur(20px);
+      border-radius: 28px;
+      box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.85);
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    body.dark .planning-glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(96, 165, 250, 0.22);
+      box-shadow: 0 22px 50px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(96, 165, 250, 0.08);
+    }
+
+    .planning-glass-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(37, 99, 235, 0.45);
+      box-shadow: 0 30px 60px -15px rgba(37, 99, 235, 0.18);
+    }
+
+    body.dark .planning-glass-card:hover {
+      border-color: rgba(96, 165, 250, 0.5);
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Buttons */
+    .btn-planning-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: 14px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-planning-primary:hover {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.5);
+      color: #ffffff;
+    }
+
+    .btn-planning-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.3rem;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #2563eb;
+      background: rgba(37, 99, 235, 0.06);
+      border: 1px solid rgba(37, 99, 235, 0.25);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    body.dark .btn-planning-outline {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.08);
+      border-color: rgba(96, 165, 250, 0.3);
+    }
+
+    .btn-planning-outline:hover {
+      background: rgba(37, 99, 235, 0.15);
+      border-color: #2563eb;
+      transform: translateY(-2px);
+    }
+
+    /* Meta Badges */
+    .step-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.25rem 0.65rem;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==========================================================================
+       SECTION 1: SUBMIT EVENT REQUIREMENTS (Foundry & Blueprint Matrix)
+       ========================================================================== */
+    .foundry-split-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    .foundry-media-card {
+      border-radius: 30px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .foundry-media-top {
+      height: 380px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .foundry-media-top img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .foundry-media-card:hover .foundry-media-top img {
+      transform: scale(1.04);
+    }
+
+    .foundry-overlay-badge {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.2rem;
+      background: rgba(15, 23, 42, 0.88);
+      color: #60a5fa;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      backdrop-filter: blur(8px);
+    }
+
+    body.rtl .foundry-overlay-badge {
+      left: auto;
+      right: 1.2rem;
+    }
+
+    .foundry-media-body {
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      flex-grow: 1;
+    }
+
+    .foundry-wizard-card {
+      padding: 2.5rem;
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .form-group-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group-item label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    body.dark .form-group-item label {
+      color: #cbd5e1;
+    }
+
+    .form-control-input {
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      background: rgba(255, 255, 255, 0.85);
+      color: #0f172a;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    body.dark .form-control-input {
+      background: rgba(15, 23, 42, 0.7);
+      border-color: rgba(96, 165, 250, 0.25);
+      color: #f8fafc;
+    }
+
+    .form-control-input:focus {
+      border-color: #2563eb;
+    }
+
+    .wizard-chip-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .wizard-chip {
+      padding: 0.45rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      background: transparent;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    body.dark .wizard-chip {
+      color: #94a3b8;
+      border-color: rgba(96, 165, 250, 0.25);
+    }
+
+    .wizard-chip.active, .wizard-chip:hover {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+
+    /* ==========================================================================
+       SECTION 2: INITIAL CONSULTATION (Executive Advisory & Diagnostic Wheel)
+       ========================================================================== */
+    .advisory-panoramic-card {
+      border-radius: 32px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .advisory-panoramic-photo {
+      height: 380px;
+      position: relative;
+    }
+
+    .advisory-panoramic-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .advisory-panoramic-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.88) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem;
+      color: #ffffff;
+    }
+
+    .diagnostic-quadrant-matrix {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .diagnostic-quad-card {
+      padding: 1.8rem;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .diagnostic-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+    }
+
+    /* ==========================================================================
+       SECTION 3: EVENT CONCEPT DEVELOPMENT (Creative Atelier Moodboard)
+       ========================================================================== */
+    .atelier-concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.8rem;
+    }
+
+    .concept-pod-card {
+      border-radius: 28px;
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .concept-swatch-row {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
+    }
+
+    .concept-swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* Ambient Atelier Banner */
+    .atelier-banner {
+      margin-top: 2.4rem;
+      border-radius: 26px;
+      height: 260px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .atelier-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .atelier-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.35) 100%);
+      display: flex;
+      align-items: center;
+      padding: 2.5rem;
+      color: #ffffff;
+      justify-content: space-between;
+    }
+
+    /* ==========================================================================
+       SECTION 4: VENUE & VENDOR SELECTION (Procurement Exchange Deck)
+       ========================================================================== */
+    .procurement-complex-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    .venue-showcase-card {
+      border-radius: 30px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .venue-showcase-photo {
+      height: 340px;
+      position: relative;
+    }
+
+    .venue-showcase-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .venue-showcase-body {
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .procurement-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .procure-tier-card {
+      padding: 1.6rem;
+      border-radius: 22px;
+      display: flex;
+      gap: 1.1rem;
+      align-items: flex-start;
+    }
+
+    .procure-icon-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(37, 99, 235, 0.12);
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    body.dark .procure-icon-badge {
+      background: rgba(96, 165, 250, 0.15);
+      color: #60a5fa;
+    }
+
+    /* ==========================================================================
+       SECTION 5: BUDGET PLANNING & PROPOSAL APPROVAL (CapEx & Approval Portal)
+       ========================================================================== */
+    .capex-portal-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    .capex-calculator-card {
+      padding: 2.5rem;
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .capex-bar-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .capex-bar-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    body.dark .capex-bar-label-row {
+      color: #cbd5e1;
+    }
+
+    .capex-progress-track {
+      height: 8px;
+      background: rgba(59, 130, 246, 0.12);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .capex-progress-fill {
+      height: 100%;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+    }
+
+    .proposal-agreement-card {
+      border-radius: 30px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proposal-agreement-photo {
+      height: 240px;
+      position: relative;
+    }
+
+    .proposal-agreement-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .proposal-agreement-body {
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      flex-grow: 1;
+    }
+
+    /* ==========================================================================
+       SECTION 6: EVENT PREPARATION TIMELINE (Mission-Control Gantt Ribbon)
+       ========================================================================== */
+    .timeline-mission-card {
+      border-radius: 32px;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .timeline-banner-frame {
+      height: 300px;
+      position: relative;
+    }
+
+    .timeline-banner-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .timeline-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.85) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 2.5rem;
+      color: #ffffff;
+      justify-content: space-between;
+    }
+
+    .gantt-phases-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      padding: 2.5rem;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    body.dark .gantt-phases-grid {
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .gantt-phase-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      position: relative;
+      border-left: 3px solid #2563eb;
+      padding-left: 1.1rem;
+    }
+
+    body.rtl .gantt-phase-item {
+      border-left: none;
+      border-right: 3px solid #2563eb;
+      padding-left: 0;
+      padding-right: 1.1rem;
+    }
+
+    .phase-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #2563eb;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    body.dark .phase-badge {
+      color: #60a5fa;
+    }
+
+    .phase-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    body.dark .phase-title {
+      color: #f8fafc;
+    }
+
+    .phase-desc {
+      font-size: 0.84rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    body.dark .phase-desc {
+      color: #94a3b8;
+    }
+
+    /* ==========================================================================
+       SECTION 7: ON-SITE COORDINATION & POST-EVENT EVALUATION
+       ========================================================================== */
+    .onsite-command-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    .command-terminal-card {
+      border-radius: 30px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .command-terminal-photo {
+      height: 320px;
+      position: relative;
+    }
+
+    .command-terminal-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .command-terminal-body {
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .post-evaluation-card {
+      padding: 2.2rem;
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .audit-kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.1rem;
+      margin-top: 0.5rem;
+    }
+
+    .audit-kpi-unit {
+      padding: 1.2rem;
+      border-radius: 18px;
+      background: rgba(37, 99, 235, 0.05);
+      border: 1px solid rgba(59, 130, 246, 0.14);
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    body.dark .audit-kpi-unit {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba(96, 165, 250, 0.18);
+    }
+
+    .audit-kpi-val {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #2563eb;
+    }
+
+    body.dark .audit-kpi-val {
+      color: #60a5fa;
+    }
+
+    .audit-kpi-lbl {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
+    body.dark .audit-kpi-lbl {
+      color: #94a3b8;
+    }
+
+    /* ==========================================================================
+       UNIQUE FRAMER MOTION DEFINITIONS FOR EVENT PLANNING (Sections 1 to 7)
+       ========================================================================== */
+    /* Section 1: Compass Circular Unfold & Axis Tilt */
+    .framer-planning-foundry-init {
+      opacity: 0;
+      transform: perspective(1100px) rotateY(-14deg) rotateX(8deg) translateY(45px) scale(0.94);
+      filter: blur(4px);
+      transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .framer-planning-foundry-in {
+      opacity: 1 !important;
+      transform: perspective(1100px) rotateY(0deg) rotateX(0deg) translateY(0) scale(1) !important;
+      filter: blur(0px) !important;
+    }
+
+    /* Section 2: Radial Lens Expansion & Bloom */
+    .framer-planning-advisory-init {
+      opacity: 0;
+      transform: scale(0.86) rotate(2.5deg) translateY(50px);
+      transition: opacity 0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .framer-planning-advisory-in {
+      opacity: 1 !important;
+      transform: scale(1) rotate(0deg) translateY(0) !important;
+    }
+
+    /* Section 3: Horizontal Prism Slide & Morph */
+    .framer-planning-atelier-init {
+      opacity: 0;
+      transform: translateX(80px) skewY(-3deg) scale(0.95);
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .framer-planning-atelier-in {
+      opacity: 1 !important;
+      transform: translateX(0) skewY(0deg) scale(1) !important;
+    }
+
+    /* Section 4: Card-Stack Deck Shuffling Rise */
+    .framer-planning-exchange-init {
+      opacity: 0;
+      transform: perspective(950px) rotateX(-20deg) translateY(70px) scale(0.92);
+      transition: opacity 0.9s cubic-bezier(0.19, 1, 0.22, 1),
+                  transform 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .framer-planning-exchange-in {
+      opacity: 1 !important;
+      transform: perspective(950px) rotateX(0deg) translateY(0) scale(1) !important;
+    }
+
+    /* Section 5: Dual-Piston Elevation Lift */
+    .framer-planning-budget-init {
+      opacity: 0;
+      transform: translateY(55px) scale(0.93);
+      filter: brightness(0.9);
+      transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+                  filter 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .framer-planning-budget-in {
+      opacity: 1 !important;
+      transform: translateY(0) scale(1) !important;
+      filter: brightness(1) !important;
+    }
+
+    /* Section 6: Timeline Warp & Ribbon Stagger */
+    .framer-planning-timeline-init {
+      opacity: 0;
+      transform: perspective(1000px) rotateY(-18deg) translateY(35px) scale(0.92);
+      transition: opacity 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                  transform 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .framer-planning-timeline-in {
+      opacity: 1 !important;
+      transform: perspective(1000px) rotateY(0deg) translateY(0) scale(1) !important;
+    }
+
+    /* Section 7: Telemetry Pulse & Depth Reveal */
+    .framer-planning-command-init {
+      opacity: 0;
+      transform: scale(0.9) translateY(60px);
+      filter: blur(8px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .framer-planning-command-in {
+      opacity: 1 !important;
+      transform: scale(1) translateY(0) !important;
+      filter: blur(0px) !important;
+    }
+
+    /* ==========================================================================
+       MODAL DIALOG & RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    .planning-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .planning-modal-backdrop.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .planning-modal-box {
+      background: #ffffff;
+      border-radius: 28px;
+      max-width: 720px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2.5rem;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+
+    body.dark .planning-modal-box {
+      background: #0f172a;
+      border: 1px solid rgba(96, 165, 250, 0.25);
+      color: #f8fafc;
+    }
+
+    .planning-modal-backdrop.active .planning-modal-box {
+      transform: scale(1);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(15, 23, 42, 0.08);
+      color: #0f172a;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    body.dark .modal-close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: #f8fafc;
+    }
+
+    .modal-close-btn:hover {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    body.rtl .modal-close-btn {
+      right: auto;
+      left: 1.5rem;
+    }
+
+    /* Font Awesome safe fallbacks */
+    .fa-wand-magic-sparkles:before { content: "\f005"; }
+    .fa-shield-halved:before { content: "\f3ed"; }
+    .fa-microphone-stand:before { content: "\f130"; }
+    .fa-calendar-star:before { content: "\f274"; }
+    .fa-chart-line-up:before { content: "\f201"; }
+    .fa-trophy-alt:before { content: "\f091"; }
+    .fa-lock-alt:before { content: "\f023"; }
+    .fa-lightbulb-on:before { content: "\f0eb"; }
+    .fa-sliders-up:before { content: "\f1de"; }
+    .fa-bolt-lightning:before { content: "\f0e7"; }
+    .fa-shield-halved:before { content: "\f3ed"; }
+    .fa-building-columns:before { content: "\f19c"; }
+
+    @media (max-width: 1024px) {
+      .foundry-split-grid {
+        grid-template-columns: 1fr;
+      }
+      .diagnostic-quadrant-matrix {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .atelier-concept-grid {
+        grid-template-columns: 1fr;
+      }
+      .procurement-complex-grid {
+        grid-template-columns: 1fr;
+      }
+      .capex-portal-grid {
+        grid-template-columns: 1fr;
+      }
+      .gantt-phases-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .onsite-command-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .diagnostic-quadrant-matrix {
+        grid-template-columns: 1fr;
+      }
+      .gantt-phases-grid {
+        grid-template-columns: 1fr;
+      }
+      .audit-kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .planning-title {
+        font-size: 2rem;
+      }
+    }
+
+  
+    /* RESPONSIVE_PUBLIC_MASTER */
+    /* ==========================================================================
+       MOBILE-FIRST RESPONSIVE SUITE (320px, 480px, 768px, 1024px)
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box !important;
+    }
+
+    html {
+      overflow-x: clip !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      overflow-x: clip !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    img, picture, video, canvas, svg, iframe {
+      max-width: 100% !important;
+      height: auto;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, span, a, label, li, button, td, th {
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      word-break: break-word;
+    }
+
+    .app-wrapper {
+      width: 100% !important;
+      max-width: 1440px !important;
+      box-sizing: border-box !important;
+      margin: 0 auto !important;
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+      overflow: visible !important;
+      overflow-x: clip !important;
+    }
+
+    .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+      width: 100% !important;
+      max-width: 1280px !important;
+      box-sizing: border-box !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+
+    button, .btn, .btn-hero-primary, .btn-hero-secondary, .login-btn, [class*="btn-"] {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .glass-card, [class*="-card"], [class*="-glass-card"] {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    
+    /* ===== NAVBAR BULLETPROOF ALIGNMENT ===== */
+    .nav-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      overflow: visible !important;
+    }
+
+    .nav-container .logo-section,
+    .logo-section {
+      width: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.6rem !important;
+      flex-shrink: 0 !important;
+    }
+
+    .nav-container .right-section,
+    .right-section {
+      width: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      flex-shrink: 0 !important;
+    }
+
+    body.rtl .nav-container .right-section,
+    body.rtl .right-section {
+      justify-content: flex-start !important;
+    }
+
+    .hamburger {
+      flex-shrink: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* --- BREAKPOINT: 1024px --- */
+    @media (max-width: 1024px) {
+      .app-wrapper {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 3.5rem !important;
+        margin-bottom: 3.5rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      .section-header {
+        margin-bottom: 2.2rem !important;
+        gap: 0.6rem !important;
+      }
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(2.2rem, 5vw, 2.9rem) !important;
+        line-height: 1.25 !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.75rem, 4vw, 2.2rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: clamp(1.2rem, 3vw, 1.45rem) !important;
+      }
+
+      /* Navbar Collapse */
+      .nav-links, .right-section .icon-btn, .right-section .login-btn {
+        display: none !important;
+      }
+      .hamburger {
+        display: flex !important;
+      }
+      .nav-container {
+        padding: 0.5rem 1.4rem !important;
+      }
+
+      /* 2-Column Grids */
+      .bento-grid, 
+      .features-grid, 
+      .services-grid, 
+      .portfolio-grid, 
+      .team-grid, 
+      .testimonials-grid, 
+      .pricing-grid,
+      .gallery-masonry-grid,
+      .stats-grid,
+      .hero-highlights-grid,
+      [class*="-grid"] {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 1.5rem !important;
+      }
+
+      .hero-container,
+      .venues-split-grid,
+      .success-industry-grid,
+      .testimonials-rfp-grid,
+      .process-details-card,
+      [class*="-split-grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 2.2rem !important;
+      }
+
+      .footer-container {
+        padding: 2.5rem 2rem 1.8rem !important;
+        border-radius: 36px !important;
+        margin-top: 3.5rem !important;
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 2rem !important;
+      }
+      .footer-cta {
+        padding: 1.8rem 1.5rem !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 768px --- */
+    @media (max-width: 768px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 2.8rem !important;
+        margin-bottom: 2.8rem !important;
+        padding-left: 0.85rem !important;
+        padding-right: 0.85rem !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(1.85rem, 5.5vw, 2.35rem) !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.45rem, 4.5vw, 1.85rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: clamp(1.15rem, 3.5vw, 1.35rem) !important;
+      }
+      p, .hero-paragraph, .section-desc {
+        font-size: 0.92rem !important;
+        line-height: 1.6 !important;
+      }
+
+      /* Single-Column Stack */
+      .bento-grid, 
+      .features-grid, 
+      .services-grid, 
+      .portfolio-grid, 
+      .team-grid, 
+      .testimonials-grid, 
+      .pricing-grid,
+      .gallery-masonry-grid,
+      .stepper-roadmap,
+      .stepper-nav-bar,
+      .success-industry-grid,
+      .rfp-form-grid,
+      .rfp-type-group,
+      [class*="-grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+
+      .gallery-card.span-2,
+      .col-span-2,
+      [class*="span-"] {
+        grid-column: span 1 !important;
+      }
+
+      /* Stack Buttons */
+      .hero-cta-group, .cta-group, .btn-row {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.75rem !important;
+      }
+      .btn-hero-primary, .btn-hero-secondary, .btn-primary, .btn-secondary, [class*="btn-hero-"] {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 0.85rem 1.4rem !important;
+      }
+
+      .hero-metrics-bar {
+        grid-template-columns: 1fr !important;
+        flex-direction: column !important;
+        gap: 0.85rem !important;
+        width: 100% !important;
+      }
+      .roi-metrics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 0.75rem !important;
+      }
+
+      .countdown-clock {
+        grid-template-columns: repeat(4, 1fr) !important;
+        padding: 0.6rem !important;
+        gap: 0.4rem !important;
+      }
+      .time-num { font-size: 1.15rem !important; }
+      .time-label { font-size: 0.65rem !important; }
+
+      /* Footer */
+      .footer-container {
+        padding: 2.2rem 1.25rem 1.5rem !important;
+        border-radius: 28px !important;
+        margin-top: 2.8rem !important;
+        gap: 2rem !important;
+      }
+      .footer-cta {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 1.6rem 1.25rem !important;
+        gap: 1.25rem !important;
+        border-radius: 22px !important;
+      }
+      .footer-cta-form-wrapper {
+        min-width: 0 !important;
+        width: 100% !important;
+      }
+      .footer-form {
+        flex-direction: column !important;
+        border-radius: 18px !important;
+        padding: 0.5rem !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+      }
+      .footer-form input {
+        width: 100% !important;
+        border-radius: 12px !important;
+        padding: 0.65rem 0.85rem !important;
+      }
+      .footer-form button {
+        width: 100% !important;
+        justify-content: center !important;
+        border-radius: 12px !important;
+        padding: 0.65rem 1rem !important;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.8rem !important;
+      }
+      .footer-bottom {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1.2rem !important;
+      }
+      .footer-legal-links {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.6rem !important;
+      }
+
+      .es-modal-dialog, .modal-dialog {
+        width: 94% !important;
+        max-width: 100% !important;
+        padding: 1.5rem 1.25rem !important;
+        margin: 1rem auto !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 480px --- */
+    @media (max-width: 480px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 2.2rem !important;
+        margin-bottom: 2.2rem !important;
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+
+      .app-wrapper {
+        padding-left: 0.6rem !important;
+        padding-right: 0.6rem !important;
+        padding-top: 0.8rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+
+      .nav-container {
+        padding: 0.45rem 1.25rem !important;
+        border-radius: 30px !important;
+        position: -webkit-sticky !important; position: sticky !important; top: 0.5rem !important;
+      }
+      .logo-text { font-size: 1.15rem !important; }
+      .logo-3d { width: 19px !important; height: 19px !important; }
+      .logo-face {
+        width: 19px !important;
+        height: 19px !important;
+        font-size: 0.52rem !important;
+        border-radius: 5px !important;
+      }
+      .hamburger {
+        width: 36px !important;
+        height: 36px !important;
+        padding: 8px 6px !important;
+      }
+
+      .mobile-menu {
+        border-radius: 20px !important;
+        padding: 1.25rem 1rem !important;
+      }
+      .mobile-nav-links > li > a, 
+      .mobile-dropdown-header > a {
+        font-size: 0.95rem !important;
+      }
+      .mobile-actions {
+        gap: 0.5rem !important;
+      }
+      .mobile-actions .login-btn {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(1.5rem, 6.8vw, 1.85rem) !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.25rem, 5.5vw, 1.55rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: 1.12rem !important;
+      }
+      .section-pill-badge {
+        font-size: 0.72rem !important;
+        padding: 0.3rem 0.75rem !important;
+      }
+
+      .glass-card, [class*="-card"], [class*="-glass-card"] {
+        padding: 1.35rem 1rem !important;
+        border-radius: 20px !important;
+      }
+
+      .roi-metrics-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.6rem !important;
+      }
+      .countdown-clock {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+      }
+
+      .footer-container {
+        padding: 1.8rem 0.95rem 1.2rem !important;
+        border-radius: 24px !important;
+        margin-top: 2.2rem !important;
+      }
+      .footer-cta-title { font-size: 1.22rem !important; }
+      .footer-cta-desc { font-size: 0.85rem !important; }
+      .metric-pill {
+        font-size: 0.72rem !important;
+        padding: 0.35rem 0.7rem !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 320px --- */
+    @media (max-width: 320px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 1.6rem !important;
+        margin-bottom: 1.6rem !important;
+        padding-left: 0.45rem !important;
+        padding-right: 0.45rem !important;
+      }
+
+      .app-wrapper {
+        padding-left: 0.35rem !important;
+        padding-right: 0.35rem !important;
+        padding-top: 0.5rem !important;
+      }
+
+      .nav-container {
+        padding: 0.4rem 1rem !important;
+        border-radius: 22px !important;
+        position: -webkit-sticky !important; position: sticky !important; top: 0.3rem !important;
+      }
+      .logo-text { font-size: 1.02rem !important; }
+      .logo-3d { width: 17px !important; height: 17px !important; }
+      .logo-face {
+        width: 17px !important;
+        height: 17px !important;
+        font-size: 0.48rem !important;
+        border-radius: 4px !important;
+      }
+      .hamburger {
+        width: 32px !important;
+        height: 32px !important;
+        padding: 7px 5px !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: 1.38rem !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: 1.18rem !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: 1.02rem !important;
+      }
+      p, .hero-paragraph, .section-desc {
+        font-size: 0.8rem !important;
+      }
+      .section-pill-badge {
+        font-size: 0.66rem !important;
+        padding: 0.25rem 0.55rem !important;
+      }
+
+      .glass-card, [class*="-card"], [class*="-glass-card"] {
+        padding: 1.1rem 0.75rem !important;
+        border-radius: 16px !important;
+      }
+
+      button, .btn, .btn-hero-primary, .btn-hero-secondary, .login-btn, [class*="btn-"] {
+        font-size: 0.78rem !important;
+        padding: 0.65rem 0.9rem !important;
+      }
+
+      .footer-container {
+        padding: 1.5rem 0.75rem 1rem !important;
+        border-radius: 18px !important;
+      }
+      .footer-cta {
+        padding: 1.25rem 0.75rem !important;
+        border-radius: 16px !important;
+      }
+      .footer-cta-title { font-size: 1.1rem !important; }
+      .footer-cta-desc { font-size: 0.78rem !important; }
+    }
+
+    /* END RESPONSIVE_PUBLIC_MASTER */
+  
+    /* FontAwesome Icon Fallback & Compatibility */
+    .fa-sparkles:before { content: "\e2ca" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+    .fa-radar:before { content: "\f7c0" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+    .fa-shield-check:before { content: "\f3ed" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+  </style>
+</style>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- NAVBAR -->
+    <nav class="nav-container">
+      <div class="nav-shine"></div>
+      <!-- LEFT: LOGO (smaller 3D + text) -->
+      <a href="index.html" class="logo-section" style="text-decoration: none; cursor: pointer;">
+        <div class="logo-3d">
+          <div class="logo-cube">
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+          </div>
+        </div>
+        <div class="logo-text">Event<span>Sphere</span></div>
+      </a>
+
+      <!-- CENTER: DESKTOP NAV LINKS -->
+
+      <ul class="nav-links">
+        <li class="dropdown">
+          <a href="index.html" class="dropdown-toggle">Home <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="index.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-home"></i></span>
+                <span class="dropdown-item-title">Home 1</span>
+              </a>
+            </li>
+            <li>
+              <a href="home-2.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-building"></i></span>
+                <span class="dropdown-item-title">Home 2</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li class="active"><a href="event-planning.html" class="active">Event Planning</a></li>
+        <li><a href="vendors.html">Vendors</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="dropdown dropdown-right">
+          <a href="admin-dashboard.html" class="dropdown-toggle">Dashboard <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="admin-dashboard.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-shield-alt"></i></span>
+                <span class="dropdown-item-title">Admin Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="user-dashboard.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-user-circle"></i></span>
+                <span class="dropdown-item-title">User Dashboard</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- RIGHT: ICONS & LOGIN -->
+      <div class="right-section">
+        <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
+        <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
+        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <!-- Hamburger visible only on tablet/mobile -->
+        <button class="hamburger" id="hamburgerBtn">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul class="mobile-nav-links">
+        <li class="mobile-dropdown">
+          <div class="mobile-dropdown-header">
+            <a href="index.html">Home</a>
+            <button class="mobile-dropdown-toggle" aria-label="Toggle Home submenu"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <ul class="mobile-submenu">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home 1</a></li>
+            <li><a href="home-2.html"><i class="fas fa-building"></i> Home 2</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li class="active"><a href="event-planning.html" class="active">Event Planning</a></li>
+        <li><a href="vendors.html">Vendors</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="mobile-dropdown">
+          <div class="mobile-dropdown-header">
+            <a href="admin-dashboard.html">Dashboard</a>
+            <button class="mobile-dropdown-toggle" aria-label="Toggle Dashboard submenu"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <ul class="mobile-submenu">
+            <li><a href="admin-dashboard.html"><i class="fas fa-shield-alt"></i> Admin Dashboard</a></li>
+            <li><a href="user-dashboard.html"><i class="fas fa-user-circle"></i> User Dashboard</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mobile-actions">
+        <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
+        <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
+        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         EVENT PLANNING MAIN WRAPPER (7 Unique Creative Sections)
+         ======================================================================== -->
+    <main class="planning-wrapper">
+
+      <!-- ======================================================================
+           SECTION 1: SUBMIT EVENT REQUIREMENTS (Requirements Foundry & Blueprint)
+           ====================================================================== -->
+      <section class="planning-section framer-planning-foundry-init" id="submit-requirements">
+        <div class="planning-header">
+          <span class="planning-pill-badge">
+            <i class="fas fa-clipboard-list"></i> Discovery Protocol
+          </span>
+          <h2 class="planning-title">
+            Submit Event Requirements & <span class="gradient-text">Architectural Scoping</span>
+          </h2>
+          <p class="planning-desc">
+            Initiate your enterprise conference mandate through our structured intake engine. Define attendee scale, spatial parameters, security clearance, and technical broadcasting specs.
+          </p>
+        </div>
+
+        <div class="foundry-split-grid">
+          <!-- FOUNDRY MEDIA CARD (Holographic Blueprint Visualizer) -->
+          <div class="planning-glass-card foundry-media-card">
+            <div class="foundry-media-top">
+              <img src="images/planning_discovery.jpg" alt="Holographic Event Blueprint and Scope Analysis">
+              <span class="foundry-overlay-badge">
+                <i class="fas fa-cube"></i> Interactive 3D Spatial Blueprint
+              </span>
+            </div>
+            <div class="foundry-media-body">
+              <span class="step-pill">Stage 01 · Ingestion</span>
+              <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a;">Engineering Your Vision From First Principles</h3>
+              <p style="font-size: 0.92rem; color: #475569; line-height: 1.6;">
+                Every flagship conference begins with spatial feasibility modelling. Our algorithmic intake maps your executive delegates, security cordons, plenary sightlines, and streaming bandwidth before a single contract is issued.
+              </p>
+              <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(59, 130, 246, 0.15);">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #2563eb;"><i class="fas fa-check-circle"></i> 24-Hour Scope Audit</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: #10b981;"><i class="fas fa-check-circle"></i> ISO-20121 Ready</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- REQUIREMENTS WIZARD INTERACTIVE CARD -->
+          <div class="planning-glass-card foundry-wizard-card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="font-size: 1.4rem; font-weight: 800; color: #0f172a;">Event Specification Foundry</h3>
+              <span class="planning-pill-badge" style="margin: 0;"><i class="fas fa-bolt"></i> Live Estimator</span>
+            </div>
+            
+            <div class="form-group-item">
+              <label>1. Assembly Typology</label>
+              <div class="wizard-chip-row">
+                <button type="button" class="wizard-chip active" onclick="selectChip(this, 'type')">Global Plenary Summit</button>
+                <button type="button" class="wizard-chip" onclick="selectChip(this, 'type')">C-Suite Retreat</button>
+                <button type="button" class="wizard-chip" onclick="selectChip(this, 'type')">Product Reveal Keynote</button>
+                <button type="button" class="wizard-chip" onclick="selectChip(this, 'type')">Industrial Expo</button>
+              </div>
+            </div>
+
+            <div class="form-group-item">
+              <label>2. Expected Executive Delegate Volume</label>
+              <div class="wizard-chip-row">
+                <button type="button" class="wizard-chip" onclick="selectChip(this, 'scale')">500 - 1,500</button>
+                <button type="button" class="wizard-chip active" onclick="selectChip(this, 'scale')">1,500 - 5,000</button>
+                <button type="button" class="wizard-chip" onclick="selectChip(this, 'scale')">5,000 - 15,000+</button>
+              </div>
+            </div>
+
+            <div class="form-group-item">
+              <label>3. Protocol & Security Requirements</label>
+              <div class="wizard-chip-row">
+                <button type="button" class="wizard-chip" onclick="selectChip(this, 'sec')">Commercial Enterprise</button>
+                <button type="button" class="wizard-chip active" onclick="selectChip(this, 'sec')">Chatham House · SCIF Tier-1</button>
+                <button type="button" class="wizard-chip" onclick="selectChip(this, 'sec')">Sovereign / Diplomatic</button>
+              </div>
+            </div>
+
+            <div class="form-group-item">
+              <label>4. Keynote Target Horizon & Venue Preference</label>
+              <input type="text" class="form-control-input" placeholder="e.g., Q3 2026 · London / Singapore / Zurich" id="targetHorizon">
+            </div>
+
+            <button class="btn-planning-primary" style="justify-content: center; margin-top: 0.5rem;" onclick="openPlanningModal('spec_submitted')">
+              <i class="fas fa-file-signature"></i> Transmit Requirements To Director
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SECTION 2: INITIAL CONSULTATION (Penthouse Executive Advisory Deck)
+           ====================================================================== -->
+      <section class="planning-section framer-planning-advisory-init" id="initial-consultation">
+        <div class="planning-header">
+          <span class="planning-pill-badge">
+            <i class="fas fa-handshake"></i> Strategic Alignment
+          </span>
+          <h2 class="planning-title">
+            Initial Consultation & <span class="gradient-text">Diagnostic Advisory</span>
+          </h2>
+          <p class="planning-desc">
+            A comprehensive executive briefing conducted by our veteran event directors to deconstruct stakeholder goals, audit logistical constraints, and establish clear operational KPIs.
+          </p>
+        </div>
+
+        <!-- PANORAMIC ADVISORY CARD -->
+        <div class="planning-glass-card advisory-panoramic-card">
+          <div class="advisory-panoramic-photo">
+            <img src="images/planning_consultation.jpg" alt="Executive Penthouse Event Consultation Session">
+            <div class="advisory-panoramic-overlay">
+              <span class="step-pill">Stage 02 · Advisory</span>
+              <h3 style="font-size: 2rem; font-weight: 900; line-height: 1.2; margin-top: 0.5rem;">The Strategic Discovery Session</h3>
+              <p style="font-size: 0.95rem; color: #cbd5e1; max-width: 680px; margin-top: 0.4rem;">
+                Within 48 hours of intake transmission, our executive producers convene an intensive diagnostic consultation with your board and steering committee.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-QUADRANT DIAGNOSTIC PROTOCOL GRID -->
+        <div class="diagnostic-quadrant-matrix">
+          <div class="planning-glass-card diagnostic-quad-card">
+            <div class="diagnostic-icon-box"><i class="fas fa-users"></i></div>
+            <h4 style="font-size: 1.15rem; font-weight: 800; color: #0f172a;">Stakeholder Alignment</h4>
+            <p style="font-size: 0.84rem; color: #475569; line-height: 1.5;">
+              Synthesizing C-Suite milestones, keynote themes, and corporate diplomatic protocols into an unshakeable master brief.
+            </p>
+          </div>
+
+          <div class="planning-glass-card diagnostic-quad-card">
+            <div class="diagnostic-icon-box"><i class="fas fa-shield-alt"></i></div>
+            <h4 style="font-size: 1.15rem; font-weight: 800; color: #0f172a;">Risk & Safety Audit</h4>
+            <p style="font-size: 0.84rem; color: #475569; line-height: 1.5;">
+              Vulnerability profiling across physical venue perimeters, cyber feeds, medical contingencies, and confidential discourse.
+            </p>
+          </div>
+
+          <div class="planning-glass-card diagnostic-quad-card">
+            <div class="diagnostic-icon-box"><i class="fas fa-sliders-h"></i></div>
+            <h4 style="font-size: 1.15rem; font-weight: 800; color: #0f172a;">Spatial AV Engineering</h4>
+            <p style="font-size: 0.84rem; color: #475569; line-height: 1.5;">
+              Acoustic frequency analysis, sightline mathematical modelling, and uncompressed 4K video infrastructure planning.
+            </p>
+          </div>
+
+          <div class="planning-glass-card diagnostic-quad-card">
+            <div class="diagnostic-icon-box"><i class="fas fa-award"></i></div>
+            <h4 style="font-size: 1.15rem; font-weight: 800; color: #0f172a;">KPI & ROI Governance</h4>
+            <p style="font-size: 0.84rem; color: #475569; line-height: 1.5;">
+              Establishing quantifiable benchmarks for deal pipeline facilitation, attendee sentiment scores, and media reach.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SECTION 3: EVENT CONCEPT DEVELOPMENT (Creative Atelier Workshop)
+           ====================================================================== -->
+      <section class="planning-section framer-planning-atelier-init" id="concept-development">
+        <div class="planning-header">
+          <span class="planning-pill-badge">
+            <i class="fas fa-palette"></i> Spatial Stagecraft
+          </span>
+          <h2 class="planning-title">
+            Event Concept Development & <span class="gradient-text">Architectural Design</span>
+          </h2>
+          <p class="planning-desc">
+            Transforming strategic themes into jaw-dropping experiential stagecraft, sensory lighting architectures, and immersive attendee journey mappings.
+          </p>
+        </div>
+
+        <div class="atelier-concept-grid">
+          <!-- CONCEPT 1 -->
+          <div class="planning-glass-card concept-pod-card">
+            <span class="step-pill">Concept Alpha</span>
+            <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a;">The Luminary Horizon</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55;">
+              Wrap-around 120-meter 8K curved LED horizon with kinetic lighting fins that react dynamically to keynote speaker cadence.
+            </p>
+            <div class="concept-swatch-row">
+              <div class="concept-swatch" style="background: #0f172a;" title="Obsidian Base"></div>
+              <div class="concept-swatch" style="background: #2563eb;" title="Cobalt Accent"></div>
+              <div class="concept-swatch" style="background: #38bdf8;" title="Cyan Luminescence"></div>
+              <div class="concept-swatch" style="background: #ffffff;" title="Crisp Daylight"></div>
+            </div>
+            <button class="btn-planning-outline" style="margin-top: auto;" onclick="openPlanningModal('concept_luminary')">
+              Inspect Moodboard <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <!-- CONCEPT 2 -->
+          <div class="planning-glass-card concept-pod-card">
+            <span class="step-pill" style="background: #059669;">Concept Beta</span>
+            <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a;">Biophilic Sanctuary</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55;">
+              Living vertical flora architectural partitions, circadian daylight simulation, acoustic timber domes, and zero-carbon staging materials.
+            </p>
+            <div class="concept-swatch-row">
+              <div class="concept-swatch" style="background: #064e3b;" title="Forest Green"></div>
+              <div class="concept-swatch" style="background: #10b981;" title="Emerald Bio"></div>
+              <div class="concept-swatch" style="background: #d97706;" title="Warm Oak"></div>
+              <div class="concept-swatch" style="background: #f8fafc;" title="Pure Linen"></div>
+            </div>
+            <button class="btn-planning-outline" style="margin-top: auto;" onclick="openPlanningModal('concept_biophilic')">
+              Inspect Moodboard <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <!-- CONCEPT 3 -->
+          <div class="planning-glass-card concept-pod-card">
+            <span class="step-pill" style="background: #7c3aed;">Concept Gamma</span>
+            <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a;">Quantum Nexus</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55;">
+              Transparent volumetric holographic screens, laser spatial mapping, subterranean subterranean reveal elevators, and cyber-glass bilateral pods.
+            </p>
+            <div class="concept-swatch-row">
+              <div class="concept-swatch" style="background: #1e1b4b;" title="Deep Violet"></div>
+              <div class="concept-swatch" style="background: #8b5cf6;" title="Electric Purple"></div>
+              <div class="concept-swatch" style="background: #ec4899;" title="Neon Magenta"></div>
+              <div class="concept-swatch" style="background: #0f172a;" title="Dark Void"></div>
+            </div>
+            <button class="btn-planning-outline" style="margin-top: auto;" onclick="openPlanningModal('concept_quantum')">
+              Inspect Moodboard <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- AMBIENT ATELIER BANNER -->
+        <div class="atelier-banner">
+          <img src="images/planning_concept_design.jpg" alt="Event Planning Architectural Design Studio">
+          <div class="atelier-banner-overlay">
+            <div>
+              <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #60a5fa;">The Stagecraft Atelier</span>
+              <h4 style="font-size: 1.5rem; font-weight: 800; margin-top: 0.3rem;">3D Scale Prototyping & Virtual Reality Pre-Visualizations</h4>
+              <p style="font-size: 0.88rem; color: #cbd5e1; max-width: 600px; margin-top: 0.4rem;">
+                Experience your event stage in full immersive VR before fabrication begins. Zero surprises on event day.
+              </p>
+            </div>
+            <button class="btn-planning-primary" onclick="openPlanningModal('vr_demo')">
+              <i class="fas fa-cube"></i> Launch Virtual Stage Lab
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SECTION 4: VENUE & VENDOR SELECTION (Procurement Exchange Deck)
+           ====================================================================== -->
+      <section class="planning-section framer-planning-exchange-init" id="venue-vendor-selection">
+        <div class="planning-header">
+          <span class="planning-pill-badge">
+            <i class="fas fa-building"></i> Rigorous Procurement
+          </span>
+          <h2 class="planning-title">
+            Venue & Vendor Selection & <span class="gradient-text">140-Point Auditing</span>
+          </h2>
+          <p class="planning-desc">
+            Leveraging our global preferred-rates directory of vetted convention centers, CTS-certified audiovisual fabricators, and Michelin-caliber executive caterers.
+          </p>
+        </div>
+
+        <div class="procurement-complex-grid">
+          <!-- VENUE SHOWCASE CARD -->
+          <div class="planning-glass-card venue-showcase-card">
+            <div class="venue-showcase-photo">
+              <img src="images/planning_venue_selection.jpg" alt="Corporate Venue Inspection at Modern Convention Palace">
+            </div>
+            <div class="venue-showcase-body">
+              <span class="step-pill">Stage 04 · Procurement</span>
+              <h3 style="font-size: 1.6rem; font-weight: 800; color: #0f172a;">Rigorous On-Site Engineering Inspection</h3>
+              <p style="font-size: 0.92rem; color: #475569; line-height: 1.6;">
+                Our technical teams personally survey ceiling load ratings, subterranean fiber-optic conduits, heavy machinery ingress access, and sound-isolation baffles to ensure absolute compliance with your technical blueprint.
+              </p>
+              <div style="background: rgba(37, 99, 235, 0.06); padding: 1.2rem; border-radius: 18px; border: 1px solid rgba(59, 130, 246, 0.15);">
+                <div style="font-size: 1.15rem; font-weight: 800; color: #2563eb;">140-Point Compliance Certification</div>
+                <div style="font-size: 0.78rem; color: #64748b; margin-top: 0.2rem;">Every contracted facility and sub-vendor undergoes independent ISO-20121 and safety auditing.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROCUREMENT STACK -->
+          <div class="procurement-stack">
+            <div class="planning-glass-card procure-tier-card">
+              <div class="procure-icon-badge"><i class="fas fa-hotel"></i></div>
+              <div>
+                <h4 style="font-size: 1.1rem; font-weight: 800; color: #0f172a;">Global Convention Palaces</h4>
+                <p style="font-size: 0.82rem; color: #475569; line-height: 1.45; margin-top: 0.2rem;">
+                  Direct institutional contracting with 85+ world-class conference palaces across Europe, Asia-Pacific, and the Americas.
+                </p>
+              </div>
+            </div>
+
+            <div class="planning-glass-card procure-tier-card">
+              <div class="procure-icon-badge"><i class="fas fa-broadcast-tower"></i></div>
+              <div>
+                <h4 style="font-size: 1.1rem; font-weight: 800; color: #0f172a;">CTS-Certified AV Consortium</h4>
+                <p style="font-size: 0.82rem; color: #475569; line-height: 1.45; margin-top: 0.2rem;">
+                  Pre-cleared hardware inventories featuring Barco laser projectors, Meyer Sound line arrays, and disguise media servers.
+                </p>
+              </div>
+            </div>
+
+            <div class="planning-glass-card procure-tier-card">
+              <div class="procure-icon-badge"><i class="fas fa-utensils"></i></div>
+              <div>
+                <h4 style="font-size: 1.1rem; font-weight: 800; color: #0f172a;">Michelin-Grade Catering</h4>
+                <p style="font-size: 0.82rem; color: #475569; line-height: 1.45; margin-top: 0.2rem;">
+                  Artisanal farm-to-table culinary curation compliant with strict executive dietary specifications and halal/kosher standards.
+                </p>
+              </div>
+            </div>
+
+            <div class="planning-glass-card procure-tier-card">
+              <div class="procure-icon-badge"><i class="fas fa-user-shield"></i></div>
+              <div>
+                <h4 style="font-size: 1.1rem; font-weight: 800; color: #0f172a;">Diplomatic Security Details</h4>
+                <p style="font-size: 0.82rem; color: #475569; line-height: 1.45; margin-top: 0.2rem;">
+                  Former state protection attachés coordinating discreet motorcade transfers, biometric badge readers, and RF screening.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SECTION 5: BUDGET PLANNING & PROPOSAL APPROVAL (CapEx & Approval Portal)
+           ====================================================================== -->
+      <section class="planning-section framer-planning-budget-init" id="budget-proposal">
+        <div class="planning-header">
+          <span class="planning-pill-badge">
+            <i class="fas fa-file-contract"></i> Financial Governance
+          </span>
+          <h2 class="planning-title">
+            Precision Budget Planning & <span class="gradient-text">Proposal Approval</span>
+          </h2>
+          <p class="planning-desc">
+            Complete transparency with line-item cost controls, locked-fee guarantees, and a digital milestone approval portal with zero surprise budget creep.
+          </p>
+        </div>
+
+        <div class="capex-portal-grid">
+          <!-- CAPEX ALLOCATION ENGINE -->
+          <div class="planning-glass-card capex-calculator-card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="font-size: 1.4rem; font-weight: 800; color: #0f172a;">Transparent CapEx Allocation</h3>
+              <span class="planning-pill-badge" style="margin: 0; background: rgba(16,185,129,0.1); color: #10b981; border-color: rgba(16,185,129,0.25);">
+                <i class="fas fa-lock"></i> Locked-Fee Guarantee
+              </span>
+            </div>
+
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55;">
+              Our verified procurement models guarantee zero post-contract cost escalations. Every single dollar is tracked against line-item milestone deliverables.
+            </p>
+
+            <div class="capex-bar-item">
+              <div class="capex-bar-label-row">
+                <span>Spatial AV, 8K LED & Stagecraft</span>
+                <span style="color: #2563eb;">36%</span>
+              </div>
+              <div class="capex-progress-track">
+                <div class="capex-progress-fill" style="width: 36%;"></div>
+              </div>
+            </div>
+
+            <div class="capex-bar-item">
+              <div class="capex-bar-label-row">
+                <span>Production Logistics, Rigging & Crew</span>
+                <span style="color: #2563eb;">24%</span>
+              </div>
+              <div class="capex-progress-track">
+                <div class="capex-progress-fill" style="width: 24%;"></div>
+              </div>
+            </div>
+
+            <div class="capex-bar-item">
+              <div class="capex-bar-label-row">
+                <span>Venue Lease & Executive Hospitality</span>
+                <span style="color: #2563eb;">22%</span>
+              </div>
+              <div class="capex-progress-track">
+                <div class="capex-progress-fill" style="width: 22%;"></div>
+              </div>
+            </div>
+
+            <div class="capex-bar-item">
+              <div class="capex-bar-label-row">
+                <span>Diplomatic Security & VIP Protocol</span>
+                <span style="color: #2563eb;">10%</span>
+              </div>
+              <div class="capex-progress-track">
+                <div class="capex-progress-fill" style="width: 10%;"></div>
+              </div>
+            </div>
+
+            <div class="capex-bar-item">
+              <div class="capex-bar-label-row">
+                <span>Contingency Reserve Fund (Unused Returned)</span>
+                <span style="color: #10b981;">8%</span>
+              </div>
+              <div class="capex-progress-track">
+                <div class="capex-progress-fill" style="width: 8%; background: #10b981;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROPOSAL APPROVAL PORTAL -->
+          <div class="planning-glass-card proposal-agreement-card">
+            <div class="proposal-agreement-photo">
+              <img src="images/planning_budget_proposal.jpg" alt="Master Proposal Agreement and Budget Contract">
+            </div>
+            <div class="proposal-agreement-body">
+              <span class="step-pill">Stage 05 · Ratification</span>
+              <h3 style="font-size: 1.45rem; font-weight: 800; color: #0f172a;">Digital Proposal Approval Portal</h3>
+              <p style="font-size: 0.88rem; color: #475569; line-height: 1.55;">
+                Upon finalizing technical schematics, clients receive an encrypted, interactive master agreement portal featuring itemized deliverables, milestone timelines, and e-sign workflows.
+              </p>
+              <div style="display: flex; gap: 0.8rem; margin-top: auto;">
+                <button class="btn-planning-primary" onclick="openPlanningModal('proposal_sample')">
+                  <i class="fas fa-file-signature"></i> Review Master Agreement Sample
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SECTION 6: EVENT PREPARATION TIMELINE (Mission-Control Gantt Ribbon)
+           ====================================================================== -->
+      <section class="planning-section framer-planning-timeline-init" id="preparation-timeline">
+        <div class="planning-header">
+          <span class="planning-pill-badge">
+            <i class="fas fa-clock"></i> Critical Path Governance
+          </span>
+          <h2 class="planning-title">
+            Event Preparation Timeline & <span class="gradient-text">Sprint Milestones</span>
+          </h2>
+          <p class="planning-desc">
+            Aerospace-grade project management dividing your planning horizon into 4 disciplined sprint phases with rigid critical-path dependency enforcement.
+          </p>
+        </div>
+
+        <div class="planning-glass-card timeline-mission-card">
+          <!-- MISSION TIMELINE CONTROL BANNER -->
+          <div class="timeline-banner-frame">
+            <img src="images/planning_timeline_control.jpg" alt="Event Project Management Timeline Control Room">
+            <div class="timeline-banner-overlay">
+              <div>
+                <span class="step-pill">Stage 06 · Mobilization</span>
+                <h3 style="font-size: 1.85rem; font-weight: 900; margin-top: 0.4rem;">The 12-Month Critical Path Architecture</h3>
+                <p style="font-size: 0.88rem; color: #cbd5e1; max-width: 600px; margin-top: 0.2rem;">
+                  Every single workstream—from acoustic simulation to speaker travel briefings—is synchronized via live sprint dashboards.
+                </p>
+              </div>
+              <button class="btn-planning-primary" onclick="openPlanningModal('gantt_full')">
+                <i class="fas fa-calendar-alt"></i> Full Gantt Schedule
+              </button>
+            </div>
+          </div>
+
+          <!-- 4-PHASE GANTT SPRINT GRID -->
+          <div class="gantt-phases-grid">
+            <div class="gantt-phase-item">
+              <span class="phase-badge">Phase I · Months 12–9</span>
+              <h4 class="phase-title">Feasibility & Blueprinting</h4>
+              <p class="phase-desc">
+                Intake ratification, venue architectural contracting, budget lock, and sovereign diplomatic authority notifications.
+              </p>
+            </div>
+
+            <div class="gantt-phase-item">
+              <span class="phase-badge">Phase II · Months 8–5</span>
+              <h4 class="phase-title">Technical Build & Media</h4>
+              <p class="phase-desc">
+                Custom stage fabrication, 8K video content rendering, keynote speaker coaching, and sponsor booth blueprint locks.
+              </p>
+            </div>
+
+            <div class="gantt-phase-item">
+              <span class="phase-badge">Phase III · Months 4–1</span>
+              <h4 class="phase-title">Logistics & Rehearsals</h4>
+              <p class="phase-desc">
+                Hotel room-block mobilization, catering tastings, RF signal tests, and full virtual simulation run-throughs.
+              </p>
+            </div>
+
+            <div class="gantt-phase-item">
+              <span class="phase-badge" style="color: #10b981;">Phase IV · T-72h to T-0</span>
+              <h4 class="phase-title">Ingress & Zero-Hour</h4>
+              <p class="phase-desc">
+                24/7 technical dry-runs, biometric credential issuing, executive motorcade rehearsal, and plenary stage lock.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SECTION 7: ON-SITE COORDINATION & POST-EVENT EVALUATION
+           ====================================================================== -->
+      <section class="planning-section framer-planning-command-init" id="onsite-evaluation">
+        <div class="planning-header">
+          <span class="planning-pill-badge">
+            <i class="fas fa-headset"></i> Operational Mastery
+          </span>
+          <h2 class="planning-title">
+            On-Site Coordination & <span class="gradient-text">Post-Event Evaluation</span>
+          </h2>
+          <p class="planning-desc">
+            Flawless zero-fail execution from the master backstage production bunker, followed by empirical quantitative ROI reporting and carbon neutrality certification.
+          </p>
+        </div>
+
+        <div class="onsite-command-grid">
+          <!-- ON-SITE COMMAND TERMINAL CARD -->
+          <div class="planning-glass-card command-terminal-card">
+            <div class="command-terminal-photo">
+              <img src="images/planning_onsite_command.jpg" alt="Live Event Operations Command Center">
+            </div>
+            <div class="command-terminal-body">
+              <span class="step-pill">Stage 07 · Execution</span>
+              <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a;">Backstage Master Control Room</h3>
+              <p style="font-size: 0.92rem; color: #475569; line-height: 1.6;">
+                Our 320-member dedicated technical brigade operates with military precision. Synchronized via encrypted radio frequencies, our stage managers oversee live camera switchers, lighting cues, and audio feeds with zero dropouts.
+              </p>
+              <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #2563eb;"><i class="fas fa-check"></i> Redundant AV Switchers</span>
+                <span style="font-size: 0.8rem; font-weight: 700; color: #10b981;"><i class="fas fa-check"></i> On-Site Medical Triage</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- POST-EVENT EVALUATION CARD -->
+          <div class="planning-glass-card post-evaluation-card">
+            <span class="step-pill" style="background: #0284c7;">Stage 08 · Post-Mortem</span>
+            <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a;">Empirical ROI & Sustainability Audit</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55;">
+              Within 5 business days of event conclusion, clients receive a comprehensive 80-page debrief portfolio analyzing financial ROI, delegate sentiment, and carbon offset auditing.
+            </p>
+
+            <div class="audit-kpi-grid">
+              <div class="audit-kpi-unit">
+                <span class="audit-kpi-val">99.98%</span>
+                <span class="audit-kpi-lbl">Technical Uptime</span>
+              </div>
+              <div class="audit-kpi-unit">
+                <span class="audit-kpi-val">+89 NPS</span>
+                <span class="audit-kpi-lbl">Attendee CSAT Score</span>
+              </div>
+              <div class="audit-kpi-unit">
+                <span class="audit-kpi-val">100%</span>
+                <span class="audit-kpi-lbl">Net-Zero Carbon Offset</span>
+              </div>
+              <div class="audit-kpi-unit">
+                <span class="audit-kpi-val">$1.4B+</span>
+                <span class="audit-kpi-lbl">Pipeline Dealflow</span>
+              </div>
+            </div>
+
+            <button class="btn-planning-primary" style="margin-top: auto; justify-content: center;" onclick="openPlanningModal('debrief_sample')">
+              <i class="fas fa-download"></i> Download Debrief Audit Report (PDF)
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- EVENT PLANNING INTERACTIVE MODAL -->
+    <div class="planning-modal-backdrop" id="planningModal" onclick="closePlanningModal(event)">
+      <div class="planning-modal-box" onclick="event.stopPropagation()">
+        <button class="modal-close-btn" onclick="closePlanningModal(null)"><i class="fas fa-times"></i></button>
+        <div id="planningModalContent">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer class="footer-container">
+      <!-- TOP: NEWSLETTER CTA STRIP -->
+      <div class="footer-cta">
+        <div class="footer-cta-text">
+          <span class="footer-cta-badge"><i class="fas fa-wand-magic-sparkles"></i> Executive Briefing</span>
+          <h2 class="footer-cta-title">Stay Ahead in Corporate Event Excellence</h2>
+          <p class="footer-cta-desc">Join 15,000+ Fortune 500 executives, summit organizers, and event leaders receiving our quarterly conference intelligence reports.</p>
+        </div>
+        <div class="footer-cta-form-wrapper">
+          <form class="footer-form" id="newsletterForm" onsubmit="event.preventDefault(); handleNewsletterSubmit();">
+            <input type="email" id="newsletterEmail" placeholder="Enter your corporate email..." required aria-label="Corporate Email">
+            <button type="submit" id="newsletterBtn"><i class="fas fa-paper-plane"></i> Subscribe</button>
+          </form>
+          <div class="footer-privacy-note">
+            <i class="fas fa-shield-alt"></i> Enterprise-grade confidentiality. Zero spam. Unsubscribe anytime.
+          </div>
+        </div>
+      </div>
+
+      <!-- MIDDLE: MAIN FOOTER LINKS GRID -->
+      <div class="footer-grid">
+        <!-- COL 1: BRAND OVERVIEW -->
+        <div class="footer-col-brand">
+          <a href="index.html" class="footer-brand-header" style="text-decoration: none; cursor: pointer;">
+            <div class="logo-3d">
+              <div class="logo-cube">
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+              </div>
+            </div>
+            <div class="logo-text">Event<span>Sphere</span></div>
+          </a>
+          <p class="footer-brand-desc">
+            Premier corporate event planning and global conference management firm. We engineer world-class executive summits, immersive hybrid conferences, and gala celebrations with precision craftsmanship.
+          </p>
+          <div class="footer-metrics-pills">
+            <span class="metric-pill"><i class="fas fa-trophy"></i> 850+ Summits</span>
+            <span class="metric-pill"><i class="fas fa-globe-americas"></i> 42 Countries</span>
+            <span class="metric-pill"><i class="fas fa-star"></i> 99.6% Rating</span>
+          </div>
+          <div class="footer-social-row">
+            <a href="#" class="footer-social-btn" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="footer-social-btn" title="X (Twitter)" aria-label="X"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="footer-social-btn" title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer-social-btn" title="YouTube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="footer-social-btn" title="Global Network" aria-label="Global Network"><i class="fas fa-network-wired"></i></a>
+          </div>
+        </div>
+
+        <!-- COL 2: MAIN NAVIGATION -->
+        <div class="footer-col">
+          <h3 class="footer-col-title">Navigation</h3>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home 1 (Main Agency)</a></li>
+            <li><a href="home-2.html"><i class="fas fa-chevron-right"></i> Home 2 (Conference View)</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Our Firm</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services & Solutions</a></li>
+            <li><a href="portfolio.html"><i class="fas fa-chevron-right"></i> Event Portfolio</a></li>
+            <li><a href="event-planning.html"><i class="fas fa-chevron-right"></i> Event Planning Process</a></li>
+            <li><a href="vendors.html"><i class="fas fa-chevron-right"></i> Vendors Directory</a></li>
+            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact & Consultation</a></li>
+          </ul>
+        </div>
+
+        <!-- COL 3: SERVICES & SUMMITS -->
+        <div class="footer-col">
+          <h3 class="footer-col-title">Services & Summits</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Annual Executive Summits</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Global Hybrid Conferences</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Corporate Galas & Awards</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Product Launches & Expos</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Strategic Leadership Offsites</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Keynote Speaker Management</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Audiovisual & 3D Stagecraft</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Sustainable Event Audits</a></li>
+          </ul>
+        </div>
+
+
+        <!-- COL 4: HEADQUARTERS & CONTACT -->
+        <div class="footer-col footer-col-contact">
+          <h3 class="footer-col-title">Headquarters</h3>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <strong>Global HQ:</strong><br>
+                500 Financial Centre Blvd, Suite 2800<br>
+                New York, NY 10005, United States
+              </div>
+            </div>
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-phone-alt"></i></div>
+              <div>
+                <strong>Inquiries:</strong><br>
+                +1 (800) 555-EVENT<br>
+                +1 (212) 555-0198
+              </div>
+            </div>
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <strong>Email:</strong><br>
+                summits@eventsphere.com
+              </div>
+            </div>
+            <div class="ops-status">
+              <span class="status-dot"></span>
+              24/7 Operations Command Active
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM: LEGAL & BACK TO TOP -->
+      <div class="footer-bottom">
+        <div>
+          © 2026 EventSphere Inc. Corporate Event Planning & Conference Management Firm. All rights reserved.
+        </div>
+        <ul class="footer-legal-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">GDPR & Security</a></li>
+          <li><a href="#">Cookie Settings</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+        <button class="back-to-top-btn" id="backToTopBtn" title="Back to Top">
+          <i class="fas fa-arrow-up"></i> Back to Top
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // ===== DARK MODE TOGGLE =====
+    const darkToggle = document.getElementById('darkModeToggle');
+    const darkToggleMobile = document.getElementById('darkModeToggleMobile');
+    const rtlToggle = document.getElementById('rtlToggle');
+    const rtlToggleMobile = document.getElementById('rtlToggleMobile');
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const body = document.body;
+
+    function toggleDark() {
+      body.classList.toggle('dark');
+      const icon = body.classList.contains('dark') ? 'fa-sun' : 'fa-moon';
+      darkToggle.innerHTML = `<i class="fas ${icon}"></i>`;
+      if (darkToggleMobile) darkToggleMobile.innerHTML = `<i class="fas ${icon}"></i>`;
+    }
+
+    darkToggle.addEventListener('click', toggleDark);
+    if (darkToggleMobile) darkToggleMobile.addEventListener('click', toggleDark);
+
+    function toggleRTL() {
+      body.classList.toggle('rtl');
+    }
+
+    rtlToggle.addEventListener('click', toggleRTL);
+    if (rtlToggleMobile) rtlToggleMobile.addEventListener('click', toggleRTL);
+
+    // ===== HAMBURGER MENU WITH SMOOTH MOTION =====
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      mobileMenu.classList.toggle('active');
+      hamburger.classList.toggle('open');
+      
+      // Framer Motion style spring animation on menu
+      if (mobileMenu.classList.contains('active')) {
+        mobileMenu.style.transform = 'scale(0.92) translateY(-12px)';
+        mobileMenu.style.opacity = '0';
+        requestAnimationFrame(() => {
+          mobileMenu.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease';
+          mobileMenu.style.transform = 'scale(1) translateY(0)';
+          mobileMenu.style.opacity = '1';
+        });
+      }
+    });
+
+    // Close menu on outside click
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target) && mobileMenu.classList.contains('active')) {
+        mobileMenu.classList.remove('active');
+        hamburger.classList.remove('open');
+        mobileMenu.style.transform = 'scale(0.92) translateY(-12px)';
+        mobileMenu.style.opacity = '0';
+      }
+    });
+
+    // ===== EXTREME HOVER EFFECTS (Framer Motion style) =====
+    const allButtons = document.querySelectorAll('.icon-btn, .login-btn, .hamburger, .footer-form button, .back-to-top-btn, .footer-social-btn');
+    allButtons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, background 0.3s ease';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transition = 'transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, background 0.3s ease';
+      });
+    });
+
+    // ===== MOBILE SUBMENU ACCORDION =====
+    const mobileDropdownHeaders = document.querySelectorAll('.mobile-dropdown-header');
+    mobileDropdownHeaders.forEach(header => {
+      header.addEventListener('click', (e) => {
+        // If direct navigation link inside header was clicked, allow navigation
+        if (e.target.closest('a')) {
+          return;
+        }
+        const parent = header.closest('.mobile-dropdown');
+        if (parent) {
+          parent.classList.toggle('open');
+        }
+      });
+    });
+
+    // ===== NAVBAR ACTIVE STATUS DYNAMIC HANDLER =====
+    (function syncNavbarActiveState() {
+      try {
+        const currentPath = window.location.pathname.toLowerCase();
+        let currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+        if (!currentPage || currentPage === '/') currentPage = 'index.html';
+
+        const navItems = document.querySelectorAll('.nav-links a, .mobile-nav-links a, .dropdown-item, .mobile-submenu a');
+        navItems.forEach(item => {
+          const href = (item.getAttribute('href') || '').toLowerCase();
+          if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+
+          let matches = false;
+          if (currentPage === 'index.html' || currentPage === '') {
+            if (href === 'index.html' && (item.textContent.trim().toLowerCase().includes('home 1') || item.classList.contains('dropdown-toggle') || (item.parentElement && item.parentElement.classList.contains('mobile-dropdown-header')))) {
+              matches = true;
+            }
+          } else if (href === currentPage) {
+            matches = true;
+          }
+
+          if (matches) {
+            item.classList.add('active');
+            const pLi = item.closest('li');
+            if (pLi) pLi.classList.add('active');
+            const pDrop = item.closest('.dropdown, .mobile-dropdown');
+            if (pDrop) {
+              pDrop.classList.add('active');
+              const tog = pDrop.querySelector('.dropdown-toggle, .mobile-dropdown-header > a');
+              if (tog) tog.classList.add('active');
+            }
+          }
+        });
+
+        // Instant active feedback upon clicking
+        navItems.forEach(item => {
+          item.addEventListener('click', function() {
+            const href = this.getAttribute('href');
+            if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+              document.querySelectorAll('.nav-links .active, .mobile-nav-links .active, .dropdown-item.active, .mobile-submenu .active').forEach(el => el.classList.remove('active'));
+              this.classList.add('active');
+              const pLi = this.closest('li');
+              if (pLi) pLi.classList.add('active');
+              const pDrop = this.closest('.dropdown, .mobile-dropdown');
+              if (pDrop) {
+                pDrop.classList.add('active');
+                const tog = pDrop.querySelector('.dropdown-toggle, .mobile-dropdown-header > a');
+                if (tog) tog.classList.add('active');
+              }
+            }
+          });
+        });
+      } catch (err) {
+        console.warn('Navbar active sync error:', err);
+      }
+    })();
+
+    // ===== NAV LINK STAGGER ANIMATION =====
+    const navLinks = document.querySelectorAll('.nav-links > li');
+    navLinks.forEach((link, index) => {
+      link.style.opacity = '0';
+      link.style.transform = 'translateY(-8px)';
+      link.style.transition = `opacity 0.5s ease ${0.05 * index + 0.1}s, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) ${0.05 * index + 0.1}s`;
+      setTimeout(() => {
+        link.style.opacity = '1';
+        link.style.transform = 'translateY(0)';
+      }, 50);
+      setTimeout(() => {
+        link.style.removeProperty('opacity');
+        link.style.removeProperty('transform');
+        link.style.removeProperty('transition');
+      }, 800);
+    });
+
+    // ===== INITIAL DARK ICON CHECK =====
+    if (body.classList.contains('dark')) {
+      darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      if (darkToggleMobile) darkToggleMobile.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    // ===== BACK TO TOP SMOOTH SCROLL =====
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // ===== NEWSLETTER INTERACTION =====
+    function handleNewsletterSubmit() {
+      const form = document.getElementById('newsletterForm');
+      const emailInput = document.getElementById('newsletterEmail');
+      if (form && emailInput && emailInput.value) {
+        form.innerHTML = '<div style="display:flex;align-items:center;gap:0.6rem;color:#16a34a;font-weight:600;font-size:0.9rem;padding:0.6rem 1rem;"><i class="fas fa-check-circle"></i> Thank you! You are subscribed to EventSphere Executive Briefings.</div>';
+      }
+    }
+  
+    /* ==========================================================================
+       EVENT PLANNING SCRIPT: FRAMER MOTION & INTERACTION CONTROLLERS
+       ========================================================================== */
+    document.addEventListener('DOMContentLoaded', function () {
+      // IntersectionObserver for unique Framer Motion per section
+      var framerObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var target = entry.target;
+            if (target.classList.contains('framer-planning-foundry-init')) {
+              target.classList.add('framer-planning-foundry-in');
+            }
+            if (target.classList.contains('framer-planning-advisory-init')) {
+              target.classList.add('framer-planning-advisory-in');
+            }
+            if (target.classList.contains('framer-planning-atelier-init')) {
+              target.classList.add('framer-planning-atelier-in');
+            }
+            if (target.classList.contains('framer-planning-exchange-init')) {
+              target.classList.add('framer-planning-exchange-in');
+            }
+            if (target.classList.contains('framer-planning-budget-init')) {
+              target.classList.add('framer-planning-budget-in');
+            }
+            if (target.classList.contains('framer-planning-timeline-init')) {
+              target.classList.add('framer-planning-timeline-in');
+            }
+            if (target.classList.contains('framer-planning-command-init')) {
+              target.classList.add('framer-planning-command-in');
+            }
+            framerObserver.unobserve(target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      var animSections = document.querySelectorAll(
+        '.framer-planning-foundry-init, .framer-planning-advisory-init, .framer-planning-atelier-init, ' +
+        '.framer-planning-exchange-init, .framer-planning-budget-init, .framer-planning-timeline-init, ' +
+        '.framer-planning-command-init'
+      );
+      animSections.forEach(function (el) {
+        framerObserver.observe(el);
+      });
+    });
+
+    // Wizard Chip Selector
+    function selectChip(btn, group) {
+      var siblings = btn.parentElement.querySelectorAll('.wizard-chip');
+      siblings.forEach(function (s) { s.classList.remove('active'); });
+      btn.classList.add('active');
+    }
+
+    // Modal Database
+    var planningModalData = {
+      spec_submitted: {
+        title: "Requirements Transmitted Successfully",
+        badge: "Transmission Verified",
+        image: "images/planning_discovery.jpg",
+        content: "<p style='line-height: 1.6; margin-bottom: 1rem;'>Your event specifications have been logged into the EventSphere Master Engineering Register. A senior event director has been assigned to conduct preliminary spatial feasibility analysis.</p><ul style='list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem;'><li style='display:flex; gap:0.5rem;'><i class='fas fa-check' style='color:#10b981;'></i> <strong>Status:</strong> Assigned to Executive Directorate</li><li style='display:flex; gap:0.5rem;'><i class='fas fa-check' style='color:#10b981;'></i> <strong>Response SLA:</strong> Within 4 Business Hours</li><li style='display:flex; gap:0.5rem;'><i class='fas fa-check' style='color:#10b981;'></i> <strong>Next Step:</strong> Confidential Strategic Briefing Call</li></ul>"
+      },
+      concept_luminary: {
+        title: "The Luminary Horizon Stagecraft Dossier",
+        badge: "Atmospheric Concept",
+        image: "images/planning_concept_design.jpg",
+        content: "<p style='line-height: 1.6; margin-bottom: 1rem;'>120-meter curved anamorphic 8K LED plenary stage engineered for global keynote assemblies. Features synchronized spatial lighting, motorized acoustic baffles, and millimeter-precision telepresence monitors.</p>"
+      },
+      concept_biophilic: {
+        title: "Biophilic Sanctuary Stagecraft Dossier",
+        badge: "Sustainable Architecture",
+        image: "images/venue_alpine.jpg",
+        content: "<p style='line-height: 1.6; margin-bottom: 1rem;'>100% zero-carbon modular staging using certified sustainable timber, living vertical moss acoustic walls, and circadian lighting fixtures designed to maximize executive focus.</p>"
+      },
+      concept_quantum: {
+        title: "Quantum Nexus Stagecraft Dossier",
+        badge: "Next-Gen Tech Keynote",
+        image: "images/signature_stage.jpg",
+        content: "<p style='line-height: 1.6; margin-bottom: 1rem;'>Volumetric holographic scrims, robotic moving cameras, subterranean hydraulic reveals, and quantum-encrypted interactive audience voting arrays.</p>"
+      },
+      vr_demo: {
+        title: "Virtual Reality Stage Pre-Visualization",
+        badge: "3D Digital Twin",
+        image: "images/planning_concept_design.jpg",
+        content: "<p style='line-height: 1.6; margin-bottom: 1rem;'>Explore your event auditorium in photorealistic 3D VR before physical construction. Verify sightlines from every seat in the house, test lighting cues, and simulate crowd ingress.</p>"
+      },
+      proposal_sample: {
+        title: "Master Event Proposal Agreement",
+        badge: "Contract Sample",
+        image: "images/planning_budget_proposal.jpg",
+        content: "<p style='line-height: 1.6; margin-bottom: 1rem;'>Our locked-fee contracts feature clear deliverables, transparent milestone schedules, zero post-signing price adjustments, and strict confidentiality protections.</p>"
+      },
+      gantt_full: {
+        title: "Full 12-Month Critical Path Schedule",
+        badge: "Project Governance",
+        image: "images/planning_timeline_control.jpg",
+        content: "<p style='line-height: 1.6; margin-bottom: 1rem;'>Complete operational sprint schedule encompassing 48 sprint milestones, municipal permitting, technical rehearsals, and zero-hour stage lockdown procedures.</p>"
+      },
+      debrief_sample: {
+        title: "Post-Event Debrief Audit Dossier",
+        badge: "Analytics Report",
+        image: "images/planning_onsite_command.jpg",
+        content: "<p style='line-height: 1.6; margin-bottom: 1rem;'>Comprehensive 80-page debrief portfolio analyzing financial ROI, attendee Net Promoter Score (+89), media impressions, and independent ISO-20121 carbon offset auditing.</p>"
+      }
+    };
+
+    function openPlanningModal(key) {
+      var data = planningModalData[key];
+      if (!data) return;
+      var contentHtml = 
+        '<div style="margin-bottom: 1rem;">' +
+          '<span class="planning-pill-badge">' + data.badge + '</span>' +
+          '<h3 style="font-size: 1.65rem; font-weight: 900; margin-top: 0.5rem; color: #0f172a;">' + data.title + '</h3>' +
+        '</div>' +
+        '<div style="border-radius: 18px; overflow: hidden; height: 260px; margin-bottom: 1.4rem;">' +
+          '<img src="' + data.image + '" alt="' + data.title + '" style="width: 100%; height: 100%; object-fit: cover;">' +
+        '</div>' +
+        data.content +
+        '<button class="btn-planning-primary" onclick="closePlanningModal(null)" style="margin-top: 1rem; width: 100%; justify-content: center;">' +
+          'Close Window' +
+        '</button>';
+      document.getElementById('planningModalContent').innerHTML = contentHtml;
+      document.getElementById('planningModal').classList.add('active');
+    }
+
+    function closePlanningModal(e) {
+      if (e && e.target !== document.getElementById('planningModal') && !e.target.classList.contains('modal-close-btn')) return;
+      document.getElementById('planningModal').classList.remove('active');
+    }
+
+  </script>
+</script>
+</body>
+</html>

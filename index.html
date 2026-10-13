@@ -1,0 +1,5828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSphere · Corporate Event Planning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f4fe;
+      color: #1a2639;
+      transition: background 0.5s cubic-bezier(0.23, 1, 0.32, 1), color 0.4s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 1rem;
+      overflow-x: clip;
+    }
+
+    /* ===== DARK MODE ===== */
+    body.dark {
+      background: #080c14;
+      color: #eef4ff;
+    }
+
+    body.dark .nav-container,
+    body.dark .mobile-menu {
+      background: rgba(21, 30, 44, 0.92);
+      border-color: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(20px);
+    }
+
+    body.dark .logo-text {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    body.dark .logo-text span {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    body.dark .nav-links > li > a,
+    body.dark .mobile-nav-links > li > a {
+      color: #b8c9e8;
+    }
+
+    body.dark .nav-links > li > a:hover,
+    body.dark .mobile-nav-links > li > a:hover {
+      color: #60a5fa;
+      text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+    }
+
+    body.dark .icon-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.7), inset 0 -3px 0 rgba(255,255,255,0.03), 0 0 0 1px rgba(59,130,246,0.1);
+    }
+
+    body.dark .icon-btn:hover {
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.4), 0 16px 20px -8px rgba(0, 0, 0, 0.8), inset 0 -3px 0 rgba(255,255,255,0.05);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    body.dark .hamburger {
+      background: rgba(30, 42, 58, 0.9);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.7), inset 0 -2px 0 rgba(255,255,255,0.03);
+    }
+
+    body.dark .hamburger span {
+      background: #b8c9e8;
+    }
+
+    body.dark .login-btn {
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      border-color: rgba(96, 165, 250, 0.3);
+      box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.6), inset 0 -3px 0 rgba(0,0,0,0.3), 0 0 0 1px rgba(96,165,250,0.15);
+    }
+
+    body.dark .login-btn:hover {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 16px 20px -8px rgba(0, 0, 0, 0.7), inset 0 -3px 0 rgba(0,0,0,0.4);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+    }
+
+    /* ===== RTL ===== */
+    body.rtl {
+      direction: rtl;
+    }
+
+    body.rtl #rtlToggle,
+    body.rtl #rtlToggleMobile {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      border-color: rgba(96, 165, 250, 0.4);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.45);
+    }
+
+    /* ===== APP WRAPPER ===== */
+    .app-wrapper {
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 0 3rem;
+      min-height: calc(100vh - 3rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    /* ===== NAVBAR ===== */
+    .nav-container {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 1rem !important;
+      z-index: 1000 !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 70px;
+      padding: 0.55rem 2rem 0.55rem 1.8rem;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 20, 40, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 0 80px -20px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(24px);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav-shine {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 70px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .nav-shine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+    }
+
+    .nav-container:hover .nav-shine::before {
+      left: 100%;
+    }
+
+    body.dark .nav-shine::before {
+      background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.18), transparent);
+    }
+
+    .nav-container:hover {
+      box-shadow: 
+        0 30px 60px -12px rgba(0, 20, 40, 0.25),
+        0 0 0 1px rgba(59, 130, 246, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 0 100px -20px rgba(59, 130, 246, 0.25);
+    }
+
+    .logo-section, .nav-links, .right-section {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== LOGO SECTION ===== */
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    /* 3D LOGO — REDUCED COMPACT SIZE */
+    .logo-3d {
+      position: relative;
+      width: 22px;
+      height: 22px;
+      perspective: 450px;
+    }
+
+    .logo-cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 14s infinite linear;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .logo-3d:hover .logo-cube {
+      animation-play-state: paused;
+      transform: rotateX(15deg) rotateY(25deg) scale(1.15);
+    }
+
+    .logo-face {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: linear-gradient(145deg, #1e3a8a, #3b82f6);
+      box-shadow: 
+        0 4px 8px rgba(0, 80, 200, 0.4),
+        inset 0 -1.5px 3px rgba(0,0,0,0.25),
+        inset 0 1.5px 3px rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.6rem;
+      color: white;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      backface-visibility: visible;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: background 0.4s ease;
+    }
+
+    .logo-face:nth-child(1) { transform: rotateY(0deg) translateZ(11px); background: linear-gradient(145deg, #2563eb, #1e40af); }
+    .logo-face:nth-child(2) { transform: rotateY(90deg) translateZ(11px); background: linear-gradient(145deg, #3b82f6, #1d4ed8); }
+    .logo-face:nth-child(3) { transform: rotateY(180deg) translateZ(11px); background: linear-gradient(145deg, #1e3a8a, #2563eb); }
+    .logo-face:nth-child(4) { transform: rotateY(-90deg) translateZ(11px); background: linear-gradient(145deg, #4f46e5, #3b82f6); }
+    .logo-face:nth-child(5) { transform: rotateX(90deg) translateZ(11px); background: linear-gradient(145deg, #2563eb, #4f46e5); }
+    .logo-face:nth-child(6) { transform: rotateX(-90deg) translateZ(11px); background: linear-gradient(145deg, #1e40af, #3b82f6); }
+
+    @keyframes rotateCube {
+      0% { transform: rotateX(0) rotateY(0); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .logo-text {
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+    }
+
+    .logo-text:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.4));
+    }
+
+    .logo-text span {
+      color: #1e3a8a;
+      background: none;
+      -webkit-background-clip: unset;
+      background-clip: unset;
+      transition: color 0.4s ease;
+    }
+
+    /* ===== DESKTOP NAV LINKS ===== */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.6rem;
+      list-style: none;
+      margin: 0 1rem;
+      flex: 1;
+    }
+
+    .nav-links > li > a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #1e293b;
+      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0;
+      border-bottom: 2px solid transparent;
+      position: relative;
+      letter-spacing: 0.1px;
+    }
+
+    .nav-links > li > a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      transition: width 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      border-radius: 2px;
+    }
+
+    .nav-links > li > a:hover {
+      color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .nav-links > li > a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== DROPDOWNS (HOME & DASHBOARD) ===== */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-arrow {
+      font-size: 0.65rem;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0.7;
+    }
+
+    .dropdown:hover > a {
+      color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .dropdown:hover > a::after {
+      width: 100%;
+    }
+
+    .dropdown:hover .dropdown-arrow {
+      transform: rotate(180deg);
+      opacity: 1;
+      color: #3b82f6;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 0;
+      min-width: 200px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 0.55rem;
+      box-shadow: 
+        0 20px 45px -10px rgba(0, 20, 40, 0.16),
+        0 0 0 1px rgba(255, 255, 255, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 0 35px -10px rgba(59, 130, 246, 0.18);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px) scale(0.97);
+      transform-origin: top left;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  visibility 0.3s ease;
+      z-index: 1000;
+    }
+
+    /* Invisible hover bridge to prevent flickers */
+    .dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 0;
+      right: 0;
+      height: 16px;
+    }
+
+    /* Right-aligned dropdown for Dashboard */
+    .dropdown.dropdown-right .dropdown-menu {
+      left: auto;
+      right: 0;
+      transform-origin: top right;
+    }
+
+    /* Reveal dropdown on hover & focus */
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Dropdown Items */
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.85rem;
+      border-radius: 14px;
+      text-decoration: none;
+      color: #1e293b;
+      font-weight: 500;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+
+    .dropdown-item-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #f0f4fe, #e2e8f0);
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .dropdown-item-title {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: inherit;
+      transition: color 0.2s ease;
+    }
+
+    .dropdown-item:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+      color: #2563eb;
+      transform: translateX(4px);
+    }
+
+    .dropdown-item:hover .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      transform: scale(1.08) rotate(-4deg);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    /* Dark Mode Dropdowns */
+    body.dark .dropdown-menu {
+      background: rgba(21, 30, 44, 0.96);
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(59, 130, 246, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    body.dark .dropdown-item {
+      color: #b8c9e8;
+    }
+
+    body.dark .dropdown-item:hover {
+      background: rgba(59, 130, 246, 0.14);
+      color: #60a5fa;
+      text-shadow: none;
+    }
+
+    body.dark .dropdown-item-icon {
+      background: rgba(30, 42, 58, 0.9);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark .dropdown-item:hover .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.5);
+    }
+
+    body.dark .dropdown-arrow {
+      color: #b8c9e8;
+    }
+
+    body.dark .dropdown:hover .dropdown-arrow {
+      color: #60a5fa;
+    }
+
+    /* RTL Dropdowns */
+    body.rtl .dropdown-menu {
+      left: auto;
+      right: 0;
+      transform-origin: top right;
+    }
+
+    body.rtl .dropdown.dropdown-right .dropdown-menu {
+      right: auto;
+      left: 0;
+      transform-origin: top left;
+    }
+
+    body.rtl .dropdown-item:hover {
+      transform: translateX(-4px);
+    }
+
+        /* ===== ACTIVE NAV LINK & DROPDOWN STYLES ===== */
+    .nav-links > li > a.active,
+    .nav-links > li.active > a,
+    .nav-links > li.dropdown.active > a.dropdown-toggle {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .nav-links > li > a.active::after,
+    .nav-links > li.active > a::after,
+    .nav-links > li.dropdown.active > a.dropdown-toggle::after {
+      width: 100% !important;
+      background: linear-gradient(90deg, #2563eb, #8b5cf6) !important;
+      height: 2.5px !important;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4) !important;
+    }
+
+    .dropdown-item.active {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(139, 92, 246, 0.12)) !important;
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .dropdown-item.active .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35) !important;
+      transform: scale(1.06);
+    }
+
+    /* Active Mobile Links */
+    .mobile-nav-links > li > a.active,
+    .mobile-nav-links > li.active > a,
+    .mobile-dropdown.active .mobile-dropdown-header > a,
+    .mobile-dropdown-header > a.active {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+    }
+
+    .mobile-nav-links > li > a.active::before,
+    .mobile-nav-links > li.active > a::before,
+    .mobile-dropdown.active .mobile-dropdown-header > a::before,
+    .mobile-dropdown-header > a.active::before {
+      opacity: 1 !important;
+      left: -20px !important;
+      color: #2563eb !important;
+    }
+
+    .mobile-submenu a.active {
+      color: #2563eb !important;
+      font-weight: 700 !important;
+      padding-left: 0.35rem;
+    }
+
+    /* Dark Mode Active Styles */
+    body.dark .nav-links > li > a.active,
+    body.dark .nav-links > li.active > a,
+    body.dark .nav-links > li.dropdown.active > a.dropdown-toggle {
+      color: #60a5fa !important;
+      font-weight: 700 !important;
+      text-shadow: 0 0 16px rgba(96, 165, 250, 0.6) !important;
+    }
+
+    body.dark .nav-links > li > a.active::after,
+    body.dark .nav-links > li.active > a::after,
+    body.dark .nav-links > li.dropdown.active > a.dropdown-toggle::after {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa) !important;
+      box-shadow: 0 0 12px rgba(96, 165, 250, 0.8) !important;
+    }
+
+    body.dark .dropdown-item.active {
+      background: rgba(59, 130, 246, 0.22) !important;
+      color: #93c5fd !important;
+    }
+
+    body.dark .dropdown-item.active .dropdown-item-icon {
+      background: linear-gradient(145deg, #2563eb, #3b82f6) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6) !important;
+    }
+
+    body.dark .mobile-nav-links > li > a.active,
+    body.dark .mobile-nav-links > li.active > a,
+    body.dark .mobile-dropdown.active .mobile-dropdown-header > a,
+    body.dark .mobile-dropdown-header > a.active,
+    body.dark .mobile-submenu a.active {
+      color: #60a5fa !important;
+    }
+
+    /* ===== RIGHT SECTION ===== */
+    .right-section {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== 3D ICON BUTTONS ===== */
+    .icon-btn, .login-btn {
+      border: none;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e293b;
+      width: 42px;
+      height: 42px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 
+        0 8px 12px -6px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0,0,0,0.02),
+        inset 0 -3px 0 rgba(0,0,0,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .icon-btn::before, .login-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.15);
+      transform: translate(-50%, -50%);
+      transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1), height 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+    }
+
+    .icon-btn:hover::before, .login-btn:hover::before {
+      width: 200px;
+      height: 200px;
+    }
+
+    .icon-btn:hover, .login-btn:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 
+        0 20px 28px -10px rgba(0, 80, 200, 0.35),
+        0 0 0 1px rgba(59,130,246,0.25),
+        inset 0 -3px 0 rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 0 40px -10px rgba(59, 130, 246, 0.3);
+      background: linear-gradient(145deg, #ffffff, #e8f0fe);
+    }
+
+    .icon-btn:active, .login-btn:active {
+      transform: translateY(0px) scale(0.98);
+      box-shadow: 
+        0 4px 6px -2px rgba(0,0,0,0.2),
+        inset 0 3px 6px rgba(0,0,0,0.08),
+        inset 0 -1px 0 rgba(255,255,255,0.5);
+    }
+
+    .login-btn {
+      width: auto;
+      padding: 0 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e3a8a;
+      gap: 0.5rem;
+      letter-spacing: 0.2px;
+    }
+
+    .login-btn i {
+      font-size: 0.85rem;
+      transition: transform 0.3s ease;
+    }
+
+    .login-btn:hover i {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      padding: 11px 9px;
+      border-radius: 30px;
+      box-shadow: 
+        0 8px 12px -6px rgba(0, 0, 0, 0.12),
+        inset 0 -2px 0 rgba(0,0,0,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hamburger:hover {
+      transform: scale(1.06);
+      box-shadow: 
+        0 16px 20px -8px rgba(0, 80, 200, 0.25),
+        inset 0 -2px 0 rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 0 30px -8px rgba(59, 130, 246, 0.3);
+    }
+
+    .hamburger span {
+      display: block;
+      height: 2.5px;
+      width: 100%;
+      background: #1e293b;
+      border-radius: 4px;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ===== MOBILE MENU ===== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 90px;
+      left: 1rem;
+      right: 1rem;
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 36px;
+      padding: 2rem 1.5rem;
+      box-shadow: 
+        0 40px 70px -20px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(24px);
+      z-index: 1000;
+      flex-direction: column;
+      gap: 2rem;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: top center;
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+      scrollbar-width: thin;
+      scrollbar-color: #3b82f6 rgba(0, 0, 0, 0.05);
+    }
+
+    /* Custom Scrollbar for Mobile Menu */
+    .mobile-menu::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .mobile-menu::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.04);
+      border-radius: 10px;
+      margin: 1.2rem 0;
+    }
+
+    .mobile-menu::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+      border-radius: 10px;
+    }
+
+    .mobile-menu::-webkit-scrollbar-thumb:hover {
+      background: #2563eb;
+    }
+
+    body.dark .mobile-menu {
+      scrollbar-color: #60a5fa rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark .mobile-menu::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    body.dark .mobile-menu::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #60a5fa, #a78bfa);
+    }
+
+    .mobile-menu.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+    }
+
+    .mobile-nav-links > li > a,
+    .mobile-dropdown-header > a {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #1e293b;
+      display: block;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      padding: 0.3rem 0;
+      position: relative;
+    }
+
+    .mobile-nav-links > li > a::before,
+    .mobile-dropdown-header > a::before {
+      content: '→';
+      position: absolute;
+      left: -20px;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      color: #3b82f6;
+    }
+
+    .mobile-nav-links > li > a:hover,
+    .mobile-dropdown-header > a:hover {
+      color: #3b82f6;
+      transform: translateX(10px);
+    }
+
+    .mobile-nav-links > li > a:hover::before,
+    .mobile-dropdown-header > a:hover::before {
+      opacity: 1;
+      left: -25px;
+    }
+
+    /* MOBILE DROPDOWN STYLES */
+    .mobile-dropdown {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-dropdown-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .mobile-dropdown-toggle {
+      background: none;
+      border: none;
+      color: #1e293b;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: 8px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .mobile-dropdown.open .mobile-dropdown-toggle {
+      transform: rotate(180deg);
+      color: #3b82f6;
+    }
+
+    .mobile-submenu {
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      padding-left: 1.2rem;
+    }
+
+    .mobile-dropdown.open .mobile-submenu {
+      max-height: 200px;
+      opacity: 1;
+      padding-top: 0.6rem;
+      padding-bottom: 0.4rem;
+    }
+
+    .mobile-submenu a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.25s ease;
+      padding: 0.2rem 0;
+    }
+
+    .mobile-submenu a i {
+      color: #3b82f6;
+      font-size: 0.85rem;
+      width: 18px;
+      text-align: center;
+    }
+
+    .mobile-submenu a:hover {
+      color: #3b82f6;
+      transform: translateX(6px);
+    }
+
+    body.dark .mobile-dropdown-header > a {
+      color: #b8c9e8;
+    }
+
+    body.dark .mobile-dropdown-toggle {
+      color: #b8c9e8;
+    }
+
+    body.dark .mobile-dropdown.open .mobile-dropdown-toggle {
+      color: #60a5fa;
+    }
+
+    body.dark .mobile-submenu a {
+      color: #94a3b8;
+    }
+
+    body.dark .mobile-submenu a:hover {
+      color: #60a5fa;
+    }
+
+    body.rtl .mobile-dropdown-header > a::before {
+      content: '←';
+      left: auto;
+      right: -20px;
+    }
+
+    body.rtl .mobile-dropdown-header > a:hover {
+      transform: translateX(-10px);
+    }
+
+    body.rtl .mobile-dropdown-header > a:hover::before {
+      right: -25px;
+      left: auto;
+    }
+
+    body.rtl .mobile-submenu {
+      padding-left: 0;
+      padding-right: 1.2rem;
+    }
+
+    body.rtl .mobile-submenu a:hover {
+      transform: translateX(-6px);
+    }
+
+    .mobile-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.2rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding-top: 1.5rem;
+    }
+
+
+
+    /* ===== RTL TWEAKS ===== */
+    body.rtl .mobile-nav-links a::before {
+      content: '←';
+      left: auto;
+      right: -20px;
+    }
+
+    body.rtl .mobile-nav-links a:hover {
+      transform: translateX(-10px);
+    }
+
+    body.rtl .mobile-nav-links a:hover::before {
+      right: -25px;
+      left: auto;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 0.5rem 1.4rem !important;
+      }
+      .nav-links {
+        gap: 1rem;
+      }
+      .nav-links > li > a {
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links, .right-section .icon-btn, .right-section .login-btn {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .nav-container {
+        padding: 0.45rem 1.4rem !important;
+      }
+      .right-section {
+        gap: 0.7rem; margin: 0 !important;
+      }
+      .mobile-menu {
+        display: none;
+      }
+      .mobile-menu.active {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 1.1rem;
+      }
+      .logo-3d {
+        width: 18px;
+        height: 18px;
+      }
+      .logo-face {
+        width: 18px;
+        height: 18px;
+        font-size: 0.5rem;
+        border-radius: 5px;
+      }
+      .logo-face:nth-child(1) { transform: rotateY(0deg) translateZ(9px); }
+      .logo-face:nth-child(2) { transform: rotateY(90deg) translateZ(9px); }
+      .logo-face:nth-child(3) { transform: rotateY(180deg) translateZ(9px); }
+      .logo-face:nth-child(4) { transform: rotateY(-90deg) translateZ(9px); }
+      .logo-face:nth-child(5) { transform: rotateX(90deg) translateZ(9px); }
+      .logo-face:nth-child(6) { transform: rotateX(-90deg) translateZ(9px); }
+      .hamburger {
+        width: 38px;
+        height: 38px;
+        padding: 9px 7px;
+      }
+    }
+
+    /* ===== SMOOTH PAGE ENTRANCE ===== */
+    .nav-container {
+      animation: fadeSlideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeSlideInFooter {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== FOOTER CONTAINER ===== */
+    .footer-container {
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 44px;
+      padding: 3rem 3rem 2rem;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 20, 40, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 0 80px -20px rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(24px);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      margin-top: 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+      position: relative;
+      animation: fadeSlideInFooter 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.15s both;
+    }
+
+    body.dark .footer-container {
+      background: rgba(21, 30, 44, 0.92);
+      border-color: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(59, 130, 246, 0.15);
+    }
+
+    /* ===== FOOTER CTA NEWSLETTER CARD ===== */
+    .footer-cta {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.07), rgba(139, 92, 246, 0.07));
+      border: 1px solid rgba(59, 130, 246, 0.18);
+      border-radius: 30px;
+      padding: 2.2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      box-shadow: 0 15px 30px -10px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.dark .footer-cta {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.3), rgba(109, 40, 217, 0.2));
+      border-color: rgba(96, 165, 250, 0.25);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-cta-text {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .footer-cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-cta-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.3px;
+    }
+
+    body.dark .footer-cta-title {
+      color: #f1f5f9;
+    }
+
+    .footer-cta-desc {
+      font-size: 0.92rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    body.dark .footer-cta-desc {
+      color: #94a3b8;
+    }
+
+    .footer-cta-form-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 380px;
+    }
+
+    .footer-form {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50px;
+      padding: 0.35rem 0.35rem 0.35rem 1.2rem;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    body.dark .footer-form {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(96, 165, 250, 0.3);
+      box-shadow: 0 8px 25px -6px rgba(0, 0, 0, 0.6);
+    }
+
+    .footer-form:focus-within {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25), 0 10px 25px -8px rgba(59, 130, 246, 0.3);
+    }
+
+    .footer-form input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: #1e293b;
+      width: 100%;
+      padding: 0.4rem 0.5rem;
+    }
+
+    body.dark .footer-form input {
+      color: #f1f5f9;
+    }
+
+    .footer-form input::placeholder {
+      color: #94a3b8;
+    }
+
+    .footer-form button {
+      border: none;
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      padding: 0.65rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
+      flex-shrink: 0;
+    }
+
+    .footer-form button:hover {
+      transform: translateY(-2px) scale(1.03);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.45);
+    }
+
+    .footer-form button:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .footer-privacy-note {
+      font-size: 0.76rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding-left: 0.5rem;
+    }
+
+    /* ===== MAIN FOOTER GRID ===== */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1.05fr 1.25fr 1.35fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .footer-col-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .footer-brand-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    body.dark .footer-brand-desc {
+      color: #94a3b8;
+    }
+
+    .footer-metrics-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .metric-pill {
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      background: rgba(59, 130, 246, 0.08);
+      color: #2563eb;
+      border: 1px solid rgba(59, 130, 246, 0.16);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    body.dark .metric-pill {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .footer-social-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 0.4rem;
+    }
+
+    .footer-social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      color: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 0.95rem;
+      box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body.dark .footer-social-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.6);
+    }
+
+    .footer-social-btn:hover {
+      transform: translateY(-3px) scale(1.08);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    /* FOOTER COLUMNS */
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-col-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.2px;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    body.dark .footer-col-title {
+      color: #f8fafc;
+    }
+
+    .footer-col-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 24px;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 2px;
+    }
+
+    body.rtl .footer-col-title::after {
+      left: auto;
+      right: 0;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-size: 0.88rem;
+      color: #475569;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      position: relative;
+    }
+
+    .footer-links a i {
+      font-size: 0.72rem;
+      opacity: 0.7;
+      color: #3b82f6;
+      transition: transform 0.25s ease;
+    }
+
+    body.dark .footer-links a {
+      color: #94a3b8;
+    }
+
+    body.dark .footer-links a i {
+      color: #60a5fa;
+    }
+
+    .footer-links a:hover {
+      color: #2563eb;
+      transform: translateX(4px);
+    }
+
+    .footer-links a:hover i {
+      transform: translateX(2px);
+    }
+
+    body.dark .footer-links a:hover {
+      color: #60a5fa;
+    }
+
+    body.rtl .footer-links a:hover {
+      transform: translateX(-4px);
+    }
+
+    body.rtl .footer-links a i.fa-chevron-right {
+      transform: rotate(180deg);
+    }
+
+    .footer-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    body.dark .footer-contact-item {
+      color: #94a3b8;
+    }
+
+    .footer-contact-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(59, 130, 246, 0.1);
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    body.dark .footer-contact-icon {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+
+    .ops-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 30px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #15803d;
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      margin-top: 0.4rem;
+    }
+
+    body.dark .ops-status {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+      animation: statusPulse 2s infinite ease-in-out;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* ===== FOOTER BOTTOM BAR ===== */
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      padding-top: 1.8rem;
+      font-size: 0.84rem;
+      color: #64748b;
+    }
+
+    body.dark .footer-bottom {
+      border-top-color: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+
+    .footer-legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.2rem;
+      list-style: none;
+    }
+
+    .footer-legal-links a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-legal-links a:hover {
+      color: #2563eb;
+    }
+
+    body.dark .footer-legal-links a:hover {
+      color: #60a5fa;
+    }
+
+    .back-to-top-btn {
+      border: none;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      color: #1e293b;
+      padding: 0.55rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 6px 12px -4px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body.dark .back-to-top-btn {
+      background: rgba(30, 42, 58, 0.9);
+      color: #b8c9e8;
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .back-to-top-btn:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(145deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ===== RESPONSIVE FOOTER ===== */
+    @media (max-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem 2.2rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .footer-container {
+        padding: 2.2rem 1.6rem 1.5rem;
+        border-radius: 36px;
+        margin-top: 3.5rem;
+      }
+      .footer-cta {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.8rem 1.5rem;
+      }
+      .footer-cta-form-wrapper {
+        min-width: 100%;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .footer-form {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 0.6rem;
+        gap: 0.5rem;
+      }
+      .footer-form button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* ==========================================================================
+       SECTION COMMON STYLES (Light & Dark Mode, Fluid Typography, Modern Glass)
+       ========================================================================== */
+    .content-section {
+      width: 100%;
+      max-width: 1280px;
+      margin: 4.5rem auto;
+      padding: 0 1rem;
+      position: relative;
+    }
+
+    .section-header {
+      margin-bottom: 2.8rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-header.text-left {
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    body.rtl .section-header.text-left {
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    .section-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: rgba(37, 99, 235, 0.08);
+      color: #2563eb;
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
+    }
+
+    body.dark .section-pill-badge {
+      background: rgba(96, 165, 250, 0.12);
+      color: #60a5fa;
+      border-color: rgba(96, 165, 250, 0.28);
+      box-shadow: 0 0 14px rgba(96, 165, 250, 0.15);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 3.8vw, 2.75rem);
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    body.dark .section-title {
+      color: #f8fafc;
+    }
+
+    .section-title span.gradient-text {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    body.dark .section-title span.gradient-text {
+      background: linear-gradient(135deg, #60a5fa, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: #475569;
+      max-width: 680px;
+      line-height: 1.68;
+    }
+
+    body.dark .section-desc {
+      color: #94a3b8;
+    }
+
+    /* Common Card Glass Base */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(59, 130, 246, 0.16);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      box-shadow: 0 16px 36px -12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.8);
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+      overflow: hidden;
+    }
+
+    body.dark .glass-card {
+      background: rgba(15, 23, 42, 0.82);
+      border-color: rgba(96, 165, 250, 0.22);
+      box-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(96, 165, 250, 0.08);
+    }
+
+    /* ==========================================================================
+       SECTION 1: HERO & EVENT PLANNING HIGHLIGHTS
+       ========================================================================== */
+    .hero-section {
+      margin-top: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .hero-intro {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .pulse-live-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseGreen 2s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .hero-headline {
+      font-size: clamp(2.4rem, 4.4vw, 3.5rem);
+      font-weight: 800;
+      color: #0b1329;
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+    }
+
+    body.dark .hero-headline {
+      color: #ffffff;
+    }
+
+    .hero-paragraph {
+      font-size: 1.12rem;
+      color: #334155;
+      line-height: 1.7;
+      max-width: 580px;
+    }
+
+    body.dark .hero-paragraph {
+      color: #cbd5e1;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 0.6rem;
+    }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.95rem 2rem;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: #ffffff;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      text-decoration: none;
+      box-shadow: 0 10px 24px -6px rgba(37, 99, 235, 0.45);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-hero-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      box-shadow: 0 16px 30px -6px rgba(37, 99, 235, 0.6);
+    }
+
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.95rem 1.8rem;
+      background: rgba(255, 255, 255, 0.85);
+      color: #1e293b;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+      transition: all 0.35s ease;
+    }
+
+    body.dark .btn-hero-secondary {
+      background: rgba(30, 41, 59, 0.8);
+      color: #f1f5f9;
+      border-color: rgba(96, 165, 250, 0.3);
+    }
+
+    .btn-hero-secondary:hover {
+      background: rgba(59, 130, 246, 0.12);
+      border-color: #3b82f6;
+      color: #2563eb;
+      transform: translateY(-2px);
+    }
+
+    body.dark .btn-hero-secondary:hover {
+      color: #60a5fa;
+    }
+
+    .hero-metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(59, 130, 246, 0.16);
+      margin-top: 0.8rem;
+    }
+
+    body.dark .hero-metrics-bar {
+      border-top-color: rgba(96, 165, 250, 0.18);
+    }
+
+    .hero-stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-stat-num {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    body.dark .hero-stat-num {
+      color: #f8fafc;
+    }
+
+    .hero-stat-label {
+      font-size: 0.78rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    body.dark .hero-stat-label {
+      color: #94a3b8;
+    }
+
+    /* Hero Visual Card */
+    .hero-visual-frame {
+      position: relative;
+      border-radius: 32px;
+      overflow: visible;
+    }
+
+    .hero-main-img-wrap {
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(59, 130, 246, 0.22);
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+      background: #0b1329;
+    }
+
+    .hero-main-img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .hero-main-img-wrap:hover .hero-main-img {
+      transform: scale(1.035);
+    }
+
+    .hero-visual-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0) 50%, rgba(15, 23, 42, 0.75) 100%);
+      pointer-events: none;
+    }
+
+    .hero-floating-pill-1 {
+      position: absolute;
+      top: -18px;
+      right: -15px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(59, 130, 246, 0.28);
+      backdrop-filter: blur(14px);
+      padding: 0.7rem 1.2rem;
+      border-radius: 20px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #0f172a;
+      z-index: 10;
+      animation: floatMotion1 5s ease-in-out infinite;
+    }
+
+    body.dark .hero-floating-pill-1 {
+      background: rgba(15, 23, 42, 0.9);
+      color: #f8fafc;
+      border-color: rgba(96, 165, 250, 0.3);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-floating-pill-2 {
+      position: absolute;
+      bottom: -22px;
+      left: -15px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(59, 130, 246, 0.28);
+      backdrop-filter: blur(14px);
+      padding: 0.8rem 1.3rem;
+      border-radius: 22px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      z-index: 10;
+      animation: floatMotion2 6s ease-in-out infinite 1s;
+    }
+
+    body.dark .hero-floating-pill-2 {
+      background: rgba(15, 23, 42, 0.9);
+      color: #f8fafc;
+      border-color: rgba(96, 165, 250, 0.3);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    @keyframes floatMotion1 {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes floatMotion2 {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(7px); }
+    }
+
+    /* Event Planning Highlights Strip */
+    .hero-highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .highlight-strip-card {
+      padding: 1.5rem;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .highlight-strip-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 35px -10px rgba(37, 99, 235, 0.18);
+      border-color: rgba(37, 99, 235, 0.4);
+    }
+
+    .highlight-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.12));
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    body.dark .highlight-icon-box {
+      background: rgba(96, 165, 250, 0.15);
+      color: #60a5fa;
+    }
+
+    .highlight-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    body.dark .highlight-title {
+      color: #f1f5f9;
+    }
+
+    .highlight-desc {
+      font-size: 0.86rem;
+      color: #64748b;
+      line-height: 1.55;
+    }
+
+    body.dark .highlight-desc {
+      color: #94a3b8;
+    }
+
+    /* ==========================================================================
+       SECTION 2: UPCOMING CONFERENCE HIGHLIGHTS (Bento Grid)
+       ========================================================================== */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.8rem;
+    }
+
+    .bento-card-main {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-radius: 28px;
+    }
+
+    .bento-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 270px;
+      overflow: hidden;
+    }
+
+    .bento-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .bento-card-main:hover .bento-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .bento-badge-tag {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(15, 23, 42, 0.85);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    body.rtl .bento-badge-tag {
+      left: auto;
+      right: 1rem;
+    }
+
+    .bento-content-pad {
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      flex-grow: 1;
+    }
+
+    .bento-summit-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.84rem;
+      color: #2563eb;
+      font-weight: 600;
+      flex-wrap: wrap;
+    }
+
+    body.dark .bento-summit-meta {
+      color: #60a5fa;
+    }
+
+    .bento-summit-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+    }
+
+    body.dark .bento-summit-title {
+      color: #f8fafc;
+    }
+
+    /* Countdown clock */
+    .countdown-clock {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      background: rgba(59, 130, 246, 0.06);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      padding: 1rem;
+      border-radius: 18px;
+      text-align: center;
+    }
+
+    body.dark .countdown-clock {
+      background: rgba(30, 41, 59, 0.6);
+      border-color: rgba(96, 165, 250, 0.2);
+    }
+
+    .time-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .time-num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #1d4ed8;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+
+    body.dark .time-num {
+      color: #60a5fa;
+    }
+
+    .time-unit {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #64748b;
+      margin-top: 0.3rem;
+    }
+
+    body.dark .time-unit {
+      color: #94a3b8;
+    }
+
+    .bento-speakers-strip {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .speaker-pill {
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      background: rgba(15, 23, 42, 0.05);
+      border-radius: 9999px;
+      color: #334155;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    body.dark .speaker-pill {
+      background: rgba(255, 255, 255, 0.07);
+      color: #cbd5e1;
+    }
+
+    /* Side Bento Cards Column */
+    .bento-side-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .bento-card-side {
+      display: flex;
+      flex-direction: column;
+      border-radius: 28px;
+    }
+
+    .bento-side-img-wrap {
+      position: relative;
+      height: 180px;
+      overflow: hidden;
+    }
+
+    .bento-side-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .bento-card-side:hover .bento-side-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .bento-card-quicklist {
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      border-radius: 28px;
+    }
+
+    .quicklist-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px dashed rgba(59, 130, 246, 0.2);
+    }
+
+    .quicklist-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .quicklist-date {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #2563eb;
+      text-transform: uppercase;
+    }
+
+    body.dark .quicklist-date {
+      color: #60a5fa;
+    }
+
+    .quicklist-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    body.dark .quicklist-title {
+      color: #f1f5f9;
+    }
+
+    /* ==========================================================================
+       SECTION 3: PAST EVENTS GALLERY & SIGNATURE EXPERIENCES (Filterable Masonry)
+       ========================================================================== */
+    .gallery-filter-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.2rem;
+    }
+
+    .gallery-filter-btn {
+      border: none;
+      background: rgba(255, 255, 255, 0.8);
+      color: #475569;
+      padding: 0.55rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(59, 130, 246, 0.18);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body.dark .gallery-filter-btn {
+      background: rgba(30, 41, 59, 0.7);
+      color: #94a3b8;
+      border-color: rgba(96, 165, 250, 0.2);
+    }
+
+    .gallery-filter-btn.active,
+    .gallery-filter-btn:hover {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .gallery-masonry-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+
+    .gallery-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 380px;
+    }
+
+    .gallery-card.span-2 {
+      grid-column: span 2;
+    }
+
+    .gallery-img-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .gallery-card:hover .gallery-img-bg {
+      transform: scale(1.08);
+    }
+
+    .gallery-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.15) 0%, rgba(15, 23, 42, 0.88) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.8rem;
+      color: #ffffff;
+      transition: background 0.3s ease;
+    }
+
+    .gallery-card:hover .gallery-card-overlay {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.25) 0%, rgba(15, 23, 42, 0.94) 100%);
+    }
+
+    .gallery-card-tag {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin-bottom: 0.3rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .gallery-card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+    }
+
+    .gallery-card-desc {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+    }
+
+    .gallery-card:hover .gallery-card-desc {
+      max-height: 80px;
+      opacity: 1;
+      margin-top: 0.3rem;
+    }
+
+    .gallery-inspect-btn {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body.rtl .gallery-inspect-btn {
+      right: auto;
+      left: 1.2rem;
+    }
+
+    .gallery-card:hover .gallery-inspect-btn {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ==========================================================================
+       SECTION 4: FEATURED CONFERENCE VENUES (Dual-Wing Showcase)
+       ========================================================================== */
+    .venues-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.2rem;
+    }
+
+    .venue-showcase-card {
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .venue-img-wrap {
+      position: relative;
+      height: 320px;
+      overflow: hidden;
+      border-radius: 30px 30px 0 0;
+    }
+
+    .venue-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .venue-showcase-card:hover .venue-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .venue-location-badge {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 1.2rem;
+      background: rgba(15, 23, 42, 0.85);
+      color: #ffffff;
+      backdrop-filter: blur(10px);
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    body.rtl .venue-location-badge {
+      left: auto;
+      right: 1.2rem;
+    }
+
+    .venue-content-pad {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+      flex-grow: 1;
+    }
+
+    .venue-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .venue-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    body.dark .venue-title {
+      color: #f8fafc;
+    }
+
+    .venue-capacity-pill {
+      background: rgba(37, 99, 235, 0.1);
+      color: #2563eb;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 12px;
+      white-space: nowrap;
+      border: 1px solid rgba(37, 99, 235, 0.2);
+    }
+
+    body.dark .venue-capacity-pill {
+      background: rgba(96, 165, 250, 0.15);
+      color: #60a5fa;
+      border-color: rgba(96, 165, 250, 0.3);
+    }
+
+    .venue-features-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .venue-feature-chip {
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.35rem 0.8rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.04);
+      color: #475569;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    body.dark .venue-feature-chip {
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .venue-spec-tabs {
+      display: flex;
+      gap: 0.4rem;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.16);
+      padding-bottom: 0.5rem;
+    }
+
+    .venue-tab-btn {
+      border: none;
+      background: transparent;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      padding: 0.3rem 0.7rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .venue-tab-btn.active {
+      color: #2563eb;
+      background: rgba(37, 99, 235, 0.08);
+    }
+
+    body.dark .venue-tab-btn.active {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.12);
+    }
+
+    .venue-tab-panel {
+      font-size: 0.86rem;
+      color: #475569;
+      line-height: 1.6;
+      min-height: 60px;
+    }
+
+    body.dark .venue-tab-panel {
+      color: #94a3b8;
+    }
+
+    /* ==========================================================================
+       SECTION 5: CORPORATE EVENT SUCCESS STORIES & INDUSTRY EXPERTISE
+       ========================================================================== */
+    .success-industry-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2.5rem;
+      align-items: stretch;
+    }
+
+    /* Left: Featured Case Study */
+    .case-study-card {
+      border-radius: 28px;
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    .case-study-hero-img-wrap {
+      border-radius: 20px;
+      height: 240px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .case-study-hero-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .case-study-card:hover .case-study-hero-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .case-tag {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(15, 23, 42, 0.85);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+
+    body.rtl .case-tag {
+      left: auto;
+      right: 1rem;
+    }
+
+    .case-study-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+    }
+
+    body.dark .case-study-title {
+      color: #f8fafc;
+    }
+
+    .case-narrative {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    body.dark .case-narrative {
+      color: #94a3b8;
+    }
+
+    .case-narrative strong {
+      color: #0f172a;
+    }
+
+    body.dark .case-narrative strong {
+      color: #f1f5f9;
+    }
+
+    .roi-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      background: rgba(37, 99, 235, 0.05);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      padding: 1.2rem;
+      border-radius: 18px;
+    }
+
+    body.dark .roi-metrics-grid {
+      background: rgba(30, 41, 59, 0.55);
+      border-color: rgba(96, 165, 250, 0.2);
+    }
+
+    .roi-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .roi-value {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #2563eb;
+      letter-spacing: -0.02em;
+    }
+
+    body.dark .roi-value {
+      color: #60a5fa;
+    }
+
+    .roi-label {
+      font-size: 0.74rem;
+      color: #64748b;
+      font-weight: 600;
+      margin-top: 0.2rem;
+    }
+
+    body.dark .roi-label {
+      color: #94a3b8;
+    }
+
+    /* Right: Industry Expertise Matrix */
+    .industry-matrix-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .industry-vertical-card {
+      padding: 1.25rem 1.4rem;
+      border-radius: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.1rem;
+      cursor: pointer;
+    }
+
+    .industry-vertical-card:hover {
+      transform: translateX(6px);
+      border-color: rgba(37, 99, 235, 0.4);
+      box-shadow: 0 12px 28px -6px rgba(37, 99, 235, 0.15);
+    }
+
+    body.rtl .industry-vertical-card:hover {
+      transform: translateX(-6px);
+    }
+
+    .industry-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(124, 58, 237, 0.12));
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    body.dark .industry-icon {
+      background: rgba(96, 165, 250, 0.15);
+      color: #60a5fa;
+    }
+
+    .industry-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .industry-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    body.dark .industry-name {
+      color: #f8fafc;
+    }
+
+    .industry-desc {
+      font-size: 0.84rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    body.dark .industry-desc {
+      color: #94a3b8;
+    }
+
+    /* ==========================================================================
+       SECTION 6: EVENT PLANNING PROCESS OVERVIEW (Interactive Stepper Roadmap)
+       ========================================================================== */
+    .process-roadmap-wrap {
+      position: relative;
+      margin-top: 1rem;
+    }
+
+    .stepper-nav-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .stepper-track-line {
+      position: absolute;
+      top: 24px;
+      left: 5%;
+      width: 90%;
+      height: 3px;
+      background: rgba(59, 130, 246, 0.18);
+      z-index: 1;
+    }
+
+    body.dark .stepper-track-line {
+      background: rgba(96, 165, 250, 0.2);
+    }
+
+    .stepper-track-progress {
+      height: 100%;
+      width: 20%;
+      background: linear-gradient(90deg, #2563eb, #8b5cf6);
+      transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .stepper-node {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .stepper-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      color: #334155;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body.dark .stepper-circle {
+      background: #0f172a;
+      border-color: rgba(96, 165, 250, 0.35);
+      color: #e2e8f0;
+    }
+
+    .stepper-node.active .stepper-circle {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: #ffffff;
+      border-color: #60a5fa;
+      transform: scale(1.15);
+      box-shadow: 0 0 25px rgba(37, 99, 235, 0.6);
+    }
+
+    .stepper-node-label {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #475569;
+      transition: color 0.3s ease;
+    }
+
+    body.dark .stepper-node-label {
+      color: #94a3b8;
+    }
+
+    .stepper-node.active .stepper-node-label {
+      color: #2563eb;
+    }
+
+    body.dark .stepper-node.active .stepper-node-label {
+      color: #60a5fa;
+    }
+
+    /* Process Details Showcase Box */
+    .process-details-card {
+      border-radius: 28px;
+      padding: 2.4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .process-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .process-phase-tag {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #2563eb;
+    }
+
+    body.dark .process-phase-tag {
+      color: #60a5fa;
+    }
+
+    .process-phase-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+    }
+
+    body.dark .process-phase-title {
+      color: #f8fafc;
+    }
+
+    .process-phase-desc {
+      font-size: 0.98rem;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    body.dark .process-phase-desc {
+      color: #94a3b8;
+    }
+
+    .deliverables-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .deliverables-checklist li {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    body.dark .deliverables-checklist li {
+      color: #cbd5e1;
+    }
+
+    .deliverables-checklist li i {
+      color: #10b981;
+      font-size: 0.85rem;
+    }
+
+    .process-visual-col {
+      background: rgba(37, 99, 235, 0.04);
+      border: 1px solid rgba(37, 99, 235, 0.16);
+      border-radius: 22px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    body.dark .process-visual-col {
+      background: rgba(30, 41, 59, 0.45);
+      border-color: rgba(96, 165, 250, 0.2);
+    }
+
+    .assurance-metric-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px dashed rgba(59, 130, 246, 0.2);
+    }
+
+    .assurance-metric-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .assurance-label {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    body.dark .assurance-label {
+      color: #cbd5e1;
+    }
+
+    .assurance-value {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #2563eb;
+    }
+
+    body.dark .assurance-value {
+      color: #60a5fa;
+    }
+
+    /* ==========================================================================
+       SECTION 7: CLIENT TESTIMONIALS & REQUEST AN EVENT PROPOSAL (RFP Engine)
+       ========================================================================== */
+    .testimonials-rfp-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 2.8rem;
+      align-items: start;
+    }
+
+    /* Left: Testimonials Column */
+    .testimonials-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .testimonial-quote-card {
+      padding: 2rem;
+      border-radius: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      position: relative;
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 0.3rem;
+      color: #f59e0b;
+      font-size: 0.9rem;
+    }
+
+    .testimonial-text {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: #1e293b;
+      line-height: 1.65;
+    }
+
+    body.dark .testimonial-text {
+      color: #e2e8f0;
+    }
+
+    .testimonial-author-row {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-top: 0.4rem;
+    }
+
+    .testimonial-avatar-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .testimonial-author-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .author-name {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    body.dark .author-name {
+      color: #f8fafc;
+    }
+
+    .author-role {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    body.dark .author-role {
+      color: #94a3b8;
+    }
+
+    .client-trust-badges-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.6rem;
+      border-radius: 20px;
+      background: rgba(37, 99, 235, 0.05);
+      border: 1px solid rgba(37, 99, 235, 0.16);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    body.dark .client-trust-badges-bar {
+      background: rgba(30, 41, 59, 0.6);
+      border-color: rgba(96, 165, 250, 0.2);
+      color: #cbd5e1;
+    }
+
+    /* Right: Interactive RFP Proposal Engine */
+    .rfp-engine-card {
+      border-radius: 30px;
+      padding: 2.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+      position: relative;
+    }
+
+    .rfp-engine-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .rfp-engine-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    body.dark .rfp-engine-title {
+      color: #ffffff;
+    }
+
+    .rfp-engine-sub {
+      font-size: 0.88rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    body.dark .rfp-engine-sub {
+      color: #94a3b8;
+    }
+
+    /* Event Type Selection Pills */
+    .rfp-type-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.7rem;
+    }
+
+    .rfp-type-btn {
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      background: rgba(255, 255, 255, 0.6);
+      color: #334155;
+      border-radius: 14px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s ease;
+    }
+
+    body.dark .rfp-type-btn {
+      background: rgba(30, 41, 59, 0.6);
+      color: #cbd5e1;
+      border-color: rgba(96, 165, 250, 0.2);
+    }
+
+    .rfp-type-btn.active,
+    .rfp-type-btn:hover {
+      background: rgba(37, 99, 235, 0.1);
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+
+    body.dark .rfp-type-btn.active,
+    body.dark .rfp-type-btn:hover {
+      background: rgba(96, 165, 250, 0.15);
+      border-color: #60a5fa;
+      color: #60a5fa;
+    }
+
+    /* Slider styling */
+    .rfp-slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .rfp-slider-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    body.dark .rfp-slider-label-row {
+      color: #cbd5e1;
+    }
+
+    .rfp-slider-value {
+      color: #2563eb;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    body.dark .rfp-slider-value {
+      color: #60a5fa;
+    }
+
+    .rfp-range-input {
+      width: 100%;
+      height: 6px;
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.2);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .rfp-range-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #2563eb;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.5);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .rfp-range-input::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    /* Dynamic Output Estimate Strip */
+    .rfp-dynamic-preview {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(124, 58, 237, 0.08));
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      text-align: center;
+    }
+
+    body.dark .rfp-dynamic-preview {
+      background: rgba(30, 41, 59, 0.7);
+      border-color: rgba(96, 165, 250, 0.25);
+    }
+
+    .preview-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview-val {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #2563eb;
+    }
+
+    body.dark .preview-val {
+      color: #60a5fa;
+    }
+
+    .preview-lbl {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
+    body.dark .preview-lbl {
+      color: #94a3b8;
+    }
+
+    /* RFP Form Fields */
+    .rfp-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+
+    .rfp-input {
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      color: #1e293b;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    body.dark .rfp-input {
+      background: rgba(15, 23, 42, 0.7);
+      border-color: rgba(96, 165, 250, 0.25);
+      color: #f1f5f9;
+    }
+
+    .rfp-input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+    }
+
+    .rfp-input.col-span-2 {
+      grid-column: span 2;
+    }
+
+    .btn-rfp-submit {
+      width: 100%;
+      border: none;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: #ffffff;
+      padding: 0.95rem 1.6rem;
+      border-radius: 14px;
+      font-size: 0.96rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.4);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .btn-rfp-submit:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      box-shadow: 0 14px 28px rgba(37, 99, 235, 0.5);
+    }
+
+    /* Modal for RFP Confirmation & Gallery Inspection */
+    .es-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 19, 41, 0.75);
+      backdrop-filter: blur(12px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .es-modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .es-modal-dialog {
+      background: #ffffff;
+      border-radius: 28px;
+      max-width: 620px;
+      width: 100%;
+      padding: 2.2rem;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+
+    body.dark .es-modal-dialog {
+      background: #0f172a;
+      border-color: rgba(96, 165, 250, 0.3);
+      color: #f8fafc;
+    }
+
+    body.dark .es-modal-dialog h3,
+    body.dark .modal-title-dyn {
+      color: #f8fafc !important;
+    }
+
+    body.dark .es-modal-dialog p,
+    body.dark .modal-desc-dyn {
+      color: #cbd5e1 !important;
+    }
+
+    .es-modal-backdrop.active .es-modal-dialog {
+      transform: scale(1) translateY(0);
+    }
+
+    .es-modal-close-btn {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: rgba(15, 23, 42, 0.08);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #334155;
+      font-size: 1rem;
+      transition: background 0.2s ease;
+    }
+
+    body.dark .es-modal-close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+    }
+
+    body.rtl .es-modal-close-btn {
+      right: auto;
+      left: 1.2rem;
+    }
+
+    /* ==========================================================================
+       FRAMER MOTION STYLE SPRING ANIMATION CLASSES (UNIQUE FOR EACH SECTION)
+       ========================================================================== */
+    /* Section 1: Hero (Spring Scale & Blur Unmask) */
+    .framer-hero-init {
+      opacity: 0;
+      transform: scale(0.95) translateY(35px);
+      filter: blur(8px);
+      transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .framer-hero-in {
+      opacity: 1 !important;
+      transform: scale(1) translateY(0) !important;
+      filter: blur(0px) !important;
+    }
+
+    /* Section 2: Bento (3D Perspective Spring Flip) */
+    .framer-bento-init {
+      opacity: 0;
+      transform: perspective(1200px) rotateX(14deg) translateY(55px);
+      transition: opacity 0.95s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  transform 0.95s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .framer-bento-in {
+      opacity: 1 !important;
+      transform: perspective(1200px) rotateX(0deg) translateY(0) !important;
+    }
+
+    /* Section 3: Masonry (Diagonal Cascade & Zoom Parallax) */
+    .framer-masonry-init {
+      opacity: 0;
+      transform: translate(-30px, 30px) scale(0.94) rotate(-0.8deg);
+      transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .framer-masonry-in {
+      opacity: 1 !important;
+      transform: translate(0, 0) scale(1) rotate(0deg) !important;
+    }
+
+    /* Section 4: Venues (Horizontal Split Curtain Slide) */
+    .framer-curtain-left {
+      opacity: 0;
+      transform: translateX(-65px) scale(0.96);
+      transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .framer-curtain-right {
+      opacity: 0;
+      transform: translateX(65px) scale(0.96);
+      transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .framer-curtain-in {
+      opacity: 1 !important;
+      transform: translateX(0) scale(1) !important;
+    }
+
+    /* Section 5: Case Study (Depth Pop & Live Numeric Roll) */
+    .framer-depth-init {
+      opacity: 0;
+      transform: perspective(1000px) translateZ(-50px) translateY(40px);
+      transition: opacity 0.85s cubic-bezier(0.34, 1.25, 0.64, 1),
+                  transform 0.85s cubic-bezier(0.34, 1.25, 0.64, 1);
+    }
+
+    .framer-depth-in {
+      opacity: 1 !important;
+      transform: perspective(1000px) translateZ(0) translateY(0) !important;
+    }
+
+    /* Section 6: Stepper (Progress Draw & Node Elastic Bounce) */
+    .framer-stepper-init {
+      opacity: 0;
+      transform: scale(0.94) translateY(30px);
+      transition: opacity 0.9s cubic-bezier(0.34, 1.7, 0.64, 1),
+                  transform 0.9s cubic-bezier(0.34, 1.7, 0.64, 1);
+    }
+
+    .framer-stepper-in {
+      opacity: 1 !important;
+      transform: scale(1) translateY(0) !important;
+    }
+
+    /* Section 7: RFP (Elastic Glow Expansion) */
+    .framer-rfp-init {
+      opacity: 0;
+      transform: scale(0.93) translateY(45px);
+      transition: opacity 1s cubic-bezier(0.19, 1, 0.22, 1),
+                  transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .framer-rfp-in {
+      opacity: 1 !important;
+      transform: scale(1) translateY(0) !important;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE ADAPTATIONS (Tablets & Mobile)
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        gap: 2.8rem;
+      }
+      .hero-main-img {
+        height: 380px;
+      }
+      .hero-highlights-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .gallery-masonry-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-card.span-2 {
+        grid-column: span 2;
+      }
+      .venues-split-grid {
+        grid-template-columns: 1fr;
+      }
+      .success-industry-grid {
+        grid-template-columns: 1fr;
+      }
+      .testimonials-rfp-grid {
+        grid-template-columns: 1fr;
+      }
+      .stepper-nav-bar {
+        grid-template-columns: repeat(5, 1fr);
+        overflow-x: auto;
+      }
+      .process-details-card {
+        grid-template-columns: 1fr;
+        gap: 1.8rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-headline {
+        font-size: 2.1rem;
+      }
+      .hero-metrics-bar {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      .hero-highlights-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-main-img {
+        height: 280px;
+      }
+      .countdown-clock {
+        grid-template-columns: repeat(4, 1fr);
+        padding: 0.6rem;
+      }
+      .time-num {
+        font-size: 1.25rem;
+      }
+      .gallery-masonry-grid {
+        grid-template-columns: 1fr;
+      }
+      .gallery-card.span-2 {
+        grid-column: span 1;
+      }
+      .roi-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .rfp-type-group {
+        grid-template-columns: 1fr;
+      }
+      .rfp-form-grid {
+        grid-template-columns: 1fr;
+      }
+      .rfp-input.col-span-2 {
+        grid-column: span 1;
+      }
+      .stepper-circle {
+        width: 38px;
+        height: 38px;
+        font-size: 0.8rem;
+      }
+      .stepper-node-label {
+        font-size: 0.72rem;
+      }
+    }
+
+    /* ===== FONT AWESOME COMPATIBILITY & FALLBACKS ===== */
+    .fa-wand-magic-sparkles:before { content: "\f005"; }
+    .fa-shield-halved:before { content: "\f3ed"; }
+    .fa-microphone-stand:before { content: "\f130"; }
+    .fa-calendar-star:before { content: "\f274"; }
+    .fa-chart-line-up:before { content: "\f201"; }
+    .fa-trophy-alt:before { content: "\f091"; }
+    .fa-lock-alt:before { content: "\f023"; }
+    .fa-lightbulb-on:before { content: "\f0eb"; }
+    .fa-sliders-up:before { content: "\f1de"; }
+    .fa-bolt-lightning:before { content: "\f0e7"; }
+    .fa-shield-halved:before { content: "\f3ed"; }
+    .fa-building-columns:before { content: "\f19c"; }
+  
+    /* RESPONSIVE_PUBLIC_MASTER */
+    /* ==========================================================================
+       MOBILE-FIRST RESPONSIVE SUITE (320px, 480px, 768px, 1024px)
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box !important;
+    }
+
+    html {
+      overflow-x: clip !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      overflow-x: clip !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    img, picture, video, canvas, svg, iframe {
+      max-width: 100% !important;
+      height: auto;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, span, a, label, li, button, td, th {
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      word-break: break-word;
+    }
+
+    .app-wrapper {
+      width: 100% !important;
+      max-width: 1440px !important;
+      box-sizing: border-box !important;
+      margin: 0 auto !important;
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+      overflow: visible !important;
+      overflow-x: clip !important;
+    }
+
+    .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+      width: 100% !important;
+      max-width: 1280px !important;
+      box-sizing: border-box !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+
+    button, .btn, .btn-hero-primary, .btn-hero-secondary, .login-btn, [class*="btn-"] {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .glass-card, [class*="-card"], [class*="-glass-card"] {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    
+    /* ===== NAVBAR BULLETPROOF ALIGNMENT ===== */
+    .nav-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      overflow: visible !important;
+    }
+
+    .nav-container .logo-section,
+    .logo-section {
+      width: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.6rem !important;
+      flex-shrink: 0 !important;
+    }
+
+    .nav-container .right-section,
+    .right-section {
+      width: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      flex-shrink: 0 !important;
+    }
+
+    body.rtl .nav-container .right-section,
+    body.rtl .right-section {
+      justify-content: flex-start !important;
+    }
+
+    .hamburger {
+      flex-shrink: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* --- BREAKPOINT: 1024px --- */
+    @media (max-width: 1024px) {
+      .app-wrapper {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 3.5rem !important;
+        margin-bottom: 3.5rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      .section-header {
+        margin-bottom: 2.2rem !important;
+        gap: 0.6rem !important;
+      }
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(2.2rem, 5vw, 2.9rem) !important;
+        line-height: 1.25 !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.75rem, 4vw, 2.2rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: clamp(1.2rem, 3vw, 1.45rem) !important;
+      }
+
+      /* Navbar Collapse */
+      .nav-links, .right-section .icon-btn, .right-section .login-btn {
+        display: none !important;
+      }
+      .hamburger {
+        display: flex !important;
+      }
+      .nav-container {
+        padding: 0.5rem 1.4rem !important;
+      }
+
+      /* 2-Column Grids */
+      .bento-grid, 
+      .features-grid, 
+      .services-grid, 
+      .portfolio-grid, 
+      .team-grid, 
+      .testimonials-grid, 
+      .pricing-grid,
+      .gallery-masonry-grid,
+      .stats-grid,
+      .hero-highlights-grid,
+      [class*="-grid"] {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 1.5rem !important;
+      }
+
+      .hero-container,
+      .venues-split-grid,
+      .success-industry-grid,
+      .testimonials-rfp-grid,
+      .process-details-card,
+      [class*="-split-grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 2.2rem !important;
+      }
+
+      .footer-container {
+        padding: 2.5rem 2rem 1.8rem !important;
+        border-radius: 36px !important;
+        margin-top: 3.5rem !important;
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 2rem !important;
+      }
+      .footer-cta {
+        padding: 1.8rem 1.5rem !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 768px --- */
+    @media (max-width: 768px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 2.8rem !important;
+        margin-bottom: 2.8rem !important;
+        padding-left: 0.85rem !important;
+        padding-right: 0.85rem !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(1.85rem, 5.5vw, 2.35rem) !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.45rem, 4.5vw, 1.85rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: clamp(1.15rem, 3.5vw, 1.35rem) !important;
+      }
+      p, .hero-paragraph, .section-desc {
+        font-size: 0.92rem !important;
+        line-height: 1.6 !important;
+      }
+
+      /* Single-Column Stack */
+      .bento-grid, 
+      .features-grid, 
+      .services-grid, 
+      .portfolio-grid, 
+      .team-grid, 
+      .testimonials-grid, 
+      .pricing-grid,
+      .gallery-masonry-grid,
+      .stepper-roadmap,
+      .stepper-nav-bar,
+      .success-industry-grid,
+      .rfp-form-grid,
+      .rfp-type-group,
+      [class*="-grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+
+      .gallery-card.span-2,
+      .col-span-2,
+      [class*="span-"] {
+        grid-column: span 1 !important;
+      }
+
+      /* Stack Buttons */
+      .hero-cta-group, .cta-group, .btn-row {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.75rem !important;
+      }
+      .btn-hero-primary, .btn-hero-secondary, .btn-primary, .btn-secondary, [class*="btn-hero-"] {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 0.85rem 1.4rem !important;
+      }
+
+      .hero-metrics-bar {
+        grid-template-columns: 1fr !important;
+        flex-direction: column !important;
+        gap: 0.85rem !important;
+        width: 100% !important;
+      }
+      .roi-metrics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 0.75rem !important;
+      }
+
+      .countdown-clock {
+        grid-template-columns: repeat(4, 1fr) !important;
+        padding: 0.6rem !important;
+        gap: 0.4rem !important;
+      }
+      .time-num { font-size: 1.15rem !important; }
+      .time-label { font-size: 0.65rem !important; }
+
+      /* Footer */
+      .footer-container {
+        padding: 2.2rem 1.25rem 1.5rem !important;
+        border-radius: 28px !important;
+        margin-top: 2.8rem !important;
+        gap: 2rem !important;
+      }
+      .footer-cta {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 1.6rem 1.25rem !important;
+        gap: 1.25rem !important;
+        border-radius: 22px !important;
+      }
+      .footer-cta-form-wrapper {
+        min-width: 0 !important;
+        width: 100% !important;
+      }
+      .footer-form {
+        flex-direction: column !important;
+        border-radius: 18px !important;
+        padding: 0.5rem !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+      }
+      .footer-form input {
+        width: 100% !important;
+        border-radius: 12px !important;
+        padding: 0.65rem 0.85rem !important;
+      }
+      .footer-form button {
+        width: 100% !important;
+        justify-content: center !important;
+        border-radius: 12px !important;
+        padding: 0.65rem 1rem !important;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.8rem !important;
+      }
+      .footer-bottom {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1.2rem !important;
+      }
+      .footer-legal-links {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.6rem !important;
+      }
+
+      .es-modal-dialog, .modal-dialog {
+        width: 94% !important;
+        max-width: 100% !important;
+        padding: 1.5rem 1.25rem !important;
+        margin: 1rem auto !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 480px --- */
+    @media (max-width: 480px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 2.2rem !important;
+        margin-bottom: 2.2rem !important;
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+
+      .app-wrapper {
+        padding-left: 0.6rem !important;
+        padding-right: 0.6rem !important;
+        padding-top: 0.8rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+
+      .nav-container {
+        padding: 0.45rem 1.25rem !important;
+        border-radius: 30px !important;
+        position: -webkit-sticky !important; position: sticky !important; top: 0.5rem !important;
+      }
+      .logo-text { font-size: 1.15rem !important; }
+      .logo-3d { width: 19px !important; height: 19px !important; }
+      .logo-face {
+        width: 19px !important;
+        height: 19px !important;
+        font-size: 0.52rem !important;
+        border-radius: 5px !important;
+      }
+      .hamburger {
+        width: 36px !important;
+        height: 36px !important;
+        padding: 8px 6px !important;
+      }
+
+      .mobile-menu {
+        border-radius: 20px !important;
+        padding: 1.25rem 1rem !important;
+      }
+      .mobile-nav-links > li > a, 
+      .mobile-dropdown-header > a {
+        font-size: 0.95rem !important;
+      }
+      .mobile-actions {
+        gap: 0.5rem !important;
+      }
+      .mobile-actions .login-btn {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: clamp(1.5rem, 6.8vw, 1.85rem) !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: clamp(1.25rem, 5.5vw, 1.55rem) !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: 1.12rem !important;
+      }
+      .section-pill-badge {
+        font-size: 0.72rem !important;
+        padding: 0.3rem 0.75rem !important;
+      }
+
+      .glass-card, [class*="-card"], [class*="-glass-card"] {
+        padding: 1.35rem 1rem !important;
+        border-radius: 20px !important;
+      }
+
+      .roi-metrics-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.6rem !important;
+      }
+      .countdown-clock {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+      }
+
+      .footer-container {
+        padding: 1.8rem 0.95rem 1.2rem !important;
+        border-radius: 24px !important;
+        margin-top: 2.2rem !important;
+      }
+      .footer-cta-title { font-size: 1.22rem !important; }
+      .footer-cta-desc { font-size: 0.85rem !important; }
+      .metric-pill {
+        font-size: 0.72rem !important;
+        padding: 0.35rem 0.7rem !important;
+      }
+    }
+
+    /* --- BREAKPOINT: 320px --- */
+    @media (max-width: 320px) {
+      .content-section, section, [class*="-section"]:not(.logo-section):not(.right-section):not([class*="-section-head"]):not([class*="-section-header"]) {
+        margin-top: 1.6rem !important;
+        margin-bottom: 1.6rem !important;
+        padding-left: 0.45rem !important;
+        padding-right: 0.45rem !important;
+      }
+
+      .app-wrapper {
+        padding-left: 0.35rem !important;
+        padding-right: 0.35rem !important;
+        padding-top: 0.5rem !important;
+      }
+
+      .nav-container {
+        padding: 0.4rem 1rem !important;
+        border-radius: 22px !important;
+        position: -webkit-sticky !important; position: sticky !important; top: 0.3rem !important;
+      }
+      .logo-text { font-size: 1.02rem !important; }
+      .logo-3d { width: 17px !important; height: 17px !important; }
+      .logo-face {
+        width: 17px !important;
+        height: 17px !important;
+        font-size: 0.48rem !important;
+        border-radius: 4px !important;
+      }
+      .hamburger {
+        width: 32px !important;
+        height: 32px !important;
+        padding: 7px 5px !important;
+      }
+
+      h1, .hero-headline, [class*="-hero-title"], [class*="-headline"] {
+        font-size: 1.38rem !important;
+      }
+      h2, .section-title, [class*="-section-title"] {
+        font-size: 1.18rem !important;
+      }
+      h3, .card-title, [class*="-card-title"] {
+        font-size: 1.02rem !important;
+      }
+      p, .hero-paragraph, .section-desc {
+        font-size: 0.8rem !important;
+      }
+      .section-pill-badge {
+        font-size: 0.66rem !important;
+        padding: 0.25rem 0.55rem !important;
+      }
+
+      .glass-card, [class*="-card"], [class*="-glass-card"] {
+        padding: 1.1rem 0.75rem !important;
+        border-radius: 16px !important;
+      }
+
+      button, .btn, .btn-hero-primary, .btn-hero-secondary, .login-btn, [class*="btn-"] {
+        font-size: 0.78rem !important;
+        padding: 0.65rem 0.9rem !important;
+      }
+
+      .footer-container {
+        padding: 1.5rem 0.75rem 1rem !important;
+        border-radius: 18px !important;
+      }
+      .footer-cta {
+        padding: 1.25rem 0.75rem !important;
+        border-radius: 16px !important;
+      }
+      .footer-cta-title { font-size: 1.1rem !important; }
+      .footer-cta-desc { font-size: 0.78rem !important; }
+    }
+
+    /* END RESPONSIVE_PUBLIC_MASTER */
+  
+    /* FontAwesome Icon Fallback & Compatibility */
+    .fa-sparkles:before { content: "\e2ca" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+    .fa-radar:before { content: "\f7c0" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+    .fa-shield-check:before { content: "\f3ed" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
+  </style>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- NAVBAR -->
+    <nav class="nav-container">
+      <div class="nav-shine"></div>
+      <!-- LEFT: LOGO (smaller 3D + text) -->
+      <a href="index.html" class="logo-section" style="text-decoration: none; cursor: pointer;">
+        <div class="logo-3d">
+          <div class="logo-cube">
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+            <div class="logo-face">✦</div>
+          </div>
+        </div>
+        <div class="logo-text">Event<span>Sphere</span></div>
+      </a>
+
+      <!-- CENTER: DESKTOP NAV LINKS -->
+
+      <ul class="nav-links">
+        <li class="dropdown active">
+          <a href="index.html" class="dropdown-toggle active">Home <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="index.html" class="dropdown-item active">
+                <span class="dropdown-item-icon"><i class="fas fa-home"></i></span>
+                <span class="dropdown-item-title">Home 1</span>
+              </a>
+            </li>
+            <li>
+              <a href="home-2.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-building"></i></span>
+                <span class="dropdown-item-title">Home 2</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="event-planning.html">Event Planning</a></li>
+        <li><a href="vendors.html">Vendors</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="dropdown dropdown-right">
+          <a href="admin-dashboard.html" class="dropdown-toggle">Dashboard <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="admin-dashboard.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-shield-alt"></i></span>
+                <span class="dropdown-item-title">Admin Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="user-dashboard.html" class="dropdown-item">
+                <span class="dropdown-item-icon"><i class="fas fa-user-circle"></i></span>
+                <span class="dropdown-item-title">User Dashboard</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- RIGHT: ICONS & LOGIN -->
+      <div class="right-section">
+        <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
+        <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
+        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <!-- Hamburger visible only on tablet/mobile -->
+        <button class="hamburger" id="hamburgerBtn">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul class="mobile-nav-links">
+        <li class="mobile-dropdown active">
+          <div class="mobile-dropdown-header">
+            <a href="index.html" class="active">Home</a>
+            <button class="mobile-dropdown-toggle" aria-label="Toggle Home submenu"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <ul class="mobile-submenu">
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home 1</a></li>
+            <li><a href="home-2.html"><i class="fas fa-building"></i> Home 2</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="event-planning.html">Event Planning</a></li>
+        <li><a href="vendors.html">Vendors</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="mobile-dropdown">
+          <div class="mobile-dropdown-header">
+            <a href="admin-dashboard.html">Dashboard</a>
+            <button class="mobile-dropdown-toggle" aria-label="Toggle Dashboard submenu"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <ul class="mobile-submenu">
+            <li><a href="admin-dashboard.html"><i class="fas fa-shield-alt"></i> Admin Dashboard</a></li>
+            <li><a href="user-dashboard.html"><i class="fas fa-user-circle"></i> User Dashboard</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mobile-actions">
+        <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
+        <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
+        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         MAIN CONTENT: 7 UNIQUE & CREATIVE CORPORATE EVENT SECTIONS
+         ======================================================================== -->
+
+    <!-- ========================================================================
+         SECTION 1: CORPORATE EVENT PLANNING INTRODUCTION & EVENT PLANNING HIGHLIGHTS
+         ======================================================================== -->
+    <section class="content-section hero-section framer-hero-init" id="hero">
+      <div class="hero-container">
+        <!-- LEFT: INTRO TEXT & STRATEGIC HIGHLIGHTS -->
+        <div class="hero-intro">
+          <div class="hero-badge-row">
+            <span class="section-pill-badge">
+              <span class="pulse-live-dot"></span> Corporate Event Planning & Summit Management
+            </span>
+          </div>
+          <h1 class="hero-headline">
+            Engineering Masterclass Conferences & <span class="gradient-text">High-Stakes Corporate Experiences</span>
+          </h1>
+          <p class="hero-paragraph">
+            From Davos-tier global economic symposiums to Fortune 100 hybrid product unveilings, EventSphere delivers frictionless production, VIP speaker curation, and measurable enterprise impact across 42 countries.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#proposal-rfp" class="btn-hero-primary">
+              <i class="fas fa-file-signature"></i> Request an Event Proposal
+            </a>
+            <a href="#upcoming-summits" class="btn-hero-secondary">
+              <i class="fas fa-compass"></i> Explore 2026 Summits
+            </a>
+          </div>
+          <!-- LIVE TRUST METRICS -->
+          <div class="hero-metrics-bar">
+            <div class="hero-stat-item">
+              <span class="hero-stat-num">850+</span>
+              <span class="hero-stat-label">Summits Delivered</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="hero-stat-num">42</span>
+              <span class="hero-stat-label">Global Markets</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="hero-stat-num">99.8%</span>
+              <span class="hero-stat-label">On-Time Execution</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="hero-stat-num">$1.4B+</span>
+              <span class="hero-stat-label">Deal Pipeline</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: 3D HERO VISUAL WITH FLOATING METRIC CARDS -->
+        <div class="hero-visual-frame">
+          <div class="hero-floating-pill-1">
+            <span class="pulse-live-dot"></span>
+            <span>Live Summit Stream: <strong>4,200 Attendees</strong></span>
+          </div>
+          <div class="hero-main-img-wrap">
+            <img src="images/hero_summit.jpg" alt="Global Strategy Corporate Summit Mainstage" class="hero-main-img">
+            <div class="hero-visual-gradient"></div>
+          </div>
+          <div class="hero-floating-pill-2">
+            <i class="fas fa-shield-alt" style="color: #2563eb; font-size: 1.2rem;"></i>
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a;">99.8% Executive CSAT</div>
+              <div style="font-size: 0.72rem; color: #64748b;">Fortune 100 Endorsed Standard</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EVENT PLANNING HIGHLIGHTS STRIP -->
+      <div class="hero-highlights-grid">
+        <div class="glass-card highlight-strip-card">
+          <div class="highlight-icon-box">
+            <i class="fas fa-project-diagram"></i>
+          </div>
+          <h3 class="highlight-title">Precision Stage Rigging & AV</h3>
+          <p class="highlight-desc">
+            Dual-redundant 4K optical transmission, spatial acoustics engineering, and custom kinetic LED backdrops built with zero latency.
+          </p>
+        </div>
+        <div class="glass-card highlight-strip-card">
+          <div class="highlight-icon-box">
+            <i class="fas fa-microphone"></i>
+          </div>
+          <h3 class="highlight-title">VIP Keynote Curation</h3>
+          <p class="highlight-desc">
+            Direct high-level access to 1,200+ Nobel laureates, Fortune 500 CEOs, and world-class visionaries with complete itinerary oversight.
+          </p>
+        </div>
+        <div class="glass-card highlight-strip-card">
+          <div class="highlight-icon-box">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h3 class="highlight-title">ISO-20121 Green Auditing</h3>
+          <p class="highlight-desc">
+            Every conference is certified zero-carbon with compostable logistics, verified local sourcing, and verified carbon offsets.
+          </p>
+        </div>
+        <div class="glass-card highlight-strip-card">
+          <div class="highlight-icon-box">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3 class="highlight-title">24/7 Command Center</h3>
+          <p class="highlight-desc">
+            On-site operational control rooms equipped with real-time biometric attendee flow, contingency protocols, and multi-tier security.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 2: UPCOMING CONFERENCE HIGHLIGHTS (Asymmetric Bento Grid)
+         ======================================================================== -->
+    <section class="content-section framer-bento-init" id="upcoming-summits">
+      <div class="section-header">
+        <span class="section-pill-badge">
+          <i class="fas fa-calendar-alt"></i> 2026 Global Calendar
+        </span>
+        <h2 class="section-title">
+          Upcoming <span class="gradient-text">Conference Highlights</span> & Assemblies
+        </h2>
+        <p class="section-desc">
+          Reserve executive credentials and VIP boardroom access for this season's most influential international summits and industry assemblies.
+        </p>
+      </div>
+
+      <div class="bento-grid">
+        <!-- BENTO 1: FEATURED FLAGSHIP SUMMIT -->
+        <div class="glass-card bento-card-main">
+          <div class="bento-img-wrap">
+            <img src="images/tech_summit.jpg" alt="Global AI and Enterprise Innovation Summit">
+            <span class="bento-badge-tag"><i class="fas fa-star"></i> Flagship Assembly</span>
+          </div>
+          <div class="bento-content-pad">
+            <div class="bento-summit-meta">
+              <span><i class="fas fa-map-marker-alt"></i> Geneva Palexpo · Switzerland</span>
+              <span><i class="fas fa-calendar-alt"></i> Nov 14–17, 2026</span>
+              <span><i class="fas fa-globe"></i> Hybrid Global Broadcast</span>
+            </div>
+            <h3 class="bento-summit-title">
+              Global AI & Enterprise Innovation Summit 2026
+            </h3>
+            <p style="font-size: 0.92rem; color: #475569; line-height: 1.6;">
+              Gathering 5,000 top AI researchers, Fortune 500 CTOs, and policymakers to debate generative enterprise architecture, ethical standards, and automated infrastructure.
+            </p>
+
+            <!-- LIVE COUNTDOWN CLOCK -->
+            <div class="countdown-clock" id="countdownClock">
+              <div class="time-slot">
+                <span class="time-num" id="cdDays">34</span>
+                <span class="time-unit">Days</span>
+              </div>
+              <div class="time-slot">
+                <span class="time-num" id="cdHours">18</span>
+                <span class="time-unit">Hours</span>
+              </div>
+              <div class="time-slot">
+                <span class="time-num" id="cdMins">42</span>
+                <span class="time-unit">Minutes</span>
+              </div>
+              <div class="time-slot">
+                <span class="time-num" id="cdSecs">09</span>
+                <span class="time-unit">Seconds</span>
+              </div>
+            </div>
+
+            <!-- KEYNOTE SPEAKERS ROSTER -->
+            <div class="bento-speakers-strip">
+              <span style="font-size: 0.78rem; font-weight: 700; color: #64748b;">Keynotes:</span>
+              <span class="speaker-pill"><i class="fas fa-user-tie"></i> Dr. Aris Thorne (Nexus AI)</span>
+              <span class="speaker-pill"><i class="fas fa-user-tie"></i> Elena Vance (Quantum Core)</span>
+              <span class="speaker-pill"><i class="fas fa-user-tie"></i> Marcus Brody (Vertex)</span>
+            </div>
+
+            <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; flex-wrap: wrap;">
+              <a href="#proposal-rfp" class="btn-hero-primary" style="padding: 0.75rem 1.6rem; font-size: 0.88rem;">
+                <i class="fas fa-ticket-alt"></i> Reserve Executive Seat
+              </a>
+              <span style="font-size: 0.82rem; color: #10b981; font-weight: 600;">
+                <i class="fas fa-check-circle"></i> Tier-1 VIP Passes 82% Reserved
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- BENTO SIDE COLUMN -->
+        <div class="bento-side-col">
+          <!-- BENTO 2: SUSTAINABLE FINANCE FORUM -->
+          <div class="glass-card bento-card-side">
+            <div class="bento-side-img-wrap">
+              <img src="images/finance_forum.jpg" alt="World Sustainable Finance Forum">
+              <span class="bento-badge-tag"><i class="fas fa-shield-alt"></i> Closed-Door Summit</span>
+            </div>
+            <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.7rem;">
+              <div style="font-size: 0.78rem; font-weight: 700; color: #2563eb;">
+                <i class="fas fa-map-marker-alt"></i> Tokyo International Forum · Dec 02–04, 2026
+              </div>
+              <h4 style="font-size: 1.2rem; font-weight: 800; color: #0f172a;">
+                World Sustainable Finance Forum 2026
+              </h4>
+              <p style="font-size: 0.86rem; color: #64748b; line-height: 1.5;">
+                800 sovereign fund managers and banking executives convening for high-level bilateral agreements and ESG allocation strategies.
+              </p>
+              <a href="#proposal-rfp" style="font-size: 0.84rem; font-weight: 700; color: #2563eb; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem;">
+                Request VIP Invitation <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- BENTO 3: UPCOMING 2027 ROSTER -->
+          <div class="glass-card bento-card-quicklist">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 0.95rem; font-weight: 800; color: #0f172a;">
+                <i class="fas fa-calendar-check" style="color: #2563eb;"></i> Early 2027 Roster
+              </span>
+              <span style="font-size: 0.74rem; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 0.2rem 0.6rem; border-radius: 9999px;">
+                Registration Open
+              </span>
+            </div>
+            <div class="quicklist-item">
+              <div>
+                <div class="quicklist-date">Jan 18–21, 2027 · Boston</div>
+                <div class="quicklist-title">BioTech Frontiers Global Assembly</div>
+              </div>
+              <i class="fas fa-chevron-right" style="color: #64748b; font-size: 0.8rem;"></i>
+            </div>
+            <div class="quicklist-item">
+              <div>
+                <div class="quicklist-date">Feb 09–12, 2027 · Copenhagen</div>
+                <div class="quicklist-title">Clean Energy Transition Summit</div>
+              </div>
+              <i class="fas fa-chevron-right" style="color: #64748b; font-size: 0.8rem;"></i>
+            </div>
+            <div class="quicklist-item">
+              <div>
+                <div class="quicklist-date">Mar 03–06, 2027 · Singapore</div>
+                <div class="quicklist-title">Asia-Pacific Fintech Leadership Expo</div>
+              </div>
+              <i class="fas fa-chevron-right" style="color: #64748b; font-size: 0.8rem;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 3: PAST CORPORATE EVENTS GALLERY & SIGNATURE EXPERIENCES
+         ======================================================================== -->
+    <section class="content-section framer-masonry-init" id="gallery-experiences">
+      <div class="section-header">
+        <span class="section-pill-badge">
+          <i class="fas fa-trophy"></i> Craftsmanship & Scale
+        </span>
+        <h2 class="section-title">
+          Past Events Gallery & <span class="gradient-text">Signature Experiences</span>
+        </h2>
+        <p class="section-desc">
+          Explore our portfolio of high-impact corporate assemblies, sensory-driven stagecraft, and world-class experiential productions.
+        </p>
+      </div>
+
+      <!-- FILTER TABS -->
+      <div class="gallery-filter-tabs">
+        <button class="gallery-filter-btn active" data-filter="all">All Experiences (850+)</button>
+        <button class="gallery-filter-btn" data-filter="signature">Signature 3D Keynotes</button>
+        <button class="gallery-filter-btn" data-filter="gala">Corporate Galas & Awards</button>
+        <button class="gallery-filter-btn" data-filter="hybrid">Global Hybrid Broadcasts</button>
+      </div>
+
+      <!-- GALLERY MASONRY GRID -->
+      <div class="gallery-masonry-grid" id="galleryGrid">
+        <!-- CARD 1: PANORAMIC SIGNATURE EXPERIENCE -->
+        <div class="glass-card gallery-card span-2" data-category="signature" onclick="openGalleryModal('signature')">
+          <img src="images/signature_stage.jpg" alt="Signature 3D Holographic Keynote Stage" class="gallery-img-bg">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag"><i class="fas fa-cube"></i> Signature Experience · 3D Spatial Holography</span>
+            <h3 class="gallery-card-title">The Holographic Keynote Dimension</h3>
+            <p class="gallery-card-desc">
+              Custom kinetic ring lighting, volumetric 3D laser mapping, and 360° spatial acoustics engineered for 12,000 live participants.
+            </p>
+          </div>
+          <button class="gallery-inspect-btn" title="Inspect Experience Specs"><i class="fas fa-expand-alt"></i></button>
+        </div>
+
+        <!-- CARD 2: CORPORATE GALA -->
+        <div class="glass-card gallery-card" data-category="gala" onclick="openGalleryModal('gala')">
+          <img src="images/gala_awards.jpg" alt="Annual Corporate Gala Awards Banquet" class="gallery-img-bg">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag"><i class="fas fa-glass-cheers"></i> Annual Corporate Gala</span>
+            <h3 class="gallery-card-title">Fortune 500 Pinnacle Awards</h3>
+            <p class="gallery-card-desc">
+              Grand ballroom gala for 650 VIP guests with custom crystal chandeliers and Michelin-star curated courses.
+            </p>
+          </div>
+          <button class="gallery-inspect-btn" title="Inspect Experience Specs"><i class="fas fa-expand-alt"></i></button>
+        </div>
+
+        <!-- CARD 3: HYBRID BROADCAST -->
+        <div class="glass-card gallery-card" data-category="hybrid" onclick="openGalleryModal('hybrid')">
+          <img src="images/hybrid_event.jpg" alt="32-Country Hybrid Broadcast Command Center" class="gallery-img-bg">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag"><i class="fas fa-satellite-dish"></i> Global Hybrid Broadcast</span>
+            <h3 class="gallery-card-title">32-Country Hybrid Command Center</h3>
+            <p class="gallery-card-desc">
+              Zero-latency multi-continent broadcast hub coordinating live satellite feeds and simultaneous translation.
+            </p>
+          </div>
+          <button class="gallery-inspect-btn" title="Inspect Experience Specs"><i class="fas fa-expand-alt"></i></button>
+        </div>
+
+        <!-- CARD 4: FINTECH NETWORKING EXPO -->
+        <div class="glass-card gallery-card span-2" data-category="signature" onclick="openGalleryModal('fintech')">
+          <img src="images/success_fintech.jpg" alt="Global Fintech Interactive Expo" class="gallery-img-bg">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag"><i class="fas fa-network-wired"></i> Experiential Expo Floor</span>
+            <h3 class="gallery-card-title">Fintech Exponential Pavilion & Deal Lounges</h3>
+            <p class="gallery-card-desc">
+              AI matchmaking kiosks, bespoke brand pods, and frictionless NFC digital business card exchange suites.
+            </p>
+          </div>
+          <button class="gallery-inspect-btn" title="Inspect Experience Specs"><i class="fas fa-expand-alt"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 4: FEATURED CONFERENCE VENUES (Dual-Wing Showcase)
+         ======================================================================== -->
+    <section class="content-section" id="featured-venues">
+      <div class="section-header">
+        <span class="section-pill-badge">
+          <i class="fas fa-landmark"></i> World-Class Spaces
+        </span>
+        <h2 class="section-title">
+          Featured <span class="gradient-text">Conference Venues</span> & Destinations
+        </h2>
+        <p class="section-desc">
+          From soaring glass biodomes to alpine congress sanctuaries, we negotiate, design, and transform premier architectural venues across the globe.
+        </p>
+      </div>
+
+      <div class="venues-split-grid">
+        <!-- VENUE 1: THE GRAND GLASS PAVILION -->
+        <div class="glass-card venue-showcase-card framer-curtain-left">
+          <div class="venue-img-wrap">
+            <img src="images/venue_pavilion.jpg" alt="The Grand Glass Pavilion in Singapore">
+            <div class="venue-location-badge">
+              <i class="fas fa-map-marker-alt"></i> Marina Bay Waterfront · Singapore
+            </div>
+          </div>
+          <div class="venue-content-pad">
+            <div class="venue-title-row">
+              <div>
+                <h3 class="venue-title">The Grand Glass Pavilion</h3>
+                <span style="font-size: 0.8rem; color: #10b981; font-weight: 600;"><i class="fas fa-leaf"></i> LEED Platinum Certified</span>
+              </div>
+              <span class="venue-capacity-pill"><i class="fas fa-users"></i> 4,500 Delegates</span>
+            </div>
+
+            <!-- FEATURES -->
+            <div class="venue-features-list">
+              <span class="venue-feature-chip"><i class="fas fa-tree"></i> Indoor Living Wall Atrium</span>
+              <span class="venue-feature-chip"><i class="fas fa-wifi"></i> 10Gbps Redundant Dark Fiber</span>
+              <span class="venue-feature-chip"><i class="fas fa-door-open"></i> 38 VIP Breakout Lounges</span>
+            </div>
+
+            <!-- INTERACTIVE TAB SPECS -->
+            <div class="venue-spec-tabs">
+              <button class="venue-tab-btn active" onclick="switchVenueTab(this, 'pavilion-spatial')">Spatial Specs</button>
+              <button class="venue-tab-btn" onclick="switchVenueTab(this, 'pavilion-av')">Acoustics & AV</button>
+              <button class="venue-tab-btn" onclick="switchVenueTab(this, 'pavilion-logistics')">VIP Protocol</button>
+            </div>
+            <div class="venue-tab-panel" id="pavilion-tab-content">
+              <strong>120,000 sq.ft Exhibition Concourse:</strong> Triple-height soaring geometric glass ceiling offering column-free views, dual grand spiral staircases, and 4 dedicated executive presentation suites.
+            </div>
+          </div>
+        </div>
+
+        <!-- VENUE 2: ALPINE HORIZON CONGRESS PALACE -->
+        <div class="glass-card venue-showcase-card framer-curtain-right">
+          <div class="venue-img-wrap">
+            <img src="images/venue_alpine.jpg" alt="Alpine Horizon Congress Palace in St. Moritz">
+            <div class="venue-location-badge">
+              <i class="fas fa-mountain"></i> Engadin Valley · St. Moritz, Switzerland
+            </div>
+          </div>
+          <div class="venue-content-pad">
+            <div class="venue-title-row">
+              <div>
+                <h3 class="venue-title">Alpine Horizon Congress Palace</h3>
+                <span style="font-size: 0.8rem; color: #2563eb; font-weight: 600;"><i class="fas fa-lock"></i> Sovereign-Tier Security</span>
+              </div>
+              <span class="venue-capacity-pill"><i class="fas fa-users"></i> 1,800 Delegates</span>
+            </div>
+
+            <!-- FEATURES -->
+            <div class="venue-features-list">
+              <span class="venue-feature-chip"><i class="fas fa-snowflake"></i> Panoramic Peak Windows</span>
+              <span class="venue-feature-chip"><i class="fas fa-volume-up"></i> Swiss Oak Acoustic Tiering</span>
+              <span class="venue-feature-chip"><i class="fas fa-helicopter"></i> Private Helipad & Tier-4 Perimeter</span>
+            </div>
+
+            <!-- INTERACTIVE TAB SPECS -->
+            <div class="venue-spec-tabs">
+              <button class="venue-tab-btn active" onclick="switchVenueTab(this, 'alpine-spatial')">Auditorium</button>
+              <button class="venue-tab-btn" onclick="switchVenueTab(this, 'alpine-av')">Bilateral Suites</button>
+              <button class="venue-tab-btn" onclick="switchVenueTab(this, 'alpine-logistics')">Access Security</button>
+            </div>
+            <div class="venue-tab-panel" id="alpine-tab-content">
+              <strong>Executive Mountain Auditorium:</strong> Tiered leather seating overlooking pristine Swiss glacier peaks, equipped with simultaneous 8-language interpreter booths and whisper-quiet HVAC.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 5: CORPORATE EVENT SUCCESS STORIES & INDUSTRY EXPERTISE
+         ======================================================================== -->
+    <section class="content-section framer-depth-init" id="case-studies">
+      <div class="section-header">
+        <span class="section-pill-badge">
+          <i class="fas fa-chart-line"></i> Proven Enterprise ROI
+        </span>
+        <h2 class="section-title">
+          Success Stories & <span class="gradient-text">Industry Expertise</span>
+        </h2>
+        <p class="section-desc">
+          Measurable commercial impact, investor relations acceleration, and white-glove event orchestration across highly regulated verticals.
+        </p>
+      </div>
+
+      <div class="success-industry-grid">
+        <!-- LEFT: FEATURED CASE STUDY -->
+        <div class="glass-card case-study-card">
+          <div class="case-study-hero-img-wrap">
+            <img src="images/success_fintech.jpg" alt="FinTech Global Innovation Summit Case Study">
+            <span class="case-tag"><i class="fas fa-award"></i> Case Study · FinTech Global</span>
+          </div>
+          <div>
+            <h3 class="case-study-title">
+              FinTech Global Summit: Scaling from 5,000 to 14,000 Attendees in 90 Days
+            </h3>
+          </div>
+          <div class="case-narrative">
+            <p>
+              <strong>The Challenge:</strong> Transforming a legacy trade expo into an ultra-exclusive global leadership assembly while avoiding attendee congestion and elevating sponsor retention.
+            </p>
+            <p>
+              <strong>The EventSphere Solution:</strong> Engineered AI-powered investor matchmaking lounges, biometric sub-3-second check-in kiosks, and an immersive LED keynote stage.
+            </p>
+          </div>
+
+          <!-- QUANTIFIED ROI METRICS -->
+          <div class="roi-metrics-grid">
+            <div class="roi-item">
+              <span class="roi-value">+240%</span>
+              <span class="roi-label">Sponsor Pipeline</span>
+            </div>
+            <div class="roi-item">
+              <span class="roi-value">99.4%</span>
+              <span class="roi-label">Attendee CSAT</span>
+            </div>
+            <div class="roi-item">
+              <span class="roi-value">$420M</span>
+              <span class="roi-label">On-Site Transactions</span>
+            </div>
+            <div class="roi-item">
+              <span class="roi-value">0.0 Sec</span>
+              <span class="roi-label">Queue Latency</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: INDUSTRY EXPERTISE MATRIX -->
+        <div class="industry-matrix-wrap">
+          <div class="glass-card industry-vertical-card">
+            <div class="industry-icon"><i class="fas fa-university"></i></div>
+            <div class="industry-info">
+              <h4 class="industry-name">Financial Services & FinTech</h4>
+              <p class="industry-desc">Bank-grade data confidentiality, closed-door bilateral boardrooms, and regulatory summit compliance.</p>
+            </div>
+          </div>
+
+          <div class="glass-card industry-vertical-card">
+            <div class="industry-icon"><i class="fas fa-microchip"></i></div>
+            <div class="industry-info">
+              <h4 class="industry-name">Enterprise Cloud & Artificial Intelligence</h4>
+              <p class="industry-desc">High-density developer hackathons, live multi-feed code demonstrations, and futuristic stagecraft.</p>
+            </div>
+          </div>
+
+          <div class="glass-card industry-vertical-card">
+            <div class="industry-icon"><i class="fas fa-dna"></i></div>
+            <div class="industry-info">
+              <h4 class="industry-name">Life Sciences & Healthcare</h4>
+              <p class="industry-desc">CME-accredited medical assemblies, sterile exhibition staging, and clinical trial disclosure forums.</p>
+            </div>
+          </div>
+
+          <div class="glass-card industry-vertical-card">
+            <div class="industry-icon"><i class="fas fa-solar-panel"></i></div>
+            <div class="industry-info">
+              <h4 class="industry-name">Clean Energy & Infrastructure</h4>
+              <p class="industry-desc">Ministerial delegation logistics, sovereign wealth matchmaking, and zero-carbon certified production.</p>
+            </div>
+          </div>
+
+          <div class="glass-card industry-vertical-card">
+            <div class="industry-icon"><i class="fas fa-satellite"></i></div>
+            <div class="industry-info">
+              <h4 class="industry-name">Aerospace & Defense</h4>
+              <p class="industry-desc">SCIF-certified meeting perimeters, classified briefing protocols, and high-security delegate clearance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 6: EVENT PLANNING PROCESS OVERVIEW (Interactive Stepper Roadmap)
+         ======================================================================== -->
+    <section class="content-section framer-stepper-init" id="planning-process">
+      <div class="section-header">
+        <span class="section-pill-badge">
+          <i class="fas fa-route"></i> Flawless Execution Methodology
+        </span>
+        <h2 class="section-title">
+          Our 5-Stage <span class="gradient-text">Event Planning Architecture</span>
+        </h2>
+        <p class="section-desc">
+          A battle-tested, milestone-driven framework that eliminates operational friction and guarantees world-class conference delivery.
+        </p>
+      </div>
+
+      <div class="process-roadmap-wrap">
+        <!-- STEPPER NAV BAR -->
+        <div class="stepper-nav-bar">
+          <div class="stepper-track-line">
+            <div class="stepper-track-progress" id="stepperProgressLine"></div>
+          </div>
+
+          <button class="stepper-node active" onclick="activateStep(1)">
+            <div class="stepper-circle">01</div>
+            <span class="stepper-node-label">Discovery & Blueprint</span>
+          </button>
+          <button class="stepper-node" onclick="activateStep(2)">
+            <div class="stepper-circle">02</div>
+            <span class="stepper-node-label">Spatial & Venue Design</span>
+          </button>
+          <button class="stepper-node" onclick="activateStep(3)">
+            <div class="stepper-circle">03</div>
+            <span class="stepper-node-label">Speaker & Experience</span>
+          </button>
+          <button class="stepper-node" onclick="activateStep(4)">
+            <div class="stepper-circle">04</div>
+            <span class="stepper-node-label">Live Production</span>
+          </button>
+          <button class="stepper-node" onclick="activateStep(5)">
+            <div class="stepper-circle">05</div>
+            <span class="stepper-node-label">Analytics & Debrief</span>
+          </button>
+        </div>
+
+        <!-- STEP DETAILS SHOWCASE BOX -->
+        <div class="glass-card process-details-card" id="processDetailsCard">
+          <div class="process-info-col">
+            <span class="process-phase-tag" id="phaseTag">Phase 01 · Strategic Foundation</span>
+            <h3 class="process-phase-title" id="phaseTitle">Discovery, KPI Blueprinting & Budget Engineering</h3>
+            <p class="process-phase-desc" id="phaseDesc">
+              We align with your executive steering committee to define core summit milestones, attendee personas, commercial targets, and precise budget allocations with zero hidden line items.
+            </p>
+            <ul class="deliverables-checklist" id="phaseChecklist">
+              <li><i class="fas fa-check-circle"></i> Complete Event Strategy Brief & Risk Contingency Matrix</li>
+              <li><i class="fas fa-check-circle"></i> Granular Financial Modeling & Sponsorship Revenue Projections</li>
+              <li><i class="fas fa-check-circle"></i> Milestone Timeline with 48-Hour Approval Gates</li>
+            </ul>
+          </div>
+
+          <div class="process-visual-col">
+            <div style="font-size: 0.92rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">
+              <i class="fas fa-shield-alt" style="color: #2563eb;"></i> Phase Quality Assurances
+            </div>
+            <div class="assurance-metric-row">
+              <span class="assurance-label">Redundancy Rigging Ratio</span>
+              <span class="assurance-value">200% (Dual Hot-Spare)</span>
+            </div>
+            <div class="assurance-metric-row">
+              <span class="assurance-label">Audio-Visual Latency Standard</span>
+              <span class="assurance-value">&lt; 15 milliseconds</span>
+            </div>
+            <div class="assurance-metric-row">
+              <span class="assurance-label">ISO-20121 Sustainability Audit</span>
+              <span class="assurance-value">Certified Carbon Neutral</span>
+            </div>
+            <div class="assurance-metric-row">
+              <span class="assurance-label">Emergency Protocol Response</span>
+              <span class="assurance-value">Immediate (Dedicated Lead)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 7: CLIENT TESTIMONIALS & REQUEST AN EVENT PROPOSAL (Interactive RFP)
+         ======================================================================== -->
+    <section class="content-section framer-rfp-init" id="proposal-rfp">
+      <div class="section-header">
+        <span class="section-pill-badge">
+          <i class="fas fa-file-contract"></i> Executive Partnership
+        </span>
+        <h2 class="section-title">
+          Client Testimonials & <span class="gradient-text">Request an Event Proposal</span>
+        </h2>
+        <p class="section-desc">
+          Read endorsements from Fortune 500 executive organizers and use our interactive RFP configurator to receive a comprehensive proposal within 24 hours.
+        </p>
+      </div>
+
+      <div class="testimonials-rfp-grid">
+        <!-- LEFT: TESTIMONIALS & TRUST BADGES -->
+        <div class="testimonials-column">
+          <!-- QUOTE 1 -->
+          <div class="glass-card testimonial-quote-card">
+            <div class="testimonial-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="testimonial-text">
+              "EventSphere orchestrated our 4-day annual summit for 3,800 delegates in Geneva with zero friction. The hybrid stream reached 45 countries with TV-broadcast precision."
+            </p>
+            <div class="testimonial-author-row">
+              <div class="testimonial-avatar-wrap">MV</div>
+              <div class="testimonial-author-info">
+                <span class="author-name">Marcus Vance</span>
+                <span class="author-role">Senior Vice President, Apex Cloud Technologies</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- QUOTE 2 -->
+          <div class="glass-card testimonial-quote-card">
+            <div class="testimonial-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="testimonial-text">
+              "Their white-glove speaker management and Michelin-caliber VIP dining transformed our investor forum into our highest-rated event in company history."
+            </p>
+            <div class="testimonial-author-row">
+              <div class="testimonial-avatar-wrap">SJ</div>
+              <div class="testimonial-author-info">
+                <span class="author-name">Sarah Jenkins</span>
+                <span class="author-role">Chief Marketing Officer, Horizon FinTech Global</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TRUST CERTIFICATION STRIP -->
+          <div class="client-trust-badges-bar">
+            <span><i class="fas fa-certificate" style="color: #2563eb;"></i> ISO-20121 Sustainable</span>
+            <span><i class="fas fa-shield-alt" style="color: #10b981;"></i> Fortune 100 Trusted</span>
+            <span><i class="fas fa-lock" style="color: #8b5cf6;"></i> NDA & SCIF Compliant</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: INTERACTIVE RFP PROPOSAL CONFIGURATOR -->
+        <div class="glass-card rfp-engine-card">
+          <div class="rfp-engine-header">
+            <h3 class="rfp-engine-title">Request an Event Proposal</h3>
+            <p class="rfp-engine-sub">
+              Adjust parameters below for an instant preliminary planning estimate and customized proposal submission.
+            </p>
+          </div>
+
+          <form id="rfpForm" onsubmit="event.preventDefault(); handleRfpSubmit();" style="display: flex; flex-direction: column; gap: 1.2rem;">
+            <!-- EVENT TYPE PILLS -->
+            <div>
+              <label style="font-size: 0.82rem; font-weight: 700; color: #475569; display: block; margin-bottom: 0.5rem;">
+                Select Event Architecture:
+              </label>
+              <div class="rfp-type-group">
+                <button type="button" class="rfp-type-btn active" data-type="summit" onclick="selectRfpType(this, 'Global Executive Summit')">
+                  <i class="fas fa-globe"></i> Global Summit
+                </button>
+                <button type="button" class="rfp-type-btn" data-type="gala" onclick="selectRfpType(this, 'Annual Gala & Awards')">
+                  <i class="fas fa-glass-cheers"></i> Gala & Awards
+                </button>
+                <button type="button" class="rfp-type-btn" data-type="retreat" onclick="selectRfpType(this, 'C-Suite Executive Retreat')">
+                  <i class="fas fa-mountain"></i> Executive Retreat
+                </button>
+                <button type="button" class="rfp-type-btn" data-type="hybrid" onclick="selectRfpType(this, 'Hybrid Multi-City Expo')">
+                  <i class="fas fa-broadcast-tower"></i> Hybrid Conference
+                </button>
+              </div>
+            </div>
+
+            <!-- ATTENDANCE SLIDER -->
+            <div class="rfp-slider-group">
+              <div class="rfp-slider-label-row">
+                <span>Estimated In-Person Attendance:</span>
+                <span class="rfp-slider-value" id="rfpGuestsDisplay">1,200 Attendees</span>
+              </div>
+              <input type="range" min="100" max="10000" step="100" value="1200" class="rfp-range-input" id="rfpGuestsSlider" oninput="updateRfpGuests(this.value)">
+            </div>
+
+            <!-- DYNAMIC CALCULATOR PREVIEW -->
+            <div class="rfp-dynamic-preview">
+              <div class="preview-stat">
+                <span class="preview-val" id="rfpTimelineEst">14–18 Weeks</span>
+                <span class="preview-lbl">Prep Timeline</span>
+              </div>
+              <div class="preview-stat">
+                <span class="preview-val" id="rfpCrewEst">22 Directors</span>
+                <span class="preview-lbl">Dedicated Crew</span>
+              </div>
+              <div class="preview-stat">
+                <span class="preview-val" id="rfpLeadTime">Tier-1 Hot Spare</span>
+                <span class="preview-lbl">AV Redundancy</span>
+              </div>
+            </div>
+
+            <!-- CONTACT DETAILS FORM -->
+            <div class="rfp-form-grid">
+              <input type="text" class="rfp-input" id="rfpName" placeholder="Your Full Name" required>
+              <input type="email" class="rfp-input" id="rfpEmail" placeholder="Corporate Email" required>
+              <input type="text" class="rfp-input" id="rfpCompany" placeholder="Organization / Company" required>
+              <select class="rfp-input" id="rfpBudget" required>
+                <option value="" disabled selected>Estimated Budget Range</option>
+                <option value="$100k-$250k">$100,000 – $250,000</option>
+                <option value="$250k-$750k">$250,000 – $750,000</option>
+                <option value="$750k-$2M">$750,000 – $2,000,000</option>
+                <option value="$2M+">$2,000,000+ Enterprise Tier</option>
+              </select>
+              <textarea class="rfp-input col-span-2" id="rfpNotes" rows="2" placeholder="Specific requirements (e.g., target city, dates, VIP speakers)..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-rfp-submit">
+              <i class="fas fa-paper-plane"></i> Submit Proposal Request
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         MODALS (Gallery Inspector & RFP Confirmation)
+         ======================================================================== -->
+    <div class="es-modal-backdrop" id="esModalBackdrop">
+      <div class="es-modal-dialog">
+        <button class="es-modal-close-btn" onclick="closeEsModal()"><i class="fas fa-times"></i></button>
+        <div id="esModalContent">
+          <!-- Content dynamically populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-container">
+      <!-- TOP: NEWSLETTER CTA STRIP -->
+      <div class="footer-cta">
+        <div class="footer-cta-text">
+          <span class="footer-cta-badge"><i class="fas fa-wand-magic-sparkles"></i> Executive Briefing</span>
+          <h2 class="footer-cta-title">Stay Ahead in Corporate Event Excellence</h2>
+          <p class="footer-cta-desc">Join 15,000+ Fortune 500 executives, summit organizers, and event leaders receiving our quarterly conference intelligence reports.</p>
+        </div>
+        <div class="footer-cta-form-wrapper">
+          <form class="footer-form" id="newsletterForm" onsubmit="event.preventDefault(); handleNewsletterSubmit();">
+            <input type="email" id="newsletterEmail" placeholder="Enter your corporate email..." required aria-label="Corporate Email">
+            <button type="submit" id="newsletterBtn"><i class="fas fa-paper-plane"></i> Subscribe</button>
+          </form>
+          <div class="footer-privacy-note">
+            <i class="fas fa-shield-alt"></i> Enterprise-grade confidentiality. Zero spam. Unsubscribe anytime.
+          </div>
+        </div>
+      </div>
+
+      <!-- MIDDLE: MAIN FOOTER LINKS GRID -->
+      <div class="footer-grid">
+        <!-- COL 1: BRAND OVERVIEW -->
+        <div class="footer-col-brand">
+          <a href="index.html" class="footer-brand-header" style="text-decoration: none; cursor: pointer;">
+            <div class="logo-3d">
+              <div class="logo-cube">
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+                <div class="logo-face">✦</div>
+              </div>
+            </div>
+            <div class="logo-text">Event<span>Sphere</span></div>
+          </a>
+          <p class="footer-brand-desc">
+            Premier corporate event planning and global conference management firm. We engineer world-class executive summits, immersive hybrid conferences, and gala celebrations with precision craftsmanship.
+          </p>
+          <div class="footer-metrics-pills">
+            <span class="metric-pill"><i class="fas fa-trophy"></i> 850+ Summits</span>
+            <span class="metric-pill"><i class="fas fa-globe-americas"></i> 42 Countries</span>
+            <span class="metric-pill"><i class="fas fa-star"></i> 99.6% Rating</span>
+          </div>
+          <div class="footer-social-row">
+            <a href="#" class="footer-social-btn" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="footer-social-btn" title="X (Twitter)" aria-label="X"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="footer-social-btn" title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer-social-btn" title="YouTube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="footer-social-btn" title="Global Network" aria-label="Global Network"><i class="fas fa-network-wired"></i></a>
+          </div>
+        </div>
+
+        <!-- COL 2: MAIN NAVIGATION -->
+        <div class="footer-col">
+          <h3 class="footer-col-title">Navigation</h3>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home 1 (Main Agency)</a></li>
+            <li><a href="home-2.html"><i class="fas fa-chevron-right"></i> Home 2 (Conference View)</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Our Firm</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services & Solutions</a></li>
+            <li><a href="portfolio.html"><i class="fas fa-chevron-right"></i> Event Portfolio</a></li>
+            <li><a href="event-planning.html"><i class="fas fa-chevron-right"></i> Event Planning Process</a></li>
+            <li><a href="vendors.html"><i class="fas fa-chevron-right"></i> Vendors Directory</a></li>
+            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact & Consultation</a></li>
+          </ul>
+        </div>
+
+        <!-- COL 3: SERVICES & SUMMITS -->
+        <div class="footer-col">
+          <h3 class="footer-col-title">Services & Summits</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Annual Executive Summits</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Global Hybrid Conferences</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Corporate Galas & Awards</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Product Launches & Expos</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Strategic Leadership Offsites</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Keynote Speaker Management</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Audiovisual & 3D Stagecraft</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Sustainable Event Audits</a></li>
+          </ul>
+        </div>
+
+
+        <!-- COL 4: HEADQUARTERS & CONTACT -->
+        <div class="footer-col footer-col-contact">
+          <h3 class="footer-col-title">Headquarters</h3>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <strong>Global HQ:</strong><br>
+                500 Financial Centre Blvd, Suite 2800<br>
+                New York, NY 10005, United States
+              </div>
+            </div>
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-phone-alt"></i></div>
+              <div>
+                <strong>Inquiries:</strong><br>
+                +1 (800) 555-EVENT<br>
+                +1 (212) 555-0198
+              </div>
+            </div>
+            <div class="footer-contact-item">
+              <div class="footer-contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <strong>Email:</strong><br>
+                summits@eventsphere.com
+              </div>
+            </div>
+            <div class="ops-status">
+              <span class="status-dot"></span>
+              24/7 Operations Command Active
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM: LEGAL & BACK TO TOP -->
+      <div class="footer-bottom">
+        <div>
+          © 2026 EventSphere Inc. Corporate Event Planning & Conference Management Firm. All rights reserved.
+        </div>
+        <ul class="footer-legal-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">GDPR & Security</a></li>
+          <li><a href="#">Cookie Settings</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+        <button class="back-to-top-btn" id="backToTopBtn" title="Back to Top">
+          <i class="fas fa-arrow-up"></i> Back to Top
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // ===== DARK MODE TOGGLE =====
+    const darkToggle = document.getElementById('darkModeToggle');
+    const darkToggleMobile = document.getElementById('darkModeToggleMobile');
+    const rtlToggle = document.getElementById('rtlToggle');
+    const rtlToggleMobile = document.getElementById('rtlToggleMobile');
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const body = document.body;
+
+    function toggleDark() {
+      body.classList.toggle('dark');
+      const icon = body.classList.contains('dark') ? 'fa-sun' : 'fa-moon';
+      darkToggle.innerHTML = `<i class="fas ${icon}"></i>`;
+      if (darkToggleMobile) darkToggleMobile.innerHTML = `<i class="fas ${icon}"></i>`;
+    }
+
+    darkToggle.addEventListener('click', toggleDark);
+    if (darkToggleMobile) darkToggleMobile.addEventListener('click', toggleDark);
+
+    function toggleRTL() {
+      body.classList.toggle('rtl');
+    }
+
+    rtlToggle.addEventListener('click', toggleRTL);
+    if (rtlToggleMobile) rtlToggleMobile.addEventListener('click', toggleRTL);
+
+    // ===== HAMBURGER MENU WITH SMOOTH MOTION =====
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      mobileMenu.classList.toggle('active');
+      hamburger.classList.toggle('open');
+      
+      // Framer Motion style spring animation on menu
+      if (mobileMenu.classList.contains('active')) {
+        mobileMenu.style.transform = 'scale(0.92) translateY(-12px)';
+        mobileMenu.style.opacity = '0';
+        requestAnimationFrame(() => {
+          mobileMenu.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease';
+          mobileMenu.style.transform = 'scale(1) translateY(0)';
+          mobileMenu.style.opacity = '1';
+        });
+      }
+    });
+
+    // Close menu on outside click
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target) && mobileMenu.classList.contains('active')) {
+        mobileMenu.classList.remove('active');
+        hamburger.classList.remove('open');
+        mobileMenu.style.transform = 'scale(0.92) translateY(-12px)';
+        mobileMenu.style.opacity = '0';
+      }
+    });
+
+    // ===== EXTREME HOVER EFFECTS (Framer Motion style) =====
+    const allButtons = document.querySelectorAll('.icon-btn, .login-btn, .hamburger, .footer-form button, .back-to-top-btn, .footer-social-btn');
+    allButtons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, background 0.3s ease';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transition = 'transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, background 0.3s ease';
+      });
+    });
+
+    // ===== MOBILE SUBMENU ACCORDION =====
+    const mobileDropdownHeaders = document.querySelectorAll('.mobile-dropdown-header');
+    mobileDropdownHeaders.forEach(header => {
+      header.addEventListener('click', (e) => {
+        // If direct navigation link inside header was clicked, allow navigation
+        if (e.target.closest('a')) {
+          return;
+        }
+        const parent = header.closest('.mobile-dropdown');
+        if (parent) {
+          parent.classList.toggle('open');
+        }
+      });
+    });
+
+    // ===== NAVBAR ACTIVE STATUS DYNAMIC HANDLER =====
+    (function syncNavbarActiveState() {
+      try {
+        const currentPath = window.location.pathname.toLowerCase();
+        let currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+        if (!currentPage || currentPage === '/') currentPage = 'index.html';
+
+        const navItems = document.querySelectorAll('.nav-links a, .mobile-nav-links a, .dropdown-item, .mobile-submenu a');
+        navItems.forEach(item => {
+          const href = (item.getAttribute('href') || '').toLowerCase();
+          if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+
+          let matches = false;
+          if (currentPage === 'index.html' || currentPage === '') {
+            if (href === 'index.html' && (item.textContent.trim().toLowerCase().includes('home 1') || item.classList.contains('dropdown-toggle') || (item.parentElement && item.parentElement.classList.contains('mobile-dropdown-header')))) {
+              matches = true;
+            }
+          } else if (href === currentPage) {
+            matches = true;
+          }
+
+          if (matches) {
+            item.classList.add('active');
+            const pLi = item.closest('li');
+            if (pLi) pLi.classList.add('active');
+            const pDrop = item.closest('.dropdown, .mobile-dropdown');
+            if (pDrop) {
+              pDrop.classList.add('active');
+              const tog = pDrop.querySelector('.dropdown-toggle, .mobile-dropdown-header > a');
+              if (tog) tog.classList.add('active');
+            }
+          }
+        });
+
+        // Instant active feedback upon clicking
+        navItems.forEach(item => {
+          item.addEventListener('click', function() {
+            const href = this.getAttribute('href');
+            if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+              document.querySelectorAll('.nav-links .active, .mobile-nav-links .active, .dropdown-item.active, .mobile-submenu .active').forEach(el => el.classList.remove('active'));
+              this.classList.add('active');
+              const pLi = this.closest('li');
+              if (pLi) pLi.classList.add('active');
+              const pDrop = this.closest('.dropdown, .mobile-dropdown');
+              if (pDrop) {
+                pDrop.classList.add('active');
+                const tog = pDrop.querySelector('.dropdown-toggle, .mobile-dropdown-header > a');
+                if (tog) tog.classList.add('active');
+              }
+            }
+          });
+        });
+      } catch (err) {
+        console.warn('Navbar active sync error:', err);
+      }
+    })();
+
+    // ===== NAV LINK STAGGER ANIMATION =====
+    const navLinks = document.querySelectorAll('.nav-links > li');
+    navLinks.forEach((link, index) => {
+      link.style.opacity = '0';
+      link.style.transform = 'translateY(-8px)';
+      link.style.transition = `opacity 0.5s ease ${0.05 * index + 0.1}s, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) ${0.05 * index + 0.1}s`;
+      setTimeout(() => {
+        link.style.opacity = '1';
+        link.style.transform = 'translateY(0)';
+      }, 50);
+      setTimeout(() => {
+        link.style.removeProperty('opacity');
+        link.style.removeProperty('transform');
+        link.style.removeProperty('transition');
+      }, 800);
+    });
+
+    // ===== INITIAL DARK ICON CHECK =====
+    if (body.classList.contains('dark')) {
+      darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      if (darkToggleMobile) darkToggleMobile.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    // ===== BACK TO TOP SMOOTH SCROLL =====
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // ===== NEWSLETTER INTERACTION =====
+    function handleNewsletterSubmit() {
+      const form = document.getElementById('newsletterForm');
+      const emailInput = document.getElementById('newsletterEmail');
+      if (form && emailInput && emailInput.value) {
+        form.innerHTML = '<div style="display:flex;align-items:center;gap:0.6rem;color:#16a34a;font-weight:600;font-size:0.9rem;padding:0.6rem 1rem;"><i class="fas fa-check-circle"></i> Thank you! You are subscribed to EventSphere Executive Briefings.</div>';
+      }
+    }
+
+    // ==========================================================================
+    // UNIQUE FRAMER MOTION STYLE SCROLL OBSERVER (Distinct Physics per Section)
+    // ==========================================================================
+    const motionObserverOptions = {
+      root: null,
+      rootMargin: '0px 0px -100px 0px',
+      threshold: 0.12
+    };
+
+    const motionObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = entry.target;
+
+          // Section 1: Hero (Scale & Blur Spring Unmask)
+          if (target.classList.contains('framer-hero-init')) {
+            target.classList.add('framer-hero-in');
+          }
+
+          // Section 2: Bento (Perspective 3D Flip)
+          if (target.classList.contains('framer-bento-init')) {
+            target.classList.add('framer-bento-in');
+          }
+
+          // Section 3: Masonry (Diagonal Cascade & Zoom)
+          if (target.classList.contains('framer-masonry-init')) {
+            target.classList.add('framer-masonry-in');
+          }
+
+          // Section 4: Venues (Horizontal Curtain Slide)
+          if (target.id === 'featured-venues') {
+            const leftCurtain = target.querySelector('.framer-curtain-left');
+            const rightCurtain = target.querySelector('.framer-curtain-right');
+            if (leftCurtain) leftCurtain.classList.add('framer-curtain-in');
+            if (rightCurtain) rightCurtain.classList.add('framer-curtain-in');
+          }
+
+          // Section 5: Case Studies (Depth Pop + Count-Up Animation)
+          if (target.classList.contains('framer-depth-init')) {
+            target.classList.add('framer-depth-in');
+            triggerRoiCounters();
+          }
+
+          // Section 6: Stepper Roadmap (Progressive Elastic Stepper)
+          if (target.classList.contains('framer-stepper-init')) {
+            target.classList.add('framer-stepper-in');
+            animateStepperLine();
+          }
+
+          // Section 7: RFP Proposal Engine (Elastic Glow Expansion)
+          if (target.classList.contains('framer-rfp-init')) {
+            target.classList.add('framer-rfp-in');
+          }
+
+          observer.unobserve(target);
+        }
+      });
+    }, motionObserverOptions);
+
+    // Register all sections for unique Framer Motion scroll triggers
+    document.querySelectorAll('#hero, #upcoming-summits, #gallery-experiences, #featured-venues, #case-studies, #planning-process, #proposal-rfp').forEach(sec => {
+      motionObserver.observe(sec);
+    });
+
+    // Immediate spring trigger for hero on page load
+    requestAnimationFrame(() => {
+      const hero = document.getElementById('hero');
+      if (hero) hero.classList.add('framer-hero-in');
+    });
+
+    // Animate ROI metrics
+    let roiAnimated = false;
+    function triggerRoiCounters() {
+      if (roiAnimated) return;
+      roiAnimated = true;
+      const metrics = document.querySelectorAll('.roi-value');
+      metrics.forEach((m, idx) => {
+        m.style.opacity = '0';
+        m.style.transform = 'translateY(10px)';
+        m.style.transition = `all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${idx * 0.12 + 0.2}s`;
+        setTimeout(() => {
+          m.style.opacity = '1';
+          m.style.transform = 'translateY(0)';
+        }, 50);
+      });
+    }
+
+    // Animate Stepper line
+    function animateStepperLine() {
+      const line = document.getElementById('stepperProgressLine');
+      if (line) {
+        line.style.width = '20%';
+      }
+    }
+
+    // ==========================================================================
+    // SECTION 2: LIVE SUMMIT COUNTDOWN TIMER
+    // ==========================================================================
+    let countdownTarget = new Date().getTime() + (34 * 24 * 60 * 60 * 1000) + (18 * 60 * 60 * 1000);
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = countdownTarget - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const dEl = document.getElementById('cdDays');
+        const hEl = document.getElementById('cdHours');
+        const mEl = document.getElementById('cdMins');
+        const sEl = document.getElementById('cdSecs');
+
+        if (dEl) dEl.textContent = String(days).padStart(2, '0');
+        if (hEl) hEl.textContent = String(hours).padStart(2, '0');
+        if (mEl) mEl.textContent = String(minutes).padStart(2, '0');
+        if (sEl) sEl.textContent = String(seconds).padStart(2, '0');
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ==========================================================================
+    // SECTION 3: GALLERY FILTER TABS & MODAL INSPECTOR
+    // ==========================================================================
+    const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+    const galleryCards = document.querySelectorAll('.gallery-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        galleryCards.forEach(card => {
+          const cat = card.getAttribute('data-category');
+          if (filter === 'all' || cat === filter) {
+            card.style.display = 'flex';
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.92)';
+            setTimeout(() => {
+              card.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            }, 30);
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    const modalBackdrop = document.getElementById('esModalBackdrop');
+    const modalContent = document.getElementById('esModalContent');
+
+    const galleryData = {
+      signature: {
+        title: "The Holographic Keynote Dimension",
+        category: "Signature Experience · 3D Spatial Holography",
+        image: "images/signature_stage.jpg",
+        description: "Engineered for 12,000 live delegates featuring custom 28-meter kinetic LED rings, 3D volumetric laser spatial geometry, and crystal-clear d&b audiotechnik line arrays with zero sound reflection.",
+        specs: [
+          { label: "Live Participants", val: "12,000 In-Person + 180k Virtual" },
+          { label: "Projection Rigging", val: "32x 4K Barco Laser Projectors" },
+          { label: "Acoustics Profile", val: "L-Acoustics L-ISA Spatial Sound" },
+          { label: "Executive Debrief", val: "99.4% Highest Engagement Rating" }
+        ]
+      },
+      gala: {
+        title: "Fortune 500 Pinnacle Awards Banquet",
+        category: "Annual Corporate Gala & Recognition",
+        image: "images/gala_awards.jpg",
+        description: "Opulent gala celebration for 650 VIP board directors and international laureates. Coordinated with 3-star Michelin gastronomy, bespoke crystal stage lighting, and custom orchestral cues.",
+        specs: [
+          { label: "VIP Attendance", val: "650 C-Suite Guests" },
+          { label: "Catering Curation", val: "5-Course Michelin Dining" },
+          { label: "Lighting Architecture", val: "Kinetic Gold Pinspotting" },
+          { label: "Guest Satisfaction", val: "100% Unanimous Net Promoter" }
+        ]
+      },
+      hybrid: {
+        title: "32-Country Hybrid Command Center",
+        category: "Mission-Critical Global Broadcasting",
+        image: "images/hybrid_event.jpg",
+        description: "Real-time master control room monitoring simultaneous multi-continent translation, satellite backup uplinks, and synchronized interactive Q&A feeds across 32 timezones with 0 dropped frames.",
+        specs: [
+          { label: "Global Reach", val: "32 Simultaneous Timezones" },
+          { label: "Network Latency", val: "&lt; 85ms Worldwide" },
+          { label: "Redundancy Setup", val: "Dual Starlink + Dark Fiber" },
+          { label: "Broadcast Standard", val: "Uncompressed 4K HDR 60fps" }
+        ]
+      },
+      fintech: {
+        title: "Fintech Exponential Pavilion & Dealmaking Lounges",
+        category: "Experiential B2B Expo & Matchmaking",
+        image: "images/success_fintech.jpg",
+        description: "High-density sponsor exhibition concourse engineered with AI matchmaking kiosks, private bilateral negotiation suites, and automated NFC badge lead exchange.",
+        specs: [
+          { label: "Partner Booths", val: "140 Enterprise Exhibitors" },
+          { label: "Closed Transactions", val: "$420,000,000+" },
+          { label: "Throughput Rate", val: "Sub-3-second biometric check-in" },
+          { label: "Sponsor Retention", val: "96.8% Renewal Rate" }
+        ]
+      }
+    };
+
+    function openGalleryModal(key) {
+      const data = galleryData[key];
+      if (!data) return;
+
+      modalContent.innerHTML = `
+        <div style="display:flex;flex-direction:column;gap:1.2rem;">
+          <div style="font-size:0.75rem;font-weight:700;color:#2563eb;text-transform:uppercase;letter-spacing:0.06em;">${data.category}</div>
+          <h3 style="font-size:1.55rem;font-weight:800;color:#0f172a;line-height:1.25;" class="modal-title-dyn">${data.title}</h3>
+          <img src="${data.image}" style="width:100%;height:240px;object-fit:cover;border-radius:18px;border:1px solid rgba(59,130,246,0.2);">
+          <p style="font-size:0.9rem;color:#475569;line-height:1.6;" class="modal-desc-dyn">${data.description}</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;background:rgba(37,99,235,0.06);padding:1rem;border-radius:16px;">
+            ${data.specs.map(s => `
+              <div>
+                <div style="font-size:0.7rem;font-weight:600;color:#64748b;text-transform:uppercase;">${s.label}</div>
+                <div style="font-size:0.9rem;font-weight:800;color:#2563eb;">${s.val}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      modalBackdrop.classList.add('active');
+    }
+
+    function closeEsModal() {
+      modalBackdrop.classList.remove('active');
+    }
+
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) closeEsModal();
+    });
+
+    // ==========================================================================
+    // SECTION 4: VENUE TAB SPEC SWITCHER
+    // ==========================================================================
+    const venueTabSpecs = {
+      'pavilion-spatial': '<strong>120,000 sq.ft Exhibition Concourse:</strong> Triple-height soaring geometric glass ceiling offering column-free views, dual grand spiral staircases, and 4 dedicated executive presentation suites.',
+      'pavilion-av': '<strong>Acoustics & Broadcast:</strong> Calibrated micro-perforated acoustic baffling, concealed line-array rigging points, and integrated 4K robotic pan-tilt-zoom camera tracking grid.',
+      'pavilion-logistics': '<strong>VIP Protocol & Access:</strong> Dedicated private subterranean motorcade entrance, presidential green rooms with ballistic glazing, and biometric credential escorts.',
+      'alpine-spatial': '<strong>Executive Mountain Auditorium:</strong> Tiered leather seating overlooking pristine Swiss glacier peaks, equipped with simultaneous 8-language interpreter booths and whisper-quiet HVAC.',
+      'alpine-av': '<strong>Bilateral Suites:</strong> 14 soundproofed diplomatic salon chambers with encrypted conferencing uplinks, digital voting pads, and private breakout terraces.',
+      'alpine-logistics': '<strong>Access Security:</strong> Tier-4 perimeter surveillance, private helipad landing strip with customs clearance, and direct alpine resort security coordination.'
+    };
+
+    function switchVenueTab(btn, specKey) {
+      const parent = btn.closest('.venue-content-pad');
+      parent.querySelectorAll('.venue-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const panel = parent.querySelector('.venue-tab-panel');
+      if (panel && venueTabSpecs[specKey]) {
+        panel.style.opacity = '0';
+        setTimeout(() => {
+          panel.innerHTML = venueTabSpecs[specKey];
+          panel.style.transition = 'opacity 0.25s ease';
+          panel.style.opacity = '1';
+        }, 100);
+      }
+    }
+
+    // ==========================================================================
+    // SECTION 6: EVENT PLANNING PROCESS STEPPER ROADMAP
+    // ==========================================================================
+    const stepData = [
+      {
+        tag: "Phase 01 · Strategic Foundation",
+        title: "Discovery, KPI Blueprinting & Budget Engineering",
+        desc: "We align with your executive steering committee to define core summit milestones, attendee personas, commercial targets, and precise budget allocations with zero hidden line items.",
+        checklist: [
+          "Complete Event Strategy Brief & Risk Contingency Matrix",
+          "Granular Financial Modeling & Sponsorship Revenue Projections",
+          "Milestone Timeline with 48-Hour Approval Gates"
+        ]
+      },
+      {
+        tag: "Phase 02 · Spatial & Procurement",
+        title: "Venue Procurement, Contracting & 3D Spatial Design",
+        desc: "Negotiating master contracts with premier global convention hubs, running 3D acoustic simulations, and designing CAD floor plans tailored to VIP traffic flow.",
+        checklist: [
+          "Master Venue Contract Negotiation & Force Majeure Protections",
+          "Full 3D Architectural Spatial Pre-Visualizations",
+          "Municipal Permits, Fire Code & Security Clearances"
+        ]
+      },
+      {
+        tag: "Phase 03 · Experience Curation",
+        title: "Speaker Curation, Content Staging & Attendee Journey",
+        desc: "Securing tier-1 keynote talent, directing speaker slide formatting, managing white-glove VIP concierge services, and personalizing delegate agendas.",
+        checklist: [
+          "C-Suite Speaker Briefings & Rehearsal Coordination",
+          "Interactive Attendee Mobile App & NFC Credential Sync",
+          "Michelin-Curated Banquet & VIP Hospitality Protocols"
+        ]
+      },
+      {
+        tag: "Phase 04 · Live Execution",
+        title: "Mission-Control Live Production & Hybrid Broadcasting",
+        desc: "Operating our on-site master control suite with dual-redundant power, hot-spare AV rigs, real-time stage teleprompters, and 4K ultra-low-latency streaming.",
+        checklist: [
+          "200% Redundant Live Production Control Room",
+          "Synchronized 4K Multilingual Satellite Uplinks",
+          "Real-Time Incident Protocol with Sub-60-Sec Resolution"
+        ]
+      },
+      {
+        tag: "Phase 05 · Post-Event Intelligence",
+        title: "Executive Analytics, NPS Scoring & Carbon Offsetting",
+        desc: "Delivering an executive post-mortem within 72 hours, including attendee dwell times, sponsor lead reconciliation, and certified ISO-20121 green audit reports.",
+        checklist: [
+          "Full Delegate CSAT & Executive Net Promoter Score Report",
+          "Sponsor Lead Attribution & Verified ROI Audit",
+          "Certified Carbon Neutrality & Sustainability Offsetting"
+        ]
+      }
+    ];
+
+    function activateStep(stepNum) {
+      const nodes = document.querySelectorAll('.stepper-node');
+      nodes.forEach((n, idx) => {
+        if (idx === stepNum - 1) n.classList.add('active');
+        else n.classList.remove('active');
+      });
+
+      const progressLine = document.getElementById('stepperProgressLine');
+      if (progressLine) {
+        const percentages = ['20%', '40%', '60%', '80%', '100%'];
+        progressLine.style.width = percentages[stepNum - 1];
+      }
+
+      const data = stepData[stepNum - 1];
+      if (data) {
+        const card = document.getElementById('processDetailsCard');
+        if (card) {
+          card.style.opacity = '0.4';
+          card.style.transform = 'translateY(8px)';
+          setTimeout(() => {
+            document.getElementById('phaseTag').textContent = data.tag;
+            document.getElementById('phaseTitle').textContent = data.title;
+            document.getElementById('phaseDesc').textContent = data.desc;
+            const cl = document.getElementById('phaseChecklist');
+            cl.innerHTML = data.checklist.map(item => `<li><i class="fas fa-check-circle"></i> ${item}</li>`).join('');
+            card.style.transition = 'all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 150);
+        }
+      }
+    }
+
+    // ==========================================================================
+    // SECTION 7: INTERACTIVE RFP PROPOSAL CONFIGURATOR ENGINE
+    // ==========================================================================
+    let selectedEventType = "Global Executive Summit";
+
+    function selectRfpType(btn, typeName) {
+      document.querySelectorAll('.rfp-type-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedEventType = typeName;
+      recalculateRfpEstimates();
+    }
+
+    function updateRfpGuests(val) {
+      const display = document.getElementById('rfpGuestsDisplay');
+      if (display) {
+        display.textContent = `${Number(val).toLocaleString()} Attendees`;
+      }
+      recalculateRfpEstimates();
+    }
+
+    function recalculateRfpEstimates() {
+      const guests = parseInt(document.getElementById('rfpGuestsSlider').value, 10);
+      const timelineEl = document.getElementById('rfpTimelineEst');
+      const crewEl = document.getElementById('rfpCrewEst');
+      const leadEl = document.getElementById('rfpLeadTime');
+
+      if (guests < 500) {
+        if (timelineEl) timelineEl.textContent = "8–12 Weeks";
+        if (crewEl) crewEl.textContent = "12 Directors";
+        if (leadEl) leadEl.textContent = "Standard Redundancy";
+      } else if (guests <= 2500) {
+        if (timelineEl) timelineEl.textContent = "14–18 Weeks";
+        if (crewEl) crewEl.textContent = "22 Directors";
+        if (leadEl) leadEl.textContent = "Tier-1 Hot Spare";
+      } else {
+        if (timelineEl) timelineEl.textContent = "20–26 Weeks";
+        if (crewEl) crewEl.textContent = "38+ Directors";
+        if (leadEl) leadEl.textContent = "Tier-1 Military Redundancy";
+      }
+    }
+
+    function handleRfpSubmit() {
+      const name = document.getElementById('rfpName').value;
+      const email = document.getElementById('rfpEmail').value;
+      const company = document.getElementById('rfpCompany').value;
+      const budget = document.getElementById('rfpBudget').value;
+      const guests = document.getElementById('rfpGuestsSlider').value;
+      const notes = document.getElementById('rfpNotes').value;
+
+      const rfpId = 'RFP-2026-' + Math.floor(1000 + Math.random() * 9000);
+
+      modalContent.innerHTML = `
+        <div style="display:flex;flex-direction:column;gap:1.3rem;text-align:center;align-items:center;">
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 10px 25px rgba(16,185,129,0.4);">
+            <i class="fas fa-check"></i>
+          </div>
+          <div>
+            <div style="font-size:0.8rem;font-weight:700;color:#10b981;text-transform:uppercase;letter-spacing:0.06em;">Proposal Request Confirmed</div>
+            <h3 style="font-size:1.6rem;font-weight:800;color:#0f172a;margin-top:0.3rem;">Thank You, ${name}</h3>
+          </div>
+          <p style="font-size:0.92rem;color:#475569;line-height:1.6;max-width:480px;">
+            Your bespoke proposal dossier for <strong>${company}</strong> has been registered under reference <strong>${rfpId}</strong>. A Senior Conference Director has been assigned to your brief.
+          </p>
+          <div style="width:100%;background:rgba(37,99,235,0.06);border:1px solid rgba(37,99,235,0.18);border-radius:18px;padding:1.1rem;display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;text-align:left;">
+            <div>
+              <span style="font-size:0.72rem;color:#64748b;font-weight:600;text-transform:uppercase;">Architecture</span>
+              <div style="font-size:0.88rem;font-weight:700;color:#0f172a;">${selectedEventType}</div>
+            </div>
+            <div>
+              <span style="font-size:0.72rem;color:#64748b;font-weight:600;text-transform:uppercase;">Attendance</span>
+              <div style="font-size:0.88rem;font-weight:700;color:#0f172a;">${Number(guests).toLocaleString()} Delegates</div>
+            </div>
+            <div>
+              <span style="font-size:0.72rem;color:#64748b;font-weight:600;text-transform:uppercase;">Budget Tier</span>
+              <div style="font-size:0.88rem;font-weight:700;color:#0f172a;">${budget || 'Custom Enterprise'}</div>
+            </div>
+            <div>
+              <span style="font-size:0.72rem;color:#64748b;font-weight:600;text-transform:uppercase;">Response SLA</span>
+              <div style="font-size:0.88rem;font-weight:700;color:#10b981;">&lt; 24 Business Hours</div>
+            </div>
+          </div>
+          <button class="btn-hero-primary" onclick="closeEsModal()" style="width:100%;justify-content:center;margin-top:0.4rem;">
+            <i class="fas fa-arrow-left"></i> Return to EventSphere
+          </button>
+        </div>
+      `;
+      modalBackdrop.classList.add('active');
+    }
+  </script>
+</body>
+</html>
