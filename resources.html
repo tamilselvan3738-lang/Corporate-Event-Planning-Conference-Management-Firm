@@ -4065,6 +4065,29 @@
       margin: 0 !important;
     }
 
+    
+    /* ===== IPAD & TABLET NAVBAR COLLAPSE (<= 1200px) ===== */
+    @media (max-width: 1200px) {
+      .nav-links, 
+      .right-section .icon-btn, 
+      .right-section .login-btn {
+        display: none !important;
+      }
+      .hamburger {
+        display: flex !important;
+      }
+      .nav-container {
+        padding: 0.5rem 1.4rem !important;
+      }
+    }
+
+    .nav-links > li > a {
+      white-space: nowrap !important;
+    }
+    .nav-links {
+      flex-wrap: nowrap !important;
+    }
+
     /* --- BREAKPOINT: 1024px --- */
     @media (max-width: 1024px) {
       .app-wrapper {

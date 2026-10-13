@@ -1281,6 +1281,26 @@
       -webkit-overflow-scrolling: touch !important;
     }
 
+    
+    /* ===== IPAD & TABLET TOPBAR COLLAPSE (<= 1200px) ===== */
+    @media (max-width: 1200px) {
+      .dashboard-layout {
+        flex-direction: column !important;
+      }
+      .admin-sidebar {
+        display: none !important;
+      }
+      .hamburger-btn {
+        display: flex !important;
+      }
+      .admin-topbar {
+        padding: 0.5rem 1.25rem !important;
+      }
+      .topbar-right .topbar-btn {
+        display: none !important;
+      }
+    }
+
     /* --- BREAKPOINT: 1024px --- */
     @media (max-width: 1024px) {
       .dashboard-layout {
