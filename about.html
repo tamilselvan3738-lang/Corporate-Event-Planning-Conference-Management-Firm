@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EventSphere · Corporate Event Planning</title>
+  <title>EventSphere · About Our Corporate Event Planning Firm</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -621,10 +621,9 @@
     }
 
     /* ===== 3D ICON BUTTONS ===== */
-    .icon-btn, .login-btn {
-      border: none;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e293b;
+    .icon-btn { border: none; background: linear-gradient(145deg, #ffffff, #f1f5f9); color: #1e293b;
+    }
+    .login-btn { border: 1px solid #1d4ed8 !important; background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important;
       width: 42px;
       height: 42px;
       border-radius: 30px;
@@ -684,12 +683,14 @@
 
     .login-btn {
       width: auto;
-      padding: 0 1.5rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e3a8a;
+      padding: 0.6rem 1.4rem !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      font-size: 0.88rem !important;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+      color: #ffffff !important;
+      border: 1px solid #1d4ed8 !important;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
       gap: 0.5rem;
       letter-spacing: 0.2px;
     }
@@ -3391,6 +3392,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/brand.css">
 </head>
 <body>
   <div class="app-wrapper">
@@ -3462,7 +3464,7 @@
       <div class="right-section">
         <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
         <!-- Hamburger visible only on tablet/mobile -->
         <button class="hamburger" id="hamburgerBtn">
           <span></span><span></span><span></span>
@@ -3504,7 +3506,7 @@
       <div class="mobile-actions">
         <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
       </div>
     </div>
 
@@ -3520,8 +3522,8 @@
         <!-- Section Header -->
         <div class="abt-section-head framer-epoch-chronicle">
           <div class="abt-badge"><i class="fas fa-crown"></i> Institutional Legacy</div>
-          <h2 class="abt-title">Company Heritage & <span class="abt-title-gradient">Archival Provenance</span></h2>
-          <p class="abt-subtitle">Founded in 2012, Apex has evolved from an elite diplomatic protocol advisory into the world's foremost corporate conference architecture firm.</p>
+          <h2 class="abt-title">Company Heritage & <span class="abt-title-gradient">Proven Excellence</span></h2>
+          <p class="abt-subtitle">Founded in 2012, EventSphere has evolved from an elite diplomatic protocol advisory into the world's foremost corporate conference architecture firm.</p>
         </div>
 
         <!-- Heritage Metric Ribbon -->
@@ -3561,9 +3563,9 @@
           <!-- Monolith Visual Card -->
           <div class="abt-monolith-visual-card framer-epoch-chronicle">
             <div class="abt-monolith-img-wrap">
-              <img src="images/about_heritage.jpg" alt="Apex Corporate Event Heritage & Founders Assembly">
+              <img src="images/about_heritage.jpg" alt="EventSphere Corporate Event Heritage & Founders Assembly">
               <div class="abt-wax-seal">
-                <i class="fas fa-certificate"></i> Apex Group Charter • Est. 2012
+                <i class="fas fa-certificate"></i> EventSphere Group Charter • Est. 2012
               </div>
             </div>
           </div>
@@ -3622,43 +3624,71 @@
         <!-- Section Header -->
         <div class="abt-section-head framer-polarity-gyro">
           <div class="abt-badge"><i class="fas fa-compass"></i> Guiding Horizons</div>
-          <h2 class="abt-title">The Operational Mission & <span class="abt-title-gradient">2035 Vision</span></h2>
-          <p class="abt-subtitle">Our mission anchors day-to-day production precision, while our vision engineers the regenerative, multi-dimensional conference architectures of tomorrow.</p>
+          <h2 class="abt-title">Our Mission & <span class="abt-title-gradient">Long-Term Vision</span></h2>
+          <p class="abt-subtitle">Our mission drives daily event planning excellence, while our vision pioneers sustainable, technologically seamless conferences for global leaders.</p>
         </div>
 
         <div class="abt-polarity-deck-grid">
           <!-- Left Horizon: Mission -->
           <div class="abt-polarity-card framer-polarity-gyro">
             <div class="abt-polarity-img-box">
-              <img src="images/about_mission.jpg" alt="Apex Operational Mission Production Command">
+              <img src="images/about_mission.jpg" alt="EventSphere Operational Mission Production Command">
               <div class="abt-polarity-badge"><i class="fas fa-bullseye"></i> Operational Mission</div>
             </div>
             <div class="abt-polarity-body">
-              <h3 class="abt-polarity-title">The Operational Mission Engine</h3>
-              <p class="abt-polarity-desc">To architect zero-defect corporate summits where every technological, spatial, and human touchpoint reinforces the executive narrative and delivers verifiable corporate resonance.</p>
+              <h3 class="abt-polarity-title">Our Operational Mission</h3>
+              <p class="abt-polarity-desc">To design and execute corporate conferences, summits, and executive gatherings where every detail reinforces corporate vision and delivers measurable value.</p>
               <div class="abt-polarity-bullets">
-                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Rigorous Protocol:</strong> Flawless dignitary movement and military-grade run-of-show timing.</div>
-                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Institutional Redundancy:</strong> N+2 hardware backups across all mission-critical feeds.</div>
-                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Financial Transparency:</strong> 100% open-book Capex/Opex ledger governance.</div>
+                <div class="abt-pbullet-row">
+                  <i class="fas fa-circle-check"></i>
+                  <div class="abt-pbullet-content">
+                    <strong>Rigorous Protocol:</strong> Flawless dignitary movement and precise run-of-show timing.
+                  </div>
+                </div>
+                <div class="abt-pbullet-row">
+                  <i class="fas fa-circle-check"></i>
+                  <div class="abt-pbullet-content">
+                    <strong>Technical Redundancy:</strong> N+2 hardware backups across all mission-critical feeds.
+                  </div>
+                </div>
+                <div class="abt-pbullet-row">
+                  <i class="fas fa-circle-check"></i>
+                  <div class="abt-pbullet-content">
+                    <strong>Financial Transparency:</strong> 100% open-book budgeting and itemized cost accounting.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Right Horizon: Vision -->
           <div class="abt-polarity-card framer-polarity-gyro">
-            <div class="abt-vision-hud-box">
-              <div class="abt-hud-radar-ring"></div>
-              <div class="abt-hud-icon"><i class="fas fa-meteor"></i></div>
-              <div class="abt-polarity-badge"><i class="fas fa-eye"></i> Future Horizon 2035</div>
-              <div class="abt-hud-telemetry-tag">QUANTUM SPATIAL ARCHITECTURE</div>
+            <div class="abt-polarity-img-box">
+              <img src="images/about_philosophy.jpg" alt="EventSphere Corporate Event Vision">
+              <div class="abt-polarity-badge"><i class="fas fa-eye"></i> Event Vision</div>
             </div>
             <div class="abt-polarity-body">
-              <h3 class="abt-polarity-title">The Future Vision Paradigm</h3>
-              <p class="abt-polarity-desc">To redefine human assembly by synthesizing sustainable spatial architecture, bio-resonant acoustics, and real-time generative media into net-zero carbon summits.</p>
+              <h3 class="abt-polarity-title">Our Vision for Corporate Events</h3>
+              <p class="abt-polarity-desc">To elevate enterprise gatherings through inspiring venue design, seamless hybrid technology, and certified sustainable event practices.</p>
               <div class="abt-polarity-bullets">
-                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Carbon-Neutral Plenaries:</strong> Verified Scope 1-3 net-zero emission standard across all events.</div>
-                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Generative Canvasses:</strong> Real-time 3D Unreal Engine environments replacing static presentations.</div>
-                <div class="abt-pbullet-row"><i class="fas fa-circle-check"></i> <strong>Biometric Comfort:</strong> Micro-climate zoned auditoriums maximizing executive alertness.</div>
+                <div class="abt-pbullet-row">
+                  <i class="fas fa-circle-check"></i>
+                  <div class="abt-pbullet-content">
+                    <strong>Sustainable Summits:</strong> ISO-20121 certified green operations and zero-waste logistics.
+                  </div>
+                </div>
+                <div class="abt-pbullet-row">
+                  <i class="fas fa-circle-check"></i>
+                  <div class="abt-pbullet-content">
+                    <strong>Hybrid Integration:</strong> High-definition streaming connecting in-person and remote delegates.
+                  </div>
+                </div>
+                <div class="abt-pbullet-row">
+                  <i class="fas fa-circle-check"></i>
+                  <div class="abt-pbullet-content">
+                    <strong>Executive Focus:</strong> Immersive acoustic and visual staging that drives attendee engagement.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -3674,14 +3704,14 @@
         <!-- Section Header -->
         <div class="abt-section-head framer-triad-pedestal">
           <div class="abt-badge"><i class="fas fa-brain"></i> Core Methodology</div>
-          <h2 class="abt-title">Production Philosophy & <span class="abt-title-gradient">Sensory Triad</span></h2>
+          <h2 class="abt-title">Our Planning Philosophy & <span class="abt-title-gradient">Core Principles</span></h2>
           <p class="abt-subtitle">Our three foundational pillars transform traditional corporate conferences from passive presentations into catalytic business milestones.</p>
         </div>
 
         <!-- Philosophy Hero Frame -->
         <div class="abt-philosophy-hero-frame framer-triad-pedestal">
           <div class="abt-philosophy-img-box">
-            <img src="images/about_philosophy.jpg" alt="Apex Production Philosophy & Spatial Resonance">
+            <img src="images/about_philosophy.jpg" alt="EventSphere Production Philosophy & Spatial Resonance">
             <div class="abt-philosophy-overlay">
               <div class="abt-philosophy-manifesto">
                 "Events are not passive calendar dates. They are hyper-calibrated spatial ecosystems engineered to align corporate vision, accelerate deal flow, and shift industry trajectories."
@@ -3739,7 +3769,7 @@
         <!-- Section Header -->
         <div class="abt-section-head framer-council-quad">
           <div class="abt-badge"><i class="fas fa-users-gear"></i> Executive Council</div>
-          <h2 class="abt-title">Executive Leadership & <span class="abt-title-gradient">Council of Architects</span></h2>
+          <h2 class="abt-title">Executive Leadership & <span class="abt-title-gradient">Event Directors</span></h2>
           <p class="abt-subtitle">Meet the visionary strategists, acousticians, and operational commanders directing our global conference production operations.</p>
         </div>
 
@@ -3752,10 +3782,10 @@
             <div class="abt-leader-body">
               <span class="abt-leader-role">Founder & CEO</span>
               <h4 class="abt-leader-name">Julian Vance</h4>
-              <p class="abt-leader-bio">Former G8 Summit protocol lead with 24 years directing world economic plenaries and sovereign state functions.</p>
+              <p class="abt-leader-bio">Former global summit director with 24 years managing international economic plenaries and corporate executive events.</p>
               <div class="abt-leader-footer">
                 <span class="abt-leader-credential"><i class="fas fa-shield"></i> Protocol Master</span>
-                <span class="abt-leader-btn" onclick="openBioModal('Julian Vance', 'Founder & Chief Executive Officer', 'Julian Vance established Apex in 2012 following a distinguished decade advising heads of state on multilateral summit coordination. Under his stewardship, Apex has managed over 1,850 international conferences without a single security breach or broadcast interruption.')">
+                <span class="abt-leader-btn" onclick="openBioModal('Julian Vance', 'Founder & Chief Executive Officer', 'Julian Vance established EventSphere in 2012 following a distinguished decade advising heads of state on multilateral summit coordination. Under his stewardship, EventSphere has managed over 1,850 international conferences without a single security breach or broadcast interruption.')">
                   Bio <i class="fas fa-arrow-right"></i>
                 </span>
               </div>
@@ -3773,7 +3803,7 @@
               <p class="abt-leader-bio">Ph.D. in Architectural Acoustics from MIT; pioneer of cognitive neurodesign in keynote plenary atmospheres.</p>
               <div class="abt-leader-footer">
                 <span class="abt-leader-credential"><i class="fas fa-wave-square"></i> Acoustic Fellow</span>
-                <span class="abt-leader-btn" onclick="openBioModal('Dr. Sophia Sterling', 'Chief Strategy Officer', 'Dr. Sophia Sterling leads spatial architecture at Apex, engineering venues where acoustics, illumination, and circulation maximize neurological engagement and audience retention.')">
+                <span class="abt-leader-btn" onclick="openBioModal('Dr. Sophia Sterling', 'Chief Strategy Officer', 'Dr. Sophia Sterling leads spatial architecture at EventSphere, engineering venues where acoustics, illumination, and circulation maximize neurological engagement and audience retention.')">
                   Bio <i class="fas fa-arrow-right"></i>
                 </span>
               </div>
@@ -3791,7 +3821,7 @@
               <p class="abt-leader-bio">Emmy Award-winning broadcast producer; manages our worldwide N+2 redundant hardware rigs and satellite uplinks.</p>
               <div class="abt-leader-footer">
                 <span class="abt-leader-credential"><i class="fas fa-satellite"></i> Broadcast Master</span>
-                <span class="abt-leader-btn" onclick="openBioModal('Marcus Chen', 'VP of Global Operations & Broadcast', 'Marcus Chen commands Apex on-site engineering crews across Europe, North America, and the Asia-Pacific. He holds 12 patents in low-latency IP broadcast signal routing.')">
+                <span class="abt-leader-btn" onclick="openBioModal('Marcus Chen', 'VP of Global Operations & Broadcast', 'Marcus Chen commands EventSphere on-site engineering crews across Europe, North America, and the Asia-Pacific. He holds 12 patents in low-latency IP broadcast signal routing.')">
                   Bio <i class="fas fa-arrow-right"></i>
                 </span>
               </div>
@@ -3809,7 +3839,7 @@
               <p class="abt-leader-bio">Lead auditor for ISO-20121 sustainable events; author of the Corporate Net-Zero Event Blueprint.</p>
               <div class="abt-leader-footer">
                 <span class="abt-leader-credential"><i class="fas fa-leaf"></i> ISO-20121 Auditor</span>
-                <span class="abt-leader-btn" onclick="openBioModal('Amara Patel', 'Head of Sustainable Production & ESG', 'Amara Patel oversees Apex zero-waste and carbon-neutral initiatives, ensuring all partner events achieve auditable ESG compliance with zero single-use plastics.')">
+                <span class="abt-leader-btn" onclick="openBioModal('Amara Patel', 'Head of Sustainable Production & ESG', 'Amara Patel oversees EventSphere zero-waste and carbon-neutral initiatives, ensuring all partner events achieve auditable ESG compliance with zero single-use plastics.')">
                   Bio <i class="fas fa-arrow-right"></i>
                 </span>
               </div>
@@ -3827,7 +3857,7 @@
         <!-- Section Header -->
         <div class="abt-section-head framer-division-matrix">
           <div class="abt-badge"><i class="fas fa-people-group"></i> Operations Fleet</div>
-          <h2 class="abt-title">Specialist Corps & <span class="abt-title-gradient">Command Divisions</span></h2>
+          <h2 class="abt-title">Our Specialist Teams & <span class="abt-title-gradient">Event Divisions</span></h2>
           <p class="abt-subtitle">Over 280 dedicated in-house technical directors, spatial acousticians, and bilingual protocol marshals deployed across our global hubs.</p>
         </div>
 
@@ -3887,7 +3917,7 @@
         <div class="abt-section-head framer-marquee-portfolio">
           <div class="abt-badge"><i class="fas fa-briefcase"></i> Enterprise Roster</div>
           <h2 class="abt-title">Client Portfolio & <span class="abt-title-gradient">Marquee Summits</span></h2>
-          <p class="abt-subtitle">Trusted by Fortune 500 corporations, sovereign wealth forums, and breakthrough global technology enterprises worldwide.</p>
+          <p class="abt-subtitle">Trusted by Fortune 500 corporations, global investment forums, and breakthrough global technology enterprises worldwide.</p>
         </div>
 
         <div class="abt-portfolio-marquee-grid">
@@ -3897,7 +3927,7 @@
               <img src="images/about_portfolio.jpg" alt="Marquee Corporate Summit Assembly">
             </div>
             <div class="abt-port-body">
-              <p class="abt-port-quote">"Apex does not merely execute logistics—they elevated our global developer conference into a historic market catalyst with precision that left our board breathless."</p>
+              <p class="abt-port-quote">"EventSphere does not merely execute logistics—they elevated our global developer conference into a historic market catalyst with precision that left our board breathless."</p>
               <div class="abt-port-author">— Chief Executive Officer, Fortune 50 Enterprise Cloud Platform</div>
             </div>
           </div>
@@ -3908,14 +3938,14 @@
             <div class="abt-sector-card framer-marquee-portfolio">
               <div class="abt-sec-icon"><i class="fas fa-cloud"></i></div>
               <h4 class="abt-sec-title">Enterprise Cloud & AI</h4>
-              <div class="abt-sec-clients">Apex Cloud Technologies, Quantum BioVentures, Synapse AI Flagship Summit</div>
+              <div class="abt-sec-clients">EventSphere Cloud Technologies, Quantum BioVentures, Synapse AI Flagship Summit</div>
             </div>
 
             <!-- Sector 2 -->
             <div class="abt-sector-card framer-marquee-portfolio">
               <div class="abt-sec-icon"><i class="fas fa-chart-line"></i></div>
               <h4 class="abt-sec-title">FinTech & Capital</h4>
-              <div class="abt-sec-clients">Horizon FinTech Global, Swiss-Atlantic Capital, Sovereign Wealth Annual Forum</div>
+              <div class="abt-sec-clients">Horizon FinTech Global, Swiss-Atlantic Capital, Global Wealth & Investment Annual Forum</div>
             </div>
 
             <!-- Sector 3 -->
@@ -3944,7 +3974,7 @@
         <!-- Section Header -->
         <div class="abt-section-head framer-citadel-moat">
           <div class="abt-badge"><i class="fas fa-shield-halved"></i> Institutional Trust</div>
-          <h2 class="abt-title">Safety Standards & <span class="abt-title-gradient">Our Competitive Moat</span></h2>
+          <h2 class="abt-title">Safety Standards & <span class="abt-title-gradient">Quality Guarantees</span></h2>
           <p class="abt-subtitle">Our uncompromising commitment to structural safety, data encryption, financial escrow, and sustainability sets us fundamentally apart.</p>
         </div>
 
@@ -3955,7 +3985,7 @@
               <img src="images/about_safety.jpg" alt="Quality and Safety Citadel Framework">
             </div>
             <div class="abt-citadel-body">
-              <h4 class="abt-citadel-title">The Quality Assurance Citadel</h4>
+              <h4 class="abt-citadel-title">Quality Assurance Standards</h4>
               <p class="abt-citadel-desc">Every event blueprint undergoes a rigorous 42-point safety audit before ground is broken or staging trussing is raised.</p>
               <div class="abt-citadel-cert-list">
                 <div><i class="fas fa-circle-check"></i> ISO-20121 Sustainable Event Certified</div>
@@ -4005,7 +4035,7 @@
       <h3 id="abtModalName" style="font-size: 1.4rem; font-weight: 800; color: var(--abt-text-main); margin-bottom: 0.25rem;">Executive Bio</h3>
       <div id="abtModalRole" style="font-size: 0.85rem; font-weight: 700; color: var(--abt-accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">Role</div>
       <p id="abtModalDesc" style="font-size: 0.95rem; color: var(--abt-text-muted); line-height: 1.6; margin-bottom: 1.5rem;">Dossier description</p>
-      <button class="abt-btn abt-btn-primary" style="width: 100%;" onclick="closeAbtModal()">Close Executive Dossier</button>
+      <button class="abt-btn abt-btn-primary" style="width: 100%;" onclick="closeAbtModal()">Close Executive Bio</button>
     </div>
   </div>
 <!-- FOOTER -->
@@ -4390,5 +4420,6 @@
       if (modal) modal.style.display = 'none';
     }
   </script>
+  <script src="assets/js/brand.js"></script>
 </body>
 </html>

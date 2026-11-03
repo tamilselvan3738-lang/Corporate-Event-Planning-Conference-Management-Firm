@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EventSphere · Corporate Event Planning</title>
+  <title>EventSphere · Executive Corporate Conference & Summit Management</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -621,10 +621,9 @@
     }
 
     /* ===== 3D ICON BUTTONS ===== */
-    .icon-btn, .login-btn {
-      border: none;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e293b;
+    .icon-btn { border: none; background: linear-gradient(145deg, #ffffff, #f1f5f9); color: #1e293b;
+    }
+    .login-btn { border: 1px solid #1d4ed8 !important; background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important;
       width: 42px;
       height: 42px;
       border-radius: 30px;
@@ -684,12 +683,14 @@
 
     .login-btn {
       width: auto;
-      padding: 0 1.5rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e3a8a;
+      padding: 0.6rem 1.4rem !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      font-size: 0.88rem !important;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+      color: #ffffff !important;
+      border: 1px solid #1d4ed8 !important;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
       gap: 0.5rem;
       letter-spacing: 0.2px;
     }
@@ -3463,6 +3464,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/brand.css">
 </head>
 <body>
   <div class="app-wrapper">
@@ -3534,7 +3536,7 @@
       <div class="right-section">
         <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
         <!-- Hamburger visible only on tablet/mobile -->
         <button class="hamburger" id="hamburgerBtn">
           <span></span><span></span><span></span>
@@ -3576,7 +3578,7 @@
       <div class="mobile-actions">
         <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
       </div>
     </div>
 
@@ -3593,26 +3595,26 @@
           <div class="hero-content-col">
             <div class="hero-kicker">
               <span class="pulse-dot"></span>
-              <span>SOVEREIGN CORPORATE SUMMIT ARCHITECTURE</span>
+              <span>EXECUTIVE CONFERENCE & SUMMIT MANAGEMENT</span>
             </div>
 
             <h1 class="hero-headline">
-              Engineering <span class="gradient-accent">High-Stakes Summits</span> Where Global Destiny Is Decided
+              End-to-End Corporate Conference Planning & <span class="gradient-accent">Mainstage Production</span>
             </h1>
 
             <p class="hero-lead">
-              EventSphere Sovereign orchestrates the world's most critical corporate plenaries, bilateral trade summits, and institutional assemblies with military-grade precision, immersive spatial acoustics, and zero-latency global telepresence.
+              EventSphere provides comprehensive conference management for leading enterprises. From plenary agenda planning and keynote stage design to seamless delegate registration and global hybrid broadcasting, we ensure flawless conference execution.
             </p>
 
             <div class="hero-cta-group">
-              <a href="#executive-engagement" class="btn-sovereign-primary">
-                <i class="fas fa-microchip"></i>
-                <span>Launch Feasibility Engine</span>
+              <a href="#executive-engagement" class="btn btn-primary btn-sovereign-primary">
+                <i class="fas fa-file-signature"></i>
+                <span>Plan Your Conference</span>
                 <i class="fas fa-arrow-right"></i>
               </a>
-              <a href="#summit-dimensions" class="btn-sovereign-ghost">
-                <i class="fas fa-cube"></i>
-                <span>Explore 4D Chambers</span>
+              <a href="#summit-dimensions" class="btn btn-secondary btn-sovereign-ghost">
+                <i class="fas fa-sliders-h"></i>
+                <span>Explore Conference Scales</span>
               </a>
             </div>
 
@@ -3620,19 +3622,19 @@
             <div class="hero-telemetry-ribbon">
               <div class="telemetry-node">
                 <span class="telemetry-val">450+</span>
-                <span class="telemetry-lbl">G7 & Global Summits</span>
+                <span class="telemetry-lbl">Conferences Managed</span>
               </div>
               <div class="telemetry-node">
-                <span class="telemetry-val">$18.4B</span>
-                <span class="telemetry-lbl">Liquidity Facilitated</span>
+                <span class="telemetry-val">100%</span>
+                <span class="telemetry-lbl">Technical Reliability</span>
               </div>
               <div class="telemetry-node">
                 <span class="telemetry-val">99.98%</span>
-                <span class="telemetry-lbl">Broadcast Uptime</span>
+                <span class="telemetry-lbl">Delegate Satisfaction</span>
               </div>
               <div class="telemetry-node">
                 <span class="telemetry-val">64</span>
-                <span class="telemetry-lbl">Free-Trade Hubs</span>
+                <span class="telemetry-lbl">Global Host Cities</span>
               </div>
             </div>
           </div>
@@ -3641,22 +3643,22 @@
           <div class="hero-visual-col">
             <div class="hero-cinema-viewport">
               <div class="hero-cinema-card">
-                <img src="images/home2_hero_command.jpg" alt="Sovereign Conference Command Centre" class="hero-cinema-img">
+                <img src="images/home2_hero_command.jpg" alt="EventSphere Conference Production Command" class="hero-cinema-img">
                 
                 <!-- Floating HUD Overlays -->
                 <div class="hud-chip hud-chip-top-left">
                   <i class="fas fa-satellite-dish" style="color: #38bdf8;"></i>
-                  <span>Encrypted 8K Uplink: OPTIMAL</span>
+                  <span>Multi-Track Audio & 4K AV: Synchronized</span>
                 </div>
 
                 <div class="hud-chip hud-chip-mid-left">
                   <i class="fas fa-users" style="color: #fbbf24;"></i>
-                  <span>8,420 Active Executive Nodes</span>
+                  <span>3,500 Registered Attendees</span>
                 </div>
 
                 <div class="hud-chip hud-chip-bottom-right">
                   <i class="fas fa-wave-square" style="color: #34d399;"></i>
-                  <span>Harmonic 432Hz Spatial Sync</span>
+                  <span>Dedicated On-Site Event Directors</span>
                 </div>
               </div>
             </div>
@@ -3671,100 +3673,10 @@
     <section id="summit-dimensions" class="h2-section framer-chamber-matrix">
       <div class="h2-container">
         <div class="h2-section-header">
-          <span class="h2-supertitle"><i class="fas fa-cubes"></i> DIMENSIONAL SPATIAL TYPOLOGIES</span>
-          <h2 class="h2-title">The 4-Dimensional Summit Matrix</h2>
+          <span class="h2-supertitle"><i class="fas fa-cubes"></i> CONFERENCE FORMATS & VENUE SCALES</span>
+          <h2 class="h2-title">Conference Scales & Spatial Layouts</h2>
           <p class="h2-desc">
-            Every high-stakes corporate assembly demands specialized architectural physics. From 10,000-delegate plenary amphitheaters to biometric closed-door treaty chambers, our spatial layouts maximize executive focus and operational command.
-          </p>
-        </div>
-
-        <!-- Matrix Tabs -->
-        <div class="matrix-tab-bar" id="matrixTabBar">
-          <button class="matrix-tab-btn active" data-typology="plenary">
-            <i class="fas fa-landmark"></i> Giga-Plenary Amphitheatre
-          </button>
-          <button class="matrix-tab-btn" data-typology="roundtable">
-            <i class="fas fa-shield-alt"></i> Sovereign G7 / B20 Roundtables
-          </button>
-          <button class="matrix-tab-btn" data-typology="expo">
-            <i class="fas fa-project-diagram"></i> Frontier Tech & Innovation Expos
-          </button>
-          <button class="matrix-tab-btn" data-typology="telepresence">
-            <i class="fas fa-globe-americas"></i> Multi-City Synchronous Nodes
-          </button>
-        </div>
-
-        <!-- Matrix Showcase Card -->
-        <div class="matrix-display-card">
-          <div class="matrix-info-wrap">
-            <span class="h2-supertitle" id="matrixBadge">CAPACITY: 1,000 - 10,000+ DELEGATES</span>
-            <h3 class="h2-title" style="font-size: 2.2rem; margin-top: 0.5rem;" id="matrixTitle">
-              Giga-Plenary Amphitheatre Architecture
-            </h3>
-            <p class="h2-desc" id="matrixDesc">
-              Engineered for Fortune 50 annual shareholders' meetings, global economic plenaries, and presidential addresses. Features 360-degree curved panoramic microLED backdrops, multi-tier raked amphitheater sightlines, and calibrated spatial acoustic dispersion.
-            </p>
-
-            <div class="matrix-specs-grid">
-              <div class="matrix-spec-box">
-                <div class="spec-box-lbl">Ceiling Clearance</div>
-                <div class="spec-box-val" id="specCeiling">18.5 Meters</div>
-              </div>
-              <div class="matrix-spec-box">
-                <div class="spec-box-lbl">Acoustic Attenuation</div>
-                <div class="spec-box-val" id="specAcoustics">-48 dB Isolation</div>
-              </div>
-              <div class="matrix-spec-box">
-                <div class="spec-box-lbl">Sightline Geometry</div>
-                <div class="spec-box-val" id="specSightline">100% Zero-Obstruction</div>
-              </div>
-              <div class="matrix-spec-box">
-                <div class="spec-box-lbl">Security Classification</div>
-                <div class="spec-box-val" id="specSecurity">Tier-1 Diplomatic</div>
-              </div>
-            </div>
-
-            <!-- Dynamic Capacity Visualizer -->
-            <div class="capacity-interactive-bar">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-weight: 700; font-size: 0.9rem; color: var(--h2-text-light-title);">
-                  <i class="fas fa-sliders-h" style="color: #2563eb;"></i> Delegate Volume Scale:
-                </span>
-                <span id="sliderValueDisplay" style="font-weight: 800; color: #2563eb; font-size: 1.1rem;">
-                  3,500 Attendees
-                </span>
-              </div>
-              <input type="range" min="500" max="10000" step="250" value="3500" class="slider-range-input" id="matrixCapacitySlider">
-              <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--h2-text-light-body);">
-                <span>500 PAX</span>
-                <span>Recommended Hall Footprint: <strong id="footprintCalc" style="color: var(--h2-text-light-title);">70,000 sq ft</strong></span>
-                <span>10,000+ PAX</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="matrix-img-wrap">
-            <img src="images/home2_summit_matrix.jpg" alt="The 4-Dimensional Summit Matrix and Executive Chambers" id="matrixDynamicImage">
-            <div class="hud-chip" style="bottom: 1.5rem; left: 1.5rem; right: 1.5rem; justify-content: space-between;">
-              <span><i class="fas fa-broadcast-tower" style="color: #38bdf8;"></i> Multi-Track Translation: 16 Booths Active</span>
-              <span style="color: #34d399;"><i class="fas fa-check-circle"></i> Calibrated</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         SECTION 3: THE NEURODESIGN & SPATIAL ENGINEERING LABORATORY
-         ========================================================================== -->
-    <section id="spatial-technologies" class="h2-section framer-neuro-lab">
-      <div class="h2-ambient-glow" style="bottom: -150px; left: -100px; background: #06b6d4;"></div>
-      <div class="h2-container">
-        <div class="h2-section-header">
-          <span class="h2-supertitle"><i class="fas fa-brain"></i> COGNITIVE SCIENCE & BIOPHILIC PHYSICS</span>
-          <h2 class="h2-title">The Neurodesign & Spatial Engineering Laboratory</h2>
-          <p class="h2-desc">
-            High-stakes executive negotiation requires sustained cognitive sharpness. We engineer conference environments using clinical psychoacoustics, dynamic circadian light curves, and pure-air microclimates to banish mental fatigue.
+            World-class corporate conferences require immaculate technical staging. We engineer custom LED backdrops, studio-quality sound acoustics, intelligent stage lighting, and synchronized live broadcasting.
           </p>
         </div>
 
@@ -3776,9 +3688,9 @@
                 <i class="fas fa-wave-square"></i>
               </div>
               <div>
-                <h3 class="neuro-card-title">Harmonic 432Hz Psychoacoustic Tuning</h3>
+                <h3 class="neuro-card-title">Studio-Grade Acoustic Engineering & Sound</h3>
                 <p class="neuro-card-text">
-                  Algorithmic acoustic baffling cancels flutter echoes and delivers natural harmonic frequencies, reducing attendee cortisol levels by 34% and sustaining focus over 8-hour plenary sessions.
+                  Professional microphone arrays, acoustic baffling, and line-array speakers ensure every keynote speaker is heard clearly with zero feedback across the auditorium.
                 </p>
               </div>
             </div>
@@ -3788,9 +3700,9 @@
                 <i class="fas fa-sun"></i>
               </div>
               <div>
-                <h3 class="neuro-card-title">Circadian Lux Chrono-Shifting</h3>
+                <h3 class="neuro-card-title">Intelligent Stage & Presentation Lighting</h3>
                 <p class="neuro-card-text">
-                  Full-spectrum LED choreography shifts naturally from 5,500K morning alertness lighting during keynote addresses to 3,000K warm tone during strategic executive debate, keeping alertness optimal.
+                  Dynamic stage lighting choreography tailored for in-room impact and high-definition video recording, ensuring speakers look vibrant on mainstage screens and webcasts.
                 </p>
               </div>
             </div>
@@ -3800,9 +3712,9 @@
                 <i class="fas fa-vr-cardboard"></i>
               </div>
               <div>
-                <h3 class="neuro-card-title">Sub-Second Volumetric Telepresence</h3>
+                <h3 class="neuro-card-title">Multi-Camera 4K Live Broadcast & Webcast</h3>
                 <p class="neuro-card-text">
-                  Photorealistic 3D holographic projection connects overseas ministers and CEOs onto the stage with sub-18ms transcontinental latency and lifelike eye-contact geometry.
+                  Broadcast-grade camera switching connects overseas delegates and remote offices with zero-delay interactive streaming and synchronized audience polling.
                 </p>
               </div>
             </div>
@@ -3812,9 +3724,9 @@
                 <i class="fas fa-wind"></i>
               </div>
               <div>
-                <h3 class="neuro-card-title">Hyper-Purified Cognitive Oxygenation</h3>
+                <h3 class="neuro-card-title">Dedicated On-Site Technical AV Crews</h3>
                 <p class="neuro-card-text">
-                  Microclimate displacement ventilation maintains CO2 levels strictly below 550ppm with medical HEPA-H14 filtration, ensuring maximum executive brain oxygenation and decision clarity.
+                  Certified sound engineers, lighting directors, and video technicians manage control rooms on-site throughout your event, equipped with hot-spare backup equipment.
                 </p>
               </div>
             </div>
@@ -3830,10 +3742,10 @@
                 <div class="neuro-toggle-row">
                   <div>
                     <span style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700; color: #38bdf8;">
-                      <i class="fas fa-microscope"></i> LIVE TELEMETRY SIMULATOR
+                      <i class="fas fa-microscope"></i> TECHNICAL STAGING BENCHMARK
                     </span>
                     <h4 style="font-size: 1.15rem; font-weight: 800; margin: 0.2rem 0 0 0;" id="neuroModeTitle">
-                      EventSphere Neuro-Engineered Mode
+                      EventSphere Full Technical Production
                     </h4>
                   </div>
                   <button id="neuroToggleBtn" style="padding: 0.5rem 1rem; border-radius: 9999px; background: #2563eb; color: #fff; font-size: 0.78rem; font-weight: 700; border: none; cursor: pointer;">
@@ -3844,11 +3756,11 @@
                 <div class="neuro-metric-bars">
                   <div class="neuro-stat-pill">
                     <strong id="statCortisol">-34%</strong>
-                    <span>Cortisol Stress</span>
+                    <span>Setup Latency</span>
                   </div>
                   <div class="neuro-stat-pill">
                     <strong id="statRetention">8.5 Hrs</strong>
-                    <span>Peak Alertness</span>
+                    <span>Session Uptime</span>
                   </div>
                   <div class="neuro-stat-pill">
                     <strong id="statAcoustic">99.4%</strong>
@@ -3868,8 +3780,8 @@
     <section id="global-footprint" class="h2-section framer-footprint-grid">
       <div class="h2-container">
         <div class="h2-section-header">
-          <span class="h2-supertitle"><i class="fas fa-network-wired"></i> GLOBAL CONVENE COMMAND</span>
-          <h2 class="h2-title">The Sovereign Operations Grid</h2>
+          <span class="h2-supertitle"><i class="fas fa-globe-americas"></i> DESTINATION MANAGEMENT</span>
+          <h2 class="h2-title">Global Conference Venues & Destinations</h2>
           <p class="h2-desc">
             Unified conference delivery across the world's primary financial, political, and technological capitals. Wherever your enterprise convenes, our permanent local command teams and bonded venue networks ensure zero execution friction.
           </p>
@@ -3983,7 +3895,7 @@
       <div class="h2-container">
         <div class="h2-section-header">
           <span class="h2-supertitle"><i class="fas fa-file-contract"></i> AUDITED VALUE DELIVERY</span>
-          <h2 class="h2-title">The Executive Impact Dossier & Transformation Casebook</h2>
+          <h2 class="h2-title">Corporate Conference Case Studies & Results</h2>
           <p class="h2-desc">
             Conferences are not merely events—they are strategic balance-sheet accelerators. Review audited operational dossiers from our most consequential multinational convenings.
           </p>
@@ -4008,7 +3920,7 @@
             <div class="casebook-dossier-card">
               <span class="h2-supertitle" id="caseBadge">JURISDICTION: GENEVA, SWITZERLAND</span>
               <h3 class="h2-title" style="font-size: 2.1rem; margin-top: 0.4rem;" id="caseTitle">
-                World FinTech Sovereign Summit 2025
+                World FinTech Global Summit 2025
               </h3>
               <p class="h2-desc" id="caseSummary">
                 Convened 5,800 institutional finance leaders, central bank governors, and fintech founders across 42 countries. Delivered triple-redundant satellite feeds, bilateral treaty lounges, and biometric voting telemetry with zero latency.
@@ -4060,7 +3972,7 @@
       <div class="h2-container">
         <div class="h2-section-header">
           <span class="h2-supertitle"><i class="fas fa-calculator"></i> REAL-TIME SUMMIT MODELING</span>
-          <h2 class="h2-title">The Strategic Scoping Gateway & Feasibility Engine</h2>
+          <h2 class="h2-title">Conference Planning & Budget Estimator</h2>
           <p class="h2-desc">
             Model your upcoming plenary, conference, or executive retreat in real time. Adjust delegate volume, AV tiers, and protocol requirements to receive immediate spatial calculations and reserve a confidential partner scoping briefing.
           </p>
@@ -4070,17 +3982,17 @@
           <!-- Left: The Interactive Engine Calculator -->
           <div class="engine-calculator-panel">
             <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--h2-text-light-title); margin-bottom: 1.5rem;">
-              <i class="fas fa-cogs" style="color: #2563eb;"></i> Summit Parameter Architecture
+              <i class="fas fa-cogs" style="color: #2563eb;"></i> Event Planning Parameters
             </h3>
 
             <!-- Select 1: Typology -->
             <div class="calc-field-group">
               <label class="calc-field-label">1. Assembly Archetype</label>
               <select class="calc-select" id="calcTypology">
-                <option value="giga">Giga-Plenary Amphitheatre (1,000 - 10,000+ PAX)</option>
-                <option value="roundtable">Sovereign G7 / B20 High-Table Roundtable (20 - 100 VIPs)</option>
-                <option value="expo">Frontier Tech & Innovation Brand Pavilion (500 - 5,000 PAX)</option>
-                <option value="hybrid">Multi-City Synchronous Telepresence Pods (4+ Continents)</option>
+                <option value="giga">Annual Corporate Conference & Plenary (1,000 - 10,000+ Attendees) (1,000 - 10,000+ PAX)</option>
+                <option value="roundtable">Executive Boardroom & Leadership Roundtable (20 - 100 VIPs) (20 - 100 VIPs)</option>
+                <option value="expo">Product Launch & Brand Experience Expo (500 - 5,000 Attendees) (500 - 5,000 PAX)</option>
+                <option value="hybrid">Multi-City Hybrid Conference Streaming (Global Hubs) (4+ Continents)</option>
               </select>
             </div>
 
@@ -4142,7 +4054,7 @@
 
             <div class="booking-fields-wrap">
               <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--h2-text-light-title); margin-bottom: 0.5rem;">
-                <i class="fas fa-lock" style="color: #10b981;"></i> Lock Confidential Partner Scoping Session
+                <i class="fas fa-lock" style="color: #10b981;"></i> Request Detailed Event Proposal
               </h3>
               <p style="font-size: 0.9rem; color: var(--h2-text-light-body); margin-bottom: 1.5rem;">
                 All consultations are protected under mutual diplomatic NDA. Our Principal Partners respond within 3 business hours.
@@ -4556,7 +4468,7 @@
       const typologyData = {
         plenary: {
           badge: 'CAPACITY: 1,000 - 10,000+ DELEGATES',
-          title: 'Giga-Plenary Amphitheatre Architecture',
+          title: 'Annual Corporate Conference & Plenary (1,000 - 10,000+ Attendees) Architecture',
           desc: "Engineered for Fortune 50 annual shareholders' meetings, global economic plenaries, and presidential addresses. Features 360-degree curved panoramic microLED backdrops, multi-tier raked amphitheater sightlines, and calibrated spatial acoustic dispersion.",
           ceiling: '18.5 Meters',
           acoustics: '-48 dB Isolation',
@@ -4574,7 +4486,7 @@
         },
         expo: {
           badge: 'CAPACITY: 500 - 5,000 ATTENDEES',
-          title: 'Frontier Tech & Innovation Brand Pavilions',
+          title: 'Product Launch & Brand Experience Expo (500 - 5,000 Attendees)s',
           desc: 'Immersive experiential exhibition halls built for radical technological unveilings and sovereign investor demos. Modular kinetic trusses, high-density fiber routing, and holographic demonstration stages.',
           ceiling: '12.0 Meters',
           acoustics: 'Zoned Directional Sound',
@@ -4583,7 +4495,7 @@
         },
         telepresence: {
           badge: 'CAPACITY: GLOBAL SYNCHRONOUS NODES',
-          title: 'Multi-City Synchronous Telepresence Pods',
+          title: 'Multi-City Hybrid Conference Streaming (Global Hubs)',
           desc: 'Synchronizes executive gatherings across Zurich, New York, Tokyo, and Singapore into a single unified broadcast environment. Sub-18ms transatlantic fiber routing with zero perceived conversational delay.',
           ceiling: '9.0 Meters',
           acoustics: 'Harmonic 432Hz Matched',
@@ -4635,7 +4547,7 @@
         neuroToggleBtn.addEventListener('click', function() {
           isNeuroOptimized = !isNeuroOptimized;
           if (isNeuroOptimized) {
-            neuroModeTitle.textContent = 'EventSphere Neuro-Engineered Mode';
+            neuroModeTitle.textContent = 'EventSphere Full Technical Production';
             neuroToggleBtn.textContent = 'Switch to Standard';
             neuroToggleBtn.style.background = '#2563eb';
             statCortisol.textContent = '-34%';
@@ -4698,7 +4610,7 @@
       const casebookData = {
         fintech: {
           badge: 'JURISDICTION: GENEVA, SWITZERLAND',
-          title: 'World FinTech Sovereign Summit 2025',
+          title: 'World FinTech Global Summit 2025',
           summary: 'Convened 5,800 institutional finance leaders, central bank governors, and fintech founders across 42 countries. Delivered triple-redundant satellite feeds, bilateral treaty lounges, and biometric voting telemetry with zero latency.',
           kpis: ['$4.2B+', 'M&A Liquidity Closed', '0.00%', 'Stream Downtime', '99.1%', 'Net Promoter Score'],
           quote: '"EventSphere Sovereign executed our 3-day ministerial assembly with flawless precision. Their neuro-acoustic zoning kept our delegates focused through 14 hours of contentious treaty negotiations."',
@@ -4801,5 +4713,6 @@
     }
   </script>
     
+  <script src="assets/js/brand.js"></script>
 </body>
 </html>

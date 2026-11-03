@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EventSphere · Corporate Event Planning</title>
+  <title>EventSphere · Contact Our Corporate Event Planning Firm</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -621,10 +621,9 @@
     }
 
     /* ===== 3D ICON BUTTONS ===== */
-    .icon-btn, .login-btn {
-      border: none;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e293b;
+    .icon-btn { border: none; background: linear-gradient(145deg, #ffffff, #f1f5f9); color: #1e293b;
+    }
+    .login-btn { border: 1px solid #1d4ed8 !important; background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important;
       width: 42px;
       height: 42px;
       border-radius: 30px;
@@ -684,12 +683,14 @@
 
     .login-btn {
       width: auto;
-      padding: 0 1.5rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e3a8a;
+      padding: 0.6rem 1.4rem !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      font-size: 0.88rem !important;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+      color: #ffffff !important;
+      border: 1px solid #1d4ed8 !important;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
       gap: 0.5rem;
       letter-spacing: 0.2px;
     }
@@ -3120,12 +3121,74 @@
     .fa-sparkles:before { content: "\e2ca" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
     .fa-radar:before { content: "\f7c0" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
     .fa-shield-check:before { content: "\f3ed" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
-  </style>
+  
+    /* ==========================================================================
+       360px & MOBILE FIX: Contact Page (Hotline Banner & Full Button Alignment)
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .cnt-hotline-frequency-strip {
+        padding: 1.5rem 1.15rem !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 1.25rem !important;
+        border-radius: 1.25rem !important;
+      }
+      .cnt-hotline-frequency-strip > div:first-child {
+        width: 100% !important;
+        text-align: left !important;
+      }
+      .cnt-hotline-frequency-strip > div:first-child > div:nth-child(2) {
+        font-size: clamp(1.35rem, 5.5vw, 1.85rem) !important;
+        line-height: 1.25 !important;
+        word-break: break-word !important;
+      }
+      .cnt-hotline-btn-group,
+      .cnt-hero-btn-group,
+      .cnt-hotline-frequency-strip > div:last-child {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.75rem !important;
+      }
+      .cnt-hotline-btn-group .cnt-btn,
+      .cnt-hero-btn-group .cnt-btn,
+      .cnt-hotline-frequency-strip .cnt-btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: inline-flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        white-space: nowrap !important;
+        padding: 0.85rem 1.25rem !important;
+        box-sizing: border-box !important;
+        font-size: 0.92rem !important;
+      }
+      .cnt-pillars-quad-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+      .cnt-pillar-voice-card {
+        padding: 1.25rem 1rem !important;
+      }
+      .cnt-radar-deck-layout,
+      .cnt-tri-col-form-grid,
+      .cnt-meridian-timeband-grid,
+      .cnt-monolith-triad-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+      .cnt-monolith-card {
+        padding: 1.5rem 1.15rem !important;
+      }
+    }
+
+</style>
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/brand.css">
 </head>
 <body>
   <div class="app-wrapper">
@@ -3197,7 +3260,7 @@
       <div class="right-section">
         <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
         <!-- Hamburger visible only on tablet/mobile -->
         <button class="hamburger" id="hamburgerBtn">
           <span></span><span></span><span></span>
@@ -3239,7 +3302,7 @@
       <div class="mobile-actions">
         <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
       </div>
     </div>
 
@@ -3275,7 +3338,7 @@
       <section id="office-address" class="cnt-section-address-new">
         <div class="cnt-container">
           <div class="cnt-section-head framer-monolith-panoramic">
-            <span class="cnt-badge"><i class="fas fa-building"></i> Sovereign Real Estate</span>
+            <span class="cnt-badge"><i class="fas fa-building"></i> Commercial Real Estate</span>
             <h2 class="cnt-title">Panoramic Global Ribbon &amp; <span class="cnt-title-gradient">Embassy Pedestals</span></h2>
             <p class="cnt-subtitle">
               Headquartered at Rockefeller Plaza, New York, with fully staffed regional diplomatic hubs in Mayfair London, Marina Bay Singapore, and Paradeplatz Zurich.
@@ -3293,7 +3356,7 @@
                   30 Rockefeller Plaza, New York, NY 10112 &bull; Coordinates: 40.7580° N, 73.9855° W
                 </div>
               </div>
-              <div style="display: flex; gap: 1rem; align-items: center;">
+              <div class="cnt-hero-btn-group" style="display: flex; gap: 1rem; align-items: center;">
                 <button class="cnt-btn cnt-btn-primary" onclick="window.location.href='#enquiry-consultation'"><i class="fas fa-calendar-check"></i> Book Executive Suite</button>
                 <button class="cnt-btn cnt-btn-outline" style="color: #ffffff; border-color: rgba(255,255,255,0.4);" onclick="window.location.href='#location-map'"><i class="fas fa-route"></i> Ingress Map</button>
               </div>
@@ -3378,7 +3441,7 @@
                 Freecall worldwide from USA, UK, EU, Singapore, and Canada &bull; 24/7 Staffed
               </div>
             </div>
-            <div style="display: flex; gap: 1rem; align-items: center;">
+            <div class="cnt-hotline-btn-group" style="display: flex; gap: 1rem; align-items: center;">
               <a href="tel:+18005557864" class="cnt-btn cnt-btn-primary"><i class="fas fa-phone"></i> Instant Call Toll-Free</a>
               <button class="cnt-btn cnt-btn-outline" onclick="alert('Downloading Executive Digital vCard...');"><i class="fas fa-address-book"></i> Export vCard</button>
             </div>
@@ -3518,7 +3581,7 @@
               </div>
               <div class="cnt-pgp-aside-body">
                 <div>
-                  <h4 style="font-size: 1.25rem; font-weight: 800; color: var(--cnt-text-main); margin-bottom: 0.5rem;">Sovereign Communications</h4>
+                  <h4 style="font-size: 1.25rem; font-weight: 800; color: var(--cnt-text-main); margin-bottom: 0.5rem;">Corporate Communications</h4>
                   <p style="font-size: 0.88rem; color: var(--cnt-text-muted); line-height: 1.5;">
                     For sensitive M&amp;A gatherings or confidential keynote speeches, use our encrypted PGP key:
                   </p>
@@ -4394,5 +4457,6 @@
       if (form) form.reset();
     }
   </script>
+  <script src="assets/js/brand.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EventSphere · Corporate Event Planning</title>
+  <title>EventSphere · Trusted Corporate Event Vendor Network</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -621,10 +621,9 @@
     }
 
     /* ===== 3D ICON BUTTONS ===== */
-    .icon-btn, .login-btn {
-      border: none;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e293b;
+    .icon-btn { border: none; background: linear-gradient(145deg, #ffffff, #f1f5f9); color: #1e293b;
+    }
+    .login-btn { border: 1px solid #1d4ed8 !important; background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important;
       width: 42px;
       height: 42px;
       border-radius: 30px;
@@ -684,12 +683,14 @@
 
     .login-btn {
       width: auto;
-      padding: 0 1.5rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e3a8a;
+      padding: 0.6rem 1.4rem !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      font-size: 0.88rem !important;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+      color: #ffffff !important;
+      border: 1px solid #1d4ed8 !important;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
       gap: 0.5rem;
       letter-spacing: 0.2px;
     }
@@ -3650,12 +3651,90 @@
     .fa-sparkles:before { content: "\e2ca" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
     .fa-radar:before { content: "\f7c0" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
     .fa-shield-check:before { content: "\f3ed" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
-  </style>
+  
+    /* ==========================================================================
+       360px & MOBILE FIX: Vendors Page (Broadcast, Mobility & Procurement)
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .vnd-av-telemetry-strip,
+      .vnd-transport-telemetry-banner {
+        grid-template-columns: 1fr !important;
+        padding: 1.25rem 1rem !important;
+        gap: 1rem !important;
+        margin-bottom: 2rem !important;
+      }
+      .vnd-av-chip,
+      .vnd-tarmac-chip {
+        gap: 0.75rem !important;
+        min-width: 0 !important;
+        width: 100% !important;
+      }
+      .vnd-av-chip > div:last-child,
+      .vnd-tarmac-chip > div:last-child {
+        min-width: 0 !important;
+        flex: 1 !important;
+      }
+      .vnd-av-val,
+      .vnd-tarmac-val {
+        font-size: 1.15rem !important;
+        white-space: nowrap !important;
+        line-height: 1.2 !important;
+      }
+      .vnd-av-lbl,
+      .vnd-tarmac-lbl {
+        font-size: 0.75rem !important;
+        word-break: normal !important;
+        overflow-wrap: break-word !important;
+        line-height: 1.35 !important;
+      }
+      .vnd-enquiry-crucible-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+      }
+      .vnd-dossier-card,
+      .vnd-enquiry-form-card {
+        border-radius: 1.25rem !important;
+        padding: 1.5rem 1.15rem !important;
+      }
+      .vnd-dossier-body {
+        padding: 1.5rem 1.15rem !important;
+      }
+      .vnd-perk-row {
+        align-items: flex-start !important;
+        gap: 0.65rem !important;
+        font-size: 0.84rem !important;
+        line-height: 1.4 !important;
+        word-break: normal !important;
+        overflow-wrap: break-word !important;
+      }
+      .vnd-perk-row i {
+        margin-top: 0.2rem !important;
+        flex-shrink: 0 !important;
+      }
+      .vnd-form-grid-2 {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+      }
+      .vnd-fleet-split-grid,
+      .vnd-av-console-grid,
+      .vnd-swatchboard-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+      }
+      .vnd-fleet-img-box,
+      .vnd-av-monitor-card {
+        height: auto !important;
+        min-height: 220px !important;
+      }
+    }
+
+</style>
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/brand.css">
 </head>
 <body>
   <div class="app-wrapper">
@@ -3727,7 +3806,7 @@
       <div class="right-section">
         <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
         <!-- Hamburger visible only on tablet/mobile -->
         <button class="hamburger" id="hamburgerBtn">
           <span></span><span></span><span></span>
@@ -3769,7 +3848,7 @@
       <div class="mobile-actions">
         <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
       </div>
     </div>
 
@@ -3784,8 +3863,8 @@
       <div class="vnd-container">
         <!-- Section Header -->
         <div class="vnd-section-head framer-atrium-unfold">
-          <div class="vnd-badge"><i class="fas fa-building-flag"></i> Sovereign Venue Alliance</div>
-          <h2 class="vnd-title">Venue Partners & <span class="vnd-title-gradient">Sovereign Atriums</span></h2>
+          <div class="vnd-badge"><i class="fas fa-building-flag"></i> Premier Venue Alliance</div>
+          <h2 class="vnd-title">Venue Partners & <span class="vnd-title-gradient">Convention Centers</span></h2>
           <p class="vnd-subtitle">Access pre-negotiated master service agreements across premier convention centers, luxury glass atriums, and private historical pavilions with zero client attrition liability.</p>
         </div>
 
@@ -3827,9 +3906,9 @@
           <!-- Featured Panoramic Grand Pavilion -->
           <div class="vnd-venue-hero-pavilion framer-atrium-unfold">
             <div class="vnd-pavilion-img-wrap">
-              <img src="images/vendor_venues.jpg" alt="Grand Sovereign Convention Center Atrium">
+              <img src="images/vendor_venues.jpg" alt="Grand Metropolitan Convention Center Atrium">
               <div class="vnd-pavilion-status-chip">
-                <i class="fas fa-certificate"></i> Apex Premier Sovereign Hub
+                <i class="fas fa-certificate"></i> EventSphere Premier Hub
               </div>
             </div>
             <div class="vnd-pavilion-body">
@@ -3894,7 +3973,7 @@
                 <span class="vnd-tier-cap"><i class="fas fa-users"></i> 850 Capacity</span>
               </div>
               <h4 class="vnd-tier-title">The High-Altitude Alpine Executive Retreat Center</h4>
-              <p style="font-size: 0.88rem; color: var(--vnd-text-muted); line-height: 1.5;">Ultra-exclusive mountain sanctuary designed for sovereign wealth funds, bilateral negotiations, and private board retreats.</p>
+              <p style="font-size: 0.88rem; color: var(--vnd-text-muted); line-height: 1.5;">Ultra-exclusive mountain retreat designed for executive leadership summits, board meetings, and private corporate retreats.</p>
               <div class="vnd-tier-features">
                 <span class="vnd-feat-chip"><i class="fas fa-check"></i> Heli-Ingress Only</span>
                 <span class="vnd-feat-chip"><i class="fas fa-check"></i> SCIF Audio Isolation</span>
@@ -3914,7 +3993,7 @@
         <!-- Section Header -->
         <div class="vnd-section-head framer-rack-mount">
           <div class="vnd-badge"><i class="fas fa-sliders"></i> Broadcast Engineering</div>
-          <h2 class="vnd-title">Audio-Visual Suppliers & <span class="vnd-title-gradient">Hardware Synthesis</span></h2>
+          <h2 class="vnd-title">Audio-Visual Suppliers & <span class="vnd-title-gradient">Staging Partners</span></h2>
           <p class="vnd-subtitle">Institutional broadcast partnerships delivering 4K120 SMPTE ST 2110 IP video switching, Dante digital audio networks, and high-density microLED canvas architecture.</p>
         </div>
 
@@ -4034,7 +4113,7 @@
         <!-- Section Header -->
         <div class="vnd-section-head framer-gastronomy-float">
           <div class="vnd-badge"><i class="fas fa-utensils"></i> Michelin-Caliber Gastronomy</div>
-          <h2 class="vnd-title">Catering Partners & <span class="vnd-title-gradient">Culinary Guild</span></h2>
+          <h2 class="vnd-title">Catering Partners & <span class="vnd-title-gradient">Executive Dining</span></h2>
           <p class="vnd-subtitle">Elevate executive summit hospitality with farm-to-table culinary ateliers, certified master sommeliers, and synchronized banquet services engineered for zero downtime.</p>
         </div>
 
@@ -4117,7 +4196,7 @@
         <!-- Section Header -->
         <div class="vnd-section-head framer-scenic-forge">
           <div class="vnd-badge"><i class="fas fa-hammer"></i> Master Stagecraft Atelier</div>
-          <h2 class="vnd-title">Decoration & Production <span class="vnd-title-gradient">Teams & Scenic Forge</span></h2>
+          <h2 class="vnd-title">Event Decor & Production <span class="vnd-title-gradient">Fabrication Partners</span></h2>
           <p class="vnd-subtitle">From custom sculptural keynotes to architectural stage engineering, our fabrication facilities translate 3D CAD blueprints into awe-inspiring physical realities.</p>
         </div>
 
@@ -4172,7 +4251,7 @@
         <!-- Section Header -->
         <div class="vnd-section-head framer-fleet-manifest">
           <div class="vnd-badge"><i class="fas fa-car-rear"></i> Executive Mobility</div>
-          <h2 class="vnd-title">Transport Providers & <span class="vnd-title-gradient">VIP Motorcade Logistics</span></h2>
+          <h2 class="vnd-title">Transportation Providers & <span class="vnd-title-gradient">Executive Shuttle Logistics</span></h2>
           <p class="vnd-subtitle">Flawless dignitary movement across municipal corridors, dedicated executive airport tarmac transfers, and helicopter charters operating under real-time telematics.</p>
         </div>
 
@@ -4264,7 +4343,7 @@
         <!-- Section Header -->
         <div class="vnd-section-head framer-procurement-gate">
           <div class="vnd-badge"><i class="fas fa-handshake"></i> Procurement Alliance</div>
-          <h2 class="vnd-title">Vendor Partnership <span class="vnd-title-gradient">Enquiry Gateway</span></h2>
+          <h2 class="vnd-title">Vendor Partnership <span class="vnd-title-gradient">Inquiry & Collaboration</span></h2>
           <p class="vnd-subtitle">Join our preferred global tier-one supply chain. We offer prompt Net-15 payment terms, high-volume recurring conference master contracts, and collaborative growth.</p>
         </div>
 
@@ -4275,7 +4354,7 @@
               <img src="images/vendor_partnership.jpg" alt="Corporate Vendor Partnership Agreement">
             </div>
             <div class="vnd-dossier-body">
-              <h4 class="vnd-dossier-title">The Apex Supplier Covenant</h4>
+              <h4 class="vnd-dossier-title">The EventSphere Supplier Covenant</h4>
               <p class="vnd-dossier-desc">We view our vendors as co-architects of extraordinary human experiences. Our partners enjoy institutional stability and prompt compensation.</p>
               <div class="vnd-dossier-perks">
                 <div class="vnd-perk-row"><i class="fas fa-circle-check"></i> Guaranteed Net-15 Day Invoicing Settlement</div>
@@ -4293,7 +4372,7 @@
               <div class="vnd-form-grid-2">
                 <div class="vnd-field-group">
                   <label class="vnd-label">Company / Enterprise Name *</label>
-                  <input type="text" required class="vnd-input" placeholder="e.g. Apex Staging & Audio Ltd">
+                  <input type="text" required class="vnd-input" placeholder="e.g. EventSphere Staging & Audio Ltd">
                 </div>
                 <div class="vnd-field-group">
                   <label class="vnd-label">Supplier Category *</label>
@@ -4353,7 +4432,7 @@
         <!-- Section Header -->
         <div class="vnd-section-head framer-terminal-onboard">
           <div class="vnd-badge"><i class="fas fa-shield-halved"></i> Official Onboarding</div>
-          <h2 class="vnd-title">Vendor Registration & <span class="vnd-title-gradient">Compliance Terminal</span></h2>
+          <h2 class="vnd-title">Vendor Registration & <span class="vnd-title-gradient">Onboarding Portal</span></h2>
           <p class="vnd-subtitle">Formalize legal credentialing, upload certificates of insurance (COI), and counter-sign standard operating procedures to activate production vendor dispatch.</p>
         </div>
 
@@ -4461,7 +4540,7 @@
         <i class="fas fa-circle-check"></i>
       </div>
       <h3 id="vndModalTitle" style="font-size: 1.5rem; font-weight: 800; color: var(--vnd-text-main); margin-bottom: 0.5rem;">Application Transmitted</h3>
-      <p id="vndModalDesc" style="font-size: 0.95rem; color: var(--vnd-text-muted); line-height: 1.55; margin-bottom: 2rem;">Your credentials have been securely routed to the Apex Procurement Desk. A Vendor Success Manager will reach out within 24 business hours.</p>
+      <p id="vndModalDesc" style="font-size: 0.95rem; color: var(--vnd-text-muted); line-height: 1.55; margin-bottom: 2rem;">Your credentials have been securely routed to the EventSphere Procurement Desk. A Vendor Success Manager will reach out within 24 business hours.</p>
       <button class="vnd-btn vnd-btn-primary" onclick="closeVndModal()">Return to Portal</button>
     </div>
   </div>
@@ -4893,5 +4972,6 @@
       if (modal) modal.style.display = 'none';
     }
   </script>
+  <script src="assets/js/brand.js"></script>
 </body>
 </html>

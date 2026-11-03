@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EventSphere · Corporate Event Planning</title>
+  <title>EventSphere · Corporate Event Portfolio & Case Studies</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -621,10 +621,9 @@
     }
 
     /* ===== 3D ICON BUTTONS ===== */
-    .icon-btn, .login-btn {
-      border: none;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e293b;
+    .icon-btn { border: none; background: linear-gradient(145deg, #ffffff, #f1f5f9); color: #1e293b;
+    }
+    .login-btn { border: 1px solid #1d4ed8 !important; background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important;
       width: 42px;
       height: 42px;
       border-radius: 30px;
@@ -684,12 +683,14 @@
 
     .login-btn {
       width: auto;
-      padding: 0 1.5rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e3a8a;
+      padding: 0.6rem 1.4rem !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      font-size: 0.88rem !important;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+      color: #ffffff !important;
+      border: 1px solid #1d4ed8 !important;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
       gap: 0.5rem;
       letter-spacing: 0.2px;
     }
@@ -3482,6 +3483,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/brand.css">
 </head>
 <body>
   <div class="app-wrapper">
@@ -3553,7 +3555,7 @@
       <div class="right-section">
         <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
         <!-- Hamburger visible only on tablet/mobile -->
         <button class="hamburger" id="hamburgerBtn">
           <span></span><span></span><span></span>
@@ -3595,7 +3597,7 @@
       <div class="mobile-actions">
         <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
       </div>
     </div>
 
@@ -3613,7 +3615,7 @@
             <i class="fas fa-building"></i> Flagship Assemblies
           </span>
           <h2 class="portfolio-title">
-            Corporate Conferences & <span class="gradient-text">Plenary Arenas</span>
+            Annual Corporate Conferences & <span class="gradient-text">Global Summits</span>
           </h2>
           <p class="portfolio-desc">
             Vast multi-day international conventions engineered with 8K seamless LED backdrops, Meyer Sound acoustic spatial arrays, and biometric delegate throughput.
@@ -3716,10 +3718,10 @@
             <i class="fas fa-crown"></i> High-Stakes Governance
           </span>
           <h2 class="portfolio-title">
-            Executive Leadership Summits & <span class="gradient-text">Bilateral Retreats</span>
+            Executive Leadership Summits & <span class="gradient-text">Board Retreats</span>
           </h2>
           <p class="portfolio-desc">
-            Ultra-private, high-security forums for sovereign dignitaries, heads of state, and Fortune 50 boards requiring Chatham House rule compliance.
+            High-security executive forums for global industry leaders, board members, and Fortune 50 executives requiring confidentiality compliance.
           </p>
         </div>
 
@@ -3734,12 +3736,12 @@
                 <span>UN</span>
               </div>
             </div>
-            <h3 class="chamber-title">Sovereign Economic Assembly</h3>
+            <h3 class="chamber-title">Global Economic Leadership Assembly</h3>
             <p style="font-size: 0.88rem; color: #475569; line-height: 1.55;">
               Closed-door bilateral ministerial summit held in a subterranean RF-shielded chamber with secret-service coordinated motorcade arrival corridors.
             </p>
             <ul class="chamber-bullets">
-              <li><i class="fas fa-check"></i> 48 Sovereign Ministers & Central Governors</li>
+              <li><i class="fas fa-check"></i> 48 Global Board Members & Financial Executives</li>
               <li><i class="fas fa-check"></i> Acoustic sound-masking perimeter nodes</li>
               <li><i class="fas fa-check"></i> Simultaneous cryptographic translation in 6 languages</li>
             </ul>
@@ -3805,7 +3807,7 @@
           <img src="images/portfolio_leadership_summit.jpg" alt="Executive Leadership Summit Pavilion Stage">
           <div class="chamber-banner-overlay">
             <div>
-              <span style="font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #60a5fa;">The Sovereign Standard</span>
+              <span style="font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #60a5fa;">The Enterprise Standard</span>
               <h4 style="font-size: 1.45rem; font-weight: 800; margin-top: 0.3rem;">Zero Leaks. Flawless Protocol. Total Discretion.</h4>
               <p style="font-size: 0.86rem; color: #cbd5e1; max-width: 580px; margin-top: 0.4rem;">
                 Over 18 years producing bilateral roundtables with certified secret service and diplomatic attache coordination.
@@ -3827,7 +3829,7 @@
             <i class="fas fa-bolt"></i> High-Voltage Keynotes
           </span>
           <h2 class="portfolio-title">
-            Product Launch Events & <span class="gradient-text">Holographic Reveals</span>
+            Product Launch Events & <span class="gradient-text">Brand Experiences</span>
           </h2>
           <p class="portfolio-desc">
             Electrifying theatrical keynotes, laser-synchronized hardware unboxings, and global livestream broadcasts generating billions of media impressions.
@@ -3892,7 +3894,7 @@
             <i class="fas fa-layer-group"></i> Mega-Scale Expos
           </span>
           <h2 class="portfolio-title">
-            Global Trade Shows & <span class="gradient-text">Industrial Expo Pavilions</span>
+            Industry Trade Shows & <span class="gradient-text">Exhibition Halls</span>
           </h2>
           <p class="portfolio-desc">
             Expansive multi-hall exhibitions with custom-built corporate sponsor pavilions, IoT crowd traffic heatmaps, and high-load power distribution.
@@ -3968,7 +3970,7 @@
                 Vast indoor-outdoor aviation showcase accommodating full-scale satellite mockups, turbine demonstration stages, and private VIP chalets.
               </p>
               <ul class="expo-features-list">
-                <li><i class="fas fa-check"></i> 12 Sovereign Country Delegations</li>
+                <li><i class="fas fa-check"></i> 12 Global Corporate Delegations</li>
                 <li><i class="fas fa-check"></i> Custom Acoustically-Treated Chalet Suites</li>
                 <li><i class="fas fa-check"></i> Dual Tier-4 Cyber Defense Screening</li>
               </ul>
@@ -3989,7 +3991,7 @@
             <i class="fas fa-glass-cheers"></i> Curated Connections
           </span>
           <h2 class="portfolio-title">
-            Networking Events & <span class="gradient-text">VIP Gala Receptions</span>
+            Corporate Galas & <span class="gradient-text">VIP Award Banquets</span>
           </h2>
           <p class="portfolio-desc">
             Bridging high-level discourse and exquisite corporate hospitality with tailored AI matchmaking lounges, black-tie galas, and bespoke culinary stagecraft.
@@ -4082,7 +4084,7 @@
             <i class="fas fa-tv"></i> Global Telepresence
           </span>
           <h2 class="portfolio-title">
-            Next-Gen Hybrid & <span class="gradient-text">Virtual Event Studios</span>
+            Hybrid Conferences & <span class="gradient-text">Virtual Event Studios</span>
           </h2>
           <p class="portfolio-desc">
             Broadcast-standard television production suites connecting physical auditoriums with hundreds of thousands of remote delegates across 140 countries.
@@ -4158,13 +4160,13 @@
       <!-- ======================================================================
            SECTION 7: EVENT CASE STUDIES & EVENT PHOTOGRAPHY/VIDEOS
            ====================================================================== -->
-      <section class="portfolio-section framer-portfolio-vault-init" id="case-studies">
+      <section class="portfolio-section framer-portfolio-vault-init" id="case-studies" style="margin-bottom: 1.25rem !important;">
         <div class="portfolio-header">
           <span class="portfolio-pill-badge">
             <i class="fas fa-award"></i> Proven Enterprise Impact
           </span>
           <h2 class="portfolio-title">
-            Deep-Dive Case Studies & <span class="gradient-text">Media Cinema Vault</span>
+            Featured Event Case Studies & <span class="gradient-text">Client Results</span>
           </h2>
           <p class="portfolio-desc">
             Rigorous examination of our corporate event methodology through complete client requirements, tactical planning, flawless execution, and verified business outcomes.
@@ -4175,7 +4177,7 @@
           <!-- CASE STUDY SPOTLIGHT CARD -->
           <div class="portfolio-glass-card casestudy-lead-card">
             <div class="casestudy-lead-photo">
-              <img src="images/portfolio_case_study.jpg" alt="Project Apex Global Enterprise Summit Auditorium">
+              <img src="images/portfolio_case_study.jpg" alt="Project Enterprise Global Summit Auditorium">
             </div>
             <div class="casestudy-lead-body">
               <div class="bento-tag-row">
@@ -4183,7 +4185,7 @@
                 <span class="meta-tag"><i class="fas fa-building"></i> Fortune 50 FinTech</span>
               </div>
               <h3 style="font-size: 1.95rem; font-weight: 900; color: #0f172a; line-height: 1.2;">
-                Project Apex: Global Financial Horizons 2025
+                Project Enterprise: Global Financial Horizons 2025
               </h3>
               <p style="font-size: 0.95rem; color: #475569; line-height: 1.65;">
                 A high-stakes operational mandate requiring the synthesis of three newly merged international banking organizations into a singular united corporate cultural summit.
@@ -4317,7 +4319,7 @@
 
 
     <!-- FOOTER -->
-    <footer class="footer-container">
+    <footer class="footer-container" style="margin-top: 1.25rem !important; padding-top: 1.5rem !important;">
       <!-- TOP: NEWSLETTER CTA STRIP -->
       <div class="footer-cta">
         <div class="footer-cta-text">
@@ -4791,5 +4793,6 @@
 
   </script>
 </script>
+  <script src="assets/js/brand.js"></script>
 </body>
 </html>

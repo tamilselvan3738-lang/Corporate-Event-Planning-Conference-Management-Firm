@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EventSphere · Corporate Event Planning</title>
+  <title>EventSphere · The Corporate Event Planning Process</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -621,10 +621,9 @@
     }
 
     /* ===== 3D ICON BUTTONS ===== */
-    .icon-btn, .login-btn {
-      border: none;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e293b;
+    .icon-btn { border: none; background: linear-gradient(145deg, #ffffff, #f1f5f9); color: #1e293b;
+    }
+    .login-btn { border: 1px solid #1d4ed8 !important; background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important;
       width: 42px;
       height: 42px;
       border-radius: 30px;
@@ -684,12 +683,14 @@
 
     .login-btn {
       width: auto;
-      padding: 0 1.5rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e3a8a;
+      padding: 0.6rem 1.4rem !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      font-size: 0.88rem !important;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+      color: #ffffff !important;
+      border: 1px solid #1d4ed8 !important;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
       gap: 0.5rem;
       letter-spacing: 0.2px;
     }
@@ -3165,12 +3166,147 @@
     .fa-radar:before { content: "\f7c0" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
     .fa-shield-check:before { content: "\f3ed" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
   </style>
+
+    /* ==========================================================================
+       360px & MOBILE FIX: Atelier Banner & Interactive Pre-Visualizations
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .atelier-banner {
+        height: auto !important;
+        min-height: auto !important;
+        border-radius: 18px !important;
+        position: relative !important;
+        overflow: hidden !important;
+        margin-top: 1.5rem !important;
+      }
+      .atelier-banner img {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        z-index: 1 !important;
+      }
+      .atelier-banner-overlay {
+        position: relative !important;
+        inset: auto !important;
+        z-index: 2 !important;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
+        padding: 1.5rem 1.15rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 1.25rem !important;
+        box-sizing: border-box !important;
+      }
+      .atelier-banner-overlay > div {
+        width: 100% !important;
+      }
+      .atelier-banner-overlay h4 {
+        font-size: 1.15rem !important;
+        line-height: 1.35 !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        margin: 0 0 0.4rem 0 !important;
+        word-break: normal !important;
+      }
+      .atelier-banner-overlay p {
+        font-size: 0.84rem !important;
+        line-height: 1.45 !important;
+        color: #cbd5e1 !important;
+        margin: 0 !important;
+      }
+      .atelier-banner-overlay .btn-planning-primary,
+      .atelier-banner-overlay button {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: inline-flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 0.6rem !important;
+        padding: 0.85rem 1.25rem !important;
+        font-size: 0.9rem !important;
+        font-weight: 700 !important;
+        white-space: nowrap !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+        margin-top: 0.25rem !important;
+      }
+
+      .timeline-banner-frame {
+        height: auto !important;
+        min-height: auto !important;
+        position: relative !important;
+        overflow: hidden !important;
+      }
+      .timeline-banner-frame img {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        z-index: 1 !important;
+      }
+      .timeline-banner-overlay {
+        position: relative !important;
+        inset: auto !important;
+        z-index: 2 !important;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
+        padding: 1.5rem 1.15rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 1.25rem !important;
+        box-sizing: border-box !important;
+      }
+      .timeline-banner-overlay h3 {
+        font-size: 1.25rem !important;
+        line-height: 1.35 !important;
+      }
+      .timeline-banner-overlay .btn-planning-primary,
+      .timeline-banner-overlay button {
+        width: 100% !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+      }
+
+      .advisory-panoramic-photo {
+        height: auto !important;
+        min-height: auto !important;
+        position: relative !important;
+        overflow: hidden !important;
+      }
+      .advisory-panoramic-photo img {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        z-index: 1 !important;
+      }
+      .advisory-panoramic-overlay {
+        position: relative !important;
+        inset: auto !important;
+        z-index: 2 !important;
+        padding: 1.5rem 1.15rem !important;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
+      }
+      .advisory-panoramic-overlay h3 {
+        font-size: 1.25rem !important;
+        line-height: 1.35 !important;
+      }
+    }
+
 </style>
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/brand.css">
 </head>
 <body>
   <div class="app-wrapper">
@@ -3242,7 +3378,7 @@
       <div class="right-section">
         <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
         <!-- Hamburger visible only on tablet/mobile -->
         <button class="hamburger" id="hamburgerBtn">
           <span></span><span></span><span></span>
@@ -3284,7 +3420,7 @@
       <div class="mobile-actions">
         <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
       </div>
     </div>
 
@@ -3302,7 +3438,7 @@
             <i class="fas fa-clipboard-list"></i> Discovery Protocol
           </span>
           <h2 class="planning-title">
-            Submit Event Requirements & <span class="gradient-text">Architectural Scoping</span>
+            Submit Event Requirements & <span class="gradient-text">Project Scoping</span>
           </h2>
           <p class="planning-desc">
             Initiate your enterprise conference mandate through our structured intake engine. Define attendee scale, spatial parameters, security clearance, and technical broadcasting specs.
@@ -3320,7 +3456,7 @@
             </div>
             <div class="foundry-media-body">
               <span class="step-pill">Stage 01 · Ingestion</span>
-              <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a;">Engineering Your Vision From First Principles</h3>
+              <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a;">Planning Your Corporate Event with Precision</h3>
               <p style="font-size: 0.92rem; color: #475569; line-height: 1.6;">
                 Every flagship conference begins with spatial feasibility modelling. Our algorithmic intake maps your executive delegates, security cordons, plenary sightlines, and streaming bandwidth before a single contract is issued.
               </p>
@@ -3334,7 +3470,7 @@
           <!-- REQUIREMENTS WIZARD INTERACTIVE CARD -->
           <div class="planning-glass-card foundry-wizard-card">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <h3 style="font-size: 1.4rem; font-weight: 800; color: #0f172a;">Event Specification Foundry</h3>
+              <h3 style="font-size: 1.4rem; font-weight: 800; color: #0f172a;">Event Specification & Brief Form</h3>
               <span class="planning-pill-badge" style="margin: 0;"><i class="fas fa-bolt"></i> Live Estimator</span>
             </div>
             
@@ -3387,7 +3523,7 @@
             <i class="fas fa-handshake"></i> Strategic Alignment
           </span>
           <h2 class="planning-title">
-            Initial Consultation & <span class="gradient-text">Diagnostic Advisory</span>
+            Initial Consultation & <span class="gradient-text">Strategic Alignment</span>
           </h2>
           <p class="planning-desc">
             A comprehensive executive briefing conducted by our veteran event directors to deconstruct stakeholder goals, audit logistical constraints, and establish clear operational KPIs.
@@ -3453,7 +3589,7 @@
             <i class="fas fa-palette"></i> Spatial Stagecraft
           </span>
           <h2 class="planning-title">
-            Event Concept Development & <span class="gradient-text">Architectural Design</span>
+            Event Concept Development & <span class="gradient-text">Creative Design</span>
           </h2>
           <p class="planning-desc">
             Transforming strategic themes into jaw-dropping experiential stagecraft, sensory lighting architectures, and immersive attendee journey mappings.
@@ -3543,7 +3679,7 @@
             <i class="fas fa-building"></i> Rigorous Procurement
           </span>
           <h2 class="planning-title">
-            Venue & Vendor Selection & <span class="gradient-text">140-Point Auditing</span>
+            Venue & Vendor Selection & <span class="gradient-text">Quality Inspection</span>
           </h2>
           <p class="planning-desc">
             Leveraging our global preferred-rates directory of vetted convention centers, CTS-certified audiovisual fabricators, and Michelin-caliber executive caterers.
@@ -3623,7 +3759,7 @@
             <i class="fas fa-file-contract"></i> Financial Governance
           </span>
           <h2 class="planning-title">
-            Precision Budget Planning & <span class="gradient-text">Proposal Approval</span>
+            Transparent Budget Planning & <span class="gradient-text">Proposal Approval</span>
           </h2>
           <p class="planning-desc">
             Complete transparency with line-item cost controls, locked-fee guarantees, and a digital milestone approval portal with zero surprise budget creep.
@@ -3634,7 +3770,7 @@
           <!-- CAPEX ALLOCATION ENGINE -->
           <div class="planning-glass-card capex-calculator-card">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <h3 style="font-size: 1.4rem; font-weight: 800; color: #0f172a;">Transparent CapEx Allocation</h3>
+              <h3 style="font-size: 1.4rem; font-weight: 800; color: #0f172a;">Itemized Budget Allocation</h3>
               <span class="planning-pill-badge" style="margin: 0; background: rgba(16,185,129,0.1); color: #10b981; border-color: rgba(16,185,129,0.25);">
                 <i class="fas fa-lock"></i> Locked-Fee Guarantee
               </span>
@@ -3739,7 +3875,7 @@
             <div class="timeline-banner-overlay">
               <div>
                 <span class="step-pill">Stage 06 · Mobilization</span>
-                <h3 style="font-size: 1.85rem; font-weight: 900; margin-top: 0.4rem;">The 12-Month Critical Path Architecture</h3>
+                <h3 style="font-size: 1.85rem; font-weight: 900; margin-top: 0.4rem;">Structured Event Planning Milestones</h3>
                 <p style="font-size: 0.88rem; color: #cbd5e1; max-width: 600px; margin-top: 0.2rem;">
                   Every single workstream—from acoustic simulation to speaker travel briefings—is synchronized via live sprint dashboards.
                 </p>
@@ -3811,7 +3947,7 @@
             </div>
             <div class="command-terminal-body">
               <span class="step-pill">Stage 07 · Execution</span>
-              <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a;">Backstage Master Control Room</h3>
+              <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a;">On-Site Event Management Team</h3>
               <p style="font-size: 0.92rem; color: #475569; line-height: 1.6;">
                 Our 320-member dedicated technical brigade operates with military precision. Synchronized via encrypted radio frequencies, our stage managers oversee live camera switchers, lighting cues, and audio feeds with zero dropouts.
               </p>
@@ -3825,7 +3961,7 @@
           <!-- POST-EVENT EVALUATION CARD -->
           <div class="planning-glass-card post-evaluation-card">
             <span class="step-pill" style="background: #0284c7;">Stage 08 · Post-Mortem</span>
-            <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a;">Empirical ROI & Sustainability Audit</h3>
+            <h3 style="font-size: 1.55rem; font-weight: 800; color: #0f172a;">Post-Event Review & Feedback Audit</h3>
             <p style="font-size: 0.88rem; color: #475569; line-height: 1.55;">
               Within 5 business days of event conclusion, clients receive a comprehensive 80-page debrief portfolio analyzing financial ROI, delegate sentiment, and carbon offset auditing.
             </p>
@@ -4319,5 +4455,6 @@
 
   </script>
 </script>
+  <script src="assets/js/brand.js"></script>
 </body>
 </html>

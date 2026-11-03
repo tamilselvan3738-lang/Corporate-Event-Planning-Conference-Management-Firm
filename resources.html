@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EventSphere · Corporate Event Planning</title>
+  <title>EventSphere · Corporate Event Planning Resources & Guides</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -621,10 +621,9 @@
     }
 
     /* ===== 3D ICON BUTTONS ===== */
-    .icon-btn, .login-btn {
-      border: none;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e293b;
+    .icon-btn { border: none; background: linear-gradient(145deg, #ffffff, #f1f5f9); color: #1e293b;
+    }
+    .login-btn { border: 1px solid #1d4ed8 !important; background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important;
       width: 42px;
       height: 42px;
       border-radius: 30px;
@@ -684,12 +683,14 @@
 
     .login-btn {
       width: auto;
-      padding: 0 1.5rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e3a8a;
+      padding: 0.6rem 1.4rem !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      font-size: 0.88rem !important;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+      color: #ffffff !important;
+      border: 1px solid #1d4ed8 !important;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
       gap: 0.5rem;
       letter-spacing: 0.2px;
     }
@@ -4510,12 +4511,121 @@
     .fa-sparkles:before { content: "\e2ca" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
     .fa-radar:before { content: "\f7c0" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
     .fa-shield-check:before { content: "\f3ed" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
-  </style>
+  
+    /* ==========================================================================
+       360px & MOBILE FIX: Resources Page (Hero, Fiscal Governance, Dual Hemisphere & FAQ)
+       ========================================================================== */
+    @media (max-width: 768px) {
+      /* Hero Section Stats Strip */
+      .res-archive-stats-strip {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.85rem !important;
+        width: 100% !important;
+      }
+      .res-astat-item {
+        width: 100% !important;
+        min-width: 0 !important;
+      }
+      .res-astat-val {
+        font-size: 1.15rem !important;
+        white-space: nowrap !important;
+      }
+      .res-astat-lbl {
+        font-size: 0.75rem !important;
+        white-space: normal !important;
+        word-break: normal !important;
+      }
+
+      /* Fiscal Governance Metric Strip (< 1.8%, 4.2x, 12.5%, $45M+) */
+      .res-fiscal-metric-strip {
+        grid-template-columns: 1fr !important;
+        gap: 0.85rem !important;
+        margin-bottom: 2rem !important;
+      }
+      .res-fiscal-metric-card {
+        padding: 1.25rem 1rem !important;
+        border-radius: 0.85rem !important;
+      }
+      .res-fmetric-val {
+        font-size: 1.75rem !important;
+        white-space: nowrap !important;
+      }
+      .res-fmetric-lbl {
+        font-size: 0.75rem !important;
+        word-break: normal !important;
+        white-space: normal !important;
+      }
+
+      /* Dual Hemisphere Broadcast Grid & Panels */
+      .res-dual-hemisphere-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.75rem !important;
+        margin-bottom: 2rem !important;
+      }
+      .res-hemisphere-panel {
+        padding: 1.5rem 1.15rem !important;
+        border-radius: 1.25rem !important;
+      }
+      .res-nexus-center {
+        margin: 1.5rem 0 !important;
+      }
+      .res-nexus-lens {
+        width: clamp(200px, 65vw, 240px) !important;
+        height: clamp(200px, 65vw, 240px) !important;
+      }
+      .res-hybrid-protocols-row {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+      }
+      .res-protocol-card {
+        padding: 1.25rem 1rem !important;
+      }
+
+      /* Editorial Deck & FAQ Section Above Footer */
+      .res-editorial-deck-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+      }
+      .res-hero-monograph {
+        flex-direction: column !important;
+      }
+      .res-faq-matrix-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+      }
+      .res-faq-header {
+        padding: 1.15rem 1rem !important;
+      }
+      .res-faq-content {
+        padding: 0 1rem 1.25rem !important;
+      }
+      .res-faq-feedback {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+      }
+      .res-feedback-btns {
+        width: 100% !important;
+        display: flex !important;
+        gap: 0.5rem !important;
+      }
+      .res-feedback-btn {
+        flex: 1 !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+        font-size: 0.82rem !important;
+      }
+    }
+
+</style>
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/brand.css">
 </head>
 <body>
   <div class="app-wrapper">
@@ -4587,7 +4697,7 @@
       <div class="right-section">
         <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
         <!-- Hamburger visible only on tablet/mobile -->
         <button class="hamburger" id="hamburgerBtn">
           <span></span><span></span><span></span>
@@ -4629,7 +4739,7 @@
       <div class="mobile-actions">
         <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
       </div>
     </div>
 
@@ -4645,7 +4755,7 @@
         <!-- Section Header -->
         <div class="res-section-head framer-codex-stack">
           <div class="res-badge"><i class="fas fa-book-bookmark"></i> Executive Field Manuals</div>
-          <h2 class="res-title">Corporate Event Planning <span class="res-title-gradient">Guides & Field Codex</span></h2>
+          <h2 class="res-title">Corporate Event Planning <span class="res-title-gradient">Guides & Frameworks</span></h2>
           <p class="res-subtitle">Access proprietary standard operating procedures, architectural blueprints, and protocol frameworks battle-tested across Fortune 500 summits and global plenaries.</p>
         </div>
 
@@ -4778,7 +4888,7 @@
         <!-- Section Header -->
         <div class="res-section-head framer-mission-gauge">
           <div class="res-badge"><i class="fas fa-clipboard-check"></i> Flight-Check Readiness</div>
-          <h2 class="res-title">Conference Preparation <span class="res-title-gradient">Checklist & Mission Matrix</span></h2>
+          <h2 class="res-title">Conference Planning <span class="res-title-gradient">Checklist & Milestones</span></h2>
           <p class="res-subtitle">Track operational readiness across every pre-summit milestone with an aerospace-grade checkpoint system designed to eliminate blind spots.</p>
         </div>
 
@@ -4872,7 +4982,7 @@
                 </div>
                 <div class="res-aspec-row">
                   <span class="res-aspec-lbl">Audit Standard</span>
-                  <span class="res-aspec-val">Apex Grade A-1</span>
+                  <span class="res-aspec-val">EventSphere Grade A-1</span>
                 </div>
                 <div class="res-aspec-row">
                   <span class="res-aspec-lbl">Contingency Redundancy</span>
@@ -4896,7 +5006,7 @@
         <!-- Section Header -->
         <div class="res-section-head framer-ledger-cascade">
           <div class="res-badge"><i class="fas fa-coins"></i> Fiscal Governance</div>
-          <h2 class="res-title">Event Budget Planning Guide <span class="res-title-gradient">& Capex Allocator</span></h2>
+          <h2 class="res-title">Event Budget Planning Guide <span class="res-title-gradient">& Allocation Calculator</span></h2>
           <p class="res-subtitle">Maximize corporate return on objective (ROO) and capital efficiency with our institutional budgeting simulator and financial architecture model.</p>
         </div>
 
@@ -4929,7 +5039,7 @@
               <div class="res-budget-img-tag"><i class="fas fa-calculator"></i> Institutional Financial Ledger</div>
             </div>
             <div class="res-budget-framework-body">
-              <h4 class="res-budget-framework-title">The Apex Fiscal Governance Framework</h4>
+              <h4 class="res-budget-framework-title">The EventSphere Budget Governance Framework</h4>
               <p class="res-budget-framework-desc">We structure event expenditure through a rigorous Capex-to-Opex ledger, separating fixed venue infrastructure from variable delegate experience touchpoints.</p>
               <div class="res-budget-checks-list">
                 <div class="res-bcheck-row">
@@ -5053,7 +5163,7 @@
         <!-- Section Header -->
         <div class="res-section-head framer-spatial-radar">
           <div class="res-badge"><i class="fas fa-compass-drafting"></i> Spatial Architecture</div>
-          <h2 class="res-title">Venue Selection Guide <span class="res-title-gradient">& Architectural Vetting</span></h2>
+          <h2 class="res-title">Venue Selection Guide <span class="res-title-gradient">& Inspection Checklist</span></h2>
           <p class="res-subtitle">Evaluate event real estate against structural load, acoustic zoning, delegate ingress, and electrical specifications before signing costly multi-year master service agreements.</p>
         </div>
 
@@ -5150,7 +5260,7 @@
         <!-- Section Header -->
         <div class="res-section-head framer-telemetry-nexus">
           <div class="res-badge"><i class="fas fa-tower-broadcast"></i> Dual-Hemisphere Broadcast</div>
-          <h2 class="res-title">Hybrid Event Best Practices <span class="res-title-gradient">& Streaming Architecture</span></h2>
+          <h2 class="res-title">Hybrid Conference Best Practices <span class="res-title-gradient">& Production Guide</span></h2>
           <p class="res-subtitle">Unify in-person sensory engagement with global digital broadcast precision, synchronizing remote and on-premise delegates with zero perceived latency.</p>
         </div>
 
@@ -5275,7 +5385,7 @@
         <!-- Section Header -->
         <div class="res-section-head framer-monograph-editorial">
           <div class="res-badge"><i class="fas fa-newspaper"></i> Executive Research</div>
-          <h2 class="res-title">Industry Insights <span class="res-title-gradient">& Special Monographs</span></h2>
+          <h2 class="res-title">Industry Insights <span class="res-title-gradient">& Event Planning Trends</span></h2>
           <p class="res-subtitle">In-depth whitepapers, empirical market reports, and strategic briefings authored by our senior event management architects.</p>
         </div>
 
@@ -5397,7 +5507,7 @@
         <!-- Section Header -->
         <div class="res-section-head framer-vault-accordion">
           <div class="res-badge"><i class="fas fa-circle-question"></i> Knowledge Repository</div>
-          <h2 class="res-title">Frequently Asked Questions <span class="res-title-gradient">& Executive Knowledge Vault</span></h2>
+          <h2 class="res-title">Frequently Asked Questions <span class="res-title-gradient">& Client Help Desk</span></h2>
           <p class="res-subtitle">Clear, authoritative answers to common inquiries regarding lead times, budget structures, technical riders, and crisis management protocols.</p>
         </div>
 
@@ -5436,7 +5546,7 @@
                 </div>
                 <div class="res-sla-item">
                   <span class="res-sla-lbl">Direct Support Hotline</span>
-                  <span class="res-sla-val">+1 (800) 456-APEX</span>
+                  <span class="res-sla-val">+1 (800) 555-EVENT</span>
                 </div>
                 <div class="res-sla-item">
                   <span class="res-sla-lbl">Confidentiality</span>
@@ -5485,7 +5595,7 @@
               <div class="res-faq-header" onclick="toggleFaqItem(this)">
                 <div class="res-faq-header-left">
                   <span class="res-faq-cat-tag">Budget & Billing</span>
-                  <h4 class="res-faq-question">How does Apex manage unexpected cost overages and change orders?</h4>
+                  <h4 class="res-faq-question">How does EventSphere manage unexpected cost overages and change orders?</h4>
                 </div>
                 <div class="res-faq-chevron"><i class="fas fa-chevron-down"></i></div>
               </div>
@@ -5515,7 +5625,7 @@
               </div>
               <div class="res-faq-body">
                 <div class="res-faq-content">
-                  <p>Apex enforces an <strong>N+1 and N+2 hardware redundancy standard</strong> across all mission-critical audio-visual nodes:</p>
+                  <p>EventSphere enforces an <strong>N+1 and N+2 hardware redundancy standard</strong> across all mission-critical audio-visual nodes:</p>
                   <ul>
                     <li><strong>Dual Main & Backup Vision Switchers:</strong> Mirroring every cut seamlessly; if Primary fails, Backup takes control in &lt; 2 frames.</li>
                     <li><strong>Bonded Cellular & Satellite Uplink:</strong> Commercial dark fiber backed by dual bonded Starlink and 5G cellular arrays.</li>
@@ -5565,7 +5675,7 @@
               <div class="res-faq-header" onclick="toggleFaqItem(this)">
                 <div class="res-faq-header-left">
                   <span class="res-faq-cat-tag">Planning & Timelines</span>
-                  <h4 class="res-faq-question">Can Apex handle international multi-city roadshows across diverse jurisdictions?</h4>
+                  <h4 class="res-faq-question">Can EventSphere handle international multi-city roadshows across diverse jurisdictions?</h4>
                 </div>
                 <div class="res-faq-chevron"><i class="fas fa-chevron-down"></i></div>
               </div>
@@ -5595,7 +5705,7 @@
               </div>
               <div class="res-faq-body">
                 <div class="res-faq-content">
-                  <p>All Apex-managed events adhere to <strong>ISO-20121 Sustainable Event Management systems</strong>. We mandate 100% LED lighting fixtures, reusable aluminum scenic truss systems, zero single-use plastics, digital credentialing, and post-event donation of excess prepared food to verified local charities.</p>
+                  <p>All EventSphere-managed events adhere to <strong>ISO-20121 Sustainable Event Management systems</strong>. We mandate 100% LED lighting fixtures, reusable aluminum scenic truss systems, zero single-use plastics, digital credentialing, and post-event donation of excess prepared food to verified local charities.</p>
                   <p>At the conclusion of each summit, we provide clients with an audited Carbon Footprint & Waste Diversion Report suitable for annual corporate ESG filings.</p>
                   <div class="res-faq-feedback">
                     <span>Was this response informative?</span>
@@ -6271,7 +6381,7 @@
     }
 
     function confirmDownload() {
-      alert('Your document download has commenced! Thank you for accessing the Apex Knowledge Repository.');
+      alert('Your document download has commenced! Thank you for accessing the EventSphere Knowledge Repository.');
       closeResModal();
     }
 
@@ -6281,5 +6391,6 @@
       e.target.reset();
     }
   </script>
+  <script src="assets/js/brand.js"></script>
 </body>
 </html>

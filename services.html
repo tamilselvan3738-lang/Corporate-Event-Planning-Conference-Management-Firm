@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EventSphere · Corporate Event Planning</title>
+  <title>EventSphere · Corporate Event Planning & Conference Services</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -621,10 +621,9 @@
     }
 
     /* ===== 3D ICON BUTTONS ===== */
-    .icon-btn, .login-btn {
-      border: none;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e293b;
+    .icon-btn { border: none; background: linear-gradient(145deg, #ffffff, #f1f5f9); color: #1e293b;
+    }
+    .login-btn { border: 1px solid #1d4ed8 !important; background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important;
       width: 42px;
       height: 42px;
       border-radius: 30px;
@@ -684,12 +683,14 @@
 
     .login-btn {
       width: auto;
-      padding: 0 1.5rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      background: linear-gradient(145deg, #ffffff, #f1f5f9);
-      color: #1e3a8a;
+      padding: 0.6rem 1.4rem !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      font-size: 0.88rem !important;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+      color: #ffffff !important;
+      border: 1px solid #1d4ed8 !important;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
       gap: 0.5rem;
       letter-spacing: 0.2px;
     }
@@ -3225,12 +3226,107 @@
     .fa-sparkles:before { content: "\e2ca" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
     .fa-radar:before { content: "\f7c0" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
     .fa-shield-check:before { content: "\f3ed" !important; font-family: "Font Awesome 6 Free" !important; font-weight: 900 !important; }
-  </style>
+  
+    /* ==========================================================================
+       360px & MOBILE FIX: Large-Scale Convention Ribbon (5000+ Plenary Hall)
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .srv-amphitheater-showcase {
+        border-radius: 1.25rem !important;
+        overflow: hidden !important;
+      }
+      .srv-amp-img-box {
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        position: relative !important;
+      }
+      .srv-amp-img-box img {
+        height: 220px !important;
+        width: 100% !important;
+        object-fit: cover !important;
+        display: block !important;
+      }
+      .srv-amp-overlay-ribbon {
+        position: relative !important;
+        inset: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        border-radius: 0 0 1.25rem 1.25rem !important;
+        background: #0f172a !important;
+        border: none !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        padding: 1.25rem 1rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 1rem !important;
+      }
+      .srv-amp-overlay-ribbon > div:first-child {
+        text-align: left !important;
+        width: 100% !important;
+      }
+      .srv-amp-overlay-ribbon > div:first-child div:first-child {
+        font-size: 0.72rem !important;
+        letter-spacing: 0.05em !important;
+      }
+      .srv-amp-overlay-ribbon > div:first-child div:last-child {
+        font-size: 1.1rem !important;
+        line-height: 1.35 !important;
+        margin-top: 0.25rem !important;
+        word-break: normal !important;
+      }
+      .srv-amp-stat-group {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        width: 100% !important;
+        gap: 0.5rem !important;
+        align-items: stretch !important;
+      }
+      .srv-amp-stat-item {
+        text-align: center !important;
+        min-width: 0 !important;
+        padding: 0.55rem 0.25rem !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 10px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .srv-amp-sval {
+        font-size: 1.1rem !important;
+        font-weight: 800 !important;
+        color: #fbbf24 !important;
+        white-space: nowrap !important;
+        line-height: 1.2 !important;
+        display: block !important;
+      }
+      .srv-amp-slbl {
+        font-size: 0.65rem !important;
+        color: #cbd5e1 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.03em !important;
+        line-height: 1.25 !important;
+        margin-top: 0.25rem !important;
+        display: block !important;
+        word-break: normal !important;
+        white-space: normal !important;
+        text-align: center !important;
+      }
+    }
+
+</style>
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/brand.css">
 </head>
 <body>
   <div class="app-wrapper">
@@ -3302,7 +3398,7 @@
       <div class="right-section">
         <button class="icon-btn" id="darkModeToggle" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggle" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
         <!-- Hamburger visible only on tablet/mobile -->
         <button class="hamburger" id="hamburgerBtn">
           <span></span><span></span><span></span>
@@ -3344,7 +3440,7 @@
       <div class="mobile-actions">
         <button class="icon-btn" id="darkModeToggleMobile" title="Dark mode"><i class="fas fa-moon"></i></button>
         <button class="icon-btn" id="rtlToggleMobile" title="RTL"><i class="fas fa-right-left"></i></button>
-        <button class="login-btn" onclick="window.location.href='login.html'" title="Client Portal Login"><i class="fas fa-user-circle"></i> Login</button>
+        <button class="login-btn btn-primary" onclick="window.location.href='login.html'" title="Client Portal Login" style="background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important; color: #ffffff !important; border: 1px solid #1d4ed8 !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;"><i class="fas fa-user-circle"></i> Login</button>
       </div>
     </div>
 
@@ -3360,7 +3456,7 @@
         <!-- Section Header -->
         <div class="srv-section-head framer-boardroom-elevation">
           <div class="srv-badge"><i class="fas fa-briefcase"></i> Enterprise Command</div>
-          <h2 class="srv-title">Corporate Event Management & <span class="srv-title-gradient">Executive Assemblies</span></h2>
+          <h2 class="srv-title">Corporate Event Planning & <span class="srv-title-gradient">Executive Management</span></h2>
           <p class="srv-subtitle">From high-stakes board meetings and Annual General Meetings to milestone corporate jubilees and executive retreats, we deliver frictionless governance, confidentiality, and flawless execution.</p>
         </div>
 
@@ -3403,7 +3499,7 @@
             <div class="srv-bimg-wrap">
               <img src="images/service_corporate_management.jpg" alt="Executive Corporate Board Meeting & Strategy Summit">
               <div class="srv-boardroom-floating-tag">
-                <i class="fas fa-certificate"></i> Apex Executive Boardroom Command
+                <i class="fas fa-certificate"></i> EventSphere Executive Boardroom Command
               </div>
             </div>
           </div>
@@ -3417,7 +3513,7 @@
                 <span class="srv-qscope">Board of Directors & C-Suite</span>
               </div>
               <h4 class="srv-qtitle">Strategic Business Meetings</h4>
-              <p class="srv-qdesc">SCIF-grade acoustic isolation, encrypted wireless audio feeds, confidential digital document distribution, and executive teleprompters for decisive board alignments.</p>
+              <p class="srv-qdesc">Executive acoustic isolation, encrypted wireless audio feeds, confidential digital document distribution, and executive teleprompters for decisive board alignments.</p>
             </div>
 
             <!-- 2. Annual General Meetings -->
@@ -3472,7 +3568,7 @@
         <!-- Section Header -->
         <div class="srv-section-head framer-plenary-amphitheater">
           <div class="srv-badge"><i class="fas fa-landmark"></i> Large-Scale Conventions</div>
-          <h2 class="srv-title">Conference Management & <span class="srv-title-gradient">Global Plenaries</span></h2>
+          <h2 class="srv-title">Conference Management & <span class="srv-title-gradient">Summit Production</span></h2>
           <p class="srv-subtitle">Orchestrating world-class international congresses, leadership summits, and multi-day convention experiences with synchronized stagecraft, simultaneous interpretation, and high-impact delegate engagement.</p>
         </div>
 
@@ -3630,7 +3726,7 @@
         <!-- Section Header -->
         <div class="srv-section-head framer-broadcast-matrix">
           <div class="srv-badge"><i class="fas fa-satellite-dish"></i> Hardware & Broadcast</div>
-          <h2 class="srv-title">Audio-Visual Production & <span class="srv-title-gradient">Hybrid Engineering</span></h2>
+          <h2 class="srv-title">Audio-Visual Production & <span class="srv-title-gradient">Hybrid Staging</span></h2>
           <p class="srv-subtitle">Immersive 0.9mm microLED stage walls, studio-grade Dante audio networks, dynamic stage lighting, and synchronized global hybrid satellite broadcasts.</p>
         </div>
 
@@ -3810,7 +3906,7 @@
         <!-- Section Header -->
         <div class="srv-section-head framer-concourse-dispatch">
           <div class="srv-badge"><i class="fas fa-qrcode"></i> Operations Command</div>
-          <h2 class="srv-title">Delegate Operations & <span class="srv-title-gradient">On-Site Logistics Command</span></h2>
+          <h2 class="srv-title">Delegate Registration & <span class="srv-title-gradient">On-Site Event Management</span></h2>
           <p class="srv-subtitle">Touchless digital registration, instant QR badge printing kiosks, VIP speaker green room handling, motorized transport fleets, and 24/7 incident risk management.</p>
         </div>
 
@@ -4272,5 +4368,6 @@
       if (modal) modal.style.display = 'none';
     }
   </script>
+  <script src="assets/js/brand.js"></script>
 </body>
 </html>
